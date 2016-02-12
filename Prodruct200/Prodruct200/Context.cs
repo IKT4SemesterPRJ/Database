@@ -9,38 +9,50 @@ namespace Prodruct200
         public DbSet<Product> Products { get; set; } 
         public DbSet<StoreProduct> StoreProducts { get; set; }
 
-        public void AddProduct()
+        public void AddStoreProductRelation(string productName, string storeName, double price)
         {
-            Console.Write("Enter the name of the Product: ");
-            var pname = Console.ReadLine();
-            Console.Write("Enter the name of the Store: ");
-            var sname = Console.ReadLine();
-            Console.Write("Enter the price of the product: ");
-            var price = double.Parse(Console.ReadLine());
-
-            var product = new Product {ProductName = pname};
-            var store = new Store {StoreName = sname};
-            var storeProduct = new StoreProduct { Price = price, StoreName = sname, ProductName = pname, Store = store,
-                                                    Product = product, StoreProductId = (sname + pname)};
-
+            var product = Products.Find(productName);
+            var store = Stores.Find(storeName);
+            var storeProduct = new StoreProduct
+            {
+                Price = price,
+                Product = product,
+                Store = store,
+                ProductName = productName,
+                StoreName = storeName,
+                StoreProductId = (storeName + productName)
+            };
 
             product.StoreProductProducts.Add(storeProduct);
             store.StoreProductStores.Add(storeProduct);
 
-            Products.Add(product);
-            Stores.Add(store);
             StoreProducts.Add(storeProduct);
-
             SaveChanges();
         }
 
-        public void RemoveProductdatabase(string productName)
+
+        public void AddProductToDb(string productName)
+        {
+            var product = new Product {ProductName = productName};
+
+            Products.Add(product);
+            SaveChanges();
+        }
+
+        public void AddStoreToDb(string storeName)
+        {
+            var store = new Store { StoreName = storeName };
+
+            Stores.Add(store);
+            SaveChanges();
+        }
+
+        public void RemoveProductFromDatabase(string productName)
         {
             var prod = Products.Find(productName);
 
             for (int i = (prod.StoreProductProducts.Count - 1); i >= 0; i--)
             {
-                //prod.StoreProductProducts.Remove(prod.StoreProductProducts[i]);
                 StoreProducts.Remove(StoreProducts.Find(prod.StoreProductProducts[i].StoreProductId));
             }
 
@@ -48,7 +60,32 @@ namespace Prodruct200
             SaveChanges();
         }
 
-        public void ChangePriceOfProduct(string productName, string storeName, double price)
+        public void RemoveStoreFromDatabse(string storeName)
+        {
+            var stor = Stores.Find(storeName);
+
+            for (int i = (stor.StoreProductStores.Count - 1); i >= 0; i--)
+            {
+                StoreProducts.Remove(StoreProducts.Find(stor.StoreProductStores[i].StoreProductId));
+            }
+
+            Stores.Remove(stor);
+            SaveChanges();
+        }
+
+        public void RemoveStoreProductFromDatabse(string storeName, string productName)
+        {
+            var storProd = StoreProducts.Find((storeName + productName));
+
+            storProd.Store.StoreProductStores.Remove(storProd);
+            storProd.Product.StoreProductProducts.Remove(storProd);
+
+            StoreProducts.Remove(storProd);
+
+            SaveChanges();
+        }
+
+        public void ChangePriceOfProductInAStore(string productName, string storeName, double price)
         {
             var sp = StoreProducts.Find((storeName + productName));
 
@@ -57,34 +94,19 @@ namespace Prodruct200
             SaveChanges();
         }
 
-        public void AddStoreToProduct(string productName, string storeName, double price)
-        {
-            var store = Stores.Find(storeName);
-            var product = Products.Find(productName);
-
-            var storeProduct = new StoreProduct
-            {
-                Price = price,
-                StoreName = storeName,
-                ProductName = productName,
-                Store = store,
-                Product = product,
-                StoreProductId = (storeName + productName)
-            };
-
-
-            store.StoreProductStores.Add(storeProduct);
-            product.StoreProductProducts.Add(storeProduct);
-            StoreProducts.Add(storeProduct);
-
-            SaveChanges();
+        public StoreProduct FindStoreProduct(string productName, string storeName)
+        {           
+            return StoreProducts.Find((storeName + productName));
         }
 
-        public double FindPrice(string productName, string storeName)
-        {           
-            var prod = StoreProducts.Find((storeName + productName));
+        public Store FindStore(string storeName)
+        {
+            return Stores.Find(storeName);
+        }
 
-            return prod.Price;
+        public Product FindProduct(string productName)
+        {
+            return Products.Find(productName);
         }
 
         public string CheapestStore(string productName)
