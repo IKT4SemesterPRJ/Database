@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Core.Common.CommandTrees;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Projekt___Product220
+namespace Database
 {
-    public class Product220Context : DbContext
+    public class Context : DbContext
     {
-        public DbSet<Store> Stores { get; set; } 
-        public DbSet<Product> Products { get; set; } 
+        public DbSet<Store> Stores { get; set; }
+        public DbSet<Product> Products { get; set; }
         public DbSet<StoreProduct> StoreProducts { get; set; }
 
         public void AddProductToDatabase(string productName)
         {
-            var product = new Product() {ProductName = productName};
+            var product = new Product() { ProductName = productName };
 
             Products.Add(product);
             SaveChanges();
@@ -22,7 +23,7 @@ namespace Projekt___Product220
 
         public void AddStoreToDatabase(string storeName)
         {
-            var store = new Store() {StoreName = storeName};
+            var store = new Store() { StoreName = storeName };
 
             Stores.Add(store);
             SaveChanges();
@@ -134,7 +135,7 @@ namespace Projekt___Product220
 
 
             var storeproduct = (from t in StoreProducts where t.ProductId == product.ProductId && t.StoreId == store.StoreId select t).FirstOrDefault();
-            
+
             return storeproduct;
         }
     }
