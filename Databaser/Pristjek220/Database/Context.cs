@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Database
 {
@@ -15,6 +12,10 @@ namespace Database
 
         public void AddProductToDatabase(string productName)
         {
+            if (FindProduct(productName) != null)
+            {
+                //Vare findes i forvejen.. Gør noget.. 
+            }
             var product = new Product() { ProductName = productName };
 
             Products.Add(product);
@@ -23,6 +24,10 @@ namespace Database
 
         public void AddStoreToDatabase(string storeName)
         {
+            if (FindStore(storeName) != null)
+            {
+                //Forretning findes i forvejen.. Gør noget..
+            }
             var store = new Store() { StoreName = storeName };
 
             Stores.Add(store);
@@ -56,7 +61,7 @@ namespace Database
 
             for (int i = (product.StoreProducts.Count - 1); i >= 0; i--)
             {
-                StoreProducts.Remove(StoreProducts.Find(product.StoreProducts[i])); //.StoreProductId
+                StoreProducts.Remove(product.StoreProducts[i]); //.StoreProductId
             }
 
             Products.Remove(product);
@@ -69,7 +74,7 @@ namespace Database
 
             for (int i = (store.StoreProducts.Count - 1); i >= 0; i--)
             {
-                StoreProducts.Remove(StoreProducts.Find(store.StoreProducts[i]));  // .StoreProductId
+                StoreProducts.Remove(store.StoreProducts[i]);  // .StoreProductId
             }
 
             Stores.Remove(store);

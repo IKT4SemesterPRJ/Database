@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using NUnit.Framework;
 
 namespace Database.Test.Unit
@@ -15,39 +11,88 @@ namespace Database.Test.Unit
         {
             using (var db = new Database.Context())
             {
-                var product = new Product() {ProductName = "Mælk"};
-                db.Products.Add(product);
-                db.SaveChanges();
+                db.AddProductToDatabase("Mælk");
 
-                product = (from t in db.Products where t.ProductName == "Mælk" select t).FirstOrDefault();
+                Assert.That(db.FindProduct("Mælk").ProductName, Is.EqualTo("Mælk"));
 
-                Assert.That(product.ProductName, Is.EqualTo("Mælk"));
-
-                db.Products.Remove(product);
+                db.RemoveProductFromDatabase("Mælk");
             }
         }
+
+        //Test af AddProduct hvor vare findes i forvejen 
+
+        //Test af RemoveProduct hvor vare findes
+
+        //Test af RemoveProduct hvor der er mange relations til forretninger
+
+        //Test af RemoveProduct hvor varen ikke findes
+
+
 
         [Test]
         public void AddStore_AddBilkaToTheDatabase_BilkaIsAddedToTheDatabase()
         {
             using (var db = new Database.Context())
             {
-                var store = new Store() { StoreName = "Bilka" };
-                db.Stores.Add(store);
-                db.SaveChanges();
+                db.AddStoreToDatabase("Bilka");
 
-                store = (from t in db.Stores where t.StoreName == "Bilka" select t).FirstOrDefault();
+                Assert.That(db.FindStore("Bilka").StoreName, Is.EqualTo("Bilka"));
 
-                Assert.That(store.StoreName, Is.EqualTo("Bilka"));
-
-                db.Stores.Remove(store);
+                db.RemoveStoreFromDatabse("Bilka");
             }
         }
+
+        //Test af AddStore Hvor forretningen allerede findes
+
+        //Test af RemoveStore Hvor forretningen findes
+
+
+        //Test af RemoveStore, hvor forretningen har flere relationer til vare
+        
+        //Test af RemoveStore hvor forretningen ikke findes
 
         [Test]
         public void AddStoreProduct_AddRelationBetweenMælkAndBilka_StoreProductBetweenMælkAndBilkaIsAddedToTheDatabase()
         {
+            using (var db = new Database.Context())
+            {
+                db.AddProductToDatabase("Fisk");
+                db.AddStoreToDatabase("Aldi");
+                db.AddStoreProductRelationToDatabase("Fisk", "Aldi", 9.95);
+
+                Assert.That(db.FindStoreProduct("Aldi", "Fisk").Price, Is.EqualTo(9.95));
+
+                db.RemoveStoreProductFromDatabse("Aldi", "Fisk");
+                db.RemoveProductFromDatabase("Fisk");
+                db.RemoveStoreFromDatabse("Aldi");
+            }
             
         }
+
+        //Test af AddStoreProduct, hvor den allerede findes
+
+        //Test af RemoveStoreProduct, hvor den findes
+
+        //Test af RemoveStoreProduct, hvor den ikke findes
+
+        //Test af FindProduct, hvor den findes
+
+        //Test af FindProduct, hvor den ikke findes
+
+        //Test af FindStore, hvor den findes
+
+        //Test af FindStore, hvor den ikke findes
+
+        //Test af FindStoreProduct, hvor den findes
+
+        //Test af FindStoreProduct, hvor varen ikke findes
+
+        //Test af FindStoreProduct, hvor forretningen ikke findes
+
+        //Test af ChangePrice, hvor varen findes i forretning
+
+        //Test af ChangePrice, hvor varen ikke findes i forretningen
+
+
     }
 }
