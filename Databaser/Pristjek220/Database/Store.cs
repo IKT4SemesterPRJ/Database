@@ -8,11 +8,7 @@ namespace Database
         public int StoreId { get; set; }
         public string StoreName { get; set; }
 
-        public virtual List<StoreProduct> StoreProducts { get; set; } //initiering
+        public virtual List<StoreProduct> StoreProducts { get; set; } = new List<StoreProduct>();
 
-        public Store()
-        {
-            StoreProducts = new List<StoreProduct>();
-        }
     }
 }

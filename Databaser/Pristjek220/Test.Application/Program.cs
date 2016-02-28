@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Linq;
 using Database;
 
 namespace Test.Application
@@ -12,13 +14,14 @@ namespace Test.Application
                 string pname;
                 string sname;
                 double newPrice;
+                Storemanager aldi, føtex, fakta;
 
                 while (true)
                 {
                     Console.Clear();
                     Console.WriteLine("What action do want to do?");
                     Console.WriteLine("1. Add a product to the database");
-                    Console.WriteLine("2. Add a store to the database");
+                    Console.WriteLine("2. Add a storeManager to the database");
                     Console.WriteLine("3. Add a storeProduct to the database");
                     Console.WriteLine("4. Remove a product from the database");
                     Console.WriteLine("5. Remove a store from the database");
@@ -37,8 +40,11 @@ namespace Test.Application
                             Console.Clear();
                             Console.Write("Enter the name of the product you want to add: ");
                             pname = Console.ReadLine();
+                            Console.Write("Enter the price of the product: ");
+                            newPrice = double.Parse(Console.ReadLine());
 
-                            db.AddProductToDatabase(pname);
+                            if(db.AddProductToDatabase(pname) != 0)
+                                Console.WriteLine($"{pname} already exists in");
                             break;
                         case (2):
                             Console.Clear();
@@ -115,14 +121,25 @@ namespace Test.Application
                              sname = Console.ReadLine();
 
                              Console.WriteLine($"Prisen for {db.FindStoreProduct(pname, sname).Product.ProductName} in {db.FindStoreProduct(pname, sname).Store.StoreName} is: {db.FindStoreProduct(pname, sname).Price}");
-                             break;
+                             break;*/
                          case (11):
                              Console.Clear();
                              Console.Write("Enter the name of the Product: ");
                              pname = Console.ReadLine();
 
-                             Console.WriteLine($"The cheapest store for {pname} is: {db.CheapestStore(pname)}");
-                             break;*/
+                             var prod = db.FindProduct(pname);
+                            StoreProduct storprod = prod.StoreProducts.FirstOrDefault();
+
+                            foreach (var storeprod in prod.StoreProducts)
+                            {
+                                if (storeprod.Price < storprod.Price)
+                                {
+                                    storprod = storeprod;
+                                }
+                            }
+
+                             Console.WriteLine($"The cheapest store for {pname} is: {db.Stores.Find(storprod.StoreId).StoreName}");
+                             break;
                         default:
                             Console.Clear();
                             Console.WriteLine("You have not entered a valid action");

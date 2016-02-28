@@ -10,28 +10,31 @@ namespace Database
         public DbSet<Product> Products { get; set; }
         public DbSet<StoreProduct> StoreProducts { get; set; }
 
-        public void AddProductToDatabase(string productName)
+        public int AddProductToDatabase(string productName)
         {
             if (FindProduct(productName) != null)
             {
-                //Vare findes i forvejen.. Gør noget.. 
+                return -1;
             }
             var product = new Product() { ProductName = productName };
 
             Products.Add(product);
             SaveChanges();
+
+            return 0;
         }
 
-        public void AddStoreToDatabase(string storeName)
+        public int AddStoreToDatabase(string storeName)
         {
             if (FindStore(storeName) != null)
             {
-                //Forretning findes i forvejen.. Gør noget..
+                return -1;
             }
             var store = new Store() { StoreName = storeName };
 
             Stores.Add(store);
             SaveChanges();
+            return 0;
         }
 
         public void AddStoreProductRelationToDatabase(string productName, string storeName, double price)
@@ -101,11 +104,6 @@ namespace Database
         public Product FindProduct(string productName)
         {
             var product = (from t in Products where t.ProductName == productName select t).FirstOrDefault();
-            if (product == null)
-            {
-                //Fejl.. Vare ikke fundet.
-                //return;
-            }
 
             return product;
         }
@@ -113,11 +111,6 @@ namespace Database
         public Store FindStore(string storeName)
         {
             var store = (from t in Stores where t.StoreName == storeName select t).FirstOrDefault();
-            if (store == null)
-            {
-                //Fejl.. Vare ikke fundet.
-                //return;
-            }
 
             return store;
         }
@@ -126,17 +119,11 @@ namespace Database
         {
             var product = (from t in Products where t.ProductName == productName select t).FirstOrDefault();
             if (product == null)
-            {
-                //Fejl.. Vare ikke fundet.
-                //return;
-            }
+                return null;
 
             var store = (from t in Stores where t.StoreName == storeName select t).FirstOrDefault();
             if (store == null)
-            {
-                //Fejl.. Vare ikke fundet.
-                //return;
-            }
+                return null;
 
 
             var storeproduct = (from t in StoreProducts where t.ProductId == product.ProductId && t.StoreId == store.StoreId select t).FirstOrDefault();
