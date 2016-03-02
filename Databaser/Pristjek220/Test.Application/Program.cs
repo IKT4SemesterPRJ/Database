@@ -14,7 +14,7 @@ namespace Test.Application
                 string pname;
                 string sname;
                 double newPrice;
-                Storemanager aldi, føtex, fakta;
+                //Storemanager aldi, føtex, fakta;
 
                 while (true)
                 {

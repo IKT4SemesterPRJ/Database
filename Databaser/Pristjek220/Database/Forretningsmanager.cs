@@ -8,19 +8,25 @@ namespace Database
 {
     public class Storemanager
     {
-        public readonly Store _store;
+        public readonly Store Store;
 
 
         public int AddProduct(string productName, double price)
         {
             using (var db = new Context())
             {
-                if (db.FindProduct(productName) != null)
+                if (db.FindStoreProduct(Store.StoreName, productName) != null)
                     return -1;
 
-                var product = new Product() { ProductName = productName };
-                db.Products.Add(product);
-                var store = db.Stores.Find(_store.StoreId);
+                Product product;
+
+                if ((product = db.FindProduct(productName)) == null)
+                {
+                    product = new Product() { ProductName = productName };
+                    db.Products.Add(product);
+                }
+
+                var store = db.Stores.Find(Store.StoreId);
 
 
                 var storprod = new StoreProduct()
@@ -43,9 +49,9 @@ namespace Database
         {
             using (var db = new Context())
             {
-                _store = new Store() { StoreName = storeName };
+                Store = new Store() { StoreName = storeName };
 
-                db.Stores.Add(_store);
+                db.Stores.Add(Store);
                 db.SaveChanges();
             }
         }

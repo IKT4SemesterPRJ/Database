@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace Database.Test.Unit
 {
     [TestFixture]
-    public class DatabaseUnitTest
+    public class StoremanagerUnitTest
     {
         [Test]
         public void StoremangerForAldiAddProduct_AddBananToAldi_BananCanBefoundInTheDatabase()
@@ -40,7 +40,7 @@ namespace Database.Test.Unit
                 Assert.That(relation.Price, Is.EqualTo(10.66));
 
                 _uut.Products.Remove(_uut.Products.Find(relation.ProductId));
-                _uut.Stores.Remove(_uut.Stores.Find(storeman._store.StoreId));
+                _uut.Stores.Remove(_uut.Stores.Find(storeman.Store.StoreId));
                 _uut.SaveChanges();
             }
         }
@@ -59,8 +59,31 @@ namespace Database.Test.Unit
                 var product = (from t in _uut.Products where t.ProductName == "Fisk" select t).FirstOrDefault();
 
                 _uut.Products.Remove(product);
-                _uut.Stores.Remove(_uut.Stores.Find(storeman._store.StoreId));
+                _uut.Stores.Remove(_uut.Stores.Find(storeman.Store.StoreId));
                 _uut.SaveChanges();   
+            }
+        }
+
+        [Test]
+        public void
+            StoreManagerForFaktaAddProduct_AddTomatToFaktaWhereTomatExistsButNotInFakta_RelationBetweenFaktaAndTomatCanBeFound
+            ()
+        {
+            using (var _uut = new Context())
+            {
+                var storeman = new Storemanager("Fakta");
+
+                _uut.Products.Add(new Product() {ProductName = "Tomat"});
+                _uut.SaveChanges();
+                storeman.AddProduct("Tomat", 5.95);
+
+                Assert.That(_uut.StoreProducts.FirstOrDefault().ProductId, Is.EqualTo(_uut.Products.FirstOrDefault().ProductId));
+
+                var product = (from t in _uut.Products where t.ProductName == "Tomat" select t).FirstOrDefault();
+
+                _uut.Products.Remove(product);
+                _uut.Stores.Remove(_uut.Stores.Find(storeman.Store.StoreId));
+                _uut.SaveChanges();
             }
         }
 
