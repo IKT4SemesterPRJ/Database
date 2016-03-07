@@ -29,5 +29,27 @@ namespace Consumer
                 return cheapest.Store;
             }
         }
+
+        public List<string> AutoComplete(string lookUpWord)
+        {
+            using (var db = new Database.Context())
+            {
+                var productList = db.FindProductStartingWith(lookUpWord);
+
+                if (productList == null)
+                    return null;          //Produktet findes ikke i databasen
+
+                List<string> AutoCopmpleteList = new List<string>();
+                for (int i = 0; i < productList.Count ; i++)
+                {
+                    AutoCopmpleteList.Add(productList[i].ProductName);
+                    if(i==2)
+                        break;
+                }
+
+                return AutoCopmpleteList;
+            }
+        } 
+
     }
 }

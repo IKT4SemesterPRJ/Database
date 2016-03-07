@@ -39,5 +39,12 @@ namespace Consumer_GUI
             else
                lblFindProduct.Content = "Vare findes ikke";
         }
+
+        private void ComboBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var autoComplete = User.AutoComplete(Test.Text);
+            Test.ItemsSource = autoComplete;
+            Test.IsDropDownOpen = true;
+        }
     }
 }

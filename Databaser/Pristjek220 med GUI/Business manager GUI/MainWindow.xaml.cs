@@ -41,7 +41,6 @@ namespace Business_manager_GUI
             }
 
             lblConfirm.Content = ($"{productName} er indsat, med prisen {productPrice} i butikken {Manager.Store.StoreName}");
-
         }
     }
 }

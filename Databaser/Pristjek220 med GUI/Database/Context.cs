@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 
@@ -16,6 +17,13 @@ namespace Database
             var product = (from t in Products where t.ProductName == productName select t).FirstOrDefault();
 
             return product;
+        }
+
+        public List<Product> FindProductStartingWith(string productNameStart)
+        {
+            var productList = (from t in Products where t.ProductName.Contains(productNameStart) select t).ToList();
+
+            return productList;
         }
 
         public Store FindStore(string storeName)
