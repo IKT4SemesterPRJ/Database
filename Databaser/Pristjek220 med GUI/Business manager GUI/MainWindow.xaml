@@ -9,7 +9,7 @@
     <Grid>
         <Button x:Name="btnAddProduct" Content="Tilføj produkt" HorizontalAlignment="Left" Margin="367,83,0,0" VerticalAlignment="Top" Width="75" Click="btnAddProduct_Click"/>
         <TextBox x:Name="tbxAddProductName" HorizontalAlignment="Left" Height="23" Margin="79,84,0,0" TextWrapping="Wrap" Text="Skriv produktnavn her" VerticalAlignment="Top" Width="139"/>
-        <TextBox x:Name="tbxAddProductPrice" HorizontalAlignment="Left" Height="23" Margin="233,84,0,0" TextWrapping="Wrap" Text="Angiv pris her" VerticalAlignment="Top" Width="83" TextChanged="tbxAddProductPrice_TextChanged"/>
+        <TextBox x:Name="tbxAddProductPrice" HorizontalAlignment="Left" Height="23" Margin="233,84,0,0" TextWrapping="Wrap" Text="Angiv pris her" VerticalAlignment="Top" Width="83"/>
         <Label x:Name="lblkr" Content="kr." HorizontalAlignment="Left" Margin="321,81,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblConfirm" Content="" HorizontalAlignment="Left" Margin="64,140,0,0" VerticalAlignment="Top" Width="407"/>
 
