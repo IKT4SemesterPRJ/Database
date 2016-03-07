@@ -42,9 +42,9 @@ namespace Consumer_GUI
 
         private void ComboBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            Test.IsDropDownOpen = true;
             var autoComplete = User.AutoComplete(Test.Text);
             Test.ItemsSource = autoComplete;
-            Test.IsDropDownOpen = true;
         }
     }
 }

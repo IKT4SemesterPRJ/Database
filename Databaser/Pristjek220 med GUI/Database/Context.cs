@@ -21,7 +21,7 @@ namespace Database
 
         public List<Product> FindProductStartingWith(string productNameStart)
         {
-            var productList = (from t in Products where t.ProductName.Contains(productNameStart) select t).ToList();
+            var productList = (from t in Products where t.ProductName.StartsWith(productNameStart) select t).ToList();
 
             return productList;
         }
