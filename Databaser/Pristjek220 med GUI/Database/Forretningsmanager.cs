@@ -10,6 +10,21 @@ namespace Database
     {
         public readonly Store Store;
 
+        public Storemanager(string storeName)
+        {
+            using (var db = new Context())
+            {
+                Store = db.FindStore(storeName);
+
+                if (Store != null)
+                    return;
+
+                Store = new Store() { StoreName = storeName };
+
+                db.Stores.Add(Store);
+                db.SaveChanges();
+            }
+        }
 
         public int AddProduct(string productName, double price)
         {
@@ -39,19 +54,20 @@ namespace Database
                 };
 
                 db.StoreProducts.Add(storprod);
-                
+
                 db.SaveChanges();
                 return 0;
             }
         }
 
-        public Storemanager(string storeName)
+        public void ChangePrice(string productName, double price)
         {
             using (var db = new Context())
             {
-                Store = new Store() { StoreName = storeName };
+                var storeproduct = db.FindStoreProduct(Store.StoreName, productName);
 
-                db.Stores.Add(Store);
+                storeproduct.Price = price;
+
                 db.SaveChanges();
             }
         }
