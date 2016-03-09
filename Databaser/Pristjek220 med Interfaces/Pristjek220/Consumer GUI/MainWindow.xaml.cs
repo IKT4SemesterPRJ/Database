@@ -22,7 +22,7 @@ namespace Consumer_GUI
 
         private void btnFindProduct_Click(object sender, RoutedEventArgs e)
         {
-            string product = tbxFindProduct.Text;
+            string product = atbxFindProduct.Text;
             var store = User.FindCheapestStore(product);
             if (store != null)
                 lblFindProduct.Content = store.StoreName;
@@ -30,11 +30,10 @@ namespace Consumer_GUI
                 lblFindProduct.Content = "Vare findes ikke";
         }
 
-        private void ComboBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void AutoBox_OnTextChanged(object sender, RoutedEventArgs routedEventArgs)
         {
-            Test.IsDropDownOpen = true;
-            var autoComplete = User.AutoComplete(Test.Text);
-            Test.ItemsSource = autoComplete;
+            var autoComplete = User.AutoComplete(atbxFindProduct.Text);
+            atbxFindProduct.ItemsSource = autoComplete;
         }
     }
 }
