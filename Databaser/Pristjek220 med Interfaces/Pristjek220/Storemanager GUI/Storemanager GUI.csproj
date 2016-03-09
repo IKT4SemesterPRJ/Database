@@ -118,6 +118,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AutoComplete\AutoComplete.csproj">
+      <Project>{62b71c47-2332-4bf7-951b-03a640019b5b}</Project>
+      <Name>AutoComplete</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Pristjek220Info\Pristjek220Info.csproj">
       <Project>{22ea143c-eac0-43f8-9d62-f454410e462b}</Project>
       <Name>Pristjek220Info</Name>

@@ -35,7 +35,7 @@ namespace Consumer_GUI
 
         private void AutoBox_OnTextChanged(object sender, RoutedEventArgs routedEventArgs)
         {
-            var autoComplete = _autocomplete.AutoComplete(atbxFindProduct.Text);
+            var autoComplete = _autocomplete.AutoCompleteProduct(atbxFindProduct.Text);
             atbxFindProduct.ItemsSource = autoComplete;
         }
     }

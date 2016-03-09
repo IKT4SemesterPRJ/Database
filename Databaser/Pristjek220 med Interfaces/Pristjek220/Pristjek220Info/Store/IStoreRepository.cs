@@ -8,6 +8,6 @@ namespace Pristjek220Data
 {
     public interface IStoreRepository : IRepository<Store>
     {
-
+        List<Store> FindStoreStartingWith(string storeNameStart);
     }
 }

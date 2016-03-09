@@ -8,6 +8,7 @@ namespace AutoComplete
 {
     public interface IAutocomplete
     {
-        List<string> AutoComplete(string lookUpWord);
+        List<string> AutoCompleteProduct(string lookUpWord);
+        List<string> AutoCompleteStore(string lookUpWord);
     }
 }
