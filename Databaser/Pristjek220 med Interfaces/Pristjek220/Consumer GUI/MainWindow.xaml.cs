@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
+using AutoComplete;
 using Pristjek220Data;
 using Consumer;
 
@@ -9,21 +9,24 @@ namespace Consumer_GUI
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
 
-        private IConsumer User;
+        private readonly IConsumer _user;
+        private readonly IAutocomplete _autocomplete;
 
         public MainWindow()
         {
             InitializeComponent();
-            User = new Consumer.Consumer(new UnitOfWork(new DataContext()));
+            var unit = new UnitOfWork(new DataContext());
+            _user = new Consumer.Consumer(unit);
+            _autocomplete = new Autocomplete(unit);
         }
 
         private void btnFindProduct_Click(object sender, RoutedEventArgs e)
         {
             string product = atbxFindProduct.Text;
-            var store = User.FindCheapestStore(product);
+            var store = _user.FindCheapestStore(product);
             if (store != null)
                 lblFindProduct.Content = store.StoreName;
             else
@@ -32,7 +35,7 @@ namespace Consumer_GUI
 
         private void AutoBox_OnTextChanged(object sender, RoutedEventArgs routedEventArgs)
         {
-            var autoComplete = User.AutoComplete(atbxFindProduct.Text);
+            var autoComplete = _autocomplete.AutoComplete(atbxFindProduct.Text);
             atbxFindProduct.ItemsSource = autoComplete;
         }
     }

@@ -6,6 +6,5 @@ namespace Consumer
     public interface IConsumer
     {
         Store FindCheapestStore(string productName);
-        List<string> AutoComplete(string lookUpWord);
     }
 }
