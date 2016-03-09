@@ -9,11 +9,11 @@ namespace Storemanager_GUI
     public partial class MainWindow : Window
     {
 
-        private Storemanager.Storemanager Manager;
+        private readonly Storemanager.IStoremanager _manager;
         public MainWindow()
         {
             InitializeComponent();
-            Manager = new Storemanager.Storemanager(new UnitOfWork(new DataContext()), new Store() {StoreName = "Aldi"});
+            _manager = new Storemanager.Storemanager(new UnitOfWork(new DataContext()), new Store() {StoreName = "Aldi"});
         }
 
         private void btnAddProduct_Click(object sender, RoutedEventArgs e)
@@ -21,13 +21,13 @@ namespace Storemanager_GUI
             string productName = tbxAddProductName.Text;
             double productPrice = double.Parse(tbxAddProductPrice.Text);
 
-            if (Manager.AddProductToMyStore(productName, productPrice) != 0)
+            if (_manager.AddProductToMyStore(productName, productPrice) != 0)
             {
                 lblConfirm.Content = ($"produktet {productName} findes allerede");
                 return;
             }
 
-            lblConfirm.Content = ($"{productName} er indsat, med prisen {productPrice} i butikken {Manager.Store.StoreName}");
+            lblConfirm.Content = ($"{productName} er indsat, med prisen {productPrice} i butikken {_manager.Store.StoreName}");
         }
     }
 }

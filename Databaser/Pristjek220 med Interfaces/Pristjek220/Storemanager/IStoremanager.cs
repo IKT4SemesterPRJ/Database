@@ -8,8 +8,10 @@ using Pristjek220Data;
 
 namespace Storemanager
 {
-    interface IStoremanager
+    public interface IStoremanager
     {
+        Store Store { get; }
+
         int AddProductToMyStore(string productName, double price);
     }
 }
