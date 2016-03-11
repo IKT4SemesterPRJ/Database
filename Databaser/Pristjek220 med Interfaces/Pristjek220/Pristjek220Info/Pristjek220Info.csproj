@@ -57,17 +57,17 @@
     <Compile Include="HasA\HasA.cs" />
     <Compile Include="HasA\HasARepository.cs" />
     <Compile Include="HasA\IHasARepository.cs" />
-    <Compile Include="IRepository.cs" />
-    <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="Product\IProductRepository.cs" />
     <Compile Include="Product\Product.cs" />
     <Compile Include="Product\ProductRepository.cs" />
-    <Compile Include="Repository.cs" />
+    <Compile Include="Repository\Repository.cs" />
     <Compile Include="Store\IStoreRepository.cs" />
     <Compile Include="Store\Store.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Store\StoreRepository.cs" />
-    <Compile Include="UnitOfWork.cs" />
+    <Compile Include="UnitOfWork\UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
