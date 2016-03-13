@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NSubstitute;
 using NUnit.Framework;
 using Pristjek220Data;
@@ -22,16 +19,23 @@ namespace Pristjek220.Unit.Test
         {
             unitWork = Substitute.For<IUnitOfWork>();
             store = new Store() {StoreName = "Aldi"};
-            product = new Product() {ProductName = "Banan"};
+            product = new Product() {ProductName = "Banan", ProductId = 10};
             _uut = new Storemanager.Storemanager(unitWork, store);
         }
 
         [Test]
-        public void AddProductToMyStore_BananCantBeFoundInDatabase_BananIsAdded()
+        public void AddProductToDb_BananCantBeFoundInDatabase_BananIsAdded()
         {
-            _uut.AddProductToMyStore(product.ProductName, 4.95);
+            _uut.AddProductToDb(product);
 
-            unitWork.Products.Received().Add(product);
+            unitWork.Products.Received(1).Add(product);
+        }
+
+        [Test]
+        public void AddProductToDb_BananIsAlreadyInDb_ReturnMinusOne() //Spørg Troels hvordan jeg tester den her!
+        {
+            
+            Assert.That(_uut.AddProductToDb(product), Is.EqualTo(-1));
         }
 
         [Test]
@@ -45,18 +49,18 @@ namespace Pristjek220.Unit.Test
                 Store = store,
                 StoreId = store.StoreId
             };
-            
-            unitWork.HasA.Get(product.ProductId, store.StoreId).Returns(hasA);
 
-            Assert.That(_uut.AddProductToMyStore(product.ProductName, 3.95), Is.EqualTo(-1));
+            unitWork.HasA.Get(store.StoreId, product.ProductId).Returns(hasA);
+
+            Assert.That(_uut.AddProductToMyStore(product, 3.95), Is.EqualTo(-1));
         }
 
         [Test]
-        public void AddProductToMyStore_BananIsFoundButNoConnectionToStore_ChangesAreSavedInDatabase()
+        public void AddProductToMyStore_BananIsNotInStore_ChangesAreSavedInDatabase()
         {
-            _uut.AddProductToMyStore(product.ProductName, 3.95);
+            _uut.AddProductToMyStore(product, 2.95);
 
-            unitWork.Received().Complete();
+            unitWork.Received(1).Complete();
         }
     }
 }

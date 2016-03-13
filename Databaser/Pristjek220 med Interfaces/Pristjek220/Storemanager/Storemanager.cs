@@ -14,19 +14,22 @@ namespace Storemanager
             Store = store;
         }
 
-        public int AddProductToMyStore(string productName, double price)
+        public int AddProductToDb(Product product)
         {
-            var product = _unitwork.Products.Find(c => c.ProductName == productName).FirstOrDefault();
-            if (product == null)
-            {
-                product = new Product() {ProductName = productName};
-                _unitwork.Products.Add(product);
-            }
-
-            if (_unitwork.HasA.Get(product.ProductId, Store.StoreId) != null)
+            if (FindProduct(product.ProductName) != null)
                 return -1;
 
-            var hasA = new HasA()
+            _unitwork.Products.Add(product);
+            _unitwork.Complete();
+            return 0;
+        }
+
+        public int AddProductToMyStore(Product product, double price)
+        {
+            if (_unitwork.HasA.Get(Store.StoreId, product.ProductId) != null)
+                return -1;
+
+            var hasA = new HasA
             {
                 Price = price,
                 Product = product,
@@ -39,6 +42,11 @@ namespace Storemanager
 
             _unitwork.Complete();
             return 0;
+        }
+
+        public Product FindProduct(string productName)
+        {
+            return _unitwork.Products.Find(c => c.ProductName == productName).FirstOrDefault();
         }
     }
 }

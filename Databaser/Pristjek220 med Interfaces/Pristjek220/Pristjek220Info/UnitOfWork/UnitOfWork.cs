@@ -9,9 +9,9 @@ namespace Pristjek220Data
     public class UnitOfWork : IUnitOfWork
     {
         private readonly DataContext _context;
-        public IStoreRepository Stores { get; private set; }
-        public IProductRepository Products { get; private set; }
-        public IHasARepository HasA { get; private set; }
+        public IStoreRepository Stores { get; }
+        public IProductRepository Products { get; }
+        public IHasARepository HasA { get; }
 
         public UnitOfWork(DataContext context)
         {

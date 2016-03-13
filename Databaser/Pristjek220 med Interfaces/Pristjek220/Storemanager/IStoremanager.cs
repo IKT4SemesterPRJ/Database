@@ -12,6 +12,8 @@ namespace Storemanager
     {
         Store Store { get; }
 
-        int AddProductToMyStore(string productName, double price);
+        int AddProductToDb(Product product);
+        int AddProductToMyStore(Product product, double price);
+        Product FindProduct(string productName);
     }
 }

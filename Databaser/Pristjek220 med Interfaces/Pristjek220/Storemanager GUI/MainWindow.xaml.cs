@@ -16,8 +16,7 @@ namespace Storemanager_GUI
         {
             InitializeComponent();
             _manager = new Storemanager.Storemanager(new UnitOfWork(new DataContext()), new Store() {StoreName = "Aldi"});
-            var unit = new UnitOfWork(new DataContext());
-            _autocomplete = new Autocomplete(unit);
+            _autocomplete = new Autocomplete(new UnitOfWork(new DataContext()));
         }
 
         private void btnAddProduct_Click(object sender, RoutedEventArgs e)
@@ -25,7 +24,15 @@ namespace Storemanager_GUI
             string productName = atbxAddProductName.Text;
             double productPrice = double.Parse(tbxAddProductPrice.Text);
 
-            if (_manager.AddProductToMyStore(productName, productPrice) != 0)
+            var product = _manager.FindProduct(productName);
+            if (product == null)
+            {
+                product = new Product() {ProductName = productName};
+                _manager.AddProductToDb(product);
+                product = _manager.FindProduct(productName);
+            }
+
+            if (_manager.AddProductToMyStore(product, productPrice) != 0)
             {
                 lblConfirm.Content = ($"produktet {productName} findes allerede");
                 return;
