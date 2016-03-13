@@ -24,7 +24,7 @@ namespace Consumer_GUI
         private readonly UserControl Home;
         private readonly UserControl FindProduct;
         private readonly UserControl ShoppingList;
-
+       
         public MainWindow()
         {
             FindProduct = new FindProduct();
