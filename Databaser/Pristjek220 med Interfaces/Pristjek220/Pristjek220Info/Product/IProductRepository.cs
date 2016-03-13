@@ -8,6 +8,7 @@ namespace Pristjek220Data
 {
     public interface IProductRepository : IRepository<Product>
     {
+        Product Get(int id);
         List<Product> FindProductStartingWith(string productNameStart);
     }
 }

@@ -31,5 +31,10 @@ namespace Consumer
             return cheapest.Store;
             
         }
+
+        public List<string> FindStoresSortiment(string storeName)
+        {
+            return _unit.Stores.FindProductsInStore(storeName);
+        }
     }
 }

@@ -12,5 +12,6 @@
         <toolkit:AutoCompleteBox TextChanged="AutoBox_OnTextChanged" x:Name="atbxFindProduct" HorizontalAlignment="Left" Height="23" Margin="124,88,0,0" Text="Skriv vare her" VerticalAlignment="Top" Width="120"/>
         <Button x:Name="btnFindProduct" Content="Søg" HorizontalAlignment="Left" Margin="303,91,0,0" VerticalAlignment="Top" Width="75" Click="btnFindProduct_Click"/>
         <Label x:Name="lblFindProduct" Content="" HorizontalAlignment="Left" Margin="303,133,0,0" VerticalAlignment="Top" Height="25" Width="118"/>
+        <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="100" Margin="86,164,0,0" VerticalAlignment="Top" Width="100"/>
     </Grid>
 </Window>

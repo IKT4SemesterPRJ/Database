@@ -8,6 +8,7 @@ namespace Pristjek220Data
 {
     public interface IHasARepository : IRepository<HasA>
     {
+        HasA Get(int id1, int id2);
         HasA FindCheapestHasA(Product product);
     }
 }

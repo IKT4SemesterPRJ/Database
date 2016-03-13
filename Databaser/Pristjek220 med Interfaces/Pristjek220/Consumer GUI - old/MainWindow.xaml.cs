@@ -27,6 +27,15 @@ namespace Consumer_GUI
         {
             string product = atbxFindProduct.Text;
             var store = _user.FindCheapestStore(product);
+
+            //Nicklas leg
+            var mylist = _user.FindStoresSortiment("Aldi");
+            for (int i = 0; i < mylist.Count; i++)
+            {
+                listBox.Items.Add(mylist[i]);
+            }
+            //!Nicklas leg
+
             if (store != null)
                 lblFindProduct.Content = store.StoreName;
             else

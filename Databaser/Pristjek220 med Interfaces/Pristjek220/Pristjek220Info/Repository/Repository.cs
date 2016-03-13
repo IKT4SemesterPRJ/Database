@@ -17,16 +17,6 @@ namespace Pristjek220Data
             Context = context;
         }
 
-        public TEntity Get(int id)
-        {
-            return Context.Set<TEntity>().Find(id);
-        }
-
-        public TEntity Get(int id, int id2)
-        {
-            return Context.Set<TEntity>().Find(id, id2);
-        }
-
         public IEnumerable<TEntity> GetAll()
         {
             return Context.Set<TEntity>().ToList();

@@ -13,6 +13,11 @@ namespace Pristjek220Data
             
         }
 
+        public Product Get(int id)
+        {
+            return Context.Set<Product>().Find(id);
+        }
+
         public List<Product> FindProductStartingWith(string productNameStart)
         {
             var productList = (from t in DataContext.Products where t.ProductName.StartsWith(productNameStart) select t).ToList();
