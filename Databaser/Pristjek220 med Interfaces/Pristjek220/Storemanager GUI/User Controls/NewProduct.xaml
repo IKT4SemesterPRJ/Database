@@ -19,8 +19,8 @@
             <ColumnDefinition Width="5"/>
         </Grid.ColumnDefinitions>
         <Button x:Name="btnAddProduct" Content="Tilføj produkt" Grid.Column="2" Grid.Row="2" Width="75" Click="BtnAddProduct_OnClick" Margin="356,44,-425,-59" Height="25"/>
-        <toolkit:AutoCompleteBox x:Name="atbxAddProductName" Grid.Column="2" Grid.Row="2" Height="23" Text="Skriv produktnavn her" VerticalAlignment="Top" Width="139" TextChanged="AtbxAddProductName_OnTextChanged" Margin="60,44,-193,-61"/>
-        <TextBox x:Name="tbxAddProductPrice" Grid.Column="2" Grid.Row="2" Height="23" Margin="240,42,-317,-59" TextWrapping="Wrap" Text="Angiv pris her" VerticalAlignment="Top" Width="83" />
+        <toolkit:AutoCompleteBox x:Name="atbxAddProductName" Grid.Column="2" Grid.Row="2" Height="23" IsTextCompletionEnabled="True" Text="Skriv produktnavn her" VerticalAlignment="Top" Width="139" TextChanged="AtbxAddProductName_OnTextChanged" Margin="60,44,-193,-61"/>
+        <TextBox x:Name="tbxAddProductPrice" TextChanged="TbxAddProductPrice_OnTextChanged" Grid.Column="2" Grid.Row="2" Height="23" Margin="240,42,-317,-59" TextWrapping="Wrap" Text="Angiv pris her" VerticalAlignment="Top" Width="83" />
         <Label x:Name="lblkr" Content="kr." HorizontalAlignment="Left"  VerticalAlignment="Top" Grid.Column="2" Grid.Row="2" Margin="323,36,-339,-55" Height="25"/>
         <Label x:Name="lblConfirm" Content="" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="417" Grid.Column="2" Grid.Row="2" Margin="107,116,-518,-132" Height="25"/>
     </Grid>

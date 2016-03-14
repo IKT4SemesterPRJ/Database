@@ -25,6 +25,7 @@ namespace Consumer_GUI.User_Controls
     {
         private readonly IConsumer _user;
         private readonly IAutocomplete _autocomplete;
+        private string oldtext = String.Empty;
 
         public FindProduct()
         {
@@ -46,9 +47,19 @@ namespace Consumer_GUI.User_Controls
 
         private void AcbSeachForProduct_OnTextChanged(object sender, RoutedEventArgs e)
         {
-            var autoComplete = _autocomplete.AutoCompleteProduct(acbSeachForProduct.Text);
-            acbSeachForProduct.ItemsSource = autoComplete;
-           
+            if (acbSeachForProduct.Text.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr)))
+            {
+                oldtext = acbSeachForProduct.Text;
+                var autoComplete = _autocomplete.AutoCompleteProduct(acbSeachForProduct.Text);
+                acbSeachForProduct.ItemsSource = autoComplete;
+
+            }
+            else
+            {
+                acbSeachForProduct.Text = oldtext;
+                System.Windows.MessageBox.Show("Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9", "ERROR", MessageBoxButton.OK);
+            }
+
         }
     }
 }
