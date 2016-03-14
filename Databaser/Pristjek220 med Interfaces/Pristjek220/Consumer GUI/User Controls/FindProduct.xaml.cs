@@ -26,6 +26,7 @@ namespace Consumer_GUI.User_Controls
         private readonly IConsumer _user;
         private readonly IAutocomplete _autocomplete;
         private string oldtext = String.Empty;
+        private readonly List<string> _autoCompleteStringList;
 
         public FindProduct()
         {
@@ -33,6 +34,8 @@ namespace Consumer_GUI.User_Controls
             var unit = new UnitOfWork(new DataContext());
             _user = new Consumer.Consumer(unit);
             _autocomplete = new Autocomplete(unit);
+            _autoCompleteStringList = new List<string>();
+
         }
 
         private void BtnFindProduct_OnClick(object sender, RoutedEventArgs e)
@@ -50,9 +53,13 @@ namespace Consumer_GUI.User_Controls
             if (acbSeachForProduct.Text.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr)))
             {
                 oldtext = acbSeachForProduct.Text;
-                var autoComplete = _autocomplete.AutoCompleteProduct(acbSeachForProduct.Text);
-                acbSeachForProduct.ItemsSource = autoComplete;
 
+                foreach (var item in _autocomplete.AutoCompleteProduct(acbSeachForProduct.Text))
+                {
+                    _autoCompleteStringList.Add(item);
+                }
+                acbSeachForProduct.ItemsSource = _autoCompleteStringList;
+                //acbSeachForProduct.PopulateComplete();
             }
             else
             {
