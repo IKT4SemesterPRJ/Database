@@ -15,7 +15,7 @@ namespace Consumer
 
         public Store FindCheapestStore(string productName)
         {
-            var product = _unit.Products.Find(c => c.ProductName == productName).FirstOrDefault();
+            var product = _unit.Products.FindProduct(productName);
 
             var cheapest = product?.HasARelation.FirstOrDefault();
 

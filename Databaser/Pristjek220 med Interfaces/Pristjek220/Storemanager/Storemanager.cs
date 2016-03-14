@@ -46,7 +46,7 @@ namespace Storemanager
 
         public Product FindProduct(string productName)
         {
-            return _unitwork.Products.Find(c => c.ProductName == productName).FirstOrDefault();
+            return _unitwork.Products.FindProduct(productName);
         }
     }
 }

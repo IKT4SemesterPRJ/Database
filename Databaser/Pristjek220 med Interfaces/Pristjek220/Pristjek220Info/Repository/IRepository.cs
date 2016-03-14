@@ -10,7 +10,6 @@ namespace Pristjek220Data
     public interface IRepository<TEntity> where TEntity: class
     {
         IEnumerable<TEntity> GetAll();
-        IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
 
         void Add(TEntity entity);
         void Remove(TEntity entity);

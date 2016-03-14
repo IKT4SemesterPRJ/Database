@@ -10,6 +10,7 @@ namespace Pristjek220Data
     public interface IStoreRepository : IRepository<Store>
     {
         Store Get(int id);
+        Store FindStore(string storeName);
         List<Store> FindStoreStartingWith(string storeNameStart);
         List<string> FindProductsInStore(string storeName);
     }

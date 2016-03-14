@@ -32,9 +32,10 @@ namespace Pristjek220.Unit.Test
         }
 
         [Test]
-        public void AddProductToDb_BananIsAlreadyInDb_ReturnMinusOne() //Spørg Troels hvordan jeg tester den her!
+        public void AddProductToDb_BananIsAlreadyInDb_ReturnMinusOne()
         {
-            
+            unitWork.Products.FindProduct(product.ProductName).Returns(product);
+
             Assert.That(_uut.AddProductToDb(product), Is.EqualTo(-1));
         }
 
@@ -61,6 +62,14 @@ namespace Pristjek220.Unit.Test
             _uut.AddProductToMyStore(product, 2.95);
 
             unitWork.Received(1).Complete();
+        }
+
+        [Test]
+        public void FindProduct_FindBananInDb_FindFunktionCalled()
+        {
+            _uut.FindProduct(product.ProductName);
+
+            unitWork.Products.Received(1).FindProduct(product.ProductName);
         }
     }
 }

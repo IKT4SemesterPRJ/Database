@@ -22,11 +22,6 @@ namespace Pristjek220Data
             return Context.Set<TEntity>().ToList();
         }
 
-        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
-        {
-            return Context.Set<TEntity>().Where(predicate);
-        }
-
         public void Add(TEntity entity)
         {
             Context.Set<TEntity>().Add(entity);

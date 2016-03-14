@@ -21,6 +21,11 @@ namespace Pristjek220Data
             return Context.Set<Store>().Find(id);
         }
 
+        public Store FindStore(string storeName)
+        {
+            return (from t in DataContext.Stores where t.StoreName == storeName select t).FirstOrDefault();
+        }
+
         public List<Store> FindStoreStartingWith(string storeNameStart)
         {
             var storeList = (from t in DataContext.Stores where t.StoreName.StartsWith(storeNameStart) select t).ToList();

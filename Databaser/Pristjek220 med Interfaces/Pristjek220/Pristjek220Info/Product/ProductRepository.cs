@@ -18,6 +18,11 @@ namespace Pristjek220Data
             return Context.Set<Product>().Find(id);
         }
 
+        public Product FindProduct(string productName)
+        {
+            return (from t in DataContext.Products where t.ProductName == productName select t).FirstOrDefault();
+        }
+
         public List<Product> FindProductStartingWith(string productNameStart)
         {
             var productList = (from t in DataContext.Products where t.ProductName.StartsWith(productNameStart) select t).ToList();
