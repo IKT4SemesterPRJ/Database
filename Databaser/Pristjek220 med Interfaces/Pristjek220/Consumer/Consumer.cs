@@ -13,6 +13,11 @@ namespace Consumer
             _unit = unitOfWork;
         }
 
+        public bool DoesProductExsist(string productName)
+        {
+            return _unit.Products.FindProduct(productName) != null;
+        }
+
         public Store FindCheapestStore(string productName)
         {
             var product = _unit.Products.FindProduct(productName);
