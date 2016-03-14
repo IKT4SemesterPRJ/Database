@@ -8,7 +8,7 @@ namespace Consumer
     {
         private readonly IUnitOfWork _unit;
 
-        public Consumer(UnitOfWork unitOfWork)
+        public Consumer(IUnitOfWork unitOfWork)
         {
             _unit = unitOfWork;
         }
@@ -30,14 +30,14 @@ namespace Consumer
             foreach (var hasA in product.HasARelation)
             {
                 if (hasA.Price < cheapest.Price)
-                    cheapest.Price = hasA.Price;
+                    cheapest = hasA;
             }
 
             return cheapest.Store;
             
         }
 
-        public List<string> FindStoresSortiment(string storeName)
+        public List<string> FindStoresAssortment(string storeName)
         {
             return _unit.Stores.FindProductsInStore(storeName);
         }

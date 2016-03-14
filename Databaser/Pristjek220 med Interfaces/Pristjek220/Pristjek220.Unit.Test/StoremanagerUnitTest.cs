@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using NSubstitute;
+﻿using NSubstitute;
 using NUnit.Framework;
 using Pristjek220Data;
 
@@ -9,34 +7,34 @@ namespace Pristjek220.Unit.Test
     [TestFixture]
     class StoremanagerUnitTest
     {
-        private IUnitOfWork unitWork;
+        private IUnitOfWork _unitWork;
         private Storemanager.Storemanager _uut;
-        private Store store;
-        private Product product;
+        private Store _store;
+        private Product _product;
 
         [SetUp]
         public void SetUp()
         {
-            unitWork = Substitute.For<IUnitOfWork>();
-            store = new Store() {StoreName = "Aldi"};
-            product = new Product() {ProductName = "Banan", ProductId = 10};
-            _uut = new Storemanager.Storemanager(unitWork, store);
+            _unitWork = Substitute.For<IUnitOfWork>();
+            _store = new Store() {StoreName = "Aldi"};
+            _product = new Product() {ProductName = "Banan"};
+            _uut = new Storemanager.Storemanager(_unitWork, _store);
         }
 
         [Test]
         public void AddProductToDb_BananCantBeFoundInDatabase_BananIsAdded()
         {
-            _uut.AddProductToDb(product);
+            _uut.AddProductToDb(_product);
 
-            unitWork.Products.Received(1).Add(product);
+            _unitWork.Products.Received(1).Add(_product);
         }
 
         [Test]
         public void AddProductToDb_BananIsAlreadyInDb_ReturnMinusOne()
         {
-            unitWork.Products.FindProduct(product.ProductName).Returns(product);
+            _unitWork.Products.FindProduct(_product.ProductName).Returns(_product);
 
-            Assert.That(_uut.AddProductToDb(product), Is.EqualTo(-1));
+            Assert.That(_uut.AddProductToDb(_product), Is.EqualTo(-1));
         }
 
         [Test]
@@ -45,31 +43,31 @@ namespace Pristjek220.Unit.Test
             var hasA = new HasA()
             {
                 Price = 1,
-                Product = product,
-                ProductId = product.ProductId,
-                Store = store,
-                StoreId = store.StoreId
+                Product = _product,
+                ProductId = _product.ProductId,
+                Store = _store,
+                StoreId = _store.StoreId
             };
 
-            unitWork.HasA.Get(store.StoreId, product.ProductId).Returns(hasA);
+            _unitWork.HasA.Get(_store.StoreId, _product.ProductId).Returns(hasA);
 
-            Assert.That(_uut.AddProductToMyStore(product, 3.95), Is.EqualTo(-1));
+            Assert.That(_uut.AddProductToMyStore(_product, 3.95), Is.EqualTo(-1));
         }
 
         [Test]
         public void AddProductToMyStore_BananIsNotInStore_ChangesAreSavedInDatabase()
         {
-            _uut.AddProductToMyStore(product, 2.95);
+            _uut.AddProductToMyStore(_product, 2.95);
 
-            unitWork.Received(1).Complete();
+            _unitWork.Received(1).Complete();
         }
 
         [Test]
         public void FindProduct_FindBananInDb_FindFunktionCalled()
         {
-            _uut.FindProduct(product.ProductName);
+            _uut.FindProduct(_product.ProductName);
 
-            unitWork.Products.Received(1).FindProduct(product.ProductName);
+            _unitWork.Products.Received(1).FindProduct(_product.ProductName);
         }
     }
 }

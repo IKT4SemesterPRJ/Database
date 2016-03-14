@@ -29,7 +29,7 @@ namespace Consumer_GUI
             var store = _user.FindCheapestStore(product);
 
             //Nicklas leg
-            var mylist = _user.FindStoresSortiment("Aldi");
+            var mylist = _user.FindStoresAssortment("Aldi");
             for (int i = 0; i < mylist.Count; i++)
             {
                 listBox.Items.Add(mylist[i]);

@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Pristjek220Data;
+﻿using Pristjek220Data;
 
 namespace Storemanager
 {

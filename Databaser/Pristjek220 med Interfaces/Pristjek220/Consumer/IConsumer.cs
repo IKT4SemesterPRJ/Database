@@ -7,6 +7,6 @@ namespace Consumer
     {
         Store FindCheapestStore(string productName);
         bool DoesProductExsist(string productName);
-        List<string> FindStoresSortiment(string storeName);
+        List<string> FindStoresAssortment(string storeName);
     }
 }
