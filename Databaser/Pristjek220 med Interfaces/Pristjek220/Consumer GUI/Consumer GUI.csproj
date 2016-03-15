@@ -78,6 +78,9 @@
     <Compile Include="User Controls\FindProduct.xaml.cs">
       <DependentUpon>FindProduct.xaml</DependentUpon>
     </Compile>
+    <Compile Include="User Controls\GeneratedShoppingList.xaml.cs">
+      <DependentUpon>GeneratedShoppingList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="User Controls\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
@@ -97,6 +100,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="User Controls\FindProduct.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="User Controls\GeneratedShoppingList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

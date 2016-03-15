@@ -23,11 +23,18 @@
             <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="5"/>
-            
+
         </Grid.ColumnDefinitions>
-        <ListBox x:Name="lbxShoppingList" Grid.Column="1"  Height="226" Grid.Row="2" Width="272" Margin="4,9,-86,0" Grid.RowSpan="2" Grid.ColumnSpan="4" />
+        <ListBox x:Name="lbxShoppingList" Grid.Column="1"  Height="226" Grid.Row="3" Width="272" Margin="4,9,-86,0" Grid.RowSpan="2" Grid.ColumnSpan="4" />
         <Button Name="btnItemToList" Grid.Column="3" Grid.Row="1"  FontSize ="10" MinHeight="22" Click="BtnItemToList_OnClick" >tilføj til kurv</Button>
         <toolkit:AutoCompleteBox Name ="acbProductToList" Grid.Column="1" Grid.Row="1" TextChanged="AcbProductToList_OnTextChanged" IsTextCompletionEnabled="True" Text="skriv vare her" MinWidth="120" MinHeight="22"/>
         <Button Name="btnDeleteListItem" Grid.Column="3" Grid.Row="5" Height="20" Click="BtnDeleteListItem_OnClick">Slet Produkt</Button>
+        <DataGrid x:Name="dgrShoppingList" Margin="5" AutoGenerateColumns="False" ItemsSource="{Binding}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Produkt" Width="100" Binding="{Binding _name}"></DataGridTextColumn>
+                <DataGridComboBoxColumn Header="Antal" Width="100" TextBinding="{Binding _number}"></DataGridComboBoxColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="btnShowGeneratedShoppingList" Content="Generere Indkøbsliste" Grid.Column="1" HorizontalAlignment="Left" Height="100" Margin="87,10,-22,-104" Grid.Row="6" VerticalAlignment="Top" Width="138" Click="BtnShowGeneratedShoppingList_OnClick" Grid.ColumnSpan="4"/>
     </Grid>
 </UserControl>

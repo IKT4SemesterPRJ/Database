@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Consumer_GUI"
         mc:Ignorable="d"
         Title="MainWindow" Height="700" Width="825">
-    
+
     <Window.Resources>
         <Style x:Key="RoundedButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="Template">

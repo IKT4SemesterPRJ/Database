@@ -24,12 +24,14 @@ namespace Consumer_GUI
         private readonly UserControl Home;
         private readonly UserControl FindProduct;
         private readonly UserControl ShoppingList;
-       
+        private readonly UserControl GeneratedShppingList;
+
         public MainWindow()
         {
             FindProduct = new FindProduct();
             ShoppingList = new ShoppingList();
             Home = new Home();
+            GeneratedShppingList = new GeneratedShoppingList();
             InitializeComponent();
             InitWindows();
         }
@@ -38,6 +40,7 @@ namespace Consumer_GUI
         {
             cctlShowUC.Content = FindProduct;
             cctlShowUC.Content = ShoppingList;
+            cctlShowUC.Content = GeneratedShppingList;
             cctlShowUC.Content = Home;
         }
 
@@ -54,6 +57,11 @@ namespace Consumer_GUI
         private void BtbUCIndkøbsliste_OnClick(object sender, RoutedEventArgs e)
         {
             cctlShowUC.Content = ShoppingList;
+        }
+
+        public void openGeneretedShoppinglist()
+        {
+            cctlShowUC.Content = GeneratedShppingList;
         }
     }
 }
