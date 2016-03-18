@@ -75,6 +75,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AutoList.cs" />
+    <Compile Include="Model.cs" />
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="ViewModel.cs" />
+    <Compile Include="RelayCommand.cs" />
     <Compile Include="User Controls\FindProduct.xaml.cs">
       <DependentUpon>FindProduct.xaml</DependentUpon>
     </Compile>

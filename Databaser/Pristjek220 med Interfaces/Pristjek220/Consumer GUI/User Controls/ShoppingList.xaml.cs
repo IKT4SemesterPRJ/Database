@@ -56,7 +56,6 @@ namespace Consumer_GUI.User_Controls
                 oldtext = acbProductToList.Text;
                 var autoComplete = _autocomplete.AutoCompleteProduct(acbProductToList.Text);
                 acbProductToList.ItemsSource = autoComplete;
-
             }
             else
             {

@@ -23,50 +23,9 @@ namespace Consumer_GUI.User_Controls
     /// </summary>
     public partial class FindProduct : UserControl
     {
-        private readonly IConsumer _user;
-        private readonly IAutocomplete _autocomplete;
-        private string oldtext = String.Empty;
-        private readonly List<string> _autoCompleteStringList;
-
         public FindProduct()
         {
             InitializeComponent();
-            var unit = new UnitOfWork(new DataContext());
-            _user = new Consumer.Consumer(unit);
-            _autocomplete = new Autocomplete(unit);
-            _autoCompleteStringList = new List<string>();
-
-        }
-
-        private void BtnFindProduct_OnClick(object sender, RoutedEventArgs e)
-        {
-            string product = acbSeachForProduct.Text;
-            var store = _user.FindCheapestStore(product);
-            if (store != null)
-                System.Windows.MessageBox.Show($"Det er billigst i {store.StoreName}", "Billigste forretning",MessageBoxButton.OK);
-            else
-                System.Windows.MessageBox.Show($"{acbSeachForProduct.Text}", "Billigste forretning", MessageBoxButton.OK);
-        }
-
-        private void AcbSeachForProduct_OnTextChanged(object sender, RoutedEventArgs e)
-        {
-            if (acbSeachForProduct.Text.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr)))
-            {
-                oldtext = acbSeachForProduct.Text;
-
-                foreach (var item in _autocomplete.AutoCompleteProduct(acbSeachForProduct.Text))
-                {
-                    _autoCompleteStringList.Add(item);
-                }
-                acbSeachForProduct.ItemsSource = _autoCompleteStringList;
-                //acbSeachForProduct.PopulateComplete();
-            }
-            else
-            {
-                acbSeachForProduct.Text = oldtext;
-                System.Windows.MessageBox.Show("Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9", "ERROR", MessageBoxButton.OK);
-            }
-
         }
     }
 }
