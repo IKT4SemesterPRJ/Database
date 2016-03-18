@@ -7,5 +7,6 @@ namespace Pristjek220Data
         Product Get(int id);
         Product FindProduct(string productName);
         List<Product> FindProductStartingWith(string productNameStart);
+        List<StoreAndPrice> FindStoresThatSellsProduct(string productName);
     }
 }

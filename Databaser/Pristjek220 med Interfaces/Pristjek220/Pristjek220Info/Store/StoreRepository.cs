@@ -27,23 +27,16 @@ namespace Pristjek220Data
             return storeList;
         }
 
-        public List<string> FindProductsInStore(string storeName)
+        public List<ProductAndPrice> FindProductsInStore(string storeName)
         {
-            List<string> productAndPrice = new List<string>();
-
             var query = (from store in DataContext.Stores
-                where store.StoreName == storeName
-                join hasA in DataContext.HasARelation on store.StoreId equals hasA.StoreId
-                join product in DataContext.Products on hasA.ProductId equals product.ProductId
-                         select new {Price = hasA.Price, ProductName = product.ProductName}
-            );
+                        where store.StoreName == storeName
+                        join hasA in DataContext.HasARelation on store.StoreId equals hasA.StoreId
+                        join product in DataContext.Products on hasA.ProductId equals product.ProductId
+                        select new  ProductAndPrice {Price = hasA.Price, Name = product.ProductName}
+                        );
 
-            foreach (var thing in query)
-            {
-                productAndPrice.Add($"{thing.ProductName} {thing.Price:F2}");
-            }
-
-            return productAndPrice;
+            return query.ToList();
         }
 
         public DataContext DataContext

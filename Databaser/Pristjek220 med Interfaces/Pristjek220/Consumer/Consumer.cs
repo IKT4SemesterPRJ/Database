@@ -37,9 +37,14 @@ namespace Consumer
             
         }
 
-        public List<string> FindStoresAssortment(string storeName)
+        public List<ProductAndPrice> FindStoresAssortment(string storeName)
         {
             return _unit.Stores.FindProductsInStore(storeName);
+        }
+
+        public List<StoreAndPrice> FindStoresThatSellsProduct(string productName)
+        {
+            return _unit.Products.FindStoresThatSellsProduct(productName);
         }
     }
 }
