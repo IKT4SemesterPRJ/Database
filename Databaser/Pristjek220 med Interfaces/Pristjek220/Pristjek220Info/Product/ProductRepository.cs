@@ -27,6 +27,18 @@ namespace Pristjek220Data
             return productList;
         }
 
+        public List<StoreAndPrice> FindStoresThatSellsProduct(string productName)
+        {
+            var query = (from product in DataContext.Products
+                         where product.ProductName == productName
+                         join hasA in DataContext.HasARelation on product.ProductId equals hasA.ProductId
+                         join store in DataContext.Stores on hasA.StoreId equals store.StoreId
+                         select new StoreAndPrice { Price = hasA.Price, Name = store.StoreName}
+                        );
+
+            return query.ToList();
+        }
+
         public DataContext DataContext
         {
             get { return Context as DataContext; }
