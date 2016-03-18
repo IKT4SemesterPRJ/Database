@@ -6,6 +6,7 @@
              xmlns:consumer="clr-namespace:Consumer_GUI"
              xmlns:local="clr-namespace:Consumer_GUI.User_Controls"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="600">
@@ -25,9 +26,34 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="5"/>
         </Grid.ColumnDefinitions>
-        <Button Command="{Binding SearchCommand}" Name="btnFindProduct" Grid.Column="3" Grid.Row="1"  FontSize ="10" MinHeight="22" >Søg</Button>
-        <toolkit:AutoCompleteBox Text="{Binding ProductName, Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="1" MinWidth="120" MinHeight="22"/>
-        <TextBox Text="{Binding ProductName, Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2" MinWidth="120" MinHeight="22" Grid.ColumnSpan="2" Margin="0,68,7,-84"/>
+        <Button 
+            Command="{Binding SearchCommand}" 
+            Name="btnFindProduct" 
+            Grid.Column="3" 
+            Grid.Row="1"  
+            FontSize ="10" 
+            MinHeight="22" >
+            Søg
+        </Button>
+        <toolkit:AutoCompleteBox
+            ItemsSource="{Binding AutoCompleteList, Mode=TwoWay}" 
+            Text="{Binding ProductName, Mode=TwoWay}" 
+            VerticalAlignment="Center" 
+            HorizontalAlignment="Center" 
+            Grid.Column="1" 
+            Grid.Row="1" 
+            MinWidth="120" 
+            MinHeight="22">
+             <i:Interaction.Triggers>
+                 <i:EventTrigger EventName="Populating">
+                     <i:InvokeCommandAction Command="{Binding PopulatingCommand}"></i:InvokeCommandAction>
+                 </i:EventTrigger>
+                <i:EventTrigger EventName="TextChanged">
+                    <i:InvokeCommandAction Command="{Binding IllegalSignCommand}"></i:InvokeCommandAction>
+                </i:EventTrigger>
+             </i:Interaction.Triggers>
+        </toolkit:AutoCompleteBox>
 
+        
     </Grid>
 </UserControl>

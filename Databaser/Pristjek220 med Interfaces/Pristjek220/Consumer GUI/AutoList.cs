@@ -11,6 +11,12 @@ namespace Consumer_GUI
     {
         public AutoList()
         {
+            Clear();
+            foreach (var item in _autocomplete.AutoCompleteProduct(acbSeachForProduct.Text))
+            {
+                Add(new AutoComplete123(item));
+            }
+            acbSeachForProduct.PopulateComplete();
         }
     }
 

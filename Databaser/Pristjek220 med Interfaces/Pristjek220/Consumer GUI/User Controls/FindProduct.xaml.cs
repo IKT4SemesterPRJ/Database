@@ -23,9 +23,23 @@ namespace Consumer_GUI.User_Controls
     /// </summary>
     public partial class FindProduct : UserControl
     {
+        private string oldtext = String.Empty;
         public FindProduct()
         {
             InitializeComponent();
         }
+
+        //private void AutoCompleteBox_OnTextChanged(object sender, RoutedEventArgs e)
+        //{
+        //    if (acbSeachForProduct.Text.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr)))
+        //    {
+        //        oldtext = acbSeachForProduct.Text;
+        //    }
+        //    else
+        //    {
+        //        acbSeachForProduct.Text = oldtext;
+        //        System.Windows.MessageBox.Show("Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9", "ERROR", MessageBoxButton.OK);
+        //    }
+        //}
     }
 }
