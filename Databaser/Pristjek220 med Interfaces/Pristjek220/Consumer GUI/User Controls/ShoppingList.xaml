@@ -72,9 +72,10 @@
             Grid.Column="3" 
             Grid.Row="5" 
             Height="20" >
-            Slet Produkt</Button>
+            Slet Produkt
+        </Button>
         <Button 
-            x:Name="btnShowGeneratedShoppingList" 
+            Command="{Binding ChangeWindowGeneratedShoppingListCommand}"
             Content="Generere Indkøbsliste" 
             Grid.Column="1" 
             HorizontalAlignment="Left" 
@@ -83,7 +84,6 @@
             Grid.Row="6" 
             VerticalAlignment="Top" 
             Width="138" 
-            Click="BtnShowGeneratedShoppingList_OnClick" 
             Grid.ColumnSpan="4"/>
     </Grid>
 </UserControl>

@@ -18,5 +18,6 @@
             <ColumnDefinition Width="5"/>
         </Grid.ColumnDefinitions>
         <Label Name="Label" Content="Dette er den genereret indkøbsliste" Width="200" Height="50" Grid.Column="1" Grid.Row="1"></Label>
+        <Button Grid.ColumnSpan="2" Margin="110,59,-226,-289" Grid.Column="1" Grid.Row="2"/>
     </Grid>
 </UserControl>

@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using AutoComplete;
 using Consumer;
 using Consumer_GUI.Annotations;
+using Consumer_GUI.User_Controls;
 using Pristjek220Data;
 
 namespace Consumer_GUI
@@ -21,16 +18,17 @@ namespace Consumer_GUI
         private UnitOfWork _unit = new UnitOfWork(new DataContext());
         private IConsumer _user;
         //readonly ShoppingListItem _shoppingListItem = new ShoppingListItem();
-        private string oldtext = string.Empty;
-        private readonly UserControl _homeWindow;
-        private readonly UserControl _findProductWindow;
-        private readonly UserControl _shoppingListWindow;
-        private readonly UserControl _generatedShppingListWindow;
-
+        private string _oldtext = string.Empty;
+        private static readonly UserControl HomeWindow = new Home();
+        private static readonly UserControl FindProductWindow = new FindProduct();
+        private static readonly UserControl ShoppingListWindow = new ShoppingList();
+        private static readonly UserControl GeneratedShoppingListWindow = new GeneratedShoppingList();
 
 
         #region Commands
+
         ICommand _searchCommand;
+
         public ICommand SearchCommand
         {
             get { return _searchCommand ?? (_searchCommand = new RelayCommand(SearchAfterProduct)); }
@@ -38,28 +36,32 @@ namespace Consumer_GUI
 
         private void SearchAfterProduct()
         {
-            var unit = new UnitOfWork(new DataContext());
-            IConsumer _user = new Consumer.Consumer(unit);
+            _user = new Consumer.Consumer(_unit);
 
             string product = ProductName;
             var store = _user.FindCheapestStore(product);
             if (store != null)
-                System.Windows.MessageBox.Show($"Det er billigst i {ProductName} {store.StoreName}", "Billigste forretning", MessageBoxButton.OK);
+                MessageBox.Show($"Det er billigst i {ProductName} {store.StoreName}",
+                    "Billigste forretning", MessageBoxButton.OK);
             else
-                System.Windows.MessageBox.Show($" hej {ProductName}", "Billigste forretning", MessageBoxButton.OK);
+                MessageBox.Show($" hej {ProductName}", "Billigste forretning", MessageBoxButton.OK);
         }
 
         ICommand _populatingFindProductCommand;
+
         public ICommand PopulatingFindProductCommand
         {
-            get { return _populatingFindProductCommand ?? (_populatingFindProductCommand = new RelayCommand(PopulatingListFindProduct)); }
+            get
+            {
+                return _populatingFindProductCommand ??
+                       (_populatingFindProductCommand = new RelayCommand(PopulatingListFindProduct));
+            }
         }
 
 
         private void PopulatingListFindProduct()
         {
-            UnitOfWork unit = new UnitOfWork(new DataContext());
-            IAutocomplete autocomplete = new Autocomplete(unit);
+            IAutocomplete autocomplete = new Autocomplete(_unit);
             AutoCompleteList?.Clear();
             foreach (var item in autocomplete.AutoCompleteProduct(ProductName))
             {
@@ -69,16 +71,20 @@ namespace Consumer_GUI
         }
 
         ICommand _populatingShoppingListCommand;
+
         public ICommand PopulatingShoppingListCommand
         {
-            get { return _populatingShoppingListCommand ?? (_populatingShoppingListCommand = new RelayCommand(PopulatingListShoppingList)); }
+            get
+            {
+                return _populatingShoppingListCommand ??
+                       (_populatingShoppingListCommand = new RelayCommand(PopulatingListShoppingList));
+            }
         }
 
 
         private void PopulatingListShoppingList()
         {
-            UnitOfWork unit = new UnitOfWork(new DataContext());
-            IAutocomplete autocomplete = new Autocomplete(unit);
+            IAutocomplete autocomplete = new Autocomplete(_unit);
             AutoCompleteList?.Clear(); // not equal null
             foreach (var item in autocomplete.AutoCompleteProduct(ShoppingListItem))
             {
@@ -89,9 +95,14 @@ namespace Consumer_GUI
 
 
         ICommand _illegalSignFindProductCommand;
+
         public ICommand IllegalSignFindProductCommand
         {
-            get { return _illegalSignFindProductCommand ?? (_illegalSignFindProductCommand = new RelayCommand(IllegalSignFindProduct)); }
+            get
+            {
+                return _illegalSignFindProductCommand ??
+                       (_illegalSignFindProductCommand = new RelayCommand(IllegalSignFindProduct));
+            }
         }
 
 
@@ -99,17 +110,22 @@ namespace Consumer_GUI
         {
             if (!ProductName.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr)))
             {
-                System.Windows.MessageBox.Show(
-                "Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9", "ERROR", MessageBoxButton.OK);
-                ProductName = oldtext;
+                MessageBox.Show(
+                    "Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9", "ERROR", MessageBoxButton.OK);
+                ProductName = _oldtext;
             }
         }
 
 
         ICommand _illegalSignShoppingListCommand;
+
         public ICommand IllegalSignShoppingListCommand
         {
-            get { return _illegalSignShoppingListCommand ?? (_illegalSignShoppingListCommand = new RelayCommand(IllegalSignFindProductShoppingList)); }
+            get
+            {
+                return _illegalSignShoppingListCommand ??
+                       (_illegalSignShoppingListCommand = new RelayCommand(IllegalSignFindProductShoppingList));
+            }
         }
 
 
@@ -117,49 +133,108 @@ namespace Consumer_GUI
         {
             if (!ShoppingListItem.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr)))
             {
-                System.Windows.MessageBox.Show(
-                "Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9", "ERROR", MessageBoxButton.OK);
-                ShoppingListItem = oldtext;
+                MessageBox.Show(
+                    "Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9", "ERROR", MessageBoxButton.OK);
+                ShoppingListItem = _oldtext;
             }
         }
 
         ICommand _addToShoppingListCommand;
+
         public ICommand AddToShoppingListCommand
         {
-            get { return _addToShoppingListCommand ?? (_addToShoppingListCommand = new RelayCommand(AddToShoppingList)); }
+            get
+            {
+                return _addToShoppingListCommand ?? (_addToShoppingListCommand = new RelayCommand(AddToShoppingList));
+            }
         }
 
         private void AddToShoppingList()
         {
-            UnitOfWork unit = new UnitOfWork(new DataContext());
-            _user = new Consumer.Consumer(unit);
+            _user = new Consumer.Consumer(_unit);
             //ShoppingListItem _shoppingListItem = new ShoppingListItem();
 
             if (_user.DoesProductExsist(ShoppingListItem))
                 ShoppingList.Add(new ProduktInfo(ShoppingListItem));
             else
-                System.Windows.MessageBox.Show("produktet findes ikke", "Error", MessageBoxButton.OK);
+                MessageBox.Show("produktet findes ikke", "Error", MessageBoxButton.OK);
         }
 
 
         ICommand _deleteFromShoppingListCommand;
+
         public ICommand DeleteFromShoppingListCommand
         {
-            get { return _deleteFromShoppingListCommand ?? (_deleteFromShoppingListCommand = new RelayCommand(DeleteFromShoppingList)); }
+            get
+            {
+                return _deleteFromShoppingListCommand ??
+                       (_deleteFromShoppingListCommand = new RelayCommand(DeleteFromShoppingList));
+            }
         }
 
         private void DeleteFromShoppingList()
         {
             if (SelectedRow == -1)
-                System.Windows.MessageBox.Show("Du skal markere at produkt før du kan slette", "Error",
+                MessageBox.Show("Du skal markere at produkt før du kan slette", "Error",
                     MessageBoxButton.OK);
-            else if(ShoppingList.Count == 0)
-                System.Windows.MessageBox.Show("Der er ikke tilføjet nogen produkter", "Error",
+            else if (ShoppingList.Count == 0)
+                MessageBox.Show("Der er ikke tilføjet nogen produkter", "Error",
                     MessageBoxButton.OK);
             else
                 ShoppingList.RemoveAt(SelectedRow);
-         }
-        //System.ArgumentOutOfRangeException
+        }
+
+
+
+        ICommand _changeWindowHomeCommand;
+
+        public ICommand ChangeWindowHomeCommand
+        {
+            get { return _changeWindowHomeCommand ?? (_changeWindowHomeCommand = new RelayCommand(ChangeWindowHome)); }
+        }
+
+        private void ChangeWindowHome()
+        {
+            WindowContent = HomeWindow;
+        }
+
+        ICommand _changeWindowFindProductCommand;
+
+        public ICommand ChangeWindowFindProductCommand
+        {
+            get { return _changeWindowFindProductCommand ?? (_changeWindowFindProductCommand = new RelayCommand(ChangeWindowFindProduct)); }
+        }
+
+        private void ChangeWindowFindProduct()
+        {
+            WindowContent = FindProductWindow;
+        }
+
+        ICommand _changeWindowShoppingListCommand;
+
+        public ICommand ChangeWindowShoppingListCommand
+        {
+            get { return _changeWindowShoppingListCommand ?? (_changeWindowShoppingListCommand = new RelayCommand(ChangeWindowShoppingList)); }
+        }
+
+        private void ChangeWindowShoppingList()
+        {
+            WindowContent = ShoppingListWindow;
+        }
+
+
+        ICommand _changeWindowGeneratedShoppingListCommand;
+
+        public ICommand ChangeWindowGeneratedShoppingListCommand
+        {
+            get { return _changeWindowGeneratedShoppingListCommand ?? (_changeWindowGeneratedShoppingListCommand = new RelayCommand(ChangeWindowGeneratedShoppingList)); }
+        }
+
+        private void ChangeWindowGeneratedShoppingList()
+        {
+            WindowContent = GeneratedShoppingListWindow;
+        }
+
 
 
         #endregion
@@ -167,11 +242,12 @@ namespace Consumer_GUI
         #region Attributes
 
         private string _productName;
+
         public string ProductName
         {
             set
             {
-                oldtext = _productName;
+                _oldtext = _productName;
                 _productName = value;
                 OnPropertyChanged();
             }
@@ -179,8 +255,8 @@ namespace Consumer_GUI
         }
 
 
-        public ObservableCollection<string> AutoCompleteList { get;} = new ObservableCollection<string>();
-        
+        public ObservableCollection<string> AutoCompleteList { get; } = new ObservableCollection<string>();
+
         public ObservableCollection<ProduktInfo> ShoppingList { get; } = new ObservableCollection<ProduktInfo>();
 
         public string ShoppingListItem { set; get; }
@@ -198,7 +274,18 @@ namespace Consumer_GUI
 
         }
 
-        public UserControl WindowContent { set; get; }
+        private UserControl _windowContent;
+
+        public UserControl WindowContent
+        {
+            get { return _windowContent; }
+            set
+            {
+                _windowContent = value;
+                OnPropertyChanged("WindowContent");
+            }
+        }
+
 
 
         #endregion
@@ -217,13 +304,13 @@ namespace Consumer_GUI
     #region classes
     public class ProduktInfo
     {
-        public string _name { set; get; }
-        public string _quantity { set; get; }
+        public string Name { set; get; }
+        public string Quantity { set; get; }
 
-        public ProduktInfo(string Name, string Quantity = "1")
+        public ProduktInfo(string name, string quantity = "1")
         {
-            _name = Name;
-            _quantity = Quantity;
+            Name = name;
+            Quantity = quantity;
         }
     }
     #endregion

@@ -21,47 +21,9 @@ namespace Consumer_GUI
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly UserControl Home;
-        private readonly UserControl FindProduct;
-        private readonly UserControl ShoppingList;
-        private readonly UserControl GeneratedShppingList;
-
         public MainWindow()
         {
-            FindProduct = new FindProduct();
-            ShoppingList = new ShoppingList();
-            Home = new Home();
-            GeneratedShppingList = new GeneratedShoppingList();
             InitializeComponent();
-            InitWindows();
-        }
-
-        private void InitWindows()
-        {
-            cctlShowUC.Content = FindProduct;
-            cctlShowUC.Content = ShoppingList;
-            cctlShowUC.Content = GeneratedShppingList;
-            cctlShowUC.Content = Home;
-        }
-
-        private void BtbUCStartside_OnClick(object sender, RoutedEventArgs e)
-        {
-            cctlShowUC.Content = Home;
-        }
-
-        private void BtbUCSøgEfterVare_OnClick(object sender, RoutedEventArgs e)
-        {
-            cctlShowUC.Content = FindProduct;
-        }
-
-        private void BtbUCIndkøbsliste_OnClick(object sender, RoutedEventArgs e)
-        {
-            cctlShowUC.Content = ShoppingList;
-        }
-
-        public void openGeneretedShoppinglist()
-        {
-            cctlShowUC.Content = GeneratedShppingList;
         }
     }
 }

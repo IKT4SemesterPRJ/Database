@@ -27,11 +27,5 @@ namespace Consumer_GUI.User_Controls
         {
             InitializeComponent();
         }
-        
-        private void BtnShowGeneratedShoppingList_OnClick(object sender, RoutedEventArgs e)
-        {
-            MainWindow win = (MainWindow) Window.GetWindow(this);
-            win.openGeneretedShoppinglist();
-        }
     }
 }
