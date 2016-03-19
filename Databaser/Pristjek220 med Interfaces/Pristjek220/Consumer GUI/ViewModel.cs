@@ -274,7 +274,7 @@ namespace Consumer_GUI
 
         }
 
-        private UserControl _windowContent;
+        private UserControl _windowContent = HomeWindow;
 
         public UserControl WindowContent
         {
