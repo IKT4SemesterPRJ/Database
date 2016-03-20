@@ -18,6 +18,9 @@
             <RowDefinition Height="5"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="5"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="383*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5"/>
@@ -27,11 +30,11 @@
             <ColumnDefinition Width="5"/>
         </Grid.ColumnDefinitions>
         <Button 
-            Command="{Binding SearchCommand}" 
+            Command="{Binding AddToStoreListCommand}" 
             Grid.Column="3" 
             Grid.Row="1"  
             FontSize ="10" 
-            MinHeight="22" >
+            MinHeight="22" Grid.ColumnSpan="2" Margin="0.2,1.2,5,3" Grid.RowSpan="2" >
             Søg
         </Button>
         <toolkit:AutoCompleteBox
@@ -42,17 +45,17 @@
             Grid.Column="1" 
             Grid.Row="1" 
             MinWidth="120" 
-            MinHeight="22">
-             <i:Interaction.Triggers>
-                 <i:EventTrigger EventName="Populating">
+            MinHeight="22" Margin="0.4,1.2,1.2,4" Grid.RowSpan="2">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Populating">
                     <i:InvokeCommandAction Command="{Binding PopulatingFindProductCommand}"></i:InvokeCommandAction>
-                 </i:EventTrigger>
+                </i:EventTrigger>
                 <i:EventTrigger EventName="TextChanged">
                     <i:InvokeCommandAction Command="{Binding IllegalSignFindProductCommand}"></i:InvokeCommandAction>
                 </i:EventTrigger>
-             </i:Interaction.Triggers>
+            </i:Interaction.Triggers>
         </toolkit:AutoCompleteBox>
+        <DataGrid Grid.Row="4" Grid.Column="1" ItemsSource="{Binding StorePrice}" ColumnWidth="60" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="False" IsReadOnly="True"/>
 
-        
     </Grid>
 </UserControl>
