@@ -235,6 +235,33 @@ namespace Consumer_GUI
             WindowContent = GeneratedShoppingListWindow;
         }
 
+        ICommand _addToStoreListCommand;
+
+        public ICommand AddToStoreListCommand
+        {
+            get
+            {
+                return _addToStoreListCommand ?? (_addToStoreListCommand = new RelayCommand(AddToStoreList));
+            }
+        }
+
+        private void AddToStoreList()
+        {
+            _user = new Consumer.Consumer(_unit);
+
+            StorePrice.Clear();
+
+            var list = _user.FindStoresThatSellsProduct(ProductName);
+            if (list.Count != 0)
+            {
+                foreach (var store in list)
+                {
+                    StorePrice.Add(store);
+                }
+            }
+            else
+                MessageBox.Show("produktet findes ikke", "Error", MessageBoxButton.OK);
+        }
 
 
         #endregion
@@ -258,6 +285,8 @@ namespace Consumer_GUI
         public ObservableCollection<string> AutoCompleteList { get; } = new ObservableCollection<string>();
 
         public ObservableCollection<ProduktInfo> ShoppingList { get; } = new ObservableCollection<ProduktInfo>();
+
+        public ObservableCollection<StoreAndPrice> StorePrice { get; set; } = new ObservableCollection<StoreAndPrice>();
 
         public string ShoppingListItem { set; get; }
 
@@ -285,7 +314,6 @@ namespace Consumer_GUI
                 OnPropertyChanged("WindowContent");
             }
         }
-
 
 
         #endregion
