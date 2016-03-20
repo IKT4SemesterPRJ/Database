@@ -9,5 +9,7 @@ namespace Consumer
         bool DoesProductExsist(string productName);
         List<ProductAndPrice> FindStoresAssortment(string storeName);
         List<StoreAndPrice> FindStoresThatSellsProduct(string productName);
+
+        List<StoreProductAndPrice> CreateShoppingList(List<string> productNames);
     }
 }

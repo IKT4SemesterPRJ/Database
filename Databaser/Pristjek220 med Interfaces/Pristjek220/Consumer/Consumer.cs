@@ -46,5 +46,21 @@ namespace Consumer
         {
             return _unit.Products.FindStoresThatSellsProduct(productName);
         }
+
+        public List<StoreProductAndPrice> CreateShoppingList(List<string> productNames)
+        {
+            var shoppingList = new List<StoreProductAndPrice>();
+
+            foreach (var product in productNames)
+            {
+                var cheapestStore = FindCheapestStore(product);
+
+                var productInStore = cheapestStore.HasARelation.Find(x => x.Product.ProductName.Contains(product));
+
+                shoppingList.Add(new StoreProductAndPrice() {StoreName = cheapestStore.StoreName, ProductName = product, Price = productInStore.Price});
+            }
+
+            return shoppingList;
+        }
     }
 }

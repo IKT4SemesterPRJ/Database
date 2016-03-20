@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using NSubstitute;
 using NUnit.Framework;
 using Pristjek220Data;
@@ -75,6 +76,60 @@ namespace Pristjek220.Unit.Test
             _uut.FindStoresAssortment(_store.StoreName);
 
             _unitWork.Stores.Received(1).FindProductsInStore(_store.StoreName);
+        }
+
+        [Test]
+        public void CreateShoppingList_CreateShoppingListForBanan_ListHasCorrectProductName()
+        {
+            var shoppingList = new List<string> { _product.ProductName };
+
+            var fakta = new Store() { StoreName = "Fakta" };
+            _unitWork.Products.FindProduct(_product.ProductName).Returns(_product);
+            _product.HasARelation.Add(new HasA() { Price = 2.95, Store = _store });
+            _product.HasARelation.Add(new HasA() { Price = 1.95, Store = fakta });
+            _store.HasARelation.Add(new HasA() {Price = 2.95, Product = _product, Store = _store});
+            fakta.HasARelation.Add(new HasA() { Price = 1.95, Product = _product, Store = fakta });
+
+            var createdShoppingList = _uut.CreateShoppingList(shoppingList);
+
+            Assert.That(createdShoppingList.Find(x => x.ProductName == _product.ProductName).ProductName,
+                Is.EqualTo("Banan"));
+        }
+
+        [Test]
+        public void CreateShoppingList_CreateShoppingListForBanan_ListHasCorrectStoreName()
+        {
+            var shoppingList = new List<string> { _product.ProductName };
+
+            var fakta = new Store() { StoreName = "Fakta" };
+            _unitWork.Products.FindProduct(_product.ProductName).Returns(_product);
+            _product.HasARelation.Add(new HasA() { Price = 2.95, Store = _store });
+            _product.HasARelation.Add(new HasA() { Price = 1.95, Store = fakta });
+            _store.HasARelation.Add(new HasA() { Price = 2.95, Product = _product, Store = _store });
+            fakta.HasARelation.Add(new HasA() { Price = 1.95, Product = _product, Store = fakta });
+
+            var createdShoppingList = _uut.CreateShoppingList(shoppingList);
+
+            Assert.That(createdShoppingList.Find(x => x.ProductName == _product.ProductName).StoreName,
+                Is.EqualTo(fakta.StoreName));
+        }
+
+        [Test]
+        public void CreateShoppingList_CreateShoppingListForBanan_ListHasCorrectPrice()
+        {
+            var shoppingList = new List<string> { _product.ProductName };
+
+            var fakta = new Store() { StoreName = "Fakta" };
+            _unitWork.Products.FindProduct(_product.ProductName).Returns(_product);
+            _product.HasARelation.Add(new HasA() { Price = 2.95, Store = _store });
+            _product.HasARelation.Add(new HasA() { Price = 1.95, Store = fakta });
+            _store.HasARelation.Add(new HasA() { Price = 2.95, Product = _product, Store = _store });
+            fakta.HasARelation.Add(new HasA() { Price = 1.95, Product = _product, Store = fakta });
+
+            var createdShoppingList = _uut.CreateShoppingList(shoppingList);
+
+            Assert.That(createdShoppingList.Find(x => x.ProductName == _product.ProductName).Price,
+                Is.EqualTo(fakta.HasARelation.Find(x => x.Product.ProductName == _product.ProductName).Price));
         }
     }
 }
