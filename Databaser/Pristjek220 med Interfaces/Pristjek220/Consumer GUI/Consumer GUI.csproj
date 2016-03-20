@@ -83,6 +83,9 @@
     <Reference Include="WPFToolkit">
       <HintPath>..\packages\WPFToolkit.3.5.50211.1\lib\WPFToolkit.dll</HintPath>
     </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit">
+      <HintPath>..\packages\Extended WPF Toolkit Binaries\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

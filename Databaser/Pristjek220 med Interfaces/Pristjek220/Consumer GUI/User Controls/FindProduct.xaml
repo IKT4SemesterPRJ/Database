@@ -55,7 +55,20 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </toolkit:AutoCompleteBox>
-        <DataGrid Grid.Row="4" Grid.Column="1" ItemsSource="{Binding StorePrice}" ColumnWidth="60" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="False" IsReadOnly="True"/>
+        <DataGrid 
+            Grid.Row="4"
+            Grid.Column="1"
+            IsReadOnly="True"
+            Width="150"
+            ItemsSource="{Binding StorePrice}"
+            AutoGenerateColumns="False"
+            CanUserReorderColumns="False"
+            CanUserResizeColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*" Header="Forretning" Binding="{Binding Name}"/>
+                <DataGridTextColumn Width="Auto" Header="Pris" Binding="{Binding Price}"/>
+            </DataGrid.Columns>
+        </DataGrid>
 
     </Grid>
 </UserControl>
