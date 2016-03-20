@@ -10,6 +10,8 @@ namespace Storemanager
         public Storemanager(IUnitOfWork unitOfWork, Store store)
         {
             _unitwork = unitOfWork;
+            if (_unitwork.Stores.FindStore(store.StoreName) != null)
+                return;
             Store = store;
         }
 
