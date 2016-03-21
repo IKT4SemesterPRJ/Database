@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -233,7 +235,27 @@ namespace Consumer_GUI
         private void ChangeWindowGeneratedShoppingList()
         {
             WindowContent = GeneratedShoppingListWindow;
+
+            ToGeneratedShoppingList();
+          
         }
+
+        private void ToGeneratedShoppingList()
+        {
+            if (ShoppingList.Count == 0)
+            {
+                return;
+            }
+
+            List<String> toGeneratedList = ShoppingList.Select(item => item.Name).ToList();
+
+            var TempGeneretedShopList = _user.CreateShoppingList(toGeneratedList);
+            foreach (var item in TempGeneretedShopList)
+            {
+                GeneratedShoppingList.Add(item);
+            }
+        }
+
 
         ICommand _addToStoreListCommand;
 
@@ -285,6 +307,8 @@ namespace Consumer_GUI
         public ObservableCollection<string> AutoCompleteList { get; } = new ObservableCollection<string>();
 
         public ObservableCollection<ProduktInfo> ShoppingList { get; } = new ObservableCollection<ProduktInfo>();
+
+        public ObservableCollection<StoreProductAndPrice> GeneratedShoppingList { get; } = new ObservableCollection<StoreProductAndPrice>();
 
         public ObservableCollection<StoreAndPrice> StorePrice { get; set; } = new ObservableCollection<StoreAndPrice>();
 

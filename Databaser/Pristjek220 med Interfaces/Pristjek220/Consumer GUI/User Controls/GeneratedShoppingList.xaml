@@ -17,7 +17,22 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="5"/>
         </Grid.ColumnDefinitions>
-        <Label Name="Label" Content="Dette er den genereret indkøbsliste" Width="200" Height="50" Grid.Column="1" Grid.Row="1"></Label>
-        <Button Grid.ColumnSpan="2" Margin="110,59,-226,-289" Grid.Column="1" Grid.Row="2"/>
+        <DataGrid 
+            ItemsSource="{Binding GeneratedShoppingList}" 
+            AutoGenerateColumns="False"
+            CanUserReorderColumns="False"
+            CanUserResizeRows="False"
+            IsReadOnly="True"
+            Grid.Column="1"  
+            Height="300" 
+            Grid.Row="1" 
+            Width="400" 
+            Margin="4,9,-86,0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*" Header="Forretning" Binding="{Binding StoreName}" IsReadOnly="True"/>
+                <DataGridTextColumn Width="*" Header="Produkt" Binding="{Binding ProductName}"></DataGridTextColumn>
+                <DataGridTextColumn Width="Auto" Header="Pris" Binding="{Binding Price}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>
