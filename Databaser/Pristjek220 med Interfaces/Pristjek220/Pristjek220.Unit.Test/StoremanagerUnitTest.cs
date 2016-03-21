@@ -22,6 +22,15 @@ namespace Pristjek220.Unit.Test
         }
 
         [Test]
+        public void CreateStoreManager_StoreAlreadyExsistInDatabase_StoremanangerCreatedWithoutAddingStore()
+        {
+            _unitWork.Stores.FindStore(_store.StoreName).Returns(_store);
+            
+            var manger = new Storemanager.Storemanager(_unitWork, _store);
+            Assert.That(_uut.Store.StoreName, Is.EqualTo(_store.StoreName));
+        }
+
+        [Test]
         public void AddProductToDb_BananCantBeFoundInDatabase_BananIsAdded()
         {
             _uut.AddProductToDb(_product);
