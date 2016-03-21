@@ -71,11 +71,19 @@ namespace Pristjek220.Unit.Test
         }
 
         [Test]
-        public void FindStoreAssortment_FindAldisAssortment_ReturnListWithAssortmentAndPrice()
+        public void FindStoreAssortment_FindAldisAssortment_FindProductsInStoreFunctionCalled()
         {
             _uut.FindStoresAssortment(_store.StoreName);
 
             _unitWork.Stores.Received(1).FindProductsInStore(_store.StoreName);
+        }
+
+        [Test]
+        public void FindStoreThatSells_FindWhichStoreSellsBanan_FunctionToGenerateListCalled()
+        {
+            _uut.FindStoresThatSellsProduct(_product.ProductName);
+
+            _unitWork.Products.Received(1).FindStoresThatSellsProduct(_product.ProductName);
         }
 
         [Test]
