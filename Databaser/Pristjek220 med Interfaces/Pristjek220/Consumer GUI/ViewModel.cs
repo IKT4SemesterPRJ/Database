@@ -21,10 +21,6 @@ namespace Consumer_GUI
         private IConsumer _user;
         //readonly ShoppingListItem _shoppingListItem = new ShoppingListItem();
         private string _oldtext = string.Empty;
-        private static readonly UserControl HomeWindow = new Home();
-        private static readonly UserControl FindProductWindow = new FindProduct();
-        private static readonly UserControl ShoppingListWindow = new ShoppingList();
-        private static readonly UserControl GeneratedShoppingListWindow = new GeneratedShoppingList();
 
 
         #region Commands
@@ -187,59 +183,6 @@ namespace Consumer_GUI
         }
 
 
-
-        ICommand _changeWindowHomeCommand;
-
-        public ICommand ChangeWindowHomeCommand
-        {
-            get { return _changeWindowHomeCommand ?? (_changeWindowHomeCommand = new RelayCommand(ChangeWindowHome)); }
-        }
-
-        private void ChangeWindowHome()
-        {
-            WindowContent = HomeWindow;
-        }
-
-        ICommand _changeWindowFindProductCommand;
-
-        public ICommand ChangeWindowFindProductCommand
-        {
-            get { return _changeWindowFindProductCommand ?? (_changeWindowFindProductCommand = new RelayCommand(ChangeWindowFindProduct)); }
-        }
-
-        private void ChangeWindowFindProduct()
-        {
-            WindowContent = FindProductWindow;
-        }
-
-        ICommand _changeWindowShoppingListCommand;
-
-        public ICommand ChangeWindowShoppingListCommand
-        {
-            get { return _changeWindowShoppingListCommand ?? (_changeWindowShoppingListCommand = new RelayCommand(ChangeWindowShoppingList)); }
-        }
-
-        private void ChangeWindowShoppingList()
-        {
-            WindowContent = ShoppingListWindow;
-        }
-
-
-        ICommand _changeWindowGeneratedShoppingListCommand;
-
-        public ICommand ChangeWindowGeneratedShoppingListCommand
-        {
-            get { return _changeWindowGeneratedShoppingListCommand ?? (_changeWindowGeneratedShoppingListCommand = new RelayCommand(ChangeWindowGeneratedShoppingList)); }
-        }
-
-        private void ChangeWindowGeneratedShoppingList()
-        {
-            WindowContent = GeneratedShoppingListWindow;
-
-            ToGeneratedShoppingList();
-          
-        }
-
         private void ToGeneratedShoppingList()
         {
             if (ShoppingList.Count == 0)
@@ -326,19 +269,6 @@ namespace Consumer_GUI
             }
 
         }
-
-        private UserControl _windowContent = HomeWindow;
-
-        public UserControl WindowContent
-        {
-            get { return _windowContent; }
-            set
-            {
-                _windowContent = value;
-                OnPropertyChanged("WindowContent");
-            }
-        }
-
 
         #endregion
 
