@@ -4,10 +4,23 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Consumer_GUI"
+        xmlns:userControls="clr-namespace:Consumer_GUI.User_Controls"
         mc:Ignorable="d"
         Title="MainWindow" Height="700" Width="825">
 
     <Window.Resources>
+        <DataTemplate DataType="{x:Type userControls:FindProductModel}">
+            <userControls:FindProduct />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type userControls:HomeModel}">
+            <userControls:Home />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type userControls:GeneratedShoppingListModel}">
+            <userControls:GeneratedShoppingList />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type userControls:ShoppingListModel}">
+            <userControls:ShoppingList />
+        </DataTemplate>
         <Style x:Key="RoundedButtonStyle" 
                TargetType="{x:Type Button}">
             <Setter Property="Template">
@@ -29,7 +42,7 @@
         </Style>
     </Window.Resources>
     <Window.DataContext>
-        <local:ViewModel></local:ViewModel>
+        <local:ApplicationViewModel></local:ApplicationViewModel>
     </Window.DataContext>
     <Grid Background="sc#1.000000, 0.769689, 0.831936, 1.000000" Name="DocumentRoot" >
         <Grid.RowDefinitions>
@@ -104,7 +117,7 @@
                     Margin="10" 
                     Padding="10">
                     <ContentControl 
-                        Content="{Binding WindowContent}" 
+                        Content="{Binding CurrentPageViewModel}" 
                         VerticalAlignment="Top"  
                         HorizontalAlignment="Left"></ContentControl>
                 </Border>

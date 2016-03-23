@@ -90,7 +90,7 @@
             Slet Produkt
         </Button>
         <Button 
-            Command="{Binding ChangeWindowGeneratedShoppingListCommand}"
+            Command="{Binding DataContext.ChangeWindowGeneratedShoppingListCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
             Content="Generere Indkøbsliste" 
             Grid.Column="1" 
             HorizontalAlignment="Left" 
