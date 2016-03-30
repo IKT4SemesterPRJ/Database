@@ -140,11 +140,11 @@ namespace Consumer_GUI.User_Controls
 
             List<string> toGeneratedList = ShoppingListData.Select(item => item.Name).ToList();
 
-            var tempGeneretedShopList = _user.CreateShoppingList(toGeneratedList);
-            foreach (var item in tempGeneretedShopList)
-            {
-                _generatedShoppingListModel.GeneratedShoppingList.Add(item);
-            }
+            //var tempGeneretedShopList = _user.CreateShoppingList(toGeneratedList);
+            //foreach (var item in tempGeneretedShopList)
+            //{
+            //    _generatedShoppingListModel.GeneratedShoppingList.Add(item);
+            //}
         }
     }
 }
