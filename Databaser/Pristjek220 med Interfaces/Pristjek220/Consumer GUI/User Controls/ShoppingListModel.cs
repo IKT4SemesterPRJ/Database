@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Input;
 using AutoComplete;
 using Consumer;
+using Prism.Events;
 using Pristjek220Data;
 
 namespace Consumer_GUI.User_Controls
@@ -22,7 +23,13 @@ namespace Consumer_GUI.User_Controls
         private int _selectedRow;
         private readonly UnitOfWork _unit = new UnitOfWork(new DataContext());
         private IConsumer _user;
-        private readonly GeneratedShoppingListModel _generatedShoppingListModel = new GeneratedShoppingListModel();
+        private IEventAggregator Event;
+
+        public ShoppingListModel(IEventAggregator eventAggregator)
+        {
+            Event = eventAggregator;
+            _user = new Consumer.Consumer(_unit);
+        }
 
         public ICommand AddToShoppingListCommand
         {
@@ -85,7 +92,6 @@ namespace Consumer_GUI.User_Controls
 
         private void AddToShoppingList()
         {
-            _user = new Consumer.Consumer(_unit);
             //ShoppingListItem _shoppingListItem = new ShoppingListItem();
 
             if (_user.DoesProductExsist(ShoppingListItem))
@@ -138,13 +144,15 @@ namespace Consumer_GUI.User_Controls
                 return;
             }
 
-            List<string> toGeneratedList = ShoppingListData.Select(item => item.Name).ToList();
+            List<ProduktInfo> toGeneratedList = new List<ProduktInfo>();
+            foreach (var item in ShoppingListData)
+            {
+                ProduktInfo Data = new ProduktInfo(item.Name, item.Quantity);
+                toGeneratedList.Add(Data);
+            }
+            
+            Event.GetEvent<PubSubEvent<List<ProduktInfo>>>().Publish(toGeneratedList);
 
-            //var tempGeneretedShopList = _user.CreateShoppingList(toGeneratedList);
-            //foreach (var item in tempGeneretedShopList)
-            //{
-            //    _generatedShoppingListModel.GeneratedShoppingList.Add(item);
-            //}
         }
     }
 }

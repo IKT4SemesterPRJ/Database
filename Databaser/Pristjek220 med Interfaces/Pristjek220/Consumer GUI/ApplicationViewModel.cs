@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Consumer_GUI.User_Controls;
+using Prism.Events;
 
 namespace Consumer_GUI
 {
@@ -11,11 +12,12 @@ namespace Consumer_GUI
 
         public ApplicationViewModel()
         {
+            IEventAggregator Event = new EventAggregator();
             // Add available pages
             PageViewModels.Add(new HomeModel());
             PageViewModels.Add(new FindProductModel());
-            PageViewModels.Add(new ShoppingListModel());
-            PageViewModels.Add(new GeneratedShoppingListModel());
+            PageViewModels.Add(new ShoppingListModel(Event));
+            PageViewModels.Add(new GeneratedShoppingListModel(Event));
 
 
             // Set starting page
