@@ -35,7 +35,16 @@
                             <ContentPresenter 
                                 HorizontalAlignment="Center" 
                                 VerticalAlignment="Center" />
-                        </Border>
+                            </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="CornflowerBlue"></Setter>
+                                <Setter Property="FontWeight"  Value="Bold"></Setter>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="FontSize" Value="13"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -70,7 +79,7 @@
                 Stroke="sc#1.000000, 0.250141, 0.333404, 0.884413" 
                 StrokeDashArray="2"/>
             <DockPanel LastChildFill="True"   Margin="20">
-                <Grid Width="100px" HorizontalAlignment="Left">
+                <Grid Width="110px" HorizontalAlignment="Left">
                     <Rectangle 
                         Fill="sc#1.000000, 0.769689, 0.831936, 1.000000" 
                         RadiusX="10" 
@@ -89,22 +98,19 @@
                         <Button 
                             Command="{Binding ChangeWindowHomeCommand}" 
                             Style="{StaticResource RoundedButtonStyle}" 
-                            DockPanel.Dock="Top" 
-                            Background="white" >
+                            DockPanel.Dock="Top">
                             Startside
                         </Button>
                         <Button 
                             Command="{Binding ChangeWindowFindProductCommand}"  
                             Style="{StaticResource RoundedButtonStyle}" 
-                            DockPanel.Dock="Top" 
-                            Background="white">
+                            DockPanel.Dock="Top">
                             Søg efter vare
                         </Button>
                         <Button 
                             Command="{Binding ChangeWindowShoppingListCommand}" 
                             Style="{StaticResource RoundedButtonStyle}" 
-                            DockPanel.Dock="Top" 
-                            Background="white">
+                            DockPanel.Dock="Top">
                             Indkøbsliste
                         </Button>
                     </DockPanel>
