@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Consumer_GUI
@@ -11,20 +7,20 @@ namespace Consumer_GUI
     //
     // Downloaded from: http://mvvmfoundation.codeplex.com/
     // The class RelayCommand<T>, have been removed since its not used
-    
+
     /// <summary>
-    /// A command whose sole purpose is to 
-    /// relay its functionality to other
-    /// objects by invoking delegates. The
-    /// default return value for the CanExecute
-    /// method is 'true'.
+    ///     A command whose sole purpose is to
+    ///     relay its functionality to other
+    ///     objects by invoking delegates. The
+    ///     default return value for the CanExecute
+    ///     method is 'true'.
     /// </summary>
     public class RelayCommand : ICommand
     {
         #region Constructors
 
         /// <summary>
-        /// Creates a new command that can always execute.
+        ///     Creates a new command that can always execute.
         /// </summary>
         /// <param name="execute">The execution logic.</param>
         public RelayCommand(Action execute)
@@ -33,7 +29,7 @@ namespace Consumer_GUI
         }
 
         /// <summary>
-        /// Creates a new command.
+        ///     Creates a new command.
         /// </summary>
         /// <param name="execute">The execution logic.</param>
         /// <param name="canExecute">The execution status logic.</param>
@@ -79,8 +75,8 @@ namespace Consumer_GUI
 
         #region Fields
 
-        readonly Action _execute;
-        readonly Func<bool> _canExecute;
+        private readonly Action _execute;
+        private readonly Func<bool> _canExecute;
 
         #endregion // Fields
     }

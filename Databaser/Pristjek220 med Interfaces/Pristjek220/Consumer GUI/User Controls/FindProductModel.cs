@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using AutoComplete;
@@ -12,20 +8,56 @@ using Pristjek220Data;
 
 namespace Consumer_GUI.User_Controls
 {
-    class FindProductModel : ObservableObject, IPageViewModel
+    internal class FindProductModel : ObservableObject, IPageViewModel
     {
-        private UnitOfWork _unit = new UnitOfWork(new DataContext());
-        private IConsumer _user;
+        private readonly UnitOfWork _unit = new UnitOfWork(new DataContext());
+        private ICommand _addToStoreListCommand;
+
+        private ICommand _illegalSignFindProductCommand;
         private string _oldtext = string.Empty;
-        ICommand _addToStoreListCommand;
+
+        private ICommand _populatingFindProductCommand;
+
+
+        private string _productName;
+        private IConsumer _user;
 
         public ICommand AddToStoreListCommand
         {
+            get { return _addToStoreListCommand ?? (_addToStoreListCommand = new RelayCommand(AddToStoreList)); }
+        }
+
+        public ICommand PopulatingFindProductCommand
+        {
             get
             {
-                return _addToStoreListCommand ?? (_addToStoreListCommand = new RelayCommand(AddToStoreList));
+                return _populatingFindProductCommand ??
+                       (_populatingFindProductCommand = new RelayCommand(PopulatingListFindProduct));
             }
         }
+
+        public ICommand IllegalSignFindProductCommand
+        {
+            get
+            {
+                return _illegalSignFindProductCommand ??
+                       (_illegalSignFindProductCommand = new RelayCommand(IllegalSignFindProduct));
+            }
+        }
+
+        public string ProductName
+        {
+            set
+            {
+                _oldtext = _productName;
+                _productName = value;
+                OnPropertyChanged();
+            }
+            get { return _productName; }
+        }
+
+        public ObservableCollection<string> AutoCompleteList { get; } = new ObservableCollection<string>();
+        public ObservableCollection<StoreAndPrice> StorePrice { get; set; } = new ObservableCollection<StoreAndPrice>();
 
         private void AddToStoreList()
         {
@@ -45,17 +77,6 @@ namespace Consumer_GUI.User_Controls
                 MessageBox.Show("produktet findes ikke", "Error", MessageBoxButton.OK);
         }
 
-        ICommand _populatingFindProductCommand;
-
-        public ICommand PopulatingFindProductCommand
-        {
-            get
-            {
-                return _populatingFindProductCommand ??
-                       (_populatingFindProductCommand = new RelayCommand(PopulatingListFindProduct));
-            }
-        }
-
 
         private void PopulatingListFindProduct()
         {
@@ -68,17 +89,6 @@ namespace Consumer_GUI.User_Controls
             OnPropertyChanged("AutoCompleteList");
         }
 
-        ICommand _illegalSignFindProductCommand;
-
-        public ICommand IllegalSignFindProductCommand
-        {
-            get
-            {
-                return _illegalSignFindProductCommand ??
-                       (_illegalSignFindProductCommand = new RelayCommand(IllegalSignFindProduct));
-            }
-        }
-
 
         private void IllegalSignFindProduct()
         {
@@ -89,21 +99,5 @@ namespace Consumer_GUI.User_Controls
                 ProductName = _oldtext;
             }
         }
-
-
-        private string _productName;
-        public string ProductName
-        {
-            set
-            {
-                _oldtext = _productName;
-                _productName = value;
-                OnPropertyChanged();
-            }
-            get { return _productName; }
-        }
-        public ObservableCollection<string> AutoCompleteList { get; } = new ObservableCollection<string>();
-        public ObservableCollection<StoreAndPrice> StorePrice { get; set; } = new ObservableCollection<StoreAndPrice>();
-
     }
 }

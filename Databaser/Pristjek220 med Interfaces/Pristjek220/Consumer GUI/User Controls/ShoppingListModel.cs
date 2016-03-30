@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using AutoComplete;
@@ -12,19 +8,69 @@ using Pristjek220Data;
 
 namespace Consumer_GUI.User_Controls
 {
-    class ShoppingListModel : ObservableObject, IPageViewModel
+    internal class ShoppingListModel : ObservableObject, IPageViewModel
     {
-        private UnitOfWork _unit = new UnitOfWork(new DataContext());
-        private IConsumer _user;
-        private string _oldtext = string.Empty;
+        private ICommand _addToShoppingListCommand;
 
-        ICommand _addToShoppingListCommand;
+
+        private ICommand _deleteFromShoppingListCommand;
+
+
+        private ICommand _illegalSignShoppingListCommand;
+        private readonly string _oldtext = string.Empty;
+
+        private ICommand _populatingShoppingListCommand;
+        private int _selectedRow;
+        private readonly UnitOfWork _unit = new UnitOfWork(new DataContext());
+        private IConsumer _user;
 
         public ICommand AddToShoppingListCommand
         {
             get
             {
                 return _addToShoppingListCommand ?? (_addToShoppingListCommand = new RelayCommand(AddToShoppingList));
+            }
+        }
+
+        public ICommand DeleteFromShoppingListCommand
+        {
+            get
+            {
+                return _deleteFromShoppingListCommand ??
+                       (_deleteFromShoppingListCommand = new RelayCommand(DeleteFromShoppingList));
+            }
+        }
+
+        public ICommand PopulatingShoppingListCommand
+        {
+            get
+            {
+                return _populatingShoppingListCommand ??
+                       (_populatingShoppingListCommand = new RelayCommand(PopulatingListShoppingList));
+            }
+        }
+
+        public ICommand IllegalSignShoppingListCommand
+        {
+            get
+            {
+                return _illegalSignShoppingListCommand ??
+                       (_illegalSignShoppingListCommand = new RelayCommand(IllegalSignFindProductShoppingList));
+            }
+        }
+
+
+        public ObservableCollection<ProduktInfo> ShoppingListData { get; } = new ObservableCollection<ProduktInfo>();
+        public ObservableCollection<string> AutoCompleteList { get; } = new ObservableCollection<string>();
+        public string ShoppingListItem { set; get; }
+
+        public int SelectedRow
+        {
+            get { return _selectedRow; }
+            set
+            {
+                _selectedRow = value;
+                OnPropertyChanged();
             }
         }
 
@@ -39,18 +85,6 @@ namespace Consumer_GUI.User_Controls
                 MessageBox.Show("produktet findes ikke", "Error", MessageBoxButton.OK);
         }
 
-
-        ICommand _deleteFromShoppingListCommand;
-
-        public ICommand DeleteFromShoppingListCommand
-        {
-            get
-            {
-                return _deleteFromShoppingListCommand ??
-                       (_deleteFromShoppingListCommand = new RelayCommand(DeleteFromShoppingList));
-            }
-        }
-
         private void DeleteFromShoppingList()
         {
             if (SelectedRow == -1)
@@ -63,17 +97,6 @@ namespace Consumer_GUI.User_Controls
                 ShoppingListData.RemoveAt(SelectedRow);
         }
 
-        ICommand _populatingShoppingListCommand;
-
-        public ICommand PopulatingShoppingListCommand
-        {
-            get
-            {
-                return _populatingShoppingListCommand ??
-                       (_populatingShoppingListCommand = new RelayCommand(PopulatingListShoppingList));
-            }
-        }
-
 
         private void PopulatingListShoppingList()
         {
@@ -84,21 +107,6 @@ namespace Consumer_GUI.User_Controls
                 AutoCompleteList?.Add(item);
             }
             OnPropertyChanged("AutoCompleteList");
-        }
-
-
-
-
-
-        ICommand _illegalSignShoppingListCommand;
-
-        public ICommand IllegalSignShoppingListCommand
-        {
-            get
-            {
-                return _illegalSignShoppingListCommand ??
-                       (_illegalSignShoppingListCommand = new RelayCommand(IllegalSignFindProductShoppingList));
-            }
         }
 
 
@@ -126,22 +134,6 @@ namespace Consumer_GUI.User_Controls
             //{
             //    GeneratedShoppingList.Add(item);
             //}
-        }
-
-
-        public ObservableCollection<ProduktInfo> ShoppingListData { get; } = new ObservableCollection<ProduktInfo>();
-        public ObservableCollection<string> AutoCompleteList { get; } = new ObservableCollection<string>();
-        public string ShoppingListItem { set; get; }
-        private int _selectedRow;
-        public int SelectedRow
-        {
-            get { return _selectedRow; }
-            set
-            {
-                _selectedRow = value;
-                OnPropertyChanged();
-            }
-
         }
     }
 }
