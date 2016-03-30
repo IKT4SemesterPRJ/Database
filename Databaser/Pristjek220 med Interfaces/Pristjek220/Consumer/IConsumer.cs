@@ -10,6 +10,6 @@ namespace Consumer
         List<ProductAndPrice> FindStoresAssortment(string storeName);
         List<StoreAndPrice> FindStoresThatSellsProduct(string productName);
 
-        List<StoreProductAndPrice> CreateShoppingList(List<string> productNames);
+        List<StoreProductAndPrice> CreateShoppingList(List<ProduktInfo> productNames);
     }
 }

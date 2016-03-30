@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Pristjek220Data;
 
@@ -47,17 +48,17 @@ namespace Consumer
             return _unit.Products.FindStoresThatSellsProduct(productName);
         }
 
-        public List<StoreProductAndPrice> CreateShoppingList(List<string> productNames)
+        public List<StoreProductAndPrice> CreateShoppingList(List<ProduktInfo> productNames)
         {
             var shoppingList = new List<StoreProductAndPrice>();
 
             foreach (var product in productNames)
             {
-                var cheapestStore = FindCheapestStore(product);
+                var cheapestStore = FindCheapestStore(product.Name);
 
-                var productInStore = cheapestStore.HasARelation.Find(x => x.Product.ProductName.Contains(product));
+                var productInStore = cheapestStore.HasARelation.Find(x => x.Product.ProductName.Contains(product.Name));
 
-                shoppingList.Add(new StoreProductAndPrice() {StoreName = cheapestStore.StoreName, ProductName = product, Price = productInStore.Price});
+                shoppingList.Add(new StoreProductAndPrice() {StoreName = cheapestStore.StoreName, ProductName = product.Name, Price = productInStore.Price, Quantity = product.Quantity, Sum = (productInStore.Price * Double.Parse(product.Quantity))});
             }
 
             return shoppingList;
