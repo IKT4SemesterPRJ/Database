@@ -10,9 +10,6 @@
              xmlns:wpfToolkit="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="600">
-    <UserControl.DataContext>
-        <consumerGui:ViewModel></consumerGui:ViewModel>
-    </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="5"/>
@@ -33,7 +30,7 @@
         </Grid.ColumnDefinitions>
         <DataGrid 
             SelectedIndex="{Binding SelectedRow, Mode=TwoWay}" 
-            ItemsSource="{Binding ShoppingList}" 
+            ItemsSource="{Binding ShoppingListData}" 
             AutoGenerateColumns="False"
             CanUserReorderColumns="False"
             CanUserResizeRows="False"

@@ -63,4 +63,15 @@ namespace Consumer
             return shoppingList;
         }
     }
+    public class ProduktInfo
+    {
+        public string Name { set; get; }
+        public string Quantity { set; get; }
+
+        public ProduktInfo(string name, string quantity = "1")
+        {
+            Name = name;
+            Quantity = quantity;
+        }
+    }
 }

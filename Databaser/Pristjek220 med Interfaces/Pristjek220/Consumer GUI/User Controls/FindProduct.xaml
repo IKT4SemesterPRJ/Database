@@ -10,9 +10,6 @@
              xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="600">
-    <UserControl.DataContext>
-        <consumer:ViewModel></consumer:ViewModel>
-    </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="5"/>
