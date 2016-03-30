@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consumer", "Consumer\Consumer.csproj", "{02F50E8D-598F-4DA4-B5B2-9C12DFA89F8E}"
 EndProject
@@ -12,10 +12,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Storemanager", "Storemanager\Storemanager.csproj", "{F5EDFEAB-3778-4247-B76E-10FA18FF12A1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoComplete", "AutoComplete\AutoComplete.csproj", "{62B71C47-2332-4BF7-951B-03A640019B5B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consumer GUI - old", "Consumer GUI - old\Consumer GUI - old.csproj", "{1A2AE8B2-DEF2-4F17-89CC-F0BF3243E5DC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Storemanager GUI - old", "Storemanager GUI - old\Storemanager GUI - old.csproj", "{09D5F0A3-ADB6-4A4D-8612-A5FA8E03289E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consumer GUI", "Consumer GUI\Consumer GUI.csproj", "{6F13218B-58DE-4EFF-9F9C-42136B8AC59D}"
 EndProject
@@ -47,14 +43,6 @@ Global
 		{62B71C47-2332-4BF7-951B-03A640019B5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62B71C47-2332-4BF7-951B-03A640019B5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62B71C47-2332-4BF7-951B-03A640019B5B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1A2AE8B2-DEF2-4F17-89CC-F0BF3243E5DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1A2AE8B2-DEF2-4F17-89CC-F0BF3243E5DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1A2AE8B2-DEF2-4F17-89CC-F0BF3243E5DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1A2AE8B2-DEF2-4F17-89CC-F0BF3243E5DC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{09D5F0A3-ADB6-4A4D-8612-A5FA8E03289E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{09D5F0A3-ADB6-4A4D-8612-A5FA8E03289E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{09D5F0A3-ADB6-4A4D-8612-A5FA8E03289E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{09D5F0A3-ADB6-4A4D-8612-A5FA8E03289E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6F13218B-58DE-4EFF-9F9C-42136B8AC59D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6F13218B-58DE-4EFF-9F9C-42136B8AC59D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F13218B-58DE-4EFF-9F9C-42136B8AC59D}.Release|Any CPU.ActiveCfg = Release|Any CPU
