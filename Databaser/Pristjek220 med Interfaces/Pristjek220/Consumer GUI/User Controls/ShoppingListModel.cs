@@ -138,12 +138,6 @@ namespace Consumer_GUI.User_Controls
 
         private void GeneratedShoppingListFromShoppingList()
         {
-
-            if (ShoppingListData.Count == 0)
-            {
-                return;
-            }
-
             List<ProduktInfo> toGeneratedList = new List<ProduktInfo>();
             foreach (var item in ShoppingListData)
             {

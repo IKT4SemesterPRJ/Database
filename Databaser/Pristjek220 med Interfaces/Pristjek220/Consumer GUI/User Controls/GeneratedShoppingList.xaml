@@ -18,7 +18,7 @@
             <ColumnDefinition Width="5"/>
         </Grid.ColumnDefinitions>
         <DataGrid 
-            ItemsSource="{Binding GeneratedShoppingList}" 
+            ItemsSource="{Binding GeneratedShoppingListData}" 
             AutoGenerateColumns="False"
             CanUserReorderColumns="False"
             CanUserResizeRows="False"

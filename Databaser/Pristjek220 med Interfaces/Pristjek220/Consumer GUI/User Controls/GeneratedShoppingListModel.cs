@@ -25,14 +25,15 @@ namespace Consumer_GUI.User_Controls
 
         private void Update(List<ProduktInfo> List)
         {
+            GeneratedShoppingListData.Clear();
             var tempGeneretedShopList = _user.CreateShoppingList(List);
             foreach (var item in tempGeneretedShopList)
             {
-                GeneratedShoppingList.Add(item);
+                GeneratedShoppingListData.Add(item);
             }
         }
 
 
-        public ObservableCollection<StoreProductAndPrice> GeneratedShoppingList { get; } = new ObservableCollection<StoreProductAndPrice>();
+        public ObservableCollection<StoreProductAndPrice> GeneratedShoppingListData { get; } = new ObservableCollection<StoreProductAndPrice>();
     }
 }
