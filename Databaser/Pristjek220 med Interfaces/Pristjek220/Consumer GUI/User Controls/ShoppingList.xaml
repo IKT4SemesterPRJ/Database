@@ -97,5 +97,10 @@
             VerticalAlignment="Top" 
             Width="138" 
             Grid.ColumnSpan="4"/>
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="Click">
+                <i:InvokeCommandAction Command="{Binding PopulatingShoppingListCommand}"></i:InvokeCommandAction>
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
     </Grid>
 </UserControl>

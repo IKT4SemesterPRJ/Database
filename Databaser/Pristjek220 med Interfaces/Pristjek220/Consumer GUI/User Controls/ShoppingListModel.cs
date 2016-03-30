@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -11,18 +12,17 @@ namespace Consumer_GUI.User_Controls
     internal class ShoppingListModel : ObservableObject, IPageViewModel
     {
         private ICommand _addToShoppingListCommand;
-
-
         private ICommand _deleteFromShoppingListCommand;
-
-
+        private ICommand _populatingShoppingListCommand;
         private ICommand _illegalSignShoppingListCommand;
+        private ICommand _generatedShoppingListCommand;
+
         private readonly string _oldtext = string.Empty;
 
-        private ICommand _populatingShoppingListCommand;
         private int _selectedRow;
         private readonly UnitOfWork _unit = new UnitOfWork(new DataContext());
         private IConsumer _user;
+        private readonly GeneratedShoppingListModel _generatedShoppingListModel = new GeneratedShoppingListModel();
 
         public ICommand AddToShoppingListCommand
         {
@@ -56,6 +56,15 @@ namespace Consumer_GUI.User_Controls
             {
                 return _illegalSignShoppingListCommand ??
                        (_illegalSignShoppingListCommand = new RelayCommand(IllegalSignFindProductShoppingList));
+            }
+        }
+
+        public ICommand GeneratedShoppingListCommand
+        {
+            get
+            {
+                return _generatedShoppingListCommand ??
+                       (_generatedShoppingListCommand = new RelayCommand(GeneratedShoppingListFromShoppingList));
             }
         }
 
@@ -120,20 +129,22 @@ namespace Consumer_GUI.User_Controls
             }
         }
 
-        private void ToGeneratedShoppingList()
+
+        private void GeneratedShoppingListFromShoppingList()
         {
-            //if (ShoppingList.Count == 0)
-            //{
-            //    return;
-            //}
 
-            //List<String> toGeneratedList = ShoppingList.Select(item => item.Name).ToList();
+            if (ShoppingListData.Count == 0)
+            {
+                return;
+            }
 
-            //var TempGeneretedShopList = _user.CreateShoppingList(toGeneratedList);
-            //foreach (var item in TempGeneretedShopList)
-            //{
-            //    GeneratedShoppingList.Add(item);
-            //}
+            List<string> toGeneratedList = ShoppingListData.Select(item => item.Name).ToList();
+
+            var tempGeneretedShopList = _user.CreateShoppingList(toGeneratedList);
+            foreach (var item in tempGeneretedShopList)
+            {
+                _generatedShoppingListModel.GeneratedShoppingList.Add(item);
+            }
         }
     }
 }
