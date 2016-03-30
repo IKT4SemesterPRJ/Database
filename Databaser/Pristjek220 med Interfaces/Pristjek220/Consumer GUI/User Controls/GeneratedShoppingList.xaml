@@ -29,9 +29,11 @@
             Width="400" 
             Margin="4,9,-86,0">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="*" Header="Forretning" Binding="{Binding StoreName}" IsReadOnly="True"/>
-                <DataGridTextColumn Width="*" Header="Produkt" Binding="{Binding ProductName}"></DataGridTextColumn>
-                <DataGridTextColumn Width="Auto" Header="Pris" Binding="{Binding Price}"></DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="Forretning" Binding="{Binding StoreName}"/>
+                <DataGridTextColumn Width="*" Header="Produkt" Binding="{Binding ProductName}"/>
+                <DataGridTextColumn Width="50" Header="Pris" Binding="{Binding Price}"/>
+                <DataGridTextColumn Width="*" Header="Antal" Binding="{Binding Quantity}"/>
+                <DataGridTextColumn Width="Auto" Header="Samlet pris" Binding="{Binding Sum}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
