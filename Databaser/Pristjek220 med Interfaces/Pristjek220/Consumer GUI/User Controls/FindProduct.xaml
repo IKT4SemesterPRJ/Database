@@ -35,7 +35,7 @@
             Søg
         </Button>
         <toolkit:AutoCompleteBox
-            ItemsSource="{Binding AutoCompleteList, Mode=OneWay}" 
+            ItemsSource="{Binding AutoCompleteList}" 
             Text="{Binding ProductName, Mode=TwoWay}" 
             VerticalAlignment="Center" 
             HorizontalAlignment="Center" 
