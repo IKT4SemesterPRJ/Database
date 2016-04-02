@@ -56,6 +56,8 @@ namespace Storemanager_GUI.User_Controls
             string productName = atbxAddProductName.Text;
             double productPrice = double.Parse(tbxAddProductPrice.Text);
 
+            productName = char.ToUpper(productName[0]) + productName.Substring(1).ToLower();
+
             var product = _manager.FindProduct(productName);
             if (product == null)
             {

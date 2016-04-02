@@ -16,7 +16,7 @@ namespace Consumer
 
         public bool DoesProductExsist(string productName)
         {
-            return _unit.Products.FindProduct(char.ToUpper(productName[0]) + productName.Substring(1).ToLower()) != null;
+            return _unit.Products.FindProduct(productName) != null;
         }
 
         public Store FindCheapestStore(string productName)
@@ -71,7 +71,7 @@ namespace Consumer
 
         public ProduktInfo(string name, string quantity = "1")
         {
-            Name = name;
+            Name = char.ToUpper(name[0]) + name.Substring(1).ToLower();
             Quantity = quantity;
         }
     }
