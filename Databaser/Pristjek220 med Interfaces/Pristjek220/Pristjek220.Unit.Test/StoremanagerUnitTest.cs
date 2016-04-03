@@ -16,8 +16,8 @@ namespace Pristjek220.Unit.Test
         public void SetUp()
         {
             _unitWork = Substitute.For<IUnitOfWork>();
-            _store = new Store() {StoreName = "Aldi", StoreId = 22};
-            _product = new Product() {ProductName = "Banan", ProductId = 10};
+            _store = new Store() {StoreName = "Aldi"};
+            _product = new Product() {ProductName = "Banan"};
             _uut = new Storemanager.Storemanager(_unitWork, _store);
         }
 
@@ -26,8 +26,8 @@ namespace Pristjek220.Unit.Test
         {
             _unitWork.Stores.FindStore(_store.StoreName).Returns(_store);
             
-            var manager = new Storemanager.Storemanager(_unitWork, _store);
-            Assert.That(_uut.Store, Is.EqualTo(manager.Store));
+            var manger = new Storemanager.Storemanager(_unitWork, _store);
+            Assert.That(_uut.Store.StoreName, Is.EqualTo(_store.StoreName));
         }
 
         [Test]
