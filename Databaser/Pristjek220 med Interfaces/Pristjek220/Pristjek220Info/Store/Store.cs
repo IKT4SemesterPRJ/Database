@@ -7,6 +7,6 @@ namespace Pristjek220Data
         public int StoreId { get; set; }
         public string StoreName { get; set; }
 
-        public virtual List<HasA> HasARelation { get; set; } = new List<HasA>();
+        public virtual List<HasA> HasARelation { get; } = new List<HasA>();
     }
 }

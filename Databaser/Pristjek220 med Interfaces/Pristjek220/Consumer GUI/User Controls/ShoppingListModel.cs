@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -20,7 +21,7 @@ namespace Consumer_GUI.User_Controls
 
         private readonly string _oldtext = string.Empty;
 
-        private int _selectedRow;
+        private ProduktInfo _selectedItem;
         private readonly UnitOfWork _unit = new UnitOfWork(new DataContext());
         private IConsumer _user;
         private IEventAggregator Event;
@@ -80,12 +81,12 @@ namespace Consumer_GUI.User_Controls
         public ObservableCollection<string> AutoCompleteList { get; } = new ObservableCollection<string>();
         public string ShoppingListItem { set; get; }
 
-        public int SelectedRow
+        public ProduktInfo SelectedItem
         {
-            get { return _selectedRow; }
+            get { return _selectedItem; }
             set
             {
-                _selectedRow = value;
+                _selectedItem = value;
                 OnPropertyChanged();
             }
         }
@@ -102,14 +103,14 @@ namespace Consumer_GUI.User_Controls
 
         private void DeleteFromShoppingList()
         {
-            if (SelectedRow == -1)
+            if (SelectedItem == null)
                 MessageBox.Show("Du skal markere at produkt før du kan slette", "Error",
                     MessageBoxButton.OK);
             else if (ShoppingListData.Count == 0)
                 MessageBox.Show("Der er ikke tilføjet nogen produkter", "Error",
                     MessageBoxButton.OK);
             else
-                ShoppingListData.RemoveAt(SelectedRow);
+                ShoppingListData.Remove(SelectedItem);
         }
 
 
