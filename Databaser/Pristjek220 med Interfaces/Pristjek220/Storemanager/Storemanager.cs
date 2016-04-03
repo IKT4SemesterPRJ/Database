@@ -5,7 +5,7 @@ namespace Storemanager
     public class Storemanager : IStoremanager
     {
         private readonly IUnitOfWork _unitwork;
-        public Store Store { get; private set; }
+        public Store Store { get; }
 
         public Storemanager(IUnitOfWork unitOfWork, Store store)
         {
