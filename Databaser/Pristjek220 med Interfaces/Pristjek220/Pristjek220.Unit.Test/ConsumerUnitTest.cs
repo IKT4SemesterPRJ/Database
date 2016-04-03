@@ -19,10 +19,8 @@ namespace Pristjek220.Unit.Test
         public void SetUp()
         {
             _unitWork = Substitute.For<IUnitOfWork>();
-            _store = new Store() { StoreName = "Aldi" };
-            _product = Substitute.For<Product>();
-            _product.ProductName = "Banan";
-            _product.HasARelation = new List<HasA>();
+            _store = new Store() { StoreName = "Aldi" , StoreId = 22};
+            _product = new Product() {ProductName = "Banan", ProductId = 10};
             _uut = new Consumer.Consumer(_unitWork);
         }
 
@@ -54,7 +52,6 @@ namespace Pristjek220.Unit.Test
         public void FindCheapestStore_FindCheapestStoreForBananButBananHaveNoRelationToAStore_ReturnNull()
         {
             _unitWork.Products.FindProduct(_product.ProductName).Returns(_product);
-            _product.HasARelation.Returns(new List<HasA>());
 
             Assert.That(_uut.FindCheapestStore(_product.ProductName), Is.EqualTo(null));
         }
