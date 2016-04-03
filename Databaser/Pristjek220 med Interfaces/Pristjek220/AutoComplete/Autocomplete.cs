@@ -7,7 +7,7 @@ namespace AutoComplete
     {
         private IUnitOfWork _unit;
 
-        public Autocomplete(UnitOfWork unit)
+        public Autocomplete(IUnitOfWork unit)
         {
             _unit = unit;
         }
@@ -19,15 +19,15 @@ namespace AutoComplete
             if (productList == null)
                 return null;          //Produktet findes ikke i databasen
 
-            List<string> autoCopmpleteList = new List<string>();
+            List<string> autoCompleteList = new List<string>();
             for (int i = 0; i < productList.Count; i++)
             {
-                autoCopmpleteList.Add(productList[i].ProductName);
+                autoCompleteList.Add(productList[i].ProductName);
                 if (i == 2)
                     break;
             }
 
-            return autoCopmpleteList;
+            return autoCompleteList;
         }
 
         public List<string> AutoCompleteStore(string lookUpWord)
@@ -37,15 +37,15 @@ namespace AutoComplete
             if (storeList == null)
                 return null;          //Produktet findes ikke i databasen
 
-            List<string> autoCopmpleteList = new List<string>();
+            List<string> autoCompleteList = new List<string>();
             for (int i = 0; i < storeList.Count; i++)
             {
-                autoCopmpleteList.Add(storeList[i].StoreName);
+                autoCompleteList.Add(storeList[i].StoreName);
                 if (i == 2)
                     break;
             }
 
-            return autoCopmpleteList;
+            return autoCompleteList;
         }
     }
 }
