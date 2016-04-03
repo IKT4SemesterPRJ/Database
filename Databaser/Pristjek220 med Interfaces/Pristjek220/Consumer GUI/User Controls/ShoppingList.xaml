@@ -28,8 +28,7 @@
 
         </Grid.ColumnDefinitions>
         <DataGrid 
-            
-            SelectedItem="{Binding SelectedItem}" 
+            SelectedIndex="{Binding SelectedRow}" 
             ItemsSource="{Binding ShoppingListData}" 
             AutoGenerateColumns="False"
             CanUserReorderColumns="False"

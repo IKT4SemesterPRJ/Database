@@ -5,7 +5,7 @@ namespace Storemanager
     public class Storemanager : IStoremanager
     {
         private readonly IUnitOfWork _unitwork;
-        public Store Store { get; }
+        public Store Store { get; private set; }
 
         public Storemanager(IUnitOfWork unitOfWork, Store store)
         {
@@ -42,9 +42,6 @@ namespace Storemanager
                 ProductId = product.ProductId,
                 StoreId = Store.StoreId
             };
-
-            product.HasARelation.Add(hasA);
-            Store.HasARelation.Add(hasA);
 
             _unitwork.HasA.Add(hasA);
 
