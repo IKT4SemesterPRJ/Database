@@ -43,6 +43,9 @@ namespace Storemanager
                 StoreId = Store.StoreId
             };
 
+            product.HasARelation.Add(hasA);
+            Store.HasARelation.Add(hasA);
+
             _unitwork.HasA.Add(hasA);
 
             _unitwork.Complete();
