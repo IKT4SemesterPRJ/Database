@@ -73,15 +73,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ApplicationViewModel.cs" />
+    <Compile Include="ObservableObjects.cs" />
+    <Compile Include="RelayCommands.cs" />
     <Compile Include="User Controls\ChangePrice.xaml.cs">
       <DependentUpon>ChangePrice.xaml</DependentUpon>
     </Compile>
+    <Compile Include="User Controls\ChangePriceModel.cs" />
     <Compile Include="User Controls\DeleteProduct.xaml.cs">
       <DependentUpon>DeleteProduct.xaml</DependentUpon>
     </Compile>
+    <Compile Include="User Controls\DeleteProductModel.cs" />
     <Compile Include="User Controls\NewProduct.xaml.cs">
       <DependentUpon>NewProduct.xaml</DependentUpon>
     </Compile>
+    <Compile Include="User Controls\NewProductModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

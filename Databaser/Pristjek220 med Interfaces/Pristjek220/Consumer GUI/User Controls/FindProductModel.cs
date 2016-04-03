@@ -74,7 +74,7 @@ namespace Consumer_GUI.User_Controls
                 }
             }
             else
-                MessageBox.Show("produktet findes ikke", "Error", MessageBoxButton.OK);
+                MessageBox.Show("Produktet findes ikke", "Error", MessageBoxButton.OK);
         }
 
 
