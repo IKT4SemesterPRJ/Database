@@ -61,6 +61,7 @@ namespace Consumer_GUI.User_Controls
 
         private void AddToStoreList()
         {
+
             _user = new Consumer.Consumer(_unit);
 
             StorePrice.Clear();
@@ -72,6 +73,8 @@ namespace Consumer_GUI.User_Controls
                 {
                     StorePrice.Add(store);
                 }
+                StorePrice = new ObservableCollection<StoreAndPrice>(StorePrice.OrderBy(storePrice => storePrice.Price));
+                OnPropertyChanged("StorePrice");
             }
             else
                 MessageBox.Show("produktet findes ikke", "Error", MessageBoxButton.OK);
