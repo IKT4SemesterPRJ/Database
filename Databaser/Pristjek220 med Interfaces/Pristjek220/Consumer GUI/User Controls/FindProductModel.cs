@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using Autocomplete;
 using Consumer;
+using GalaSoft.MvvmLight.Command;
 using Pristjek220Data;
 
 namespace Consumer_GUI.User_Controls
@@ -17,7 +18,7 @@ namespace Consumer_GUI.User_Controls
         private string _oldtext = string.Empty;
 
         private ICommand _populatingFindProductCommand;
-
+        private ICommand _enterPressedCommand;
 
         private string _productName;
         private IConsumer _user;
@@ -42,6 +43,14 @@ namespace Consumer_GUI.User_Controls
             {
                 return _illegalSignFindProductCommand ??
                        (_illegalSignFindProductCommand = new RelayCommand(IllegalSignFindProduct));
+            }
+        }
+
+        public ICommand EnterKeyPressedCommand
+        {
+            get
+            {
+                return new RelayCommand<System.Windows.Input.KeyEventArgs>(EnterKeyPressed);
             }
         }
 
@@ -100,6 +109,13 @@ namespace Consumer_GUI.User_Controls
                 MessageBox.Show(
                     "Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9", "ERROR", MessageBoxButton.OK);
                 ProductName = _oldtext;
+            }
+        }
+        private void EnterKeyPressed(System.Windows.Input.KeyEventArgs e)
+        {
+            if ((e.Key == Key.Enter) || (e.Key == Key.Return))
+            {
+                AddToStoreList();
             }
         }
     }
