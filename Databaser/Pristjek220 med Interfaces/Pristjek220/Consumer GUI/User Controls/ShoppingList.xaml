@@ -62,7 +62,7 @@
             Grid.Row="1"  
             FontSize ="10" 
             MinHeight="22">
-            tilføj til kurv
+            tilføj til liste
         </Button>
         <toolkit:AutoCompleteBox
             ItemsSource="{Binding AutoCompleteList}" 
