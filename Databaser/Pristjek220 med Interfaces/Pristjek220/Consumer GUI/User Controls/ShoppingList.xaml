@@ -17,14 +17,18 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="5"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="5"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="20"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="5"/>
+           
+
 
         </Grid.ColumnDefinitions>
         <DataGrid 
@@ -38,9 +42,9 @@
             Height="226" 
             Grid.Row="3" 
             Width="272" 
-            Margin="4,9,-86,0" 
+            
             Grid.RowSpan="2" 
-            Grid.ColumnSpan="4">
+            Grid.ColumnSpan="3">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Header="Navn" Binding="{Binding Name}" IsReadOnly="True"/>
                 <DataGridTemplateColumn Width="50" Header="Antal" IsReadOnly="False">
@@ -83,25 +87,26 @@
             Command="{Binding DeleteFromShoppingListCommand}" 
             Grid.Column="3" 
             Grid.Row="5" 
-            Height="20" >
+            Height="20" 
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
             Slet Produkt
         </Button>
         <Button 
-            Content="Generere Indkøbsliste" 
             Grid.Column="1" 
-            HorizontalAlignment="Left" 
-            Height="100" 
-            Margin="87,10,-22,-104" 
-            Grid.Row="6" 
-            VerticalAlignment="Top" 
-            Width="138" 
-            Grid.ColumnSpan="4">
+            Height="50" 
+            Grid.Row="7" 
+            Width="200"
+            Grid.ColumnSpan="3" 
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click">
                     <i:InvokeCommandAction Command="{Binding DataContext.ChangeWindowGeneratedShoppingListCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"></i:InvokeCommandAction>
                     <i:InvokeCommandAction Command="{Binding GeneratedShoppingListCommand}"></i:InvokeCommandAction>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
+            Generere Indkøbsliste
         </Button>
     </Grid>
 </UserControl>

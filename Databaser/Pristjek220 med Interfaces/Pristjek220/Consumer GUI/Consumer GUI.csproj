@@ -177,6 +177,10 @@
       <Project>{62b71c47-2332-4bf7-951b-03a640019b5b}</Project>
       <Name>AutoComplete</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ButtonStyles\ButtonStyles.csproj">
+      <Project>{2d622502-207f-4502-9de1-3d5ef3e045aa}</Project>
+      <Name>ButtonStyles</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Consumer\Consumer.csproj">
       <Project>{02f50e8d-598f-4da4-b5b2-9c12dfa89f8e}</Project>
       <Name>Consumer</Name>
