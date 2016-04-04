@@ -27,7 +27,7 @@ namespace Pristjek220.Unit.Test
         {
             _unitWork.Products.FindProduct(_product.ProductName).Returns(_product);
 
-            Assert.That(_uut.DoesProductExsist(_product.ProductName), Is.EqualTo(true));
+            Assert.That(_uut.DoesProductExist(_product.ProductName), Is.EqualTo(true));
         }
 
         [Test]
@@ -35,7 +35,7 @@ namespace Pristjek220.Unit.Test
         {
             _unitWork.Products.FindProduct(_product.ProductName).Returns((Product) null);
 
-            Assert.That(_uut.DoesProductExsist(_product.ProductName), Is.EqualTo(false));
+            Assert.That(_uut.DoesProductExist(_product.ProductName), Is.EqualTo(false));
         }
 
         [Test]

@@ -4,7 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using AutoComplete;
+using Autocomplete;
 using Consumer;
 using Prism.Events;
 using Pristjek220Data;
@@ -21,7 +21,7 @@ namespace Consumer_GUI.User_Controls
 
         private readonly string _oldtext = string.Empty;
 
-        private ProduktInfo _selectedItem;
+        private ProductInfo _selectedItem;
         private readonly UnitOfWork _unit = new UnitOfWork(new DataContext());
         private IConsumer _user;
         private IEventAggregator Event;
@@ -77,11 +77,11 @@ namespace Consumer_GUI.User_Controls
         }
 
 
-        public ObservableCollection<ProduktInfo> ShoppingListData { get; } = new ObservableCollection<ProduktInfo>();
+        public ObservableCollection<ProductInfo> ShoppingListData { get; } = new ObservableCollection<ProductInfo>();
         public ObservableCollection<string> AutoCompleteList { get; } = new ObservableCollection<string>();
         public string ShoppingListItem { set; get; }
 
-        public ProduktInfo SelectedItem
+        public ProductInfo SelectedItem
         {
             get { return _selectedItem; }
             set
@@ -95,8 +95,8 @@ namespace Consumer_GUI.User_Controls
         {
             //ShoppingListItem _shoppingListItem = new ShoppingListItem();
 
-            if (_user.DoesProductExsist(ShoppingListItem))
-                ShoppingListData.Add(new ProduktInfo(ShoppingListItem));
+            if (_user.DoesProductExist(ShoppingListItem))
+                ShoppingListData.Add(new ProductInfo(ShoppingListItem));
             else
                 MessageBox.Show("produktet findes ikke", "Error", MessageBoxButton.OK);
         }
@@ -116,7 +116,7 @@ namespace Consumer_GUI.User_Controls
 
         private void PopulatingListShoppingList()
         {
-            IAutocomplete autocomplete = new Autocomplete(_unit);
+            IAutocomplete autocomplete = new Autocomplete.Autocomplete(_unit);
             AutoCompleteList?.Clear(); // not equal null
             foreach (var item in autocomplete.AutoCompleteProduct(ShoppingListItem))
             {
@@ -139,14 +139,14 @@ namespace Consumer_GUI.User_Controls
 
         private void GeneratedShoppingListFromShoppingList()
         {
-            List<ProduktInfo> toGeneratedList = new List<ProduktInfo>();
+            List<ProductInfo> toGeneratedList = new List<ProductInfo>();
             foreach (var item in ShoppingListData)
             {
-                ProduktInfo Data = new ProduktInfo(item.Name, item.Quantity);
+                ProductInfo Data = new ProductInfo(item.Name, item.Quantity);
                 toGeneratedList.Add(Data);
             }
             
-            Event.GetEvent<PubSubEvent<List<ProduktInfo>>>().Publish(toGeneratedList);
+            Event.GetEvent<PubSubEvent<List<ProductInfo>>>().Publish(toGeneratedList);
 
         }
     }

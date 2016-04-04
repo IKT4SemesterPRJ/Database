@@ -10,7 +10,7 @@ namespace Pristjek220.Unit.Test
     class AutoCompleteUnitTest
     {
         private IUnitOfWork _unitWork;
-        private AutoComplete.Autocomplete _uut;
+        private Autocomplete.Autocomplete _uut;
         private List<Store> _storesWithF;
         private List<Store> _storesWithA; 
         private List<Product> _productsWithB;
@@ -45,7 +45,7 @@ namespace Pristjek220.Unit.Test
             var aldiStore = new Store() { StoreName = "Aldi" };
             _storesWithA.Add(aldiStore);
 
-            _uut = new AutoComplete.Autocomplete(_unitWork);
+            _uut = new Autocomplete.Autocomplete(_unitWork);
         }
 
         [Test]
@@ -105,127 +105,3 @@ namespace Pristjek220.Unit.Test
         }
     }
 }
-
-
-
-
-
-//namespace Pristjek220.Unit.Test
-//{
-//    [TestFixture]
-//    public class ConsumerUnitTest
-//    {
-        
-
-//        [Test]
-//        public void DoesProductExsist_DoesBananExsist_ReturnTrue()
-//        {
-//            _unitWork.Products.FindProduct(_product.ProductName).Returns(_product);
-
-//            Assert.That(_uut.DoesProductExsist(_product.ProductName), Is.EqualTo(true));
-//        }
-
-//        [Test]
-//        public void DoesProductExsist_DoesBananExsist_ReturnFalse()
-//        {
-//            _unitWork.Products.FindProduct(_product.ProductName).Returns((Product)null);
-
-//            Assert.That(_uut.DoesProductExsist(_product.ProductName), Is.EqualTo(false));
-//        }
-
-//        [Test]
-//        public void FindCheapestStore_FindCheapestStoreForBananButBananIsNotInDb_ReturnNull()
-//        {
-//            _unitWork.Products.FindProduct(_product.ProductName).Returns((Product)null);
-
-//            Assert.That(_uut.FindCheapestStore(_product.ProductName), Is.EqualTo(null));
-//        }
-
-//        [Test]
-//        public void FindCheapestStore_FindCheapestStoreForBananButBananHaveNoRelationToAStore_ReturnNull()
-//        {
-//            _unitWork.Products.FindProduct(_product.ProductName).Returns(_product);
-
-//            Assert.That(_uut.FindCheapestStore(_product.ProductName), Is.EqualTo(null));
-//        }
-
-//        [Test]
-//        public void FindCheapestStore_FindCheapestStoreForBanan_ReturnsStore()
-//        {
-//            var fakta = new Store() { StoreName = "Fakta" };
-//            _unitWork.Products.FindProduct(_product.ProductName).Returns(_product);
-//            _product.HasARelation.Add(new HasA() { Price = 2.95, Store = _store });
-//            _product.HasARelation.Add(new HasA() { Price = 1.95, Store = fakta });
-
-//            Assert.That(_uut.FindCheapestStore(_product.ProductName), Is.EqualTo(fakta));
-//        }
-
-//        [Test]
-//        public void FindStoreAssortment_FindAldisAssortment_FindProductsInStoreFunctionCalled()
-//        {
-//            _uut.FindStoresAssortment(_store.StoreName);
-
-//            _unitWork.Stores.Received(1).FindProductsInStore(_store.StoreName);
-//        }
-
-//        [Test]
-//        public void FindStoreThatSells_FindWhichStoreSellsBanan_FunctionToGenerateListCalled()
-//        {
-//            _uut.FindStoresThatSellsProduct(_product.ProductName);
-
-//            _unitWork.Products.Received(1).FindStoresThatSellsProduct(_product.ProductName);
-//        }
-
-        //[Test]
-        //public void CreateShoppingList_CreateShoppingListForBanan_ListHasCorrectProductName()
-        //{
-        //    var shoppingList = new List<string> { _product.ProductName };
-
-        //    var fakta = new Store() { StoreName = "Fakta" };
-        //    _unitWork.Products.FindProduct(_product.ProductName).Returns(_product);
-        //    _product.HasARelation.Add(new HasA() { Price = 2.95, Store = _store });
-        //    _product.HasARelation.Add(new HasA() { Price = 1.95, Store = fakta });
-        //    _store.HasARelation.Add(new HasA() {Price = 2.95, Product = _product, Store = _store});
-        //    fakta.HasARelation.Add(new HasA() { Price = 1.95, Product = _product, Store = fakta });
-
-        //    var createdShoppingList = _uut.CreateShoppingList(shoppingList);
-
-        //    Assert.That(createdShoppingList.Find(x => x.ProductName == _product.ProductName).ProductName,
-        //        Is.EqualTo("Banan"));
-        //}
-
-        //[Test]
-        //public void CreateShoppingList_CreateShoppingListForBanan_ListHasCorrectStoreName()
-        //{
-        //    var shoppingList = new List<string> { _product.ProductName };
-
-        //    var fakta = new Store() { StoreName = "Fakta" };
-        //    _unitWork.Products.FindProduct(_product.ProductName).Returns(_product);
-        //    _product.HasARelation.Add(new HasA() { Price = 2.95, Store = _store });
-        //    _product.HasARelation.Add(new HasA() { Price = 1.95, Store = fakta });
-        //    _store.HasARelation.Add(new HasA() { Price = 2.95, Product = _product, Store = _store });
-        //    fakta.HasARelation.Add(new HasA() { Price = 1.95, Product = _product, Store = fakta });
-
-        //    var createdShoppingList = _uut.CreateShoppingList(shoppingList);
-
-        //    Assert.That(createdShoppingList.Find(x => x.ProductName == _product.ProductName).StoreName,
-        //        Is.EqualTo(fakta.StoreName));
-        //}
-
-        //[Test]
-        //public void CreateShoppingList_CreateShoppingListForBanan_ListHasCorrectPrice()
-        //{
-        //    var shoppingList = new List<string> { _product.ProductName };
-
-        //    var fakta = new Store() { StoreName = "Fakta" };
-        //    _unitWork.Products.FindProduct(_product.ProductName).Returns(_product);
-        //    _product.HasARelation.Add(new HasA() { Price = 2.95, Store = _store });
-        //    _product.HasARelation.Add(new HasA() { Price = 1.95, Store = fakta });
-        //    _store.HasARelation.Add(new HasA() { Price = 2.95, Product = _product, Store = _store });
-        //    fakta.HasARelation.Add(new HasA() { Price = 1.95, Product = _product, Store = fakta });
-
-        //    var createdShoppingList = _uut.CreateShoppingList(shoppingList);
-
-        //    Assert.That(createdShoppingList.Find(x => x.ProductName == _product.ProductName).Price,
-        //        Is.EqualTo(fakta.HasARelation.Find(x => x.Product.ProductName == _product.ProductName).Price));
-        //}

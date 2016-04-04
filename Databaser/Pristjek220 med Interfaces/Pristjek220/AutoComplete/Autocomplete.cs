@@ -1,8 +1,18 @@
 ﻿using System.Collections.Generic;
 using Pristjek220Data;
 
-namespace AutoComplete
+namespace Autocomplete
 {
+    /// <summary>
+    /// Namespace comments for <c>Autocomplete</c>.
+    /// </summary>
+    [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+    class NamespaceDoc
+    { }
+    /// <summary>
+    /// This class is used to generate the lists used for the autocomplete list in the GUI. 
+    /// There is a version for products and one for stores.
+    /// </summary>
     public class Autocomplete : IAutocomplete
     {
         private IUnitOfWork _unit;
@@ -12,6 +22,12 @@ namespace AutoComplete
             _unit = unit;
         }
 
+        /// <summary>
+        /// Method for making an autocomplete list for use with product names.
+        /// </summary>
+        /// <param name="lookUpWord">One or more characters to create the autocomplete list from.</param>
+        /// <returns>Returns a list containing maximum three products that matches the parameter given.
+        /// If no matches exist the method returns null.</returns>
         public List<string> AutoCompleteProduct(string lookUpWord)
         {
             var productList = _unit.Products.FindProductStartingWith(lookUpWord);
@@ -30,6 +46,12 @@ namespace AutoComplete
             return autoCompleteList;
         }
 
+        /// <summary>
+        /// Method for making an autocomplete list for use with store names.
+        /// </summary>
+        /// <param name="lookUpWord">One or more characters to create the autocomplete list from.</param>
+        /// <returns>Returns a list containing maximum three store names that matches the parameter given.
+        /// If no matches exist the method returns null.</returns>
         public List<string> AutoCompleteStore(string lookUpWord)
         {
             var storeList = _unit.Stores.FindStoreStartingWith(lookUpWord);

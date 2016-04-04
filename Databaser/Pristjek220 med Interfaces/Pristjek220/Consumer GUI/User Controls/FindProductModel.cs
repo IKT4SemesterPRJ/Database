@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using AutoComplete;
+using Autocomplete;
 using Consumer;
 using Pristjek220Data;
 
@@ -80,7 +80,7 @@ namespace Consumer_GUI.User_Controls
 
         private void PopulatingListFindProduct()
         {
-            IAutocomplete autocomplete = new Autocomplete(_unit);
+            IAutocomplete autocomplete = new Autocomplete.Autocomplete(_unit);
             AutoCompleteList?.Clear();
             foreach (var item in autocomplete.AutoCompleteProduct(ProductName))
             {
