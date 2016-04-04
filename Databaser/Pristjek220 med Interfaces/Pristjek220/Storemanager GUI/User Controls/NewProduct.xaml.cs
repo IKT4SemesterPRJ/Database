@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using AutoComplete;
+using Autocomplete;
 using Pristjek220Data;
 
 namespace Storemanager_GUI.User_Controls
@@ -31,7 +31,7 @@ namespace Storemanager_GUI.User_Controls
         {
             InitializeComponent();
             _manager = new Storemanager.Storemanager(new UnitOfWork(new DataContext()), new Store() {StoreName = "Aldi"});
-            _autocomplete = new Autocomplete(new UnitOfWork(new DataContext()));
+            _autocomplete = new Autocomplete.Autocomplete(new UnitOfWork(new DataContext()));
         }
 
         private void AtbxAddProductName_OnTextChanged(object sender, RoutedEventArgs e)

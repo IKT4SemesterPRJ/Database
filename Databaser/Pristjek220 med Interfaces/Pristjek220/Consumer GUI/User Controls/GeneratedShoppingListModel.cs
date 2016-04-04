@@ -20,10 +20,10 @@ namespace Consumer_GUI.User_Controls
         {
             Event = eventAggregator;
             _user = new Consumer.Consumer(_unit);
-            Event.GetEvent<PubSubEvent<List<ProduktInfo>>>().Subscribe(Update);
+            Event.GetEvent<PubSubEvent<List<ProductInfo>>>().Subscribe(Update);
         }
 
-        private void Update(List<ProduktInfo> List)
+        private void Update(List<ProductInfo> List)
         {
             GeneratedShoppingListData.Clear();
             var tempGeneretedShopList = _user.CreateShoppingList(List);

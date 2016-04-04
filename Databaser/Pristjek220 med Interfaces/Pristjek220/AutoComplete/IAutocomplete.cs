@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AutoComplete
+namespace Autocomplete
 {
     public interface IAutocomplete
     {

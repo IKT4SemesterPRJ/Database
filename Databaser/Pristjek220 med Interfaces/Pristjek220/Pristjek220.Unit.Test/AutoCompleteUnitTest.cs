@@ -10,7 +10,7 @@ namespace Pristjek220.Unit.Test
     class AutoCompleteUnitTest
     {
         private IUnitOfWork _unitWork;
-        private AutoComplete.Autocomplete _uut;
+        private Autocomplete.Autocomplete _uut;
         private List<Store> _storesWithF;
         private List<Store> _storesWithA; 
         private List<Product> _productsWithB;
@@ -45,7 +45,7 @@ namespace Pristjek220.Unit.Test
             var aldiStore = new Store() { StoreName = "Aldi" };
             _storesWithA.Add(aldiStore);
 
-            _uut = new AutoComplete.Autocomplete(_unitWork);
+            _uut = new Autocomplete.Autocomplete(_unitWork);
         }
 
         [Test]

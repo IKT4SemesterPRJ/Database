@@ -5,6 +5,9 @@ using Pristjek220Data;
 
 namespace Consumer
 {
+    /// <summary>
+    /// This class is used to handle all of the consumers functionality when interacting with the program.
+    /// </summary>
     public class Consumer : IConsumer
     {
         private readonly IUnitOfWork _unit;
@@ -14,7 +17,7 @@ namespace Consumer
             _unit = unitOfWork;
         }
 
-        public bool DoesProductExsist(string productName)
+        public bool DoesProductExist(string productName)
         {
             return _unit.Products.FindProduct(productName) != null;
         }
@@ -35,7 +38,6 @@ namespace Consumer
             }
 
             return cheapest.Store;
-            
         }
 
         public List<ProductAndPrice> FindStoresAssortment(string storeName)
@@ -48,7 +50,7 @@ namespace Consumer
             return _unit.Products.FindStoresThatSellsProduct(productName);
         }
 
-        public List<StoreProductAndPrice> CreateShoppingList(List<ProduktInfo> productNames)
+        public List<StoreProductAndPrice> CreateShoppingList(List<ProductInfo> productNames)
         {
             var shoppingList = new List<StoreProductAndPrice>();
 
@@ -64,12 +66,16 @@ namespace Consumer
             return shoppingList;
         }
     }
-    public class ProduktInfo
+
+    /// <summary>
+    /// This class is used to store the name and quantity of a product.
+    /// </summary>
+    public class ProductInfo
     {
         public string Name { set; get; }
         public string Quantity { set; get; }
 
-        public ProduktInfo(string name, string quantity = "1")
+        public ProductInfo(string name, string quantity = "1")
         {
             Name = char.ToUpper(name[0]) + name.Substring(1).ToLower();
             Quantity = quantity;
