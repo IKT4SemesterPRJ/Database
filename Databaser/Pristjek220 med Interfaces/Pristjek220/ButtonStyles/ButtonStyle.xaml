@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:ButtonStyles">
+                    >
 
 
     <Color x:Key="BackgroundColor1" A="255" R="0" G="133" B="209" />
