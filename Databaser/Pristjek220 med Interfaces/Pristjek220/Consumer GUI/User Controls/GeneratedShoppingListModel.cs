@@ -14,26 +14,13 @@ namespace Consumer_GUI.User_Controls
     {
         private UnitOfWork _unit = new UnitOfWork(new DataContext());
         private IConsumer _user;
-        private IEventAggregator Event;
 
-        public GeneratedShoppingListModel(IEventAggregator eventAggregator)
+        public GeneratedShoppingListModel(Consumer.Consumer user)
         {
-            Event = eventAggregator;
-            _user = new Consumer.Consumer(_unit);
-            Event.GetEvent<PubSubEvent<List<ProductInfo>>>().Subscribe(Update);
+            _user = user;
         }
 
-        private void Update(List<ProductInfo> List)
-        {
-            GeneratedShoppingListData.Clear();
-            var tempGeneretedShopList = _user.CreateShoppingList(List);
-            foreach (var item in tempGeneretedShopList)
-            {
-                GeneratedShoppingListData.Add(item);
-            }
-        }
-
-
-        public ObservableCollection<StoreProductAndPrice> GeneratedShoppingListData { get; } = new ObservableCollection<StoreProductAndPrice>();
+        public ObservableCollection<StoreProductAndPrice> GeneratedShoppingListData => _user.GeneratedShoppingListData;
     }
 }
+
