@@ -19,8 +19,8 @@ namespace Pristjek220.Integrationstest
         {
             _context = new DataContext();
             _context.Database.Connection.ConnectionString = "Server=.\\SQLEXPRESS;Database=SikkerhedsKopi af Datacontext; Trusted_Connection=True;";
-            _context.Products.SqlQuery("DELETE from dbo.Products");
-            _context.SaveChanges();
+            
+
             _productRepository = new ProductRepository(_context);
         }
 
