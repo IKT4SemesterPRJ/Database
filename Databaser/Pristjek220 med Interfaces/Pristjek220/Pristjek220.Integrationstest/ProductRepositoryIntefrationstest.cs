@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Pristjek220Data;
 
 namespace Pristjek220.Integrationstest
@@ -11,16 +6,15 @@ namespace Pristjek220.Integrationstest
     [TestFixture]
     public class ProductRepositoryItergrationstest
     {
-        private Pristjek220Data.DataContext _context;
-        private Pristjek220Data.ProductRepository _productRepository;
+        private DataContext _context;
+        private ProductRepository _productRepository;
 
         [SetUp]
         public void SetUp()
         {
             _context = new DataContext();
-            _context.Database.Connection.ConnectionString = "Server=.\\SQLEXPRESS;Database=SikkerhedsKopi af Datacontext; Trusted_Connection=True;";
-            
-
+            _context.Database.Connection.ConnectionString = "Server=.\\SQLEXPRESS;Database=Pristjek220Data.DataContext; Trusted_Connection=True;";
+            _context.Database.ExecuteSqlCommand("dbo.TestCleanTable");
             _productRepository = new ProductRepository(_context);
         }
 
@@ -31,7 +25,7 @@ namespace Pristjek220.Integrationstest
             _productRepository.Add(prod);
             _context.SaveChanges();
 
-            Assert.That(_productRepository.Get(53), Is.EqualTo(prod));
+            Assert.That(_productRepository.FindProduct("Test").ProductName, Is.EqualTo(prod.ProductName));
         }
     }
 }
