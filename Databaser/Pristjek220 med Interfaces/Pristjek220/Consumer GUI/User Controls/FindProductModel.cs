@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using Autocomplete;
 using Consumer;
+using GalaSoft.MvvmLight.Command;
 using Pristjek220Data;
 
 namespace Consumer_GUI.User_Controls
@@ -17,7 +18,7 @@ namespace Consumer_GUI.User_Controls
         private string _oldtext = string.Empty;
 
         private ICommand _populatingFindProductCommand;
-
+        private ICommand _enterPressedCommand;
 
         private string _productName;
         private IConsumer _user;
@@ -45,6 +46,14 @@ namespace Consumer_GUI.User_Controls
             }
         }
 
+        public ICommand EnterKeyPressedCommand
+        {
+            get
+            {
+                return new RelayCommand<System.Windows.Input.KeyEventArgs>(EnterKeyPressed);
+            }
+        }
+
         public string ProductName
         {
             set
@@ -61,6 +70,7 @@ namespace Consumer_GUI.User_Controls
 
         private void AddToStoreList()
         {
+
             _user = new Consumer.Consumer(_unit);
 
             StorePrice.Clear();
@@ -72,6 +82,8 @@ namespace Consumer_GUI.User_Controls
                 {
                     StorePrice.Add(store);
                 }
+                StorePrice = new ObservableCollection<StoreAndPrice>(StorePrice.OrderBy(storePrice => storePrice.Price));
+                OnPropertyChanged("StorePrice");
             }
             else
                 MessageBox.Show("produktet findes ikke", "Error", MessageBoxButton.OK);
@@ -97,6 +109,13 @@ namespace Consumer_GUI.User_Controls
                 MessageBox.Show(
                     "Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9", "ERROR", MessageBoxButton.OK);
                 ProductName = _oldtext;
+            }
+        }
+        private void EnterKeyPressed(System.Windows.Input.KeyEventArgs e)
+        {
+            if ((e.Key == Key.Enter) || (e.Key == Key.Return))
+            {
+                AddToStoreList();
             }
         }
     }

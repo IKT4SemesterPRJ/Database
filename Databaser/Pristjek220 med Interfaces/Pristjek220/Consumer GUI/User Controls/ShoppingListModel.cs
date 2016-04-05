@@ -24,12 +24,11 @@ namespace Consumer_GUI.User_Controls
         private ProductInfo _selectedItem;
         private readonly UnitOfWork _unit = new UnitOfWork(new DataContext());
         private IConsumer _user;
-        private IEventAggregator Event;
-
-        public ShoppingListModel(IEventAggregator eventAggregator)
+        
+        public ShoppingListModel(Consumer.Consumer user)
         {
-            Event = eventAggregator;
-            _user = new Consumer.Consumer(_unit);
+            
+            _user = user;
         }
 
         public ICommand AddToShoppingListCommand
@@ -77,7 +76,7 @@ namespace Consumer_GUI.User_Controls
         }
 
 
-        public ObservableCollection<ProductInfo> ShoppingListData { get; } = new ObservableCollection<ProductInfo>();
+        public ObservableCollection<ProductInfo> ShoppingListData => _user.ShoppingListData;
         public ObservableCollection<string> AutoCompleteList { get; } = new ObservableCollection<string>();
         public string ShoppingListItem { set; get; }
 
@@ -93,10 +92,8 @@ namespace Consumer_GUI.User_Controls
 
         private void AddToShoppingList()
         {
-            //ShoppingListItem _shoppingListItem = new ShoppingListItem();
-
             if (_user.DoesProductExist(ShoppingListItem))
-                ShoppingListData.Add(new ProductInfo(ShoppingListItem));
+                _user.ShoppingListData.Add(new ProductInfo(ShoppingListItem));
             else
                 MessageBox.Show("produktet findes ikke", "Error", MessageBoxButton.OK);
         }
@@ -106,11 +103,11 @@ namespace Consumer_GUI.User_Controls
             if (SelectedItem == null)
                 MessageBox.Show("Du skal markere at produkt før du kan slette", "Error",
                     MessageBoxButton.OK);
-            else if (ShoppingListData.Count == 0)
+            else if (_user.ShoppingListData.Count == 0)
                 MessageBox.Show("Der er ikke tilføjet nogen produkter", "Error",
                     MessageBoxButton.OK);
             else
-                ShoppingListData.Remove(SelectedItem);
+                _user.ShoppingListData.Remove(SelectedItem);
         }
 
 
@@ -139,15 +136,8 @@ namespace Consumer_GUI.User_Controls
 
         private void GeneratedShoppingListFromShoppingList()
         {
-            List<ProductInfo> toGeneratedList = new List<ProductInfo>();
-            foreach (var item in ShoppingListData)
-            {
-                ProductInfo Data = new ProductInfo(item.Name, item.Quantity);
-                toGeneratedList.Add(Data);
-            }
-            
-            Event.GetEvent<PubSubEvent<List<ProductInfo>>>().Publish(toGeneratedList);
-
+            _user.GeneratedShoppingListData.Clear();
+            _user.CreateShoppingList();
         }
     }
 }

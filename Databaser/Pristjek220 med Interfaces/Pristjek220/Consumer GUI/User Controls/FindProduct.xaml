@@ -7,6 +7,7 @@
              xmlns:local="clr-namespace:Consumer_GUI.User_Controls"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:mvvmlight="http://www.galasoft.ch/mvvmlight"
              xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="600">
@@ -43,12 +44,20 @@
             Grid.Row="1" 
             MinWidth="120" 
             MinHeight="22" Margin="0.4,1.2,1.2,4" Grid.RowSpan="2">
+            <toolkit:AutoCompleteBox.InputBindings>
+                <KeyBinding Key="Enter" Command="{Binding AddToStoreListCommand}"></KeyBinding>
+                <KeyBinding Key="W" Command="{Binding AddToStoreListCommand}"></KeyBinding>
+            </toolkit:AutoCompleteBox.InputBindings>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Populating">
                     <i:InvokeCommandAction Command="{Binding PopulatingFindProductCommand}"></i:InvokeCommandAction>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="TextChanged">
                     <i:InvokeCommandAction Command="{Binding IllegalSignFindProductCommand}"></i:InvokeCommandAction>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="PreviewKeyDown">
+                    <mvvmlight:EventToCommand Command="{Binding EnterKeyPressedCommand}" PassEventArgsToCommand="True">
+                     </mvvmlight:EventToCommand>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </toolkit:AutoCompleteBox>
@@ -66,6 +75,5 @@
                 <DataGridTextColumn Width="Auto" Header="Pris" Binding="{Binding Price}"/>
             </DataGrid.Columns>
         </DataGrid>
-
     </Grid>
 </UserControl>

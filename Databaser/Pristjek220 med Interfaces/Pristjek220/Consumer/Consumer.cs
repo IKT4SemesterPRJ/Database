@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Pristjek220Data;
 
@@ -20,6 +21,9 @@ namespace Consumer
     public class Consumer : IConsumer
     {
         private readonly IUnitOfWork _unit;
+
+        public ObservableCollection<StoreProductAndPrice> GeneratedShoppingListData { get;} = new ObservableCollection<StoreProductAndPrice>();
+        public ObservableCollection<ProductInfo> ShoppingListData { get;} = new ObservableCollection<ProductInfo>();
 
         public Consumer(IUnitOfWork unitOfWork)
         {
@@ -59,20 +63,16 @@ namespace Consumer
             return _unit.Products.FindStoresThatSellsProduct(productName);
         }
 
-        public List<StoreProductAndPrice> CreateShoppingList(List<ProductInfo> productNames)
+        public void CreateShoppingList()
         {
-            var shoppingList = new List<StoreProductAndPrice>();
-
-            foreach (var product in productNames)
+            foreach (var product in ShoppingListData)
             {
                 var cheapestStore = FindCheapestStore(product.Name);
 
                 var productInStore = cheapestStore.HasARelation.Find(x => x.Product.ProductName.Contains(product.Name));
 
-                shoppingList.Add(new StoreProductAndPrice() {StoreName = cheapestStore.StoreName, ProductName = product.Name, Price = productInStore.Price, Quantity = product.Quantity, Sum = (productInStore.Price * Double.Parse(product.Quantity))});
+                GeneratedShoppingListData.Add(new StoreProductAndPrice() {StoreName = cheapestStore.StoreName, ProductName = product.Name, Price = productInStore.Price, Quantity = product.Quantity, Sum = (productInStore.Price * Double.Parse(product.Quantity))});
             }
-
-            return shoppingList;
         }
     }
 
