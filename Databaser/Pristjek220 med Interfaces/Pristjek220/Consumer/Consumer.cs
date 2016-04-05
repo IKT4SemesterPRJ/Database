@@ -6,7 +6,16 @@ using Pristjek220Data;
 namespace Consumer
 {
     /// <summary>
-    /// This class is used to handle all of the consumers functionality when interacting with the program.
+    /// The namespace <c>Consumer</c> contains the classes <see cref="Consumer"/> 
+    /// and <see cref="ProductInfo"/> and is placed in the Business Logic Layer.
+    /// </summary>
+    [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+    class NamespaceDoc
+    { }
+
+    /// <summary>
+    /// This class is used to handle all of the consumers functionality when 
+    /// interacting with the program.
     /// </summary>
     public class Consumer : IConsumer
     {

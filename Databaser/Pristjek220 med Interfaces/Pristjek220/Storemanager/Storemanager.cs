@@ -2,6 +2,18 @@
 
 namespace Storemanager
 {
+    /// <summary>
+    /// The namespace <c>Storemanager</c> contains the class <see cref="Storemanager"/> 
+    /// and is placed in the Business Logic Layer.
+    /// </summary>
+    [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+    class NamespaceDoc
+    { }
+
+    /// <summary>
+    /// This class is used to handle all of the store managers functionality 
+    /// when interacting with the program.
+    /// </summary>
     public class Storemanager : IStoremanager
     {
         private readonly IUnitOfWork _unitwork;
