@@ -65,6 +65,11 @@ namespace Consumer
                 GeneratedShoppingListData.Add(new StoreProductAndPrice() {StoreName = cheapestStore.StoreName, ProductName = product.Name, Price = productInStore.Price, Quantity = product.Quantity, Sum = (productInStore.Price * Double.Parse(product.Quantity))});
             }
         }
+
+        public bool ConnectToDB()
+        {
+            return _unit.Products.connectToDB();
+        }
     }
 
     /// <summary>

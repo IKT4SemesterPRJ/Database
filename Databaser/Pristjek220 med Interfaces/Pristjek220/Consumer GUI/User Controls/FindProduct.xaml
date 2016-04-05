@@ -36,6 +36,8 @@
             Søg
         </Button>
         <toolkit:AutoCompleteBox
+            MinimumPopulateDelay="400"
+            MinimumPrefixLength="2"
             ItemsSource="{Binding AutoCompleteList}" 
             Text="{Binding ProductName, Mode=TwoWay}" 
             VerticalAlignment="Center" 

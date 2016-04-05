@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 using Consumer_GUI.User_Controls;
 using Prism.Events;
@@ -19,6 +20,12 @@ namespace Consumer_GUI
             PageViewModels.Add(new FindProductModel());
             PageViewModels.Add(new ShoppingListModel(user));
             PageViewModels.Add(new GeneratedShoppingListModel(user));
+
+            if (!user.ConnectToDB()) //Force database to connect at startup, and close application if it cant connect
+            {
+                MessageBox.Show("Der kan ikke tilsluttes til serveren", "ERROR", MessageBoxButton.OK);
+                Application.Current.MainWindow.Close();
+            }
 
 
             // Set starting page

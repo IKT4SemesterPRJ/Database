@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 
 namespace Pristjek220Data
@@ -42,6 +43,20 @@ namespace Pristjek220Data
         public DataContext DataContext
         {
             get { return Context as DataContext; }
+        }
+
+        public bool connectToDB()
+        {
+            try
+            {
+                (from t in DataContext.Products where t.ProductName == "connect" select t).FirstOrDefault();
+                return true;
+            }
+            catch (SqlException odbcEx)
+            {
+                return false;
+            }
+
         }
     }
 }

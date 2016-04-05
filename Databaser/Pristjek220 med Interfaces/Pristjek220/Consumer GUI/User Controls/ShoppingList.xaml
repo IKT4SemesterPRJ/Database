@@ -27,12 +27,8 @@
             <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="5"/>
-           
-
-
         </Grid.ColumnDefinitions>
         <DataGrid 
-            
             SelectedItem="{Binding SelectedItem}" 
             ItemsSource="{Binding ShoppingListData}" 
             AutoGenerateColumns="False"
@@ -65,6 +61,8 @@
             tilføj til liste
         </Button>
         <toolkit:AutoCompleteBox
+            MinimumPopulateDelay="400"
+            MinimumPrefixLength="2"
             ItemsSource="{Binding AutoCompleteList}" 
             Text="{Binding ShoppingListItem, Mode=TwoWay}" 
             VerticalAlignment="Center" 
