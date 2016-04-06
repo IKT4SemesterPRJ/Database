@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
+using Newtonsoft.Json;
 using Pristjek220Data;
 
 namespace Consumer
@@ -21,13 +23,29 @@ namespace Consumer
     public class Consumer : IConsumer
     {
         private readonly IUnitOfWork _unit;
+        private string path = Path.Combine(Environment.ExpandEnvironmentVariables("%userprofile%"), "Documents") + @"\Pristjek220";
 
         public ObservableCollection<StoreProductAndPrice> GeneratedShoppingListData { get;} = new ObservableCollection<StoreProductAndPrice>();
-        public ObservableCollection<ProductInfo> ShoppingListData { get; } = new ObservableCollection<ProductInfo>();
+
+        private ObservableCollection<ProductInfo> _shoppingListData;
+        public ObservableCollection<ProductInfo> ShoppingListData
+        {
+            set
+            {
+                _shoppingListData = value; 
+            }
+            get
+            {
+                WriteToJsonFile(_shoppingListData);
+                return _shoppingListData;
+            }
+            
+        }
         public ObservableCollection<ProductInfo> NotInAStore { get; } = new ObservableCollection<ProductInfo>(); 
 
         public Consumer(IUnitOfWork unitOfWork)
         {
+            ShoppingListData = new ObservableCollection<ProductInfo>();
             _unit = unitOfWork;
         }
 
@@ -87,6 +105,27 @@ namespace Consumer
         public bool ConnectToDB()
         {
             return _unit.Products.ConnectToDb();
+        }
+
+        public void WriteToJsonFile(ObservableCollection<ProductInfo> json)
+        {
+            
+            System.IO.Directory.CreateDirectory(path);
+
+            using (StreamWriter file = File.CreateText(path + @"\Shoppinglist.json"))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, json);
+            }
+        }
+
+        public void ReadFromJsonFile()
+        {
+            using (StreamReader file = File.OpenText(path + @"\Shoppinglist.json"))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                ShoppingListData = (ObservableCollection<ProductInfo>) serializer.Deserialize(file, typeof (ObservableCollection<ProductInfo>));
+            }
         }
     }
 

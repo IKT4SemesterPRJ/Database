@@ -13,12 +13,12 @@ namespace Consumer_GUI.User_Controls
     {
         private readonly UnitOfWork _unit = new UnitOfWork(new DataContext());
         private ICommand _addToStoreListCommand;
+        private ICommand _enterPressedCommand;
 
         private ICommand _illegalSignFindProductCommand;
         private string _oldtext = string.Empty;
 
         private ICommand _populatingFindProductCommand;
-        private ICommand _enterPressedCommand;
 
         private string _productName;
         private IConsumer _user;
@@ -50,7 +50,7 @@ namespace Consumer_GUI.User_Controls
         {
             get
             {
-                return new RelayCommand<System.Windows.Input.KeyEventArgs>(EnterKeyPressed);
+                return _enterPressedCommand ?? (_enterPressedCommand = new RelayCommand<KeyEventArgs>(EnterKeyPressed));
             }
         }
 
@@ -70,7 +70,6 @@ namespace Consumer_GUI.User_Controls
 
         private void AddToStoreList()
         {
-
             _user = new Consumer.Consumer(_unit);
 
             StorePrice.Clear();
@@ -111,7 +110,8 @@ namespace Consumer_GUI.User_Controls
                 ProductName = _oldtext;
             }
         }
-        private void EnterKeyPressed(System.Windows.Input.KeyEventArgs e)
+
+        private void EnterKeyPressed(KeyEventArgs e)
         {
             if ((e.Key == Key.Enter) || (e.Key == Key.Return))
             {
