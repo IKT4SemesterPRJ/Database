@@ -25,5 +25,15 @@ namespace Consumer_GUI.User_Controls
                             .ThenBy(listData => listData.ProductName));
             }
         }
+
+        public ObservableCollection<ProductInfo> NotInAStore
+        {
+            get
+            {
+                return
+                    new ObservableCollection<ProductInfo>(
+                        _user.NotInAStore.OrderBy(listData => listData.Name));
+            }
+        }
     }
 }

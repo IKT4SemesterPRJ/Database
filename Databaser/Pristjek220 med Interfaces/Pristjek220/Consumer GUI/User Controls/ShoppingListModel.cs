@@ -3,11 +3,13 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using Autocomplete;
 using Consumer;
 using Prism.Events;
 using Pristjek220Data;
+
 
 namespace Consumer_GUI.User_Controls
 {
@@ -92,10 +94,28 @@ namespace Consumer_GUI.User_Controls
 
         private void AddToShoppingList()
         {
-            if (_user.DoesProductExist(ShoppingListItem))
-                _user.ShoppingListData.Add(new ProductInfo(ShoppingListItem));
-            else
-                MessageBox.Show("produktet findes ikke", "Error", MessageBoxButton.OK);
+            if (ShoppingListItem != null)
+            {
+                if (
+                    ShoppingListData.Any(
+                        x => x.Name == (char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower())))
+                {
+                    var item = _user.ShoppingListData.First(
+                        s => s.Name == (char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower()));
+                    if (item != null)
+                    {
+                        var intQuantity = int.Parse(item.Quantity);
+                        intQuantity++;
+                        item.Quantity = intQuantity.ToString();
+                        OnPropertyChanged("Quantity");
+                    }
+
+                }
+                else
+                {
+                    _user.ShoppingListData.Add(new ProductInfo(ShoppingListItem));
+                }
+            }
         }
 
         private void DeleteFromShoppingList()
@@ -136,8 +156,14 @@ namespace Consumer_GUI.User_Controls
 
         private void GeneratedShoppingListFromShoppingList()
         {
-            _user.GeneratedShoppingListData.Clear();
+            ClearGeneratedLists();
             _user.CreateShoppingList();
+        }
+
+        private void ClearGeneratedLists()
+        {
+            _user.GeneratedShoppingListData.Clear();
+            _user.NotInAStore.Clear();
         }
     }
 }

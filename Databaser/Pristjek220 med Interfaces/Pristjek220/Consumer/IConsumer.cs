@@ -12,6 +12,7 @@ namespace Consumer
         List<StoreAndPrice> FindStoresThatSellsProduct(string productName);
         ObservableCollection<StoreProductAndPrice> GeneratedShoppingListData { get;}
         ObservableCollection<ProductInfo> ShoppingListData { get;}
+        ObservableCollection<ProductInfo> NotInAStore { get; }
         void CreateShoppingList();
     }
 }
