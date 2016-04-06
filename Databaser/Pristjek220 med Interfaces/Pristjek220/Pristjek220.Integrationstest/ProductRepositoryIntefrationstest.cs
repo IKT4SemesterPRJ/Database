@@ -1,8 +1,4 @@
-﻿using System;
-using System.Data.Entity.Core;
-using System.Data.Entity.Core.Metadata.Edm;
-using System.Data.SqlClient;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Pristjek220Data;
 
 namespace Pristjek220.Integrationstest
@@ -23,6 +19,12 @@ namespace Pristjek220.Integrationstest
             _productRepository = new ProductRepository(_context);
         }
 
+        [TearDown]
+        public void TearDown()
+        {
+            _context.Database.ExecuteSqlCommand("dbo.TestCleanTable");
+        }
+
         [Test]
         public void Add_AddAProductToDb_ProductIsInDb()
         {
@@ -35,7 +37,7 @@ namespace Pristjek220.Integrationstest
         [Test]
         public void Remove_RemoveAProductFromDb_ProductIsRemoved()
         {
-            _productRepository.Add(_prod);
+            _context.Products.Add(_prod);
             _context.SaveChanges();
             _productRepository.Remove(_prod);
             _context.SaveChanges();
@@ -46,7 +48,7 @@ namespace Pristjek220.Integrationstest
         [Test]
         public void Find_FindProductProductIsFound_ProductFound()
         {
-            _productRepository.Add(_prod);
+            _context.Products.Add(_prod);
             _context.SaveChanges();
 
             Assert.That(_productRepository.FindProduct(_prod.ProductName), Is.EqualTo(_prod));
@@ -70,11 +72,10 @@ namespace Pristjek220.Integrationstest
         [Test]
         public void Get_GetProduct_ProductReturned()
         {
-            var product = new Product() {ProductName = "Tester"};
-            _productRepository.Add(product);
+            _context.Products.Add(_prod);
             _context.SaveChanges();
 
-            Assert.That(_productRepository.Get(product.ProductId), Is.EqualTo(product));
+            Assert.That(_productRepository.Get(_prod.ProductId), Is.EqualTo(_prod));
         }
 
         [Test]
@@ -86,11 +87,11 @@ namespace Pristjek220.Integrationstest
         [Test]
         public void FindProductStartingWith_MakeListForBa_ListReturnedContaining3Elements()
         {
-            _productRepository.Add(_prod);
-            _productRepository.Add(new Product() {ProductName = "Baloon"});
-            _productRepository.Add(new Product() {ProductName = "Brie"});
-            _productRepository.Add(new Product() {ProductName = "Bacon"});
-            _productRepository.Add(new Product() {ProductName = "Banan"});
+            _context.Products.Add(_prod);
+            _context.Products.Add(new Product() {ProductName = "Baloon"});
+            _context.Products.Add(new Product() {ProductName = "Brie"});
+            _context.Products.Add(new Product() {ProductName = "Bacon"});
+            _context.Products.Add(new Product() {ProductName = "Banan"});
             _context.SaveChanges();
 
             Assert.That(_productRepository.FindProductStartingWith("Ba").Count, Is.EqualTo(3));
@@ -113,7 +114,31 @@ namespace Pristjek220.Integrationstest
         {
             _context.Database.Connection.ConnectionString = "Data Source=i4dab.ase.au.dk; Initial Catalog = F16I4PRJ4Gr7; User ID = F16I4PRJ4Gr7; Password = F16I4PRJ4Gr7; ";
             Assert.That(_productRepository.ConnectToDb(), Is.EqualTo(false));
-            //Assert.Throws<EntityException>(() => _productRepository.ConnectToDb());
+            _context.Database.Connection.ConnectionString = "Server=.\\SQLEXPRESS;Database=Pristjek220Data.DataContext; Trusted_Connection=True;";
+        }
+
+        [Test]
+        public void FindStoresThatSellsProduct_NoStoreSellsTest_ReturnAListContaing0Elements()
+        {
+            _context.Products.Add(_prod);
+            Assert.That(_productRepository.FindStoresThatSellsProduct(_prod.ProductName).Count, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void FindStoresThatSellsProduct_AldiAndFøtexSellsTest_ReturnAListContaing2Elements()
+        {
+            var aldi = new Store() {StoreName = "Aldi"};
+            var føtex = new Store() {StoreName = "Føtex"};
+            _context.Products.Add(_prod);
+            _context.Stores.Add(aldi);
+            _context.Stores.Add(føtex);
+            _context.SaveChanges();
+
+            _context.HasARelation.Add(new HasA() {Price = 2.95, Store = aldi, Product = _prod, ProductId = _prod.ProductId, StoreId = aldi.StoreId});
+            _context.HasARelation.Add(new HasA() { Price = 2.95, Store = føtex, Product = _prod, ProductId = _prod.ProductId, StoreId = føtex.StoreId });
+            _context.SaveChanges();
+
+            Assert.That(_productRepository.FindStoresThatSellsProduct(_prod.ProductName).Count, Is.EqualTo(2));
         }
     }
 }
