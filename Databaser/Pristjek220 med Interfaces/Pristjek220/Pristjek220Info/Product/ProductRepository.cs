@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity.Core;
 using System.Data.SqlClient;
 using System.Linq;
 
@@ -45,14 +46,14 @@ namespace Pristjek220Data
             get { return Context as DataContext; }
         }
 
-        public bool connectToDB()
+        public bool ConnectToDb()
         {
             try
             {
                 (from t in DataContext.Products where t.ProductName == "connect" select t).FirstOrDefault();
                 return true;
             }
-            catch (SqlException odbcEx)
+            catch (EntityException odbcEx)
             {
                 return false;
             }

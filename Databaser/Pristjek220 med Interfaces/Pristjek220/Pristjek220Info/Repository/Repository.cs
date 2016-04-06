@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
@@ -14,11 +15,6 @@ namespace Pristjek220Data
             //Context.Database.Connection.ConnectionString = "Data Source=i4dab.ase.au.dk; Initial Catalog = F16I4PRJ4Gr7; User ID = F16I4PRJ4Gr7; Password = F16I4PRJ4Gr7; ";
         }
 
-        public IEnumerable<TEntity> GetAll()
-        {
-            return Context.Set<TEntity>().ToList();
-        }
-
         public void Add(TEntity entity)
         {
             Context.Set<TEntity>().Add(entity);
@@ -26,7 +22,14 @@ namespace Pristjek220Data
 
         public void Remove(TEntity entity)
         {
-            Context.Set<TEntity>().Remove(entity);
+            try
+            {
+                Context.Set<TEntity>().Remove(entity);
+            }
+            catch(InvalidOperationException)
+            {
+                //Entiteten findes ikke.. Do something
+            }
         }
     }
 }

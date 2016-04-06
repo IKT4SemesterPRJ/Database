@@ -77,7 +77,7 @@ namespace Consumer
 
         public bool ConnectToDB()
         {
-            return _unit.Products.connectToDB();
+            return _unit.Products.ConnectToDb();
         }
     }
 

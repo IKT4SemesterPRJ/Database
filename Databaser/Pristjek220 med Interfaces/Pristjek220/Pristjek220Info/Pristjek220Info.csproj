@@ -59,8 +59,8 @@
     <Compile Include="HasA\HasARepository.cs" />
     <Compile Include="HasA\IHasARepository.cs" />
     <Compile Include="Product\StoreAndPrice.cs" />
-    <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Product\StoreProductAndPrice.cs" />
+    <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Store\ProductAndPrice.cs" />
     <Compile Include="UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="Product\IProductRepository.cs" />

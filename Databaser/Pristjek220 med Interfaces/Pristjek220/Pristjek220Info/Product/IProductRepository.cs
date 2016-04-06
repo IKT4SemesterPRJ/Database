@@ -8,6 +8,6 @@ namespace Pristjek220Data
         Product FindProduct(string productName);
         List<Product> FindProductStartingWith(string productNameStart);
         List<StoreAndPrice> FindStoresThatSellsProduct(string productName);
-        bool connectToDB();
+        bool ConnectToDb();
     }
 }
