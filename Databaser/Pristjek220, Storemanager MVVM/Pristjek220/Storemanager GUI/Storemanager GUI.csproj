@@ -75,6 +75,7 @@
     </ApplicationDefinition>
     <Compile Include="ApplicationViewModel.cs" />
     <Compile Include="ObservableObject.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="RelayCommands.cs" />
     <Compile Include="User Controls\ChangePrice.xaml.cs">
       <DependentUpon>ChangePrice.xaml</DependentUpon>
