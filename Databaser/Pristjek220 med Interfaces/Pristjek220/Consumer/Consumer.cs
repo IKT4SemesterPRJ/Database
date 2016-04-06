@@ -23,7 +23,8 @@ namespace Consumer
         private readonly IUnitOfWork _unit;
 
         public ObservableCollection<StoreProductAndPrice> GeneratedShoppingListData { get;} = new ObservableCollection<StoreProductAndPrice>();
-        public ObservableCollection<ProductInfo> ShoppingListData { get;} = new ObservableCollection<ProductInfo>();
+        public ObservableCollection<ProductInfo> ShoppingListData { get; } = new ObservableCollection<ProductInfo>();
+        public ObservableCollection<ProductInfo> NotInAStore { get; } = new ObservableCollection<ProductInfo>(); 
 
         public Consumer(IUnitOfWork unitOfWork)
         {
@@ -67,11 +68,19 @@ namespace Consumer
         {
             foreach (var product in ShoppingListData)
             {
-                var cheapestStore = FindCheapestStore(product.Name);
+                if (FindCheapestStore(product.Name) == null)
+                {
+                    NotInAStore.Add(product);
+                }
+                else
+                {
+                    var cheapestStore = FindCheapestStore(product.Name);
 
-                var productInStore = cheapestStore.HasARelation.Find(x => x.Product.ProductName.Contains(product.Name));
+                    var productInStore = cheapestStore.HasARelation.Find(x => x.Product.ProductName.Contains(product.Name));
 
-                GeneratedShoppingListData.Add(new StoreProductAndPrice() {StoreName = cheapestStore.StoreName, ProductName = product.Name, Price = productInStore.Price, Quantity = product.Quantity, Sum = (productInStore.Price * Double.Parse(product.Quantity))});
+                    GeneratedShoppingListData.Add(new StoreProductAndPrice() { StoreName = cheapestStore.StoreName, ProductName = product.Name, Price = productInStore.Price, Quantity = product.Quantity, Sum = (productInStore.Price * Double.Parse(product.Quantity)) });
+
+                }
             }
         }
 
