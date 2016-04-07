@@ -47,8 +47,8 @@
                 <DataGridTemplateColumn Width="50" Header="Antal" IsReadOnly="False">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <wpfToolkit:IntegerUpDown Value="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Minimum="1" />
-                            </DataTemplate>
+                            <wpfToolkit:IntegerUpDown  Value="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Minimum="1" />
+                        </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>

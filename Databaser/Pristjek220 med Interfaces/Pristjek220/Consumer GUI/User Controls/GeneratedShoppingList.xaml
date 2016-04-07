@@ -32,9 +32,9 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Header="Forretning" Binding="{Binding StoreName}"/>
                 <DataGridTextColumn Width="*" Header="Produkt" Binding="{Binding ProductName}"/>
-                <DataGridTextColumn Width="50" Header="Pris" Binding="{Binding Price}"/>
+                <DataGridTextColumn Width="50" Header="Pris" Binding="{Binding Price, ConverterCulture='nn-NO', StringFormat=c}"/>
                 <DataGridTextColumn Width="*" Header="Antal" Binding="{Binding Quantity}"/>
-                <DataGridTextColumn Width="Auto" Header="Samlet pris" Binding="{Binding Sum}"></DataGridTextColumn>
+                <DataGridTextColumn Width="Auto" Header="Samlet pris" Binding="{Binding Sum, ConverterCulture='nn-NO', StringFormat=c}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Label
