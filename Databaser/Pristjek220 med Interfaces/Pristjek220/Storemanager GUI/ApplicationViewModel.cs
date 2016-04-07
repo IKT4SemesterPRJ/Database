@@ -24,7 +24,7 @@ namespace Storemanager_GUI
 
 
             // Set starting page
-            CurrentPageViewModel = PageViewModels[0];
+            CurrentPageViewModel = PageViewModels[2];
         }
 
         public ObservableCollection<IPageViewModel> PageViewModels
@@ -55,7 +55,7 @@ namespace Storemanager_GUI
 
         private ICommand _changeWindowChangePriceCommand;
 
-        public ICommand ChangeWindowHomeCommand
+        public ICommand ChangeWindowChangePriceCommand
         {
             get { return _changeWindowChangePriceCommand ?? (_changeWindowChangePriceCommand = new RelayCommand(ChangeWindowChangePrice)); }
         }

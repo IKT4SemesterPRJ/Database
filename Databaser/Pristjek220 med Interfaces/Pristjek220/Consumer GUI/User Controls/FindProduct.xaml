@@ -88,7 +88,7 @@
             CanUserResizeColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Header="Forretning" Binding="{Binding Name}"/>
-                <DataGridTextColumn Width="Auto" Header="Pris" Binding="{Binding Price}"/>
+                <DataGridTextColumn  Width="Auto" Header="Pris" Binding="{Binding Price, ConverterCulture='nn-NO', StringFormat=c}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

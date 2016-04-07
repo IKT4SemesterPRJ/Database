@@ -117,26 +117,7 @@ namespace Consumer_GUI
         private void ChangeWindowGeneratedShoppingList()
         {
             CurrentPageViewModel = PageViewModels[3];
-
-            //ToGeneratedShoppingList();
         }
-
-        //private void ToGeneratedShoppingList()
-        //{
-        //    if (ShoppingList.Count == 0)
-        //    {
-        //        return;
-        //    }
-
-        //    List<String> toGeneratedList = ShoppingList.Select(item => item.Name).ToList();
-
-        //    var TempGeneretedShopList = _user.CreateShoppingList(toGeneratedList);
-        //    foreach (var item in TempGeneretedShopList)
-        //    {
-        //        GeneratedShoppingList.Add(item);
-        //    }
-        //}
-
         #endregion
     }
 
