@@ -124,24 +124,27 @@ namespace Consumer_GUI.User_Controls
         {
             if (ShoppingListItem != null)
             {
-                if (
-                    ShoppingListData.Any(
-                        x => x.Name == char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower()))
+                if (ShoppingListItem != "")
                 {
-                    var item = _user.ShoppingListData.First(
-                        s => s.Name == char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower());
-                    if (item != null)
+                    if (
+                        ShoppingListData.Any(
+                            x => x.Name == char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower()))
                     {
-                        var intQuantity = int.Parse(item.Quantity);
-                        intQuantity++;
-                        item.Quantity = intQuantity.ToString();
-                        OnPropertyChanged("Quantity");
+                        var item = _user.ShoppingListData.First(
+                            s => s.Name == char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower());
+                        if (item != null)
+                        {
+                            var intQuantity = int.Parse(item.Quantity);
+                            intQuantity++;
+                            item.Quantity = intQuantity.ToString();
+                            OnPropertyChanged("Quantity");
+                        }
                     }
-                }
-                else
-                {
-                    _user.ShoppingListData.Add(new ProductInfo(ShoppingListItem));
-                    _user.WriteToJsonFile();
+                    else
+                    {
+                        _user.ShoppingListData.Add(new ProductInfo(ShoppingListItem));
+                        _user.WriteToJsonFile();
+                    }
                 }
             }
         }
