@@ -8,12 +8,13 @@ namespace Pristjek220.Integrationstest
     {
         private DataContext _context;
         private ProductRepository _productRepository;
-        private readonly Product _prod = new Product() {ProductName = "Test"};
+        private Product _prod;
 
         [SetUp]
         public void SetUp()
         {
             _context = new DataContext();
+            _prod = new Product() {ProductName = "Test"};
             _context.Database.Connection.ConnectionString = "Server=.\\SQLEXPRESS;Database=Pristjek220Data.DataContext; Trusted_Connection=True;";
             _context.Database.ExecuteSqlCommand("dbo.TestCleanTable");
             _productRepository = new ProductRepository(_context);
@@ -23,26 +24,6 @@ namespace Pristjek220.Integrationstest
         public void TearDown()
         {
             _context.Database.ExecuteSqlCommand("dbo.TestCleanTable");
-        }
-
-        [Test]
-        public void Add_AddAProductToDb_ProductIsInDb()
-        {
-            _productRepository.Add(_prod);
-            _context.SaveChanges();
-
-            Assert.That(_productRepository.Get(_prod.ProductId), Is.EqualTo(_prod));
-        }
-
-        [Test]
-        public void Remove_RemoveAProductFromDb_ProductIsRemoved()
-        {
-            _context.Products.Add(_prod);
-            _context.SaveChanges();
-            _productRepository.Remove(_prod);
-            _context.SaveChanges();
-
-            Assert.That(_productRepository.Get(_prod.ProductId), Is.EqualTo(null));
         }
 
         [Test]
@@ -58,15 +39,6 @@ namespace Pristjek220.Integrationstest
         public void Find_FindProductProductIsNotFound_ReturnNull()
         {
             Assert.That(_productRepository.FindProduct("24"), Is.EqualTo(null));
-        }
-
-        [Test]
-        public void Remove_RemoveProductProductIsNotInTheDataBase()
-        {
-            _productRepository.Remove(_prod);
-            _context.SaveChanges();
-
-            Assert.That(_productRepository.Get(_prod.ProductId), Is.EqualTo(null));
         }
 
         [Test]

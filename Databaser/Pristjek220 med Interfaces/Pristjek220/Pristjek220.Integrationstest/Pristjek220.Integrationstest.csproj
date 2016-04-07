@@ -53,8 +53,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ProductRepositoryIntefrationstest.cs" />
+    <Compile Include="ProductRepositoryIntegrationstest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepositoryIntergrationtest.cs" />
+    <Compile Include="StoreRepositoryIntergrationtest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
