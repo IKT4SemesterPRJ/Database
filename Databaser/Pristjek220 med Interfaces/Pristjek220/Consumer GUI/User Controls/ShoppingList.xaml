@@ -39,7 +39,6 @@
             Height="226" 
             Grid.Row="3" 
             Width="272" 
-            
             Grid.RowSpan="2" 
             Grid.ColumnSpan="3">
             <DataGrid.Columns>
@@ -47,7 +46,7 @@
                 <DataGridTemplateColumn Width="50" Header="Antal" IsReadOnly="False">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <wpfToolkit:IntegerUpDown  Value="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Minimum="1" />
+                            <wpfToolkit:IntegerUpDown Value="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Minimum="1" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -113,3 +112,4 @@
         </Button>
     </Grid>
 </UserControl>
+
