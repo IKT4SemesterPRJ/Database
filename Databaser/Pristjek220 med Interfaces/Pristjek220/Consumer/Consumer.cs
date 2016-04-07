@@ -10,8 +10,9 @@ using Pristjek220Data;
 namespace Consumer
 {
     /// <summary>
-    ///     The namespace <c>Consumer</c> contains the classes <see cref="Consumer" />
-    ///     and <see cref="ProductInfo" /> and is placed in the Business Logic Layer.
+    /// The namespace <c>Consumer</c> contains the classes <see cref="Consumer"/> 
+    /// and <see cref="ProductInfo"/> along with the interface <see cref="IConsumer"/> 
+    /// and is placed in the Business Logic Layer.
     /// </summary>
     [CompilerGenerated]
     internal class NamespaceDoc
@@ -19,8 +20,8 @@ namespace Consumer
     }
 
     /// <summary>
-    ///     This class is used to handle all of the consumers functionality when
-    ///     interacting with the program.
+    /// This class is used to handle all of the consumers functionality when
+    /// interacting with the program.
     /// </summary>
     public class Consumer : IConsumer
     {
@@ -123,7 +124,7 @@ namespace Consumer
                 serializer.Serialize(file, _shoppingListData);
             }
         }
-
+        ///
         public void ReadFromJsonFile()
         {
             try
