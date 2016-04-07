@@ -18,14 +18,30 @@
     <HtmlHelpName>Documentation</HtmlHelpName>
     <Language>en-US</Language>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\Databaser\Pristjek220 med Interfaces\Pristjek220\Pristjek220.sln" />
-    </DocumentationSources>
+      <DocumentationSource sourceFile="..\Databaser\Pristjek220 med Interfaces\Pristjek220\AutoComplete\AutoComplete.csproj" />
+<DocumentationSource sourceFile="..\Databaser\Pristjek220 med Interfaces\Pristjek220\Consumer\Consumer.csproj" />
+<DocumentationSource sourceFile="..\Databaser\Pristjek220 med Interfaces\Pristjek220\ButtonStyles\ButtonStyles.csproj" />
+<DocumentationSource sourceFile="..\Databaser\Pristjek220 med Interfaces\Pristjek220\Consumer GUI\Consumer GUI.csproj" />
+<DocumentationSource sourceFile="..\Databaser\Pristjek220 med Interfaces\Pristjek220\Pristjek220Info\Pristjek220Info.csproj" />
+<DocumentationSource sourceFile="..\Databaser\Pristjek220 med Interfaces\Pristjek220\Storemanager\Storemanager.csproj" />
+<DocumentationSource sourceFile="..\Databaser\Pristjek220 med Interfaces\Pristjek220\Storemanager GUI\Storemanager GUI.csproj" /></DocumentationSources>
     <BuildAssemblerVerbosity>OnlyWarningsAndErrors</BuildAssemblerVerbosity>
     <HelpFileFormat>HtmlHelp1, Website</HelpFileFormat>
     <IndentHtml>False</IndentHtml>
     <KeepLogFile>True</KeepLogFile>
     <DisableCodeBlockComponent>False</DisableCodeBlockComponent>
     <CleanIntermediates>True</CleanIntermediates>
+    <HelpFileVersion>1.0.0.0</HelpFileVersion>
+    <MaximumGroupParts>2</MaximumGroupParts>
+    <NamespaceGrouping>False</NamespaceGrouping>
+    <SyntaxFilters>Standard</SyntaxFilters>
+    <SdkLinkTarget>Blank</SdkLinkTarget>
+    <RootNamespaceContainer>False</RootNamespaceContainer>
+    <PresentationStyle>VS2013</PresentationStyle>
+    <Preliminary>False</Preliminary>
+    <NamingMethod>Guid</NamingMethod>
+    <HelpTitle>A Sandcastle Documented Class Library</HelpTitle>
+    <ContentPlacement>AboveNamespaces</ContentPlacement>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in order for Visual Studio to perform
 			 the build.  The others are optional common platform types that may appear. -->
