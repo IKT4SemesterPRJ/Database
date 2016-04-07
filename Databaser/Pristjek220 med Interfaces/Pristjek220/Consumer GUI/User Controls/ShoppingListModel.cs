@@ -25,7 +25,7 @@ namespace Consumer_GUI.User_Controls
 
         private ProductInfo _selectedItem;
         private string _shoppinglistItem;
-        public ShoppingListModel(Consumer.Consumer user)
+        public ShoppingListModel(IConsumer user)
         {
             _user = user;
             ShoppingListData = new ObservableCollection<ProductInfo>();

@@ -106,7 +106,7 @@ namespace Consumer_GUI.User_Controls
             }
             else
             {
-                Error = "Produktet findes ikke";
+                Error = "produktet findes ikke";
             }
         }
 
