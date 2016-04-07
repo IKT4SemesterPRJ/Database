@@ -102,6 +102,7 @@ namespace Consumer_GUI.User_Controls
                 }
                 StorePrice = new ObservableCollection<StoreAndPrice>(StorePrice.OrderBy(storePrice => storePrice.Price));
                 OnPropertyChanged("StorePrice");
+                Error = "";
             }
             else
             {
