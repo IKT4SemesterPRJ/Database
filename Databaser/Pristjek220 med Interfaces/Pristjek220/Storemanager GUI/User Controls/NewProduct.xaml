@@ -30,7 +30,6 @@
         <toolkit:AutoCompleteBox 
             ItemsSource="{Binding AutoCompleteList}" 
             Text="{Binding ShoppingListItem, Mode=TwoWay}" 
-            x:Name="atbxAddProductName" 
             Grid.Column="2" 
             Grid.Row="2" 
             Height="23" 
