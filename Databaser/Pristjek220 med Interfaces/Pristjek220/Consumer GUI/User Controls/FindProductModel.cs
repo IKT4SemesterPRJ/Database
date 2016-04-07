@@ -102,10 +102,11 @@ namespace Consumer_GUI.User_Controls
                 }
                 StorePrice = new ObservableCollection<StoreAndPrice>(StorePrice.OrderBy(storePrice => storePrice.Price));
                 OnPropertyChanged("StorePrice");
+                Error = "";
             }
             else
             {
-                Error = "Produktet findes ikke";
+                Error = "produktet findes ikke";
             }
         }
 
