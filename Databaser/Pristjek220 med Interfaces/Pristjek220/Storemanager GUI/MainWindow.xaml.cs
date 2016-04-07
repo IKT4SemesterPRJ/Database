@@ -21,31 +21,10 @@ namespace Storemanager_GUI
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly UserControl NewProduct;
-        private readonly UserControl DeleteProduct;
-        private readonly UserControl ChangePrice;
 
         public MainWindow()
         {
-            NewProduct = new NewProduct();
-            DeleteProduct = new DeleteProduct();
-            ChangePrice = new ChangePrice();
             InitializeComponent();
-        }
-
-        private void BtbUCNewProduct_OnClick(object sender, RoutedEventArgs e)
-        {
-            cctlShowUC.Content = NewProduct;
-        }
-
-        private void BtbUCDeletePoduct_OnClick(object sender, RoutedEventArgs e)
-        {
-            cctlShowUC.Content = DeleteProduct;
-        }
-
-        private void BtbUCChangePrice_OnClick(object sender, RoutedEventArgs e)
-        {
-            cctlShowUC.Content = ChangePrice;
         }
     }
 }

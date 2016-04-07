@@ -1,35 +1,58 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using Newtonsoft.Json;
 using Pristjek220Data;
 
 namespace Consumer
 {
     /// <summary>
     /// The namespace <c>Consumer</c> contains the classes <see cref="Consumer"/> 
-    /// and <see cref="ProductInfo"/> and is placed in the Business Logic Layer.
+    /// and <see cref="ProductInfo"/> along with the interface <see cref="IConsumer"/> 
+    /// and is placed in the Business Logic Layer.
     /// </summary>
-    [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    class NamespaceDoc
-    { }
+    [CompilerGenerated]
+    internal class NamespaceDoc
+    {
+    }
 
     /// <summary>
-    /// This class is used to handle all of the consumers functionality when 
+    /// This class is used to handle all of the consumers functionality when
     /// interacting with the program.
     /// </summary>
     public class Consumer : IConsumer
     {
         private readonly IUnitOfWork _unit;
 
-        public ObservableCollection<StoreProductAndPrice> GeneratedShoppingListData { get;} = new ObservableCollection<StoreProductAndPrice>();
-        public ObservableCollection<ProductInfo> ShoppingListData { get; } = new ObservableCollection<ProductInfo>();
-        public ObservableCollection<ProductInfo> NotInAStore { get; } = new ObservableCollection<ProductInfo>(); 
+        private ObservableCollection<ProductInfo> _shoppingListData;
+
+        private readonly string path =
+            Path.Combine(Environment.ExpandEnvironmentVariables("%userprofile%"), "Documents") + @"\Pristjek220";
 
         public Consumer(IUnitOfWork unitOfWork)
         {
+            ShoppingListData = new ObservableCollection<ProductInfo>();
             _unit = unitOfWork;
         }
+
+        public ObservableCollection<StoreProductAndPrice> GeneratedShoppingListData { get; } =
+            new ObservableCollection<StoreProductAndPrice>();
+
+        private int count;
+        public ObservableCollection<ProductInfo> ShoppingListData
+        {
+            set{ _shoppingListData = value; }
+            get
+            {
+                WriteToJsonFile();
+                return _shoppingListData;
+            }
+        }
+
+        public ObservableCollection<ProductInfo> NotInAStore { get; } = new ObservableCollection<ProductInfo>();
 
         public bool DoesProductExist(string productName)
         {
@@ -76,12 +99,47 @@ namespace Consumer
                 {
                     var cheapestStore = FindCheapestStore(product.Name);
 
-                    var productInStore = cheapestStore.HasARelation.Find(x => x.Product.ProductName.Contains(product.Name));
+                    var productInStore =
+                        cheapestStore.HasARelation.Find(x => x.Product.ProductName.Contains(product.Name));
 
-                    GeneratedShoppingListData.Add(new StoreProductAndPrice() { StoreName = cheapestStore.StoreName, ProductName = product.Name, Price = productInStore.Price, Quantity = product.Quantity, Sum = (productInStore.Price * Double.Parse(product.Quantity)) });
-
+                    GeneratedShoppingListData.Add(new StoreProductAndPrice
+                    {
+                        StoreName = cheapestStore.StoreName,
+                        ProductName = product.Name,
+                        Price = productInStore.Price,
+                        Quantity = product.Quantity,
+                        Sum = productInStore.Price*double.Parse(product.Quantity)
+                    });
                 }
             }
+        }
+
+        public void WriteToJsonFile()
+        {
+            Directory.CreateDirectory(path);
+
+            using (var file = File.CreateText(path + @"\Shoppinglist.json"))
+            {
+                var serializer = new JsonSerializer();
+                serializer.Serialize(file, _shoppingListData);
+            }
+        }
+        ///
+        public void ReadFromJsonFile()
+        {
+            try
+            {
+                using (var file = File.OpenText(path + @"\Shoppinglist.json"))
+                {
+                    var serializer = new JsonSerializer();
+                    ShoppingListData =
+                        (ObservableCollection<ProductInfo>)
+                            serializer.Deserialize(file, typeof(ObservableCollection<ProductInfo>));
+                }
+            }
+            catch(Exception Fn)
+            { }
+            
         }
 
         public bool ConnectToDB()
@@ -91,17 +149,17 @@ namespace Consumer
     }
 
     /// <summary>
-    /// This class is used to store the name and quantity of a product.
+    ///     This class is used to store the name and quantity of a product.
     /// </summary>
     public class ProductInfo
     {
-        public string Name { set; get; }
-        public string Quantity { set; get; }
-
         public ProductInfo(string name, string quantity = "1")
         {
             Name = char.ToUpper(name[0]) + name.Substring(1).ToLower();
             Quantity = quantity;
         }
+
+        public string Name { set; get; }
+        public string Quantity { set; get; }
     }
 }

@@ -9,106 +9,137 @@ using System;
 using Autocomplete;
 
 namespace Storemanager_GUI.User_Controls
-{ 
+{
     internal class NewProductModel : ObservableObject, IPageViewModel
     {
+        private readonly UnitOfWork _unit = new UnitOfWork(new DataContext());
+        private readonly IAutocomplete _autocomplete;
+        private readonly IStoremanager _manager;
+
         private ICommand _addToStoreDatabaseCommand;
         private ICommand _populatingNewProductCommand;
         private ICommand _illegalSignNewProductCommand;
-        private readonly IAutocomplete _autocomplete;
-        private readonly Storemanager.IStoremanager _manager;
-        private string oldtext = string.Empty;
-        private string oldnum = string.Empty;
-        private object atbxAddProductName;
-        private object lblConfirm;
-        private object tbxAddProductPrice;
+    
+
+        private string _oldtext = string.Empty;
 
 
         public ICommand AddToStoreDatabaseCommand
         {
             get
             {
-                return _addToStoreDatabaseCommand ?? (_addToStoreDatabaseCommand = new RelayCommand(AddToStoreDatabaseCommand));
+                return _addToStoreDatabaseCommand ?? (_addToStoreDatabaseCommand = new RelayCommand(AddToStoreDatabase));
             }
         }
 
-
-
-        
-
-        /*
-        public NewProduct()
+        public ICommand PopulatingNewProductCommand
         {
-            InitializeComponent();
+            get
+            {
+                return _populatingNewProductCommand ??
+                       (_populatingNewProductCommand = new RelayCommand(PopulatingListNewProduct));
+            }
+        }
+
+        public ICommand IllegalSignNewProductCommand
+        {
+            get
+            {
+                return _illegalSignNewProductCommand ??
+                       (_illegalSignNewProductCommand = new RelayCommand(IllegalSignNewProduct));
+            }
+        }
+
+        public ObservableCollection<string> AutoCompleteList { get; } = new ObservableCollection<string>();
+
+        public NewProductModel()
+        {
             _manager = new Storemanager.Storemanager(new UnitOfWork(new DataContext()), new Store() { StoreName = "Aldi" });
-            _autocomplete = new Autocomplete(new UnitOfWork(new DataContext()));
+            _autocomplete = new Autocomplete.Autocomplete(_unit);
         }
-        
 
-        private void AtbxAddProductName_OnTextChanged(object sender, RoutedEventArgs e)
+        private void PopulatingListNewProduct()
         {
-            if (atbxAddProductName.Text.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr)))
-            {
-                oldtext = atbxAddProductName.Text;
-                var autoComplete = _autocomplete.AutoCompleteProduct(atbxAddProductName.Text);
-                atbxAddProductName.ItemsSource = autoComplete;
 
+            AutoCompleteList?.Clear();
+            foreach (var item in _autocomplete.AutoCompleteProduct(ShoppingListItem))
+            {
+                AutoCompleteList?.Add(item);
+            }
+            OnPropertyChanged("AutoCompleteList");
+        }
+
+        private void AddToStoreDatabase()
+        {
+            if (ShoppingListItemPrice > 0)
+            {
+                string productName = char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower();
+
+                var product = _manager.FindProduct(productName);
+                if (product == null)
+                {
+                    product = new Product() {ProductName = productName};
+                    _manager.AddProductToDb(product);
+                    product = _manager.FindProduct(productName);
+                }
+
+                if (_manager.AddProductToMyStore(product, ShoppingListItemPrice) != 0)
+                {
+                    ConfirmText = ($"Produktet {productName} findes allerede");
+                    return;
+                }
+
+                ConfirmText =
+                    ($"{ShoppingListItem} er indsat, med prisen {ShoppingListItemPrice} i butikken {_manager.Store.StoreName}");
             }
             else
-            {
-                atbxAddProductName.Text = oldtext;
-                System.Windows.MessageBox.Show("Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9",
-                    "ERROR", MessageBoxButton.OK);
-            }
+                ConfirmText = "Prisen er ugyldig";
         }
 
-        private void BtnAddProduct_OnClick(object sender, RoutedEventArgs e)
+        private void IllegalSignNewProduct()
         {
-            string productName = atbxAddProductName.Text;
-            double productPrice = double.Parse(tbxAddProductPrice.Text);
-
-            productName = char.ToUpper(productName[0]) + productName.Substring(1).ToLower();
-
-            var product = _manager.FindProduct(productName);
-            if (product == null)
+            if (!ShoppingListItem.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr)))
             {
-                product = new Product() { ProductName = productName };
-                _manager.AddProductToDb(product);
-                product = _manager.FindProduct(productName);
+                MessageBox.Show(
+                    "Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9", "ERROR", MessageBoxButton.OK);
+                ShoppingListItem = _oldtext;
             }
-
-            if (_manager.AddProductToMyStore(product, productPrice) != 0)
-            {
-                lblConfirm.Content = ($"Produktet {productName} findes allerede");
-                return;
-            }
-
-            lblConfirm.Content =
-                ($"{productName} er indsat, med prisen {productPrice} i butikken {_manager.Store.StoreName}");
-
         }
 
-        private void TbxAddProductPrice_OnTextChanged(object sender, TextChangedEventArgs e)
+        private string _shoppingListItem;
+        public string ShoppingListItem
         {
-            if (atbxAddProductName.Text.All(chr => char.IsNumber(chr) || isDot(chr)))
+            set
             {
-                oldnum = atbxAddProductName.Text;
+                _oldtext = _shoppingListItem;
+                _shoppingListItem = value;
+                OnPropertyChanged();
             }
-
-            else
-            {
-                atbxAddProductName.Text = oldtext;
-                System.Windows.MessageBox.Show("Der kan kun skrives tallene fra 0 til 9 og punktum", "ERROR",
-                    MessageBoxButton.OK);
-            }
+            get { return _shoppingListItem; }
         }
 
-        private bool isDot(char text)
+        private double _shoppingListItemPrice;
+
+        public double ShoppingListItemPrice
         {
-            if (text.ToString() == ".")
-                return true;
-            return false;
+            set
+            {
+                _shoppingListItemPrice = value;
+                OnPropertyChanged();
+            }
+            get { return _shoppingListItemPrice; }
         }
-        */
+
+        private string _confirmText;
+
+        public string ConfirmText
+        {
+            set
+            {
+                _confirmText = value;
+                OnPropertyChanged();
+            }
+            get { return _confirmText; }
+        }
     }
 }

@@ -6,13 +6,15 @@ namespace Consumer
 {
     public interface IConsumer
     {
+        ObservableCollection<StoreProductAndPrice> GeneratedShoppingListData { get; }
+        ObservableCollection<ProductInfo> ShoppingListData { get; set; }
+        ObservableCollection<ProductInfo> NotInAStore { get; }
         Store FindCheapestStore(string productName);
         bool DoesProductExist(string productName);
         List<ProductAndPrice> FindStoresAssortment(string storeName);
         List<StoreAndPrice> FindStoresThatSellsProduct(string productName);
-        ObservableCollection<StoreProductAndPrice> GeneratedShoppingListData { get;}
-        ObservableCollection<ProductInfo> ShoppingListData { get;}
-        ObservableCollection<ProductInfo> NotInAStore { get; }
         void CreateShoppingList();
+        void ReadFromJsonFile();
+        void WriteToJsonFile();
     }
 }

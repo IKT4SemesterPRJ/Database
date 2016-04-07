@@ -17,7 +17,7 @@ namespace Consumer_GUI
             Consumer.Consumer user = new Consumer.Consumer(new UnitOfWork(new DataContext()));
             // Add available pages
             PageViewModels.Add(new HomeModel());
-            PageViewModels.Add(new FindProductModel());
+            PageViewModels.Add(new FindProductModel(user));
             PageViewModels.Add(new ShoppingListModel(user));
             PageViewModels.Add(new GeneratedShoppingListModel(user));
 
@@ -117,26 +117,7 @@ namespace Consumer_GUI
         private void ChangeWindowGeneratedShoppingList()
         {
             CurrentPageViewModel = PageViewModels[3];
-
-            //ToGeneratedShoppingList();
         }
-
-        //private void ToGeneratedShoppingList()
-        //{
-        //    if (ShoppingList.Count == 0)
-        //    {
-        //        return;
-        //    }
-
-        //    List<String> toGeneratedList = ShoppingList.Select(item => item.Name).ToList();
-
-        //    var TempGeneretedShopList = _user.CreateShoppingList(toGeneratedList);
-        //    foreach (var item in TempGeneretedShopList)
-        //    {
-        //        GeneratedShoppingList.Add(item);
-        //    }
-        //}
-
         #endregion
     }
 
