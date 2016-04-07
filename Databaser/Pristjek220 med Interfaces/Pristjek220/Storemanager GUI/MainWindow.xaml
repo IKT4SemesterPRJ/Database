@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Storemanager_GUI"
         xmlns:userControls="clr-namespace:Storemanager_GUI.User_Controls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="350" Width="720">
     <Window.Resources>
         <DataTemplate DataType="{x:Type userControls:ChangePriceModel}">
             <userControls:ChangePrice />
@@ -29,7 +29,9 @@
             </Setter>
         </Style>
     </Window.Resources>
-
+    <Window.DataContext>
+        <local:ApplicationViewModel></local:ApplicationViewModel>
+    </Window.DataContext>
     <Grid Background="sc#1.000000, 0.769689, 0.831936, 1.000000" Name="DocumentRoot" >
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
@@ -44,13 +46,16 @@
                     <Rectangle Fill="sc#1.000000, 0.769689, 0.831936, 1.000000" RadiusX="10" RadiusY="10" Stroke="sc#1.000000, 0.250141, 0.333404, 0.884413" StrokeDashArray="2" />
                     <DockPanel Margin="7" LastChildFill="False">
                         <TextBlock Margin="0,0,0,5"   Text="Menu" Foreground="sc#1.000000, 0.250141, 0.333404, 0.884413" TextAlignment="center"   FontWeight="Bold" FontSize="12pt"   DockPanel.Dock="top"  />
-                        <Button Name="btbUCNewProduct" Style="{StaticResource RoundedButtonStyle}" DockPanel.Dock="Top" Background="white" Click="BtbUCNewProduct_OnClick" >Tilføj produkt</Button>
-                        <Button Name="btbUCDeletePoduct" Style="{StaticResource RoundedButtonStyle}" DockPanel.Dock="Top" Background="white" Click="BtbUCDeletePoduct_OnClick" >Fjern produkt</Button>
-                        <Button Name="btbUCChangePrice" Style="{StaticResource RoundedButtonStyle}" DockPanel.Dock="Top" Background="white" Click="BtbUCChangePrice_OnClick"  >Ændre prisen</Button>
+                        <Button Command="{Binding ChangeWindowNewProductCommand}" Style="{StaticResource RoundedButtonStyle}" DockPanel.Dock="Top" Background="white">Tilføj produkt</Button>
+                        <Button Command="{Binding ChangeWindowDeleteProductCommand}" Style="{StaticResource RoundedButtonStyle}" DockPanel.Dock="Top" Background="white">Fjern produkt</Button>
+                        <Button Command="{Binding ChangeWindowChangePriceCommand}" Style="{StaticResource RoundedButtonStyle}" DockPanel.Dock="Top" Background="white">Ændre prisen</Button>
                     </DockPanel>
                 </Grid>
                 <Border x:Name="MyStage" BorderThickness="2" CornerRadius="10" BorderBrush="Black" Margin="10" Padding="10">
-                    <ContentControl Name="cctlShowUC" VerticalAlignment="Top"  HorizontalAlignment="Left"></ContentControl>
+                    <ContentControl 
+                        Content="{Binding CurrentPageViewModel}" 
+                        VerticalAlignment="Top"  
+                        HorizontalAlignment="Left"></ContentControl>
                 </Border>
             </DockPanel>
         </Grid>
