@@ -18,7 +18,7 @@
     <HtmlHelpName>Documentation</HtmlHelpName>
     <Language>en-US</Language>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\Databaser\Pristjek220 med Interfaces\Pristjek220\Pristjek220.sln" xmlns="" />
+      <DocumentationSource sourceFile="..\Databaser\Pristjek220 med Interfaces\Pristjek220\Pristjek220.sln" />
     </DocumentationSources>
     <BuildAssemblerVerbosity>OnlyWarningsAndErrors</BuildAssemblerVerbosity>
     <HelpFileFormat>HtmlHelp1, Website</HelpFileFormat>

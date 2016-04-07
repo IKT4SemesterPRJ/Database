@@ -5,7 +5,8 @@ namespace Autocomplete
 {
     /// <summary>
     /// The namespace <c>Autocomplete</c> contains the class <see cref="Autocomplete"/> 
-    /// and is placed in the Business Logic Layer.
+    /// and the interface <see cref="IAutocomplete"/> which it implements and is placed 
+    /// in the Business Logic Layer.
     /// </summary>
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     class NamespaceDoc

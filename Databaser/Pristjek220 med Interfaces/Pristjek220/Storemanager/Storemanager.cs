@@ -4,7 +4,7 @@ namespace Storemanager
 {
     /// <summary>
     /// The namespace <c>Storemanager</c> contains the class <see cref="Storemanager"/> 
-    /// and is placed in the Business Logic Layer.
+    /// along with the interface <see cref="IStoremanager"/> and is placed in the Business Logic Layer.
     /// </summary>
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     class NamespaceDoc
