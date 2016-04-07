@@ -85,11 +85,17 @@ namespace Consumer_GUI.User_Controls
             }
         }
 
-
         public ObservableCollection<ProductInfo> ShoppingListData
         {
-            get { return _user.ShoppingListData; }
-            set { _user.ShoppingListData = value; }
+            get
+            {
+                return _user.ShoppingListData; 
+                
+            }
+            set
+            {
+                _user.ShoppingListData = value;
+            }
         }
 
         public ObservableCollection<string> AutoCompleteList { get; } = new ObservableCollection<string>();
