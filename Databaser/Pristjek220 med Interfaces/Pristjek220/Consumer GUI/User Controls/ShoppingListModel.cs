@@ -25,7 +25,6 @@ namespace Consumer_GUI.User_Controls
 
         private ProductInfo _selectedItem;
         private string _shoppinglistItem;
-
         public ShoppingListModel(Consumer.Consumer user)
         {
             _user = user;
@@ -136,7 +135,7 @@ namespace Consumer_GUI.User_Controls
                 else
                 {
                     _user.ShoppingListData.Add(new ProductInfo(ShoppingListItem));
-                    _user.WriteToJsonFile(ShoppingListData);
+                    _user.WriteToJsonFile();
                 }
             }
         }
@@ -152,7 +151,7 @@ namespace Consumer_GUI.User_Controls
             else
             {
                 _user.ShoppingListData.Remove(SelectedItem);
-                _user.WriteToJsonFile(ShoppingListData);
+                _user.WriteToJsonFile();
             }
         }
 
