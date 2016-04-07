@@ -6,6 +6,9 @@ using Autocomplete;
 using Consumer;
 using GalaSoft.MvvmLight.Command;
 using Pristjek220Data;
+using System.Runtime.CompilerServices;
+[assembly:InternalsVisibleTo("Pristjek220.Unit.Test")]
+
 
 namespace Consumer_GUI.User_Controls
 {
@@ -20,8 +23,20 @@ namespace Consumer_GUI.User_Controls
 
         private ICommand _populatingFindProductCommand;
 
-        private string _productName;
+        private string _productName = string.Empty;
         private IConsumer _user;
+        public IConsumer User => _user;
+        private string _error;
+
+        public string Error
+        {
+            get { return _error; }
+            set
+            {
+                _error = value;
+                OnPropertyChanged();
+            }
+        }
 
         public ICommand AddToStoreListCommand
         {
@@ -68,10 +83,14 @@ namespace Consumer_GUI.User_Controls
         public ObservableCollection<string> AutoCompleteList { get; } = new ObservableCollection<string>();
         public ObservableCollection<StoreAndPrice> StorePrice { get; set; } = new ObservableCollection<StoreAndPrice>();
 
+        public FindProductModel(Consumer.IConsumer user)
+        {
+            _user = user;
+        }
+
         private void AddToStoreList()
         {
-            _user = new Consumer.Consumer(_unit);
-
+            
             StorePrice.Clear();
 
             var list = _user.FindStoresThatSellsProduct(ProductName);
@@ -85,7 +104,9 @@ namespace Consumer_GUI.User_Controls
                 OnPropertyChanged("StorePrice");
             }
             else
-                MessageBox.Show("produktet findes ikke", "Error", MessageBoxButton.OK);
+            {
+                Error = "Produktet findes ikke";
+            }
         }
 
 
@@ -105,8 +126,7 @@ namespace Consumer_GUI.User_Controls
         {
             if (!ProductName.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr)))
             {
-                MessageBox.Show(
-                    "Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9", "ERROR", MessageBoxButton.OK);
+                Error = "Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9";
                 ProductName = _oldtext;
             }
         }
