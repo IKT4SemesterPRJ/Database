@@ -6,8 +6,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Storemanager_GUI.User_Controls"
              xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
+             xmlns:mvvmlight="http://www.galasoft.ch/mvvmlight"
              mc:Ignorable="d" 
- d:DesignHeight="500" d:DesignWidth="600">
+             d:DesignHeight="500" d:DesignWidth="600">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="5"/>
@@ -43,7 +44,12 @@
                 <i:EventTrigger EventName="TextChanged">
                     <i:InvokeCommandAction Command="{Binding IllegalSignNewProductCommand}"></i:InvokeCommandAction>
                 </i:EventTrigger>
+                <i:EventTrigger EventName="PreviewKeyDown">
+                    <mvvmlight:EventToCommand Command="{Binding EnterKeyPressedCommand}" PassEventArgsToCommand="True">
+                    </mvvmlight:EventToCommand>
+                </i:EventTrigger>
             </i:Interaction.Triggers>
+            
         </toolkit:AutoCompleteBox>
         <TextBox
             
@@ -54,10 +60,7 @@
             Margin="240,42,-317,-59" 
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
-            Width="83"
-
-            >
-
+            Width="83">
         </TextBox>
 
         <Label 
