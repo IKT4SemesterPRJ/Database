@@ -2,7 +2,7 @@
 <AnalyseParams>
   <TargetExecutable>C:\Program Files (x86)\NUnit.org\nunit-console\nunit3-console.exe</TargetExecutable>
   <TargetArguments>bin\Debug\Pristjek220.Unit.Test.dll --result:TestResult.xml;format=nunit2</TargetArguments>
-  <TargetWorkingDir>Databaser\Pristjek220 med interfaces\Pristjek220\Pristjek220.Unit.Test</TargetWorkingDir>
+  <TargetWorkingDir>Pristjek220\Pristjek220.Unit.Test</TargetWorkingDir>
   <TempDir><!-- Directory for the auxiliary files. Set to system temp by default. --></TempDir>
   <Output>coverage_report.html</Output>
   <ReportType>HTML<!-- [HTML|JSON|XML|NDependXML]. A type of the report. XML by default. --></ReportType>
