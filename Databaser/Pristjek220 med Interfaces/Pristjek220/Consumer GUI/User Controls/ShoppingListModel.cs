@@ -90,7 +90,6 @@ namespace Consumer_GUI.User_Controls
             get
             {
                 return _user.ShoppingListData; 
-                
             }
             set
             {

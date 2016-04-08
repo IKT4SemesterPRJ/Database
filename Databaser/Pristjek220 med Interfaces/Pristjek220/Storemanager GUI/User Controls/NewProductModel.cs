@@ -7,6 +7,7 @@ using Storemanager;
 using Pristjek220Data;
 using System;
 using Autocomplete;
+using GalaSoft.MvvmLight.Command;
 
 namespace Storemanager_GUI.User_Controls
 {
@@ -19,7 +20,8 @@ namespace Storemanager_GUI.User_Controls
         private ICommand _addToStoreDatabaseCommand;
         private ICommand _populatingNewProductCommand;
         private ICommand _illegalSignNewProductCommand;
-    
+        private ICommand _enterPressedCommand;
+
 
         private string _oldtext = string.Empty;
 
@@ -140,6 +142,21 @@ namespace Storemanager_GUI.User_Controls
                 OnPropertyChanged();
             }
             get { return _confirmText; }
+        }
+        public ICommand EnterKeyPressedCommand
+        {
+            get
+            {
+                return _enterPressedCommand ?? (_enterPressedCommand = new RelayCommand<KeyEventArgs>(EnterKeyPressed));
+            }
+        }
+
+        private void EnterKeyPressed(KeyEventArgs e)
+        {
+            if ((e.Key == Key.Enter) || (e.Key == Key.Return))
+            {
+                AddToStoreDatabase();
+            }
         }
     }
 }

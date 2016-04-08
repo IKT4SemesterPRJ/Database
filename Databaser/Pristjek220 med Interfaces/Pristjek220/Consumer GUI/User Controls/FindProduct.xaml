@@ -56,10 +56,6 @@
             Grid.Row="2" 
             MinWidth="150" 
             MinHeight="22" >
-            <toolkit:AutoCompleteBox.InputBindings>
-                <KeyBinding Key="Enter" Command="{Binding AddToStoreListCommand}"></KeyBinding>
-                <KeyBinding Key="W" Command="{Binding AddToStoreListCommand}"></KeyBinding>
-            </toolkit:AutoCompleteBox.InputBindings>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Populating">
                     <i:InvokeCommandAction Command="{Binding PopulatingFindProductCommand}"></i:InvokeCommandAction>
