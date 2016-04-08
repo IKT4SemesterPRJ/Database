@@ -25,6 +25,18 @@ namespace Consumer_GUI.User_Controls
 
         private ProductInfo _selectedItem;
         private string _shoppinglistItem;
+        private string _error;
+
+        public string Error
+        {
+            get { return _error; }
+            set
+            {
+                _error = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ShoppingListModel(IConsumer user)
         {
             _user = user;
@@ -151,11 +163,11 @@ namespace Consumer_GUI.User_Controls
         private void DeleteFromShoppingList()
         {
             if (SelectedItem == null)
-                MessageBox.Show("Du skal markere at produkt før du kan slette", "Error",
-                    MessageBoxButton.OK);
+                Error = "Du skal markere at produkt før du kan slette";
+
             else if (_user.ShoppingListData.Count == 0)
-                MessageBox.Show("Der er ikke tilføjet nogen produkter", "Error",
-                    MessageBoxButton.OK);
+                Error = "Der er ikke tilføjet nogen produkter";
+
             else
             {
                 _user.ShoppingListData.Remove(SelectedItem);
@@ -180,8 +192,7 @@ namespace Consumer_GUI.User_Controls
         {
             if (!ShoppingListItem.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr)))
             {
-                MessageBox.Show(
-                    "Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9", "ERROR", MessageBoxButton.OK);
+                Error = "Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9";
                 ShoppingListItem = _oldtext;
             }
         }

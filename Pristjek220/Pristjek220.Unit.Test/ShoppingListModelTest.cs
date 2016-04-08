@@ -64,7 +64,7 @@ namespace Pristjek220.Unit.Test
         }
 
         [Test]
-        public void AddToShoppingList__bAnAnAdd_ShoppingListDataContainsBanan()
+        public void AddToShoppingList_bAnAnAdd_ShoppingListDataContainsBanan()
         {
             var banan = new ProductInfo("bAnAn");
             _shoppingList.ShoppingListItem = "Banan";
@@ -73,5 +73,97 @@ namespace Pristjek220.Unit.Test
             Assert.That(_shoppingList.ShoppingListData.Any(x => x.Name == banan.Name), Is.EqualTo(true));
         }
 
+        [Test]
+        public void IllegalSignFindProcuctShoppingList_PunktumTyped_ErrorEqualsString()
+        {
+            _shoppingList.ShoppingListItem = "banan.";
+            _shoppingList.IllegalSignShoppingListCommand.Execute(this);
+
+            Assert.That(_shoppingList.Error, Is.EqualTo("Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9"));
+
+        }
+
+        [Test]
+        public void IllegalSignFindProcuctShoppingList_bananTyped_ErrorEqualsnull()
+        {
+            _shoppingList.ShoppingListItem = "banan";
+            _shoppingList.IllegalSignShoppingListCommand.Execute(this);
+
+            Assert.That(_shoppingList.Error, Is.EqualTo(null));
+
+        }
+
+        [Test]
+        public void IllegalSignFindProcuctShoppingList_kommaTyped_ErrorEqualsString()
+        {
+            _shoppingList.ShoppingListItem = "banan,";
+            _shoppingList.IllegalSignShoppingListCommand.Execute(this);
+
+            Assert.That(_shoppingList.Error, Is.EqualTo("Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9"));
+
+        }
+
+        [Test]
+        public void IllegalSignFindProcuctShoppingList_whitespacesTyped_ErrorEqualsnull()
+        {
+            _shoppingList.ShoppingListItem = "  ";
+            _shoppingList.IllegalSignShoppingListCommand.Execute(this);
+
+            Assert.That(_shoppingList.Error, Is.EqualTo(null));
+
+        }
+
+        [Test]
+        public void IllegalSignFindProcuctShoppingList_slashTyped_ErrorEqualsString()
+        {
+            _shoppingList.ShoppingListItem = "banan,";
+            _shoppingList.IllegalSignShoppingListCommand.Execute(this);
+
+            Assert.That(_shoppingList.Error, Is.EqualTo("Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9"));
+
+        }
+
+        [Test]
+        public void IllegalSignFindProcuctShoppingList_NumbersTyped_ErrorEqualsnull()
+        {
+            _shoppingList.ShoppingListItem = "234567";
+            _shoppingList.IllegalSignShoppingListCommand.Execute(this);
+
+            Assert.That(_shoppingList.Error, Is.EqualTo(null));
+
+        }
+
+        [Test]
+        public void DeleteFromShoppingList_DeleteIsPressedWithNoItemSelected_ErrorEqualsErrorMassage()
+        {
+
+            _shoppingList.DeleteFromShoppingListCommand.Execute(this);
+
+            Assert.That(_shoppingList.Error, Is.EqualTo("Du skal markere at produkt før du kan slette"));
+
+        }
+
+        [Test]
+        public void DeleteFromShoppingList_DeleteIsPressedWithNoItemsInList_ErrorEqualsErrorMassage()
+        {
+
+            ProductInfo test = new ProductInfo("hej");
+
+            _shoppingList.SelectedItem = test;
+            _shoppingList.DeleteFromShoppingListCommand.Execute(this);
+
+            Assert.That(_shoppingList.Error, Is.EqualTo("Der er ikke tilføjet nogen produkter"));
+            //Error, skal fixes
+        }
+
+        [Test]
+        public void DeleteFromShoppingList_DeleteIsPressedWi_ErrorEqualsErrorMassage()
+        {
+            _shoppingList.ShoppingListItem = null;
+            _shoppingList.DeleteFromShoppingListCommand.Execute(this);
+
+            Assert.That(_shoppingList.Error, Is.EqualTo("Der er ikke tilføjet nogen produkter"));
+
+        }
     }
 }
