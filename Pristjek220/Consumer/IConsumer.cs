@@ -16,5 +16,7 @@ namespace Consumer
         void CreateShoppingList();
         void ReadFromJsonFile();
         void WriteToJsonFile();
+        void ClearGeneratedShoppingListData();
+        void ClearNotInAStore();
     }
 }

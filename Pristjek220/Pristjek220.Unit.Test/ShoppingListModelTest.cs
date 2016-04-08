@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +30,16 @@ namespace Pristjek220.Unit.Test
         {
             _shoppingList.ShoppingListItem = null;
             _shoppingList.AddToShoppingListCommand.Execute(this);
+        }
+
+        [Test]
+        public void AddToShoppingList__BananAdd_WriteToFileIsCalled()
+        {
+            var banan = new ProductInfo("Banan");
+            _shoppingList.ShoppingListItem = "Banan";
+            _shoppingList.AddToShoppingListCommand.Execute(this);
+            _shoppingList.User.Received(1).WriteToJsonFile();
+            
         }
 
         [Test]
@@ -157,13 +168,56 @@ namespace Pristjek220.Unit.Test
         }
 
         [Test]
-        public void DeleteFromShoppingList_DeleteIsPressedWi_ErrorEqualsErrorMassage()
+        public void DeleteFromShoppingList_DeleteIsPressedWithBananInList_BananRemoved()
         {
-            _shoppingList.ShoppingListItem = null;
+            ProductInfo Banan = new ProductInfo("Banan");
+
+            _shoppingList.ShoppingListData.Add(Banan);
+
+            _shoppingList.SelectedItem = Banan;
             _shoppingList.DeleteFromShoppingListCommand.Execute(this);
 
-            Assert.That(_shoppingList.Error, Is.EqualTo("Der er ikke tilføjet nogen produkter"));
+            Assert.That(_shoppingList.ShoppingListData, Is.Empty);
 
+        }
+
+        [Test]
+        public void DeleteFromShoppingList_DeleteIsPressedWithBananAndKiwiInListAndBananSelected_BananRemoved()
+        {
+           
+            ProductInfo Banan = new ProductInfo("Banan");
+            ProductInfo Kiwi = new ProductInfo("Kiwi");
+            _shoppingList.ShoppingListData.Add(Banan);
+            _shoppingList.ShoppingListData.Add(Kiwi);
+
+            _shoppingList.SelectedItem = Banan;
+            _shoppingList.DeleteFromShoppingListCommand.Execute(this);
+
+            Assert.That(_shoppingList.ShoppingListData.Any(x => x.Name == Banan.Name), Is.EqualTo(false));
+
+        }
+
+        [Test]
+        public void GeneratedShoppingList_GeneratedButtonClicked_CreateShoppingListCalled()
+        {
+            
+            _shoppingList.GeneratedShoppingListCommand.Execute(this);
+            _shoppingList.User.Received(1).CreateShoppingList();
+
+        }
+
+        [Test]
+        public void GeneratedShoppingList_GeneratedButtonClicked_GeneratedShoppinglistDadaClearCalled()
+        {
+            _shoppingList.GeneratedShoppingListCommand.Execute(this);
+            _shoppingList.User.Received(1).ClearGeneratedShoppingListData();
+        }
+
+        [Test]
+        public void GeneratedShoppingList_GeneratedButtonClicked_NotInAStoreClearCalled()
+        {
+            _shoppingList.GeneratedShoppingListCommand.Execute(this);
+            _shoppingList.User.Received(1).ClearNotInAStore();
         }
     }
 }

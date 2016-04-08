@@ -146,6 +146,16 @@ namespace Consumer
         {
             return _unit.Products.ConnectToDb();
         }
+
+        public void ClearGeneratedShoppingListData()
+        {
+            GeneratedShoppingListData.Clear();
+        }
+
+        public void ClearNotInAStore()
+        {
+            NotInAStore.Clear();
+        }
     }
 
     /// <summary>

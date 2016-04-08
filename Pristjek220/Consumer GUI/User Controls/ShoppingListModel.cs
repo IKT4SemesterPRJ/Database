@@ -13,6 +13,7 @@ namespace Consumer_GUI.User_Controls
     {
         private readonly UnitOfWork _unit = new UnitOfWork(new DataContext());
         private readonly IConsumer _user;
+        public IConsumer User => _user;
         private ICommand _addToShoppingListCommand;
         private ICommand _deleteFromShoppingListCommand;
         private ICommand _enterKeyPressedCommand;
@@ -153,7 +154,7 @@ namespace Consumer_GUI.User_Controls
                     }
                     else
                     {
-                        _user.ShoppingListData.Add(new ProductInfo(ShoppingListItem));
+                        ShoppingListData.Add(new ProductInfo(ShoppingListItem));
                         _user.WriteToJsonFile();
                     }
                 }
@@ -206,8 +207,8 @@ namespace Consumer_GUI.User_Controls
 
         private void ClearGeneratedLists()
         {
-            _user.GeneratedShoppingListData.Clear();
-            _user.NotInAStore.Clear();
+            _user.ClearGeneratedShoppingListData();
+            _user.ClearNotInAStore();
         }
 
         private void EnterKeyPressed(KeyEventArgs e)

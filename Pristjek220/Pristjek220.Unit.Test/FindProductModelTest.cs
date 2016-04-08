@@ -16,21 +16,14 @@ namespace Pristjek220.Unit.Test
     [TestFixture]
     class FindProductModelTest
     {
-        private IUnitOfWork _unitWork;
-        private Autocomplete.Autocomplete _uut;
-        private List<Store> _stores;
-        private List<Product> _products;
+        
         private Consumer_GUI.User_Controls.FindProductModel _findProduct;
      
 
         [SetUp]
         public void SetUp()
         {
-            _unitWork = Substitute.For<IUnitOfWork>();
-            _products = new List<Product>();
-            _stores = new List<Store>();
-            _uut = new Autocomplete.Autocomplete(_unitWork);
-            _findProduct = new FindProductModel(Substitute.For<Consumer.IConsumer>());
+           _findProduct = new FindProductModel(Substitute.For<Consumer.IConsumer>());
         }
 
         [Test]
