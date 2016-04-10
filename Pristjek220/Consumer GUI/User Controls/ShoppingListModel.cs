@@ -173,6 +173,7 @@ namespace Consumer_GUI.User_Controls
             {
                 _user.ShoppingListData.Remove(SelectedItem);
                 _user.WriteToJsonFile();
+                Error = string.Empty;
             }
         }
 
@@ -195,6 +196,10 @@ namespace Consumer_GUI.User_Controls
             {
                 Error = "Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9";
                 ShoppingListItem = _oldtext;
+            }
+            else
+            {
+                Error = string.Empty;
             }
         }
 

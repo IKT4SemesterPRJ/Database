@@ -14,20 +14,18 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="5"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="5"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="5"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="20"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="5"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <DataGrid 
             SelectedItem="{Binding SelectedItem}" 
@@ -39,7 +37,6 @@
             Height="226" 
             Grid.Row="3" 
             Width="272" 
-            Grid.RowSpan="2" 
             Grid.ColumnSpan="3">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Header="Navn" Binding="{Binding Name}" IsReadOnly="True"/>
@@ -55,9 +52,11 @@
         <Button 
             Command="{Binding AddToShoppingListCommand}"  
             Grid.Column="3" 
-            Grid.Row="1"  
+            Grid.Row="2"  
             FontSize ="10" 
-            MinHeight="22">
+            MinHeight="22"
+            Margin="5"
+            VerticalAlignment="Center">
             tilføj til liste
         </Button>
         <toolkit:AutoCompleteBox
@@ -66,10 +65,10 @@
             ItemsSource="{Binding AutoCompleteList}" 
             Text="{Binding ShoppingListItem, Mode=TwoWay}" 
             VerticalAlignment="Center" 
-            HorizontalAlignment="Center" 
+            HorizontalAlignment="Left" 
             Grid.Column="1" 
-            Grid.Row="1" 
-            MinWidth="120" 
+            Grid.Row="2" 
+            MinWidth="130" 
             MinHeight="22">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Populating">
@@ -85,10 +84,18 @@
             </i:Interaction.Triggers>
         </toolkit:AutoCompleteBox>
 
+        <Label 
+            Grid.Column="1"
+            Grid.Row="1"
+            Grid.ColumnSpan="4"
+            Height="30"
+            MinWidth="220"
+            Foreground="Crimson"
+            Content="{Binding Error}"/>
         <Button 
             Command="{Binding DeleteFromShoppingListCommand}" 
             Grid.Column="3" 
-            Grid.Row="5" 
+            Grid.Row="4" 
             Height="20" 
             HorizontalAlignment="Center"
             VerticalAlignment="Center">
@@ -96,9 +103,10 @@
         </Button>
         <Button 
             Grid.Column="1" 
-            Height="50" 
-            Grid.Row="7" 
-            Width="200"
+            Height="30" 
+            Grid.Row="5" 
+            Width="150"
+            Margin="5"
             Grid.ColumnSpan="3" 
             VerticalAlignment="Center"
             HorizontalAlignment="Center">
