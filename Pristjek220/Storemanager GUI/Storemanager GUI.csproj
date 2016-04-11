@@ -101,10 +101,34 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Admin.xaml.cs">
+      <DependentUpon>Admin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AdminViewModel.cs" />
     <Compile Include="ApplicationViewModel.cs" />
+    <Compile Include="LogIn.xaml.cs">
+      <DependentUpon>LogIn.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LogInViewModel.cs" />
     <Compile Include="ObservableObject.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="RelayCommands.cs" />
+    <Compile Include="User Controls Admin\AdminDeleteProduct.xaml.cs">
+      <DependentUpon>AdminDeleteProduct.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="User Controls Admin\AdminDeleteProductModel.cs" />
+    <Compile Include="User Controls Admin\AdminDeleteStore.xaml.cs">
+      <DependentUpon>AdminDeleteStore.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="User Controls Admin\AdminDeleteStoreModel.cs" />
+    <Compile Include="User Controls Admin\AdminNewProduct.xaml.cs">
+      <DependentUpon>AdminNewProduct.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="User Controls Admin\AdminNewProductModel.cs" />
+    <Compile Include="User Controls Admin\AdminNewStore.xaml.cs">
+      <DependentUpon>AdminNewStore.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="User Controls Admin\AdminNewStoreModel.cs" />
     <Compile Include="User Controls\ChangePrice.xaml.cs">
       <DependentUpon>ChangePrice.xaml</DependentUpon>
     </Compile>
@@ -119,6 +143,14 @@
     <Compile Include="User Controls\NewProductModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Page Include="Admin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LogIn.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -131,6 +163,22 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="User Controls Admin\AdminDeleteProduct.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="User Controls Admin\AdminDeleteStore.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="User Controls Admin\AdminNewProduct.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="User Controls Admin\AdminNewStore.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="User Controls\ChangePrice.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

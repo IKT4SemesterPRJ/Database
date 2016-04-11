@@ -8,35 +8,35 @@
         mc:Ignorable="d"
         Title="Pristjek220 Admin" Height="350" Width="720">
 
-        <Window.Resources>
-            <DataTemplate DataType="{x:Type userControls:DeleteStoreModel}">
-                <userControls:DeleteStore />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type userControls:DeleteProductModel}">
-                <userControls:DeleteProduct />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type userControls:NewProductModel}">
-                <userControls:NewProduct />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type userControls:NewStoreModel}">
-                <userControls:NewStore />
-            </DataTemplate>
-            
-            <Style x:Key="RoundedButtonStyle" TargetType="{x:Type Button}">
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="Button">
-                            <Border CornerRadius="15" Background="White" BorderThickness="1" Padding="2"  Margin="0,5,0,5">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-        </Window.Resources>
-        <Window.DataContext>
-            <local:ApplicationViewModel></local:ApplicationViewModel>
-        </Window.DataContext>
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type userControls:DeleteStoreModel}">
+            <userControls:DeleteStore />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type userControls:DeleteProductModel}">
+            <userControls:DeleteProduct />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type userControls:NewProductModel}">
+            <userControls:NewProduct />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type userControls:NewStoreModel}">
+            <userControls:NewStore />
+        </DataTemplate>
+
+        <Style x:Key="RoundedButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="15" Background="White" BorderThickness="1" Padding="2"  Margin="0,5,0,5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Window.DataContext>
+        <local:ApplicationViewModel></local:ApplicationViewModel>
+    </Window.DataContext>
     <Grid Background="sc#1.000000, 0.769689, 0.831936, 1.000000" Name="DocumentRoot" >
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
@@ -51,10 +51,10 @@
                     <Rectangle Fill="sc#1.000000, 0.769689, 0.831936, 1.000000" RadiusX="10" RadiusY="10" Stroke="sc#1.000000, 0.250141, 0.333404, 0.884413" StrokeDashArray="2" />
                     <DockPanel Margin="7" LastChildFill="False">
                         <TextBlock Margin="0,0,0,5"   Text="Menu" Foreground="sc#1.000000, 0.250141, 0.333404, 0.884413" TextAlignment="center"   FontWeight="Bold" FontSize="12pt"   DockPanel.Dock="top"  />
-                        <Button Command="{Binding ChangeWindowNewProductCommand}" Style="{StaticResource RoundedButtonStyle}" DockPanel.Dock="Top" Background="white">Tilføj produkt</Button>
-                        <Button Command="{Binding ChangeWindowDeleteProductCommand}" Style="{StaticResource RoundedButtonStyle}" DockPanel.Dock="Top" Background="white">Fjern produkt</Button>
-                        <Button Command="{Binding ChangeWindowNewStoreCommand}" Style="{StaticResource RoundedButtonStyle}" DockPanel.Dock="Top" Background="white">Tilføj forretning</Button>
-                        <Button Command="{Binding ChangeWindowDeleteStoreCommand}" Style="{StaticResource RoundedButtonStyle}" DockPanel.Dock="Top" Background="white">Fjern forretning</Button>
+                        <Button Command="{Binding AdminChangeWindowNewProductCommand}" Style="{StaticResource RoundedButtonStyle}" DockPanel.Dock="Top" Background="white">Tilføj produkt</Button>
+                        <Button Command="{Binding AdminChangeWindowDeleteProductCommand}" Style="{StaticResource RoundedButtonStyle}" DockPanel.Dock="Top" Background="white">Fjern produkt</Button>
+                        <Button Command="{Binding AdminChangeWindowNewStoreCommand}" Style="{StaticResource RoundedButtonStyle}" DockPanel.Dock="Top" Background="white">Tilføj forretning</Button>
+                        <Button Command="{Binding AdminChangeWindowDeleteStoreCommand}" Style="{StaticResource RoundedButtonStyle}" DockPanel.Dock="Top" Background="white">Fjern forretning</Button>
                     </DockPanel>
                 </Grid>
                 <Border x:Name="MyStage" BorderThickness="2" CornerRadius="10" BorderBrush="Black" Margin="10" Padding="10">

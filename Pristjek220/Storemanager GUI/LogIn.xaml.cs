@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Admin_GUI.User_Controls
+namespace Storemanager_GUI
 {
     /// <summary>
-    /// Interaction logic for DeleteProduct.xaml
+    /// Interaction logic for LogIn.xaml
     /// </summary>
-    public partial class DeleteProduct : UserControl
+    public partial class LogIn : Window
     {
-        public DeleteProduct()
+        public LogIn()
         {
             InitializeComponent();
         }

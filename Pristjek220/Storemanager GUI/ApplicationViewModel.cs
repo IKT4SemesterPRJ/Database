@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using System.Reflection.Emit;
 using System.Windows.Input;
 using Storemanager_GUI.User_Controls;
 
@@ -22,9 +23,9 @@ namespace Storemanager_GUI
             PageViewModels.Add(new DeleteProductModel());
             PageViewModels.Add(new NewProductModel());
 
+            // set startup page
+            _currentPageViewModel = _pageViewModels[2];
 
-            // Set starting page
-            CurrentPageViewModel = PageViewModels[2];
         }
 
         public ObservableCollection<IPageViewModel> PageViewModels
@@ -53,6 +54,7 @@ namespace Storemanager_GUI
 
         #region Commands
 
+        
         private ICommand _changeWindowChangePriceCommand;
 
         public ICommand ChangeWindowChangePriceCommand
@@ -97,6 +99,7 @@ namespace Storemanager_GUI
             CurrentPageViewModel = PageViewModels[2];
         }
 
+     
         #endregion
     }
 

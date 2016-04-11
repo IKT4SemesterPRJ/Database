@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Admin_GUI
+namespace Storemanager_GUI.User_Controls_Admin
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for AdminDeleteStore.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AdminDeleteStore : UserControl
     {
-        public MainWindow()
+        public AdminDeleteStore()
         {
             InitializeComponent();
         }
