@@ -10,7 +10,34 @@ namespace Storemanager_GUI
 {
     class LogInViewModel
     {
-        
+        public string Password { get; set; } = string.Empty;
+
+        public string Username { get; set; } = string.Empty;
+
+        private ICommand _logInCommand;
+
+        public ICommand LogInCommand
+        {
+            get
+            {
+                return _logInCommand ??
+                       (_logInCommand = new RelayCommand(LogIn));
+            }
+        }
+
+        private void LogIn()
+        {
+            if (Username == "1")
+            {
+                ChangeWindowAdmin();
+            }
+            else if (Username == "2")
+            {
+                ChangeWindowStoremanager();
+            }
+
+        }
+
         private ICommand _changeWindowAdminCommand;
 
         public ICommand ChangeWindowAdminCommand

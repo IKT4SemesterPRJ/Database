@@ -29,12 +29,12 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5" />
-            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
@@ -54,18 +54,56 @@
         <Label
             Grid.Row="2"
             Grid.Column="1"
-            Name="lbl1">
+            Grid.ColumnSpan="4"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center">
             Login</Label>
+
+        <Label
+            Grid.Row="3"
+            Grid.Column="1">
+            Username:</Label>
+
+        <Label
+            Grid.Row="4"
+            Grid.Column="1">
+            Password:</Label>
+
+        <TextBox
+            Text="{Binding Username}"
+            Grid.Column="2"
+            Grid.Row="3"
+            Width="100"
+            Margin="2">
+        </TextBox>
+        
+        <PasswordBox 
+            
+            Grid.Column="2"
+            Grid.Row="4"
+            Width="100"
+            Margin="2">
+           
+        </PasswordBox>
+        
+        <Button
+            Grid.Column="3"
+            Grid.Row="5"
+            Style="{StaticResource RoundedButtonStyle}"
+            Command="{Binding LogInCommand}"
+            Width="50">
+            Log in
+        </Button>
         <Button 
             Grid.Column="2"
-            Grid.Row="2"
+            Grid.Row="5"
             Style="{StaticResource RoundedButtonStyle}"
             Command="{Binding ChangeWindowAdminCommand}">
             Til Admin</Button>
 
         <Button 
-            Grid.Column="2"
-            Grid.Row="3"
+            Grid.Column="1"
+            Grid.Row="5"
             Style="{StaticResource RoundedButtonStyle}"
             Command="{Binding ChangeWindowStoremanagerCommand}">
             Til Storemanger</Button>
