@@ -61,6 +61,15 @@
     <Compile Include="Login\ILoginRepository.cs" />
     <Compile Include="Login\Login.cs" />
     <Compile Include="Login\LoginRepository.cs" />
+    <Compile Include="Migrations\201603090100064_InitialCreate.cs" />
+    <Compile Include="Migrations\201603090100064_InitialCreate.Designer.cs">
+      <DependentUpon>201603090100064_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604110917017_Login_added.cs" />
+    <Compile Include="Migrations\201604110917017_Login_added.Designer.cs">
+      <DependentUpon>201604110917017_Login_added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Product\StoreAndPrice.cs" />
     <Compile Include="Product\StoreProductAndPrice.cs" />
     <Compile Include="Repository\IRepository.cs" />
@@ -80,7 +89,14 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201603090100064_InitialCreate.resx">
+      <DependentUpon>201603090100064_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604110917017_Login_added.resx">
+      <DependentUpon>201604110917017_Login_added.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

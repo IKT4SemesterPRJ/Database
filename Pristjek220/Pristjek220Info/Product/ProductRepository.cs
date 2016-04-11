@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity.Core;
 using System.Data.SqlClient;
 using System.Linq;
@@ -54,6 +55,10 @@ namespace Pristjek220Data
                 return true;
             }
             catch (EntityException odbcEx)
+            {
+                return false;
+            }
+            catch (InvalidOperationException exception)
             {
                 return false;
             }
