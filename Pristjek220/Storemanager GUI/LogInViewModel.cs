@@ -1,19 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using Pristjek220Data;
+using Storemanager;
+
 
 namespace Storemanager_GUI
 {
     class LogInViewModel
     {
-        public string Password { get; set; } = string.Empty;
+        
+        public SecureString SecurePassword { private get; set; }
 
         public string Username { get; set; } = string.Empty;
 
+      
         private ICommand _logInCommand;
 
         public ICommand LogInCommand
@@ -21,21 +29,13 @@ namespace Storemanager_GUI
             get
             {
                 return _logInCommand ??
-                       (_logInCommand = new RelayCommand(LogIn));
+                       (_logInCommand = new RelayCommand(LogInbutton));
             }
         }
 
-        private void LogIn()
+        private void LogInbutton()
         {
-            if (Username == "1")
-            {
-                ChangeWindowAdmin();
-            }
-            else if (Username == "2")
-            {
-                ChangeWindowStoremanager();
-            }
-
+           
         }
 
         private ICommand _changeWindowAdminCommand;
@@ -74,6 +74,25 @@ namespace Storemanager_GUI
             MainWindow storemanagerGUI = new MainWindow();
             storemanagerGUI.Show();
             LogInGui.Close();
+        }
+
+        private string ConvertToUnsecureString(SecureString securePassword)
+        {
+            if (securePassword == null)
+            {
+                return string.Empty;
+            }
+
+            IntPtr unmanagedString = IntPtr.Zero;
+            try
+            {
+                unmanagedString = Marshal.SecureStringToGlobalAllocUnicode(securePassword);
+                return Marshal.PtrToStringUni(unmanagedString);
+            }
+            finally
+            {
+                Marshal.ZeroFreeGlobalAllocUnicode(unmanagedString);
+            }
         }
 
     }

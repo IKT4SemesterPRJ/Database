@@ -24,8 +24,8 @@ namespace Consumer_GUI.User_Controls
         private ICommand _populatingFindProductCommand;
 
         private string _productName = string.Empty;
-        private IConsumer _user;
-        public IConsumer User => _user;
+        public IConsumer User { get; }
+
         private string _error;
 
         public string Error
@@ -85,7 +85,7 @@ namespace Consumer_GUI.User_Controls
 
         public FindProductModel(Consumer.IConsumer user)
         {
-            _user = user;
+            User = user;
         }
 
         private void AddToStoreList()
@@ -93,7 +93,7 @@ namespace Consumer_GUI.User_Controls
             
             StorePrice.Clear();
 
-            var list = _user.FindStoresThatSellsProduct(ProductName);
+            var list = User.FindStoresThatSellsProduct(ProductName);
             if (list.Count != 0)
             {
                 foreach (var store in list)
