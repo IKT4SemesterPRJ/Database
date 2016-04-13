@@ -8,7 +8,7 @@
 // ReSharper disable MemberCanBeProtected.Global
 // ReSharper disable InconsistentNaming
 
-namespace Storemanager_GUI.Annotations
+namespace Administration_GUI.Annotations
 {
   /// <summary>
   /// Indicates that the value of the marked element could be <c>null</c> sometimes,

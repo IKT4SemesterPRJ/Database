@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Storemanager_GUI.User_Controls_Admin
+namespace Administration_GUI.User_Controls_Admin
 {
     /// <summary>
     /// Interaction logic for AdminDeleteStore.xaml

@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Storemanager_GUI.User_Controls
+namespace Administration_GUI.User_Controls
 {
     /// <summary>
     /// Interaction logic for ChangePrice.xaml

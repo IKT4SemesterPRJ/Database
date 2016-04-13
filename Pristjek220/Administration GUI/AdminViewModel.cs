@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Administration_GUI.User_Controls_Admin;
-using Storemanager_GUI;
+using Administration_GUI;
 
 namespace Administration_GUI
 {

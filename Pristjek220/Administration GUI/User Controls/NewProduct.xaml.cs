@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Pristjek220Data;
 
-namespace Storemanager_GUI.User_Controls
+namespace Administration_GUI.User_Controls
 {
     /// <summary>
     /// Interaction logic for NewProduct.xaml

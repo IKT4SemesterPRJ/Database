@@ -1,4 +1,4 @@
-﻿using Storemanager_GUI;
+﻿using Administration_GUI;
 
 namespace Administration_GUI.User_Controls
 {

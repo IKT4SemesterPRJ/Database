@@ -1,7 +1,7 @@
 /*
   In App.xaml:
   <Application.Resources>
-      <vm:ViewModelLocator xmlns:vm="clr-namespace:Storemanager_GUI"
+      <vm:ViewModelLocator xmlns:vm="clr-namespace:Administration_GUI"
                            x:Key="Locator" />
   </Application.Resources>
   

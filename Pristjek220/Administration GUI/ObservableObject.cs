@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Storemanager_GUI.Annotations;
+using Administration_GUI.Annotations;
 
 namespace Administration_GUI
 {

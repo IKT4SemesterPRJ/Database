@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using System.Security;
 using System.Windows;
 using System.Windows.Input;
-using Storemanager_GUI;
+using Administration_GUI;
 
 namespace Administration_GUI
 {
@@ -64,7 +64,7 @@ namespace Administration_GUI
         private void ChangeWindowStoremanager()
         {
             var LogInGui = Application.Current.MainWindow;
-            MainWindow storemanagerGUI = new MainWindow();
+            StoremanagerGUI storemanagerGUI = new StoremanagerGUI();
             storemanagerGUI.Show();
             LogInGui.Close();
         }

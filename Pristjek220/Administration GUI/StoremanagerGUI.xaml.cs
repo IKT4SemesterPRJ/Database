@@ -12,17 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Storemanager_GUI.User_Controls;
+using Administration_GUI.User_Controls;
 
-namespace Storemanager_GUI
+namespace Administration_GUI
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class StoremanagerGUI : Window
     {
 
-        public MainWindow()
+        public StoremanagerGUI()
         {
             InitializeComponent();
         }
