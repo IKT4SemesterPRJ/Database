@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using Storemanager_GUI.Annotations;
 
-namespace Storemanager_GUI
+namespace Administration_GUI
 {
     internal class ObservableObject : INotifyPropertyChanged
     {

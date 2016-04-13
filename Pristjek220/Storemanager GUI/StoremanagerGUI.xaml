@@ -5,16 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Storemanager_GUI"
         xmlns:userControls="clr-namespace:Storemanager_GUI.User_Controls"
+        xmlns:userControls1="clr-namespace:Administration_GUI.User_Controls"
+        xmlns:administrationGui="clr-namespace:Administration_GUI"
         mc:Ignorable="d"
         Title="Pristjek220 StoreManager" Height="350" Width="720">
     <Window.Resources>
-        <DataTemplate DataType="{x:Type userControls:ChangePriceModel}">
+        <DataTemplate DataType="{x:Type userControls1:ChangePriceModel}">
             <userControls:ChangePrice />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type userControls:DeleteProductModel}">
+        <DataTemplate DataType="{x:Type userControls1:DeleteProductModel}">
             <userControls:DeleteProduct />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type userControls:NewProductModel}">
+        <DataTemplate DataType="{x:Type userControls1:NewProductModel}">
             <userControls:NewProduct />
         </DataTemplate>
         <Style x:Key="RoundedButtonStyle" TargetType="{x:Type Button}">
@@ -30,7 +32,7 @@
         </Style>
     </Window.Resources>
     <Window.DataContext>
-        <local:ApplicationViewModel></local:ApplicationViewModel>
+        <administrationGui:ApplicationViewModel></administrationGui:ApplicationViewModel>
     </Window.DataContext>
     <Grid Background="sc#1.000000, 0.769689, 0.831936, 1.000000" Name="DocumentRoot" >
         <Grid.RowDefinitions>
@@ -61,3 +63,4 @@
         </Grid>
     </Grid>
 </Window>
+

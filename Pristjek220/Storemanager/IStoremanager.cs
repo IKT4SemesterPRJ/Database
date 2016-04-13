@@ -1,6 +1,6 @@
 ﻿using Pristjek220Data;
 
-namespace Storemanager
+namespace Administration
 {
     public interface IStoremanager
     {

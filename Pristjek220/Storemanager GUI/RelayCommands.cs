@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Storemanager_GUI
+namespace Administration_GUI
 {
     //
     // Downloaded from: http://mvvmfoundation.codeplex.com/

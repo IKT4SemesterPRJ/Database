@@ -7,8 +7,8 @@
     <ProjectGuid>{1896D380-F220-4195-A6B9-5BE75FD6EDC6}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Storemanager_GUI</RootNamespace>
-    <AssemblyName>Storemanager GUI</AssemblyName>
+    <RootNamespace>Administration_GUI</RootNamespace>
+    <AssemblyName>Administration GUI</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -101,48 +101,57 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AdminGUI.xaml.cs">
-      <DependentUpon>AdminGUI.xaml</DependentUpon>
+    <Compile Include="Admin.xaml.cs">
+      <DependentUpon>Admin.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AdminViewModel.cs" />
     <Compile Include="ApplicationViewModel.cs" />
+    <Compile Include="LogIn.xaml.cs">
+      <DependentUpon>LogIn.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LogInViewModel.cs" />
     <Compile Include="ObservableObject.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="RelayCommands.cs" />
-    <Compile Include="User Controls Admin\DeleteProduct.xaml.cs">
-      <DependentUpon>DeleteProduct.xaml</DependentUpon>
+    <Compile Include="User Controls Admin\AdminDeleteProduct.xaml.cs">
+      <DependentUpon>AdminDeleteProduct.xaml</DependentUpon>
     </Compile>
-    <Compile Include="User Controls Admin\DeleteProductModel.cs" />
-    <Compile Include="User Controls Admin\DeleteStore.xaml.cs">
-      <DependentUpon>DeleteStore.xaml</DependentUpon>
+    <Compile Include="User Controls Admin\AdminDeleteProductModel.cs" />
+    <Compile Include="User Controls Admin\AdminDeleteStore.xaml.cs">
+      <DependentUpon>AdminDeleteStore.xaml</DependentUpon>
     </Compile>
-    <Compile Include="User Controls Admin\DeleteStoreModel.cs" />
-    <Compile Include="User Controls Admin\NewProduct.xaml.cs">
-      <DependentUpon>NewProduct.xaml</DependentUpon>
+    <Compile Include="User Controls Admin\AdminDeleteStoreModel.cs" />
+    <Compile Include="User Controls Admin\AdminNewProduct.xaml.cs">
+      <DependentUpon>AdminNewProduct.xaml</DependentUpon>
     </Compile>
-    <Compile Include="User Controls Admin\NewProductModel.cs" />
-    <Compile Include="User Controls Admin\NewStore.xaml.cs">
-      <DependentUpon>NewStore.xaml</DependentUpon>
+    <Compile Include="User Controls Admin\AdminNewProductModel.cs" />
+    <Compile Include="User Controls Admin\AdminNewStore.xaml.cs">
+      <DependentUpon>AdminNewStore.xaml</DependentUpon>
     </Compile>
-    <Compile Include="User Controls Admin\NewStoreModel.cs" />
-    <Compile Include="User Controls Storemanager\ChangePrice.xaml.cs">
+    <Compile Include="User Controls Admin\AdminNewStoreModel.cs" />
+    <Compile Include="User Controls\ChangePrice.xaml.cs">
       <DependentUpon>ChangePrice.xaml</DependentUpon>
     </Compile>
-    <Compile Include="User Controls Storemanager\ChangePriceModel.cs" />
-    <Compile Include="User Controls Storemanager\DeleteProduct.xaml.cs">
+    <Compile Include="User Controls\ChangePriceModel.cs" />
+    <Compile Include="User Controls\DeleteProduct.xaml.cs">
       <DependentUpon>DeleteProduct.xaml</DependentUpon>
     </Compile>
-    <Compile Include="User Controls Storemanager\DeleteProductModel.cs" />
-    <Compile Include="User Controls Storemanager\NewProduct.xaml.cs">
+    <Compile Include="User Controls\DeleteProductModel.cs" />
+    <Compile Include="User Controls\NewProduct.xaml.cs">
       <DependentUpon>NewProduct.xaml</DependentUpon>
     </Compile>
-    <Compile Include="User Controls Storemanager\NewProductModel.cs" />
+    <Compile Include="User Controls\NewProductModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Page Include="AdminGUI.xaml">
+    <Page Include="Admin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="LogIn.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StoremanagerGUI.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -150,35 +159,35 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="StoremanagerGUI.xaml.cs">
+      <DependentUpon>StoremanagerGUI.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="User Controls Admin\DeleteProduct.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="User Controls Admin\DeleteStore.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="User Controls Admin\NewProduct.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="User Controls Admin\NewStore.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="User Controls Storemanager\ChangePrice.xaml">
+    <Page Include="User Controls Admin\AdminDeleteProduct.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="User Controls Storemanager\DeleteProduct.xaml">
+    <Page Include="User Controls Admin\AdminDeleteStore.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="User Controls Storemanager\NewProduct.xaml">
+    <Page Include="User Controls Admin\AdminNewProduct.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="User Controls Admin\AdminNewStore.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="User Controls\ChangePrice.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="User Controls\DeleteProduct.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="User Controls\NewProduct.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -212,17 +221,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AutoComplete\AutoComplete.csproj">
+    <ProjectReference Include="..\AutoComplete\Shared Functionalities.csproj">
       <Project>{62B71C47-2332-4BF7-951B-03A640019B5B}</Project>
-      <Name>AutoComplete</Name>
+      <Name>Shared Functionalities</Name>
     </ProjectReference>
     <ProjectReference Include="..\Pristjek220Info\Pristjek220Info.csproj">
       <Project>{22EA143C-EAC0-43F8-9D62-F454410E462B}</Project>
       <Name>Pristjek220Info</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Storemanager\Storemanager.csproj">
+    <ProjectReference Include="..\Storemanager\Administration.csproj">
       <Project>{F5EDFEAB-3778-4247-B76E-10FA18FF12A1}</Project>
-      <Name>Storemanager</Name>
+      <Name>Administration</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

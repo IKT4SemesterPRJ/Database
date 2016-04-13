@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consumer", "Consumer\Consumer.csproj", "{02F50E8D-598F-4DA4-B5B2-9C12DFA89F8E}"
 EndProject
@@ -9,19 +9,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pristjek220Info", "Pristjek
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pristjek220.Unit.Test", "Pristjek220.Unit.Test\Pristjek220.Unit.Test.csproj", "{5BBC412E-E516-44B4-B8ED-322AA679C3AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Storemanager", "Storemanager\Storemanager.csproj", "{F5EDFEAB-3778-4247-B76E-10FA18FF12A1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Administration", "Storemanager\Administration.csproj", "{F5EDFEAB-3778-4247-B76E-10FA18FF12A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoComplete", "AutoComplete\AutoComplete.csproj", "{62B71C47-2332-4BF7-951B-03A640019B5B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared Functionalities", "AutoComplete\Shared Functionalities.csproj", "{62B71C47-2332-4BF7-951B-03A640019B5B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consumer GUI", "Consumer GUI\Consumer GUI.csproj", "{6F13218B-58DE-4EFF-9F9C-42136B8AC59D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Storemanager GUI", "Storemanager GUI\Storemanager GUI.csproj", "{1896D380-F220-4195-A6B9-5BE75FD6EDC6}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ButtonStyles", "ButtonStyles\ButtonStyles.csproj", "{2D622502-207F-4502-9DE1-3D5EF3E045AA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Administration GUI", "Storemanager GUI\Administration GUI.csproj", "{1896D380-F220-4195-A6B9-5BE75FD6EDC6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pristjek220.Integrationstest", "Pristjek220.Integrationstest\Pristjek220.Integrationstest.csproj", "{FE852189-E353-4535-9716-382ACD79C1C9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Admin", "Admin\Admin.csproj", "{E3D4507D-5A0B-4065-A5FF-569D681E48C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,18 +53,10 @@ Global
 		{1896D380-F220-4195-A6B9-5BE75FD6EDC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1896D380-F220-4195-A6B9-5BE75FD6EDC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1896D380-F220-4195-A6B9-5BE75FD6EDC6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2D622502-207F-4502-9DE1-3D5EF3E045AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2D622502-207F-4502-9DE1-3D5EF3E045AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2D622502-207F-4502-9DE1-3D5EF3E045AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2D622502-207F-4502-9DE1-3D5EF3E045AA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FE852189-E353-4535-9716-382ACD79C1C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FE852189-E353-4535-9716-382ACD79C1C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE852189-E353-4535-9716-382ACD79C1C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE852189-E353-4535-9716-382ACD79C1C9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E3D4507D-5A0B-4065-A5FF-569D681E48C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E3D4507D-5A0B-4065-A5FF-569D681E48C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E3D4507D-5A0B-4065-A5FF-569D681E48C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E3D4507D-5A0B-4065-A5FF-569D681E48C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

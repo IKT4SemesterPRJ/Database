@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Autocomplete
+namespace SharedFunctionalities
 {
     public interface IAutocomplete
     {

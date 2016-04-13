@@ -10,7 +10,7 @@ namespace Pristjek220.Unit.Test
     class AutoCompleteUnitTest
     {
         private IUnitOfWork _unitWork;
-        private Autocomplete.Autocomplete _uut;
+        private SharedFunctionalities.Autocomplete _uut;
         private List<Store> _stores;
         private List<Product> _products;
 
@@ -20,7 +20,7 @@ namespace Pristjek220.Unit.Test
             _unitWork = Substitute.For<IUnitOfWork>();
             _products = new List<Product>();
             _stores = new List<Store>();
-            _uut = new Autocomplete.Autocomplete(_unitWork);
+            _uut = new SharedFunctionalities.Autocomplete(_unitWork);
         }
 
         [Test]

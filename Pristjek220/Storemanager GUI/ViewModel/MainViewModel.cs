@@ -1,6 +1,6 @@
 using GalaSoft.MvvmLight;
 
-namespace Storemanager_GUI.ViewModel
+namespace Administration_GUI.ViewModel
 {
     /// <summary>
     /// This class contains properties that the main View can data bind to.

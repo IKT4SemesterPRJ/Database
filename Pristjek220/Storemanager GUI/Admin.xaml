@@ -5,20 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Storemanager_GUI"
         xmlns:userControls="clr-namespace:Storemanager_GUI.User_Controls_Admin"
+        xmlns:userControlsAdmin="clr-namespace:Administration_GUI.User_Controls_Admin"
+        xmlns:administrationGui="clr-namespace:Administration_GUI"
         mc:Ignorable="d"
         Title="Pristjek220 Admin" Height="350" Width="720">
 
     <Window.Resources>
-        <DataTemplate DataType="{x:Type userControls:AdminDeleteStoreModel}">
+        <DataTemplate DataType="{x:Type userControlsAdmin:AdminDeleteStoreModel}">
             <userControls:AdminDeleteStore />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type userControls:AdminDeleteProductModel}">
+        <DataTemplate DataType="{x:Type userControlsAdmin:AdminDeleteProductModel}">
             <userControls:AdminDeleteProduct />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type userControls:AdminNewProductModel}">
+        <DataTemplate DataType="{x:Type userControlsAdmin:AdminNewProductModel}">
             <userControls:AdminNewProduct />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type userControls:AdminNewStoreModel}">
+        <DataTemplate DataType="{x:Type userControlsAdmin:AdminNewStoreModel}">
             <userControls:AdminNewStore />
         </DataTemplate>
 
@@ -35,7 +37,7 @@
         </Style>
     </Window.Resources>
     <Window.DataContext>
-        <local:AdminViewModel/>
+        <administrationGui:AdminViewModel/>
     </Window.DataContext>
     <Grid Background="sc#1.000000, 0.769689, 0.831936, 1.000000" Name="DocumentRoot" >
         <Grid.RowDefinitions>

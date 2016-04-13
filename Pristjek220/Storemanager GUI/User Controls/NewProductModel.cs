@@ -1,15 +1,15 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using Storemanager;
-using Pristjek220Data;
-using System;
-using Autocomplete;
+using Administration;
 using GalaSoft.MvvmLight.Command;
+using Pristjek220Data;
+using SharedFunctionalities;
+using Storemanager_GUI;
+using RelayCommand = Administration_GUI.RelayCommand;
 
-namespace Storemanager_GUI.User_Controls
+namespace Administration_GUI.User_Controls
 {
     internal class NewProductModel : ObservableObject, IPageViewModel
     {
@@ -56,8 +56,8 @@ namespace Storemanager_GUI.User_Controls
 
         public NewProductModel()
         {
-            _manager = new Storemanager.Storemanager(new UnitOfWork(new DataContext()), new Store() { StoreName = "Aldi" });
-            _autocomplete = new Autocomplete.Autocomplete(_unit);
+            _manager = new Storemanager(new UnitOfWork(new DataContext()), new Store() { StoreName = "Aldi" });
+            _autocomplete = new SharedFunctionalities.Autocomplete(_unit);
         }
 
         private void PopulatingListNewProduct()

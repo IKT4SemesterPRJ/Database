@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Storemanager_GUI;
 
-namespace Storemanager_GUI.User_Controls
+namespace Administration_GUI.User_Controls
 {
     class ChangePriceModel : ObservableObject, IPageViewModel
     {

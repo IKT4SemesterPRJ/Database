@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Storemanager_GUI"
+        xmlns:administrationGui="clr-namespace:Administration_GUI"
         mc:Ignorable="d"
         Title="LogIn" Height="300" Width="300">
     <Window.Resources>
@@ -20,7 +21,7 @@
         </Style>
     </Window.Resources>
     <Window.DataContext>
-        <local:LogInViewModel/>
+        <administrationGui:LogInViewModel/>
     </Window.DataContext>
     <Grid Background="sc#1.000000, 0.769689, 0.831936, 1.000000" Name="DocumentRoot" >
         <Grid.RowDefinitions>

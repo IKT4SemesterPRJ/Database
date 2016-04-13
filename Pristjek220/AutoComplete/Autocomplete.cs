@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Pristjek220Data;
 
-namespace Autocomplete
+namespace SharedFunctionalities
 {
     /// <summary>
     /// The namespace <c>Autocomplete</c> contains the class <see cref="Autocomplete"/> 

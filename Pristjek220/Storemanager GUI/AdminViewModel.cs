@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
+using Administration_GUI.User_Controls_Admin;
+using Storemanager_GUI;
 
-using Storemanager_GUI.User_Controls_Admin;
-
-namespace Storemanager_GUI
+namespace Administration_GUI
 {
     class AdminViewModel : ObservableObject
     {

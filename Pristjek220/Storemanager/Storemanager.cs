@@ -1,6 +1,6 @@
 ﻿using Pristjek220Data;
 
-namespace Storemanager
+namespace Administration
 {
     /// <summary>
     /// The namespace <c>Storemanager</c> contains the class <see cref="Storemanager"/> 

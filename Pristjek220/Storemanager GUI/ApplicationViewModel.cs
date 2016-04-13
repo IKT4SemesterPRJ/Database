@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections.ObjectModel;
-using System.Reflection.Emit;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
-using Storemanager_GUI.User_Controls;
+using Administration_GUI.User_Controls;
+using Storemanager_GUI;
 
-namespace Storemanager_GUI
+namespace Administration_GUI
 
 {
     internal class ApplicationViewModel : ObservableObject

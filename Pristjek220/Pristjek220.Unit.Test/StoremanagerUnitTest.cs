@@ -1,4 +1,5 @@
-﻿using NSubstitute;
+﻿using Administration;
+using NSubstitute;
 using NUnit.Framework;
 using Pristjek220Data;
 
@@ -8,7 +9,7 @@ namespace Pristjek220.Unit.Test
     class StoremanagerUnitTest
     {
         private IUnitOfWork _unitWork;
-        private Storemanager.Storemanager _uut;
+        private Storemanager _uut;
         private Store _store;
         private Product _product;
 
@@ -18,7 +19,7 @@ namespace Pristjek220.Unit.Test
             _unitWork = Substitute.For<IUnitOfWork>();
             _store = new Store() {StoreName = "Aldi", StoreId = 22};
             _product = new Product() {ProductName = "Banan", ProductId = 10};
-            _uut = new Storemanager.Storemanager(_unitWork, _store);
+            _uut = new Storemanager(_unitWork, _store);
         }
 
         [Test]
@@ -26,7 +27,7 @@ namespace Pristjek220.Unit.Test
         {
             _unitWork.Stores.FindStore(_store.StoreName).Returns(_store);
             
-            var manager = new Storemanager.Storemanager(_unitWork, _store);
+            var manager = new Storemanager(_unitWork, _store);
             Assert.That(_uut.Store, Is.EqualTo(manager.Store));
         }
 

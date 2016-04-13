@@ -2,10 +2,10 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using Autocomplete;
 using Consumer;
 using GalaSoft.MvvmLight.Command;
 using Pristjek220Data;
+using SharedFunctionalities;
 
 namespace Consumer_GUI.User_Controls
 {
@@ -180,7 +180,7 @@ namespace Consumer_GUI.User_Controls
 
         private void PopulatingListShoppingList()
         {
-            IAutocomplete autocomplete = new Autocomplete.Autocomplete(_unit);
+            IAutocomplete autocomplete = new SharedFunctionalities.Autocomplete(_unit);
             AutoCompleteList?.Clear(); // not equal null
             foreach (var item in autocomplete.AutoCompleteProduct(ShoppingListItem))
             {
