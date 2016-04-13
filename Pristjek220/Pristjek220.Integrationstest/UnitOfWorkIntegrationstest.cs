@@ -64,7 +64,7 @@ namespace Pristjek220.Integrationstest
         public void Dispose_DisposeTheDataBase_ExceptionThrownWhenAnActionOnDatabaseIsMade()
         {
             _unitOfWork.Dispose();
-            Assert.Throws<InvalidOperationException>(() => _unitOfWork.Products.ConnectToDb());
+            Assert.That(_unitOfWork.Products.ConnectToDb, Is.EqualTo(false));
         }
     }
 }
