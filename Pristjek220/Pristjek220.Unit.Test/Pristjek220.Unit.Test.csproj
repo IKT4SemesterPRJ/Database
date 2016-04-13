@@ -84,10 +84,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AutoComplete\Shared Functionalities.csproj">
-      <Project>{62b71c47-2332-4bf7-951b-03a640019b5b}</Project>
-      <Name>Shared Functionalities</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Consumer GUI\Consumer GUI.csproj">
       <Project>{6f13218b-58de-4eff-9f9c-42136b8ac59d}</Project>
       <Name>Consumer GUI</Name>
@@ -99,10 +95,6 @@
     <ProjectReference Include="..\Pristjek220Info\Pristjek220Info.csproj">
       <Project>{22ea143c-eac0-43f8-9d62-f454410e462b}</Project>
       <Name>Pristjek220Info</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Storemanager\Administration.csproj">
-      <Project>{f5edfeab-3778-4247-b76e-10fa18ff12a1}</Project>
-      <Name>Administration</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

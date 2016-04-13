@@ -221,17 +221,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AutoComplete\Shared Functionalities.csproj">
-      <Project>{62B71C47-2332-4BF7-951B-03A640019B5B}</Project>
-      <Name>Shared Functionalities</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Pristjek220Info\Pristjek220Info.csproj">
       <Project>{22EA143C-EAC0-43F8-9D62-F454410E462B}</Project>
       <Name>Pristjek220Info</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Storemanager\Administration.csproj">
+    <ProjectReference Include="..\Administration\Administration.csproj">
       <Project>{F5EDFEAB-3778-4247-B76E-10FA18FF12A1}</Project>
       <Name>Administration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shared Functionalities\Shared Functionalities.csproj">
+      <Project>{62b71c47-2332-4bf7-951b-03a640019b5b}</Project>
+      <Name>Shared Functionalities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
