@@ -69,6 +69,10 @@
     <Compile Include="Migrations\201604110917017_Login_added.Designer.cs">
       <DependentUpon>201604110917017_Login_added.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604131227229_Changed_Login_To_SecurePasswordd.cs" />
+    <Compile Include="Migrations\201604131227229_Changed_Login_To_SecurePasswordd.Designer.cs">
+      <DependentUpon>201604131227229_Changed_Login_To_SecurePasswordd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Product\StoreAndPrice.cs" />
     <Compile Include="Product\StoreProductAndPrice.cs" />
@@ -95,6 +99,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201604110917017_Login_added.resx">
       <DependentUpon>201604110917017_Login_added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604131227229_Changed_Login_To_SecurePasswordd.resx">
+      <DependentUpon>201604131227229_Changed_Login_To_SecurePasswordd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

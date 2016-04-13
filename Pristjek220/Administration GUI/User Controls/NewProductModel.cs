@@ -7,7 +7,7 @@ using GalaSoft.MvvmLight.Command;
 using Pristjek220Data;
 using SharedFunctionalities;
 using Administration_GUI;
-using RelayCommand = Administration_GUI.RelayCommand;
+
 
 namespace Administration_GUI.User_Controls
 {

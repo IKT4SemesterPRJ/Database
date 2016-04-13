@@ -3,7 +3,9 @@ using System.Runtime.InteropServices;
 using System.Security;
 using System.Windows;
 using System.Windows.Input;
+using Administration;
 using Administration_GUI;
+using Pristjek220Data;
 
 namespace Administration_GUI
 {
@@ -14,7 +16,13 @@ namespace Administration_GUI
 
         public string Username { get; set; } = string.Empty;
 
-      
+        private Administration.ILogIn _user;
+
+        public LogInViewModel()
+        {
+            _user = new Administration.LogIn();
+        }
+
         private ICommand _logInCommand;
 
         public ICommand LogInCommand
@@ -28,7 +36,7 @@ namespace Administration_GUI
 
         private void LogInbutton()
         {
-           
+           _user.CheckUsernameAndPassword(Username, SecurePassword);
         }
 
         private ICommand _changeWindowAdminCommand;
@@ -68,25 +76,5 @@ namespace Administration_GUI
             storemanagerGUI.Show();
             LogInGui.Close();
         }
-
-        private string ConvertToUnsecureString(SecureString securePassword)
-        {
-            if (securePassword == null)
-            {
-                return string.Empty;
-            }
-
-            IntPtr unmanagedString = IntPtr.Zero;
-            try
-            {
-                unmanagedString = Marshal.SecureStringToGlobalAllocUnicode(securePassword);
-                return Marshal.PtrToStringUni(unmanagedString);
-            }
-            finally
-            {
-                Marshal.ZeroFreeGlobalAllocUnicode(unmanagedString);
-            }
-        }
-
     }
 }

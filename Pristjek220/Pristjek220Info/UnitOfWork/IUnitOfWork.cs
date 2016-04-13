@@ -7,6 +7,7 @@ namespace Pristjek220Data
         IStoreRepository Stores { get; }
         IHasARepository HasA { get; }
         IProductRepository Products { get; }
+        ILoginRepository Logins { get; }
         int Complete();
     }
 }

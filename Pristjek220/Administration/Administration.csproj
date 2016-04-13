@@ -68,7 +68,9 @@
   <ItemGroup>
     <Compile Include="Admin.cs" />
     <Compile Include="IAdmin.cs" />
+    <Compile Include="ILogIn.cs" />
     <Compile Include="IStoremanager.cs" />
+    <Compile Include="LogIn.cs" />
     <Compile Include="Storemanager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

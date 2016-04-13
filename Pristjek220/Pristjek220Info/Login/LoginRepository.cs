@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using System.Linq;
+using System.Security;
 
 namespace Pristjek220Data
 {
@@ -15,7 +16,7 @@ namespace Pristjek220Data
             return login;
         }
 
-        public Store CheckLogin(string password, Login login)
+        public Store CheckLogin(SecureString password, Login login)
         {
             return password == login.Password ? login.Store : null;
         }
