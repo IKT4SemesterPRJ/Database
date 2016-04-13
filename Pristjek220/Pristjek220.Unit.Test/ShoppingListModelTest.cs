@@ -100,7 +100,7 @@ namespace Pristjek220.Unit.Test
             _shoppingList.ShoppingListItem = "banan";
             _shoppingList.IllegalSignShoppingListCommand.Execute(this);
 
-            Assert.That(_shoppingList.Error, Is.EqualTo(null));
+            Assert.That(_shoppingList.Error, Is.EqualTo(string.Empty));
 
         }
 
@@ -120,7 +120,7 @@ namespace Pristjek220.Unit.Test
             _shoppingList.ShoppingListItem = "  ";
             _shoppingList.IllegalSignShoppingListCommand.Execute(this);
 
-            Assert.That(_shoppingList.Error, Is.EqualTo(null));
+            Assert.That(_shoppingList.Error, Is.EqualTo(string.Empty));
 
         }
 
@@ -140,7 +140,7 @@ namespace Pristjek220.Unit.Test
             _shoppingList.ShoppingListItem = "234567";
             _shoppingList.IllegalSignShoppingListCommand.Execute(this);
 
-            Assert.That(_shoppingList.Error, Is.EqualTo(null));
+            Assert.That(_shoppingList.Error, Is.EqualTo(string.Empty));
 
         }
 

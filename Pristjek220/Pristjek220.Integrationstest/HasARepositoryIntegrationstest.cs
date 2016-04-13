@@ -9,12 +9,14 @@ namespace Pristjek220.Integrationstest
         private DataContext _context;
         private HasARepository _hasARepository;
         private readonly HasA _hasA = new HasA();
-        private readonly Product _prod = new Product() { ProductName = "TestProduct" };
-        private readonly Store _store = new Store() { StoreName = "TestStore" };
+        private Product _prod;
+        private Store _store;
 
         [SetUp]
         public void SetUp()
         {
+            _prod = new Product() {ProductName = "TestProduct"};
+            _store = new Store() { StoreName = "TestStore" };
             _context = new DataContext();
             _context.Database.Connection.ConnectionString = "Server=.\\SQLEXPRESS;Database=Pristjek220Data.DataContext; Trusted_Connection=True;";
             _context.Database.ExecuteSqlCommand("dbo.TestCleanTable");
@@ -33,12 +35,17 @@ namespace Pristjek220.Integrationstest
         [Test]
         public void AddHasA_AddAHasAToDb_HasAIsInDb()
         {
+            _context.Stores.Add(_store);
+            _context.Products.Add(_prod);
+            _context.SaveChanges();
             _hasA.Product = _prod;
             _hasA.Store = _store;
+            _hasA.ProductId = _prod.ProductId;
+            _hasA.StoreId = _store.StoreId;
             _context.HasARelation.Add(_hasA);
             _context.SaveChanges();
 
-            Assert.That(_hasARepository.Get(_prod.ProductId, _store.StoreId), Is.EqualTo(_hasA));
+            Assert.That(_hasARepository.Get(_store.StoreId, _prod.ProductId), Is.EqualTo(_hasA));
         }
 
         [Test]
@@ -66,12 +73,17 @@ namespace Pristjek220.Integrationstest
         [Test]
         public void Get_GetHasA_HasAReturned()
         {
+            _context.Stores.Add(_store);
+            _context.Products.Add(_prod);
+            _context.SaveChanges();
             _hasA.Product = _prod;
             _hasA.Store = _store;
+            _hasA.ProductId = _prod.ProductId;
+            _hasA.StoreId = _store.StoreId;
             _context.HasARelation.Add(_hasA);
             _context.SaveChanges();
 
-            Assert.That(_hasARepository.Get(_prod.ProductId, _store.StoreId), Is.EqualTo(_hasA));
+            Assert.That(_hasARepository.Get(_store.StoreId, _prod.ProductId), Is.EqualTo(_hasA));
         }
 
         [Test]
@@ -83,10 +95,17 @@ namespace Pristjek220.Integrationstest
         [Test]
         public void FindHasA_FindHasAHasAIsFound_HasAFound()
         {
+            _context.Stores.Add(_store);
+            _context.Products.Add(_prod);
+            _context.SaveChanges();
+            _hasA.Product = _prod;
+            _hasA.Store = _store;
+            _hasA.ProductId = _prod.ProductId;
+            _hasA.StoreId = _store.StoreId;
             _context.HasARelation.Add(_hasA);
             _context.SaveChanges();
 
-            Assert.That(_hasARepository.FindHasA(_prod.ProductName, _store.StoreName), Is.EqualTo(_hasA));
+            Assert.That(_hasARepository.FindHasA(_store.StoreName, _prod.ProductName), Is.EqualTo(_hasA));
         }
 
         [Test]
