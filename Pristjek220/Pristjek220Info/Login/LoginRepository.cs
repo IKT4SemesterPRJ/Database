@@ -18,7 +18,12 @@ namespace Pristjek220Data
 
         public Store CheckLogin(SecureString password, Login login)
         {
-            return password == login.Password ? login.Store : null;
+            var Securepassword = new SecureString();
+            foreach (var item in login.Password)
+            {
+                Securepassword.AppendChar(item);
+            }
+            return password == Securepassword ? login.Store : null;
         }
 
         public DataContext DataContext
