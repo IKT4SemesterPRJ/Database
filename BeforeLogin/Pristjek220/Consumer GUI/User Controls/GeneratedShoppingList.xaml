@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="Consumer_GUI.User_Controls.GeneratedShoppingList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Consumer_GUI.User_Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="600">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid 
+            ItemsSource="{Binding GeneratedShoppingListData}" 
+            AutoGenerateColumns="False"
+            CanUserReorderColumns="False"
+            CanUserResizeRows="False"
+            IsReadOnly="True"
+            Grid.Column="1"  
+            Height="300" 
+            Grid.Row="1" 
+            Width="400" 
+            Margin="5">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*" Header="Forretning" Binding="{Binding StoreName}"/>
+                <DataGridTextColumn Width="*" Header="Produkt" Binding="{Binding ProductName}"/>
+                <DataGridTextColumn Width="50" Header="Pris" Binding="{Binding Price, ConverterCulture='nn-NO', StringFormat=c}"/>
+                <DataGridTextColumn Width="*" Header="Antal" Binding="{Binding Quantity}"/>
+                <DataGridTextColumn Width="Auto" Header="Samlet pris" Binding="{Binding Sum, ConverterCulture='nn-NO', StringFormat=c}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label
+            Grid.Column="1"
+            Grid.Row="2">
+            Produkter der ikke findes i en forretning:
+        </Label>
+        <DataGrid
+            ItemsSource="{Binding  NotInAStore}"
+            AutoGenerateColumns="False"
+            CanUserResizeColumns="False"
+            CanUserResizeRows="False"
+            IsReadOnly="True"
+            Grid.Column="1"
+            Grid.Row="3"
+            Height="150"
+            Width="400">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*" Header="Produkt" Binding="{Binding Name}"/>
+                <DataGridTextColumn Width="*" Header="Antal" Binding="{Binding Quantity}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>
