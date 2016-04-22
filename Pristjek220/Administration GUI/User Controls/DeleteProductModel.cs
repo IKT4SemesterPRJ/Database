@@ -15,7 +15,7 @@ namespace Administration_GUI.User_Controls
         private readonly UnitOfWork _unit = new UnitOfWork(new DataContext());
         private readonly IAutocomplete _autocomplete;
         private readonly IStoremanager _manager;
-
+        private Store _store;
         private ICommand _deleteFromStoreDatabaseCommand;
         private ICommand _populatingDeleteProductCommand;
         private ICommand _illegalSignDeleteProductCommand;
@@ -23,36 +23,19 @@ namespace Administration_GUI.User_Controls
 
         private string _oldtext = string.Empty;
         
-        public DeleteProductModel()
+        public DeleteProductModel(Store store)
         {
-            _manager = new Storemanager(new UnitOfWork(new DataContext()), new Store() { StoreName = "Aldi" });
+            _store = store;
+            _manager = new Storemanager(new UnitOfWork(new DataContext()), _store);
             _autocomplete = new SharedFunctionalities.Autocomplete(_unit);
         }
-        public ICommand DeleteFromStoreDatabaseCommand
-        {
-            get
-            {
-                return _deleteFromStoreDatabaseCommand ?? (_deleteFromStoreDatabaseCommand = new RelayCommand(DeleteFromStoreDatabase));
-            }
-        }
+        public ICommand DeleteFromStoreDatabaseCommand => _deleteFromStoreDatabaseCommand ?? (_deleteFromStoreDatabaseCommand = new RelayCommand(DeleteFromStoreDatabase));
 
-        public ICommand PopulatingDeleteProductCommand
-        {
-            get
-            {
-                return _populatingDeleteProductCommand ??
-                       (_populatingDeleteProductCommand = new RelayCommand(PopulatingListDeleteProduct));
-            }
-        }
+        public ICommand PopulatingDeleteProductCommand => _populatingDeleteProductCommand ??
+                                                          (_populatingDeleteProductCommand = new RelayCommand(PopulatingListDeleteProduct));
 
-        public ICommand IllegalSignDeleteProductCommand
-        {
-            get
-            {
-                return _illegalSignDeleteProductCommand ??
-                       (_illegalSignDeleteProductCommand = new RelayCommand(IllegalSignDeleteProduct));
-            }
-        }
+        public ICommand IllegalSignDeleteProductCommand => _illegalSignDeleteProductCommand ??
+                                                           (_illegalSignDeleteProductCommand = new RelayCommand(IllegalSignDeleteProduct));
 
         public ObservableCollection<string> AutoCompleteList { get; } = new ObservableCollection<string>();
 
@@ -71,12 +54,10 @@ namespace Administration_GUI.User_Controls
 
         private void IllegalSignDeleteProduct()
         {
-            if (!ShoppingListItem.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr)))
-            {
-                MessageBox.Show(
-                    "Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9", "ERROR", MessageBoxButton.OK);
-                ShoppingListItem = _oldtext;
-            }
+            if (ShoppingListItem.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr))) return;
+            MessageBox.Show(
+                "Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9", "ERROR", MessageBoxButton.OK);
+            ShoppingListItem = _oldtext;
         }
 
         private void DeleteFromStoreDatabase()
@@ -119,13 +100,7 @@ namespace Administration_GUI.User_Controls
             get { return _confirmText; }
         }
 
-        public ICommand EnterKeyPressedCommand
-        {
-            get
-            {
-                return _enterPressedCommand ?? (_enterPressedCommand = new RelayCommand<KeyEventArgs>(EnterKeyPressed));
-            }
-        }
+        public ICommand EnterKeyPressedCommand => _enterPressedCommand ?? (_enterPressedCommand = new RelayCommand<KeyEventArgs>(EnterKeyPressed));
 
         private void EnterKeyPressed(KeyEventArgs e)
         {
