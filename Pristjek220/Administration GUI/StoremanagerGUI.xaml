@@ -31,10 +31,7 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Window.DataContext>
-        <administrationGui:ApplicationViewModel></administrationGui:ApplicationViewModel>
-    </Window.DataContext>
-    <Grid Background="sc#1.000000, 0.769689, 0.831936, 1.000000" Name="DocumentRoot" >
+   <Grid Background="sc#1.000000, 0.769689, 0.831936, 1.000000" Name="DocumentRoot" >
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
             <RowDefinition Height="*" />
@@ -63,4 +60,6 @@
         </Grid>
     </Grid>
 </Window>
+
+
 

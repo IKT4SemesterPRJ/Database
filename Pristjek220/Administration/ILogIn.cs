@@ -5,6 +5,7 @@ namespace Administration
 {
     public interface ILogIn
     {
-        Store CheckUsernameAndPassword(string username, SecureString securePassword);
+        int CheckUsernameAndPassword(string username, SecureString securePassword, ref Store store);
     }
+
 }
