@@ -1,9 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
 using System.Windows.Input;
 using Administration;
-using Administration_GUI;
 using GalaSoft.MvvmLight.Command;
 using Pristjek220Data;
 using SharedFunctionalities;
