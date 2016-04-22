@@ -55,7 +55,7 @@ namespace Administration_GUI.User_Controls
 
         private void AddToStoreDatabase()
         {
-            if (ShoppingListItemPrice > 0)
+            if (ShoppingListItemPrice > 0 && ShoppingListItem != null)
             {
                 string productName = char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower();
 
@@ -82,12 +82,15 @@ namespace Administration_GUI.User_Controls
 
         private void IllegalSignNewProduct()
         {
-            if (!ShoppingListItem.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr)))
+            if (ShoppingListItem != null)
             {
-                MessageBox.Show(
-                    "Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9", "ERROR", MessageBoxButton.OK);
-                ShoppingListItem = _oldtext;
+                 if (!ShoppingListItem.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr)))
+                 {
+                     ConfirmText = ($"Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9");
+                     ShoppingListItem = _oldtext;
+                 }
             }
+            
         }
 
         private string _shoppingListItem;
