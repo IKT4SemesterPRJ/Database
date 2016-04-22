@@ -13,6 +13,7 @@ namespace Pristjek220.Unit.Test
         private SharedFunctionalities.Autocomplete _uut;
         private List<Store> _stores;
         private List<Product> _products;
+        private List<ProductAndPrice> _productAndPrices;
 
         [SetUp]
         public void SetUp()
@@ -20,6 +21,7 @@ namespace Pristjek220.Unit.Test
             _unitWork = Substitute.For<IUnitOfWork>();
             _products = new List<Product>();
             _stores = new List<Store>();
+            _productAndPrices = new List<ProductAndPrice>();
             _uut = new SharedFunctionalities.Autocomplete(_unitWork);
         }
 
@@ -101,6 +103,111 @@ namespace Pristjek220.Unit.Test
 
             _unitWork.Stores.FindStoreStartingWith("A").Returns(_stores);
             Assert.That(_uut.AutoCompleteStore("A").Count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void AutoCompleteProductForOneStore_LookUpWordStartsWithB_ReturnsListOfSize3()
+        {
+            var aldiStoreName = "Aldi";
+            var bananProductAndPrice = new ProductAndPrice() {Name = "Banan"};
+            var baconProductAndPrice = new ProductAndPrice() { Name = "Bacon" };
+            var bollerProductAndPrice = new ProductAndPrice() { Name = "Boller" };
+            var brombaerProductAndPrice = new ProductAndPrice() { Name = "Brombaer" };
+            _productAndPrices.Add(bananProductAndPrice);
+            _productAndPrices.Add(baconProductAndPrice);
+            _productAndPrices.Add(bollerProductAndPrice);
+            _productAndPrices.Add(brombaerProductAndPrice);
+
+            _unitWork.Stores.FindProductsInStore(aldiStoreName).Returns(_productAndPrices);
+            Assert.That(_uut.AutoCompleteProductForOneStore(aldiStoreName, "B").Count, Is.EqualTo(3));
+        }
+
+        [Test]
+        public void AutoCompleteProductForOneStore_LookUpWordStartsWithB_ReturnsListOfSize1()
+        {
+            var aldiStoreName = "Aldi";
+            var bananProductAndPrice = new ProductAndPrice() { Name = "Banan" };
+            _productAndPrices.Add(bananProductAndPrice);
+
+            _unitWork.Stores.FindProductsInStore(aldiStoreName).Returns(_productAndPrices);
+            Assert.That(_uut.AutoCompleteProductForOneStore(aldiStoreName, "B").Count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void AutoCompleteProductForOneStore_NoProductsInStore_ReturnsNull()
+        {
+            var aldiStoreName = "Aldi";
+
+            _unitWork.Stores.FindProductsInStore(aldiStoreName).ReturnsNull();
+            Assert.That(_uut.AutoCompleteProductForOneStore(aldiStoreName, "B"), Is.EqualTo(null));
+        }
+
+        [Test]
+        public void AutoCompleteProductForOneStore_FourProductsInListThatStartsWithB_FirstProductIsInReturnedList()
+        {
+            var aldiStoreName = "Aldi";
+            var bananProductAndPrice = new ProductAndPrice() { Name = "Banan" };
+            var baconProductAndPrice = new ProductAndPrice() { Name = "Bacon" };
+            var bollerProductAndPrice = new ProductAndPrice() { Name = "Boller" };
+            var brombaerProductAndPrice = new ProductAndPrice() { Name = "Brombaer" };
+            _productAndPrices.Add(bananProductAndPrice);
+            _productAndPrices.Add(baconProductAndPrice);
+            _productAndPrices.Add(bollerProductAndPrice);
+            _productAndPrices.Add(brombaerProductAndPrice);
+
+            _unitWork.Stores.FindProductsInStore(aldiStoreName).Returns(_productAndPrices);
+            Assert.That(_uut.AutoCompleteProductForOneStore(aldiStoreName, "B").Contains(bananProductAndPrice.Name), Is.EqualTo(true));
+        }
+
+        [Test]
+        public void AutoCompleteProductForOneStore_FourProductsInListThatStartsWithB_SecondProductIsInReturnedList()
+        {
+            var aldiStoreName = "Aldi";
+            var bananProductAndPrice = new ProductAndPrice() { Name = "Banan" };
+            var baconProductAndPrice = new ProductAndPrice() { Name = "Bacon" };
+            var bollerProductAndPrice = new ProductAndPrice() { Name = "Boller" };
+            var brombaerProductAndPrice = new ProductAndPrice() { Name = "Brombaer" };
+            _productAndPrices.Add(bananProductAndPrice);
+            _productAndPrices.Add(baconProductAndPrice);
+            _productAndPrices.Add(bollerProductAndPrice);
+            _productAndPrices.Add(brombaerProductAndPrice);
+
+            _unitWork.Stores.FindProductsInStore(aldiStoreName).Returns(_productAndPrices);
+            Assert.That(_uut.AutoCompleteProductForOneStore(aldiStoreName, "B").Contains(baconProductAndPrice.Name), Is.EqualTo(true));
+        }
+
+        [Test]
+        public void AutoCompleteProductForOneStore_ThirdProductsInListThatStartsWithB_ThirdProductIsInReturnedList()
+        {
+            var aldiStoreName = "Aldi";
+            var bananProductAndPrice = new ProductAndPrice() { Name = "Banan" };
+            var baconProductAndPrice = new ProductAndPrice() { Name = "Bacon" };
+            var bollerProductAndPrice = new ProductAndPrice() { Name = "Boller" };
+            var brombaerProductAndPrice = new ProductAndPrice() { Name = "Brombaer" };
+            _productAndPrices.Add(bananProductAndPrice);
+            _productAndPrices.Add(baconProductAndPrice);
+            _productAndPrices.Add(bollerProductAndPrice);
+            _productAndPrices.Add(brombaerProductAndPrice);
+
+            _unitWork.Stores.FindProductsInStore(aldiStoreName).Returns(_productAndPrices);
+            Assert.That(_uut.AutoCompleteProductForOneStore(aldiStoreName, "B").Contains(bollerProductAndPrice.Name), Is.EqualTo(true));
+        }
+
+        [Test]
+        public void AutoCompleteProductForOneStore_FourProductsInListThatStartsWithB_FourthProductIsNotInReturnedList()
+        {
+            var aldiStoreName = "Aldi";
+            var bananProductAndPrice = new ProductAndPrice() { Name = "Banan" };
+            var baconProductAndPrice = new ProductAndPrice() { Name = "Bacon" };
+            var bollerProductAndPrice = new ProductAndPrice() { Name = "Boller" };
+            var brombaerProductAndPrice = new ProductAndPrice() { Name = "Brombaer" };
+            _productAndPrices.Add(bananProductAndPrice);
+            _productAndPrices.Add(baconProductAndPrice);
+            _productAndPrices.Add(bollerProductAndPrice);
+            _productAndPrices.Add(brombaerProductAndPrice);
+
+            _unitWork.Stores.FindProductsInStore(aldiStoreName).Returns(_productAndPrices);
+            Assert.That(_uut.AutoCompleteProductForOneStore(aldiStoreName, "B").Contains(brombaerProductAndPrice.Name), Is.EqualTo(false));
         }
     }
 }
