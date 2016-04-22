@@ -91,13 +91,7 @@
             Grid.Column="2"
             Grid.Row="4"
             Width="100"
-            Margin="2">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="TextChanged">
-                    <i:InvokeCommandAction Command="{Binding SecurePasswordChangedCommand}"></i:InvokeCommandAction>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </PasswordBox>
+            Margin="2"/>
         
         <Button
             Grid.Column="3"

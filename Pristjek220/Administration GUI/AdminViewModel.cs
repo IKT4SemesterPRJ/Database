@@ -14,7 +14,6 @@ namespace Administration_GUI
         public AdminViewModel()
         {
             // Add available pages
-            PageViewModels.Add(new AdminNewProductModel());
             PageViewModels.Add(new AdminNewStoreModel());
             PageViewModels.Add(new AdminDeleteProductModel());
             PageViewModels.Add(new AdminDeleteStoreModel());
@@ -25,13 +24,7 @@ namespace Administration_GUI
 
         public ObservableCollection<IPageViewModelAdmin> PageViewModels
         {
-            get
-            {
-                if (_pageViewModels == null)
-                    _pageViewModels = new ObservableCollection<IPageViewModelAdmin>();
-
-                return _pageViewModels;
-            }
+            get { return _pageViewModels ?? (_pageViewModels = new ObservableCollection<IPageViewModelAdmin>()); }
         }
 
         public IPageViewModelAdmin CurrentPageViewModel
@@ -39,79 +32,43 @@ namespace Administration_GUI
             get { return _currentPageViewModel; }
             set
             {
-                if (_currentPageViewModel != value)
-                {
-                    _currentPageViewModel = value;
-                    OnPropertyChanged();
-                }
+                if (_currentPageViewModel == value) return;
+                _currentPageViewModel = value;
+                OnPropertyChanged();
             }
         }
 
         #region Commands
 
 
-        private ICommand _adminChangeWindowNewProductCommand;
+        private ICommand _adminChangeWindowNewStoreCommand;
 
-        public ICommand AdminChangeWindowNewProductCommand
-        {
-            get
-            {
-                return _adminChangeWindowNewProductCommand ??
-                       (_adminChangeWindowNewProductCommand = new RelayCommand(AdminChangeWindowNewProduct));
-            }
-        }
+        public ICommand AdminChangeWindowNewStoreCommand => _adminChangeWindowNewStoreCommand ??
+                                                            (_adminChangeWindowNewStoreCommand = new RelayCommand(AdminChangeWindowNewStore));
 
-        private void AdminChangeWindowNewProduct()
+        private void AdminChangeWindowNewStore()
         {
             CurrentPageViewModel = PageViewModels[0];
         }
 
-        private ICommand _adminChangeWindowNewStoreCommand;
+        private ICommand _adminChangeWindowDeleteProductCommand;
 
-        public ICommand AdminChangeWindowNewStoreCommand
-        {
-            get
-            {
-                return _adminChangeWindowNewStoreCommand ??
-                       (_adminChangeWindowNewStoreCommand = new RelayCommand(AdminChangeWindowNewStore));
-            }
-        }
+        public ICommand AdminChangeWindowDeleteProductCommand => _adminChangeWindowDeleteProductCommand ??
+                                                                 (_adminChangeWindowDeleteProductCommand = new RelayCommand(AdminChangeWindowDeleteProduct));
 
-        private void AdminChangeWindowNewStore()
+        private void AdminChangeWindowDeleteProduct()
         {
             CurrentPageViewModel = PageViewModels[1];
         }
 
-        private ICommand _adminChangeWindowDeleteProductCommand;
-
-        public ICommand AdminChangeWindowDeleteProductCommand
-        {
-            get
-            {
-                return _adminChangeWindowDeleteProductCommand ??
-                       (_adminChangeWindowDeleteProductCommand = new RelayCommand(AdminChangeWindowDeleteProduct));
-            }
-        }
-
-        private void AdminChangeWindowDeleteProduct()
-        {
-            CurrentPageViewModel = PageViewModels[2];
-        }
-
         private ICommand _adminChangeWindowDeleteStoreCommand;
 
-        public ICommand AdminChangeWindowDeleteStoreCommand
-        {
-            get
-            {
-                return _adminChangeWindowDeleteStoreCommand ??
-                       (_adminChangeWindowDeleteStoreCommand = new RelayCommand(AdminChangeWindowDeleteStore));
-            }
-        }
+        public ICommand AdminChangeWindowDeleteStoreCommand => _adminChangeWindowDeleteStoreCommand ??
+                                                               (_adminChangeWindowDeleteStoreCommand = new RelayCommand(AdminChangeWindowDeleteStore));
 
         private void AdminChangeWindowDeleteStore()
         {
-            CurrentPageViewModel = PageViewModels[3];
+            CurrentPageViewModel = PageViewModels[2];
         }
 
         private ICommand _logOutCommand;
@@ -121,11 +78,11 @@ namespace Administration_GUI
 
         private void LogOut()
         {
-            var CurrentWindow = Application.Current.MainWindow;
-            var LogIn = new LogIn();
-            LogIn.Show();
-            CurrentWindow.Close();
-            Application.Current.MainWindow = LogIn;
+            var currentWindow = Application.Current.MainWindow;
+            var logIn = new LogIn();
+            logIn.Show();
+            currentWindow.Close();
+            Application.Current.MainWindow = logIn;
         }
 
 

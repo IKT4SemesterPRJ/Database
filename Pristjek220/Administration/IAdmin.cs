@@ -6,6 +6,6 @@ namespace Administration
     public interface IAdmin
     {
         int CreateLogin(string userName, SecureString password, string storeName);
-        void AddStore(Store store);
+        int CheckPasswords(SecureString pass1, SecureString pass2);
     }
 }

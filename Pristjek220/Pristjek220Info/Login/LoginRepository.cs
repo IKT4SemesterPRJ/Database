@@ -1,6 +1,10 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Pristjek220Data
 {
@@ -18,17 +22,48 @@ namespace Pristjek220Data
 
         public Store CheckLogin(SecureString password, Login login)
         {
-            var Securepassword = new SecureString();
-            foreach (var item in login.Password)
+            var PasswordString = ConvertToUnsecureString(password);
+
+            using (SHA256 hash = SHA256Managed.Create())
             {
-                Securepassword.AppendChar(item);
+                Encoding enc = Encoding.UTF8;
+
+                //the user id is the salt. 
+                //So 2 users with same password have different hashes. 
+                //For example if someone knows his own hash he can't see who has same password
+                string input = PasswordString;
+                Byte[] result = hash.ComputeHash(enc.GetBytes(input));
+
+                StringBuilder Sb = new StringBuilder();
+                foreach (Byte b in result)
+                    Sb.Append(b.ToString("x2"));
+                PasswordString = Sb.ToString();
             }
-            return password == Securepassword ? login.Store : null;
+            return PasswordString == login.Password ? login.Store : null;
         }
 
         public DataContext DataContext
         {
             get { return Context as DataContext; }
+        }
+
+        private string ConvertToUnsecureString(SecureString securePassword)
+        {
+            if (securePassword == null)
+            {
+                return string.Empty;
+            }
+
+            IntPtr unmanagedString = IntPtr.Zero;
+            try
+            {
+                unmanagedString = Marshal.SecureStringToGlobalAllocUnicode(securePassword);
+                return Marshal.PtrToStringUni(unmanagedString);
+            }
+            finally
+            {
+                Marshal.ZeroFreeGlobalAllocUnicode(unmanagedString);
+            }
         }
     }
 }
