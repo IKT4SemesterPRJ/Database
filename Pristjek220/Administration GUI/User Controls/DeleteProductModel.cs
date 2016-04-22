@@ -1,9 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
 using System.Windows.Input;
 using Administration;
-using Administration_GUI;
 using GalaSoft.MvvmLight.Command;
 using Pristjek220Data;
 using SharedFunctionalities;
@@ -55,13 +53,14 @@ namespace Administration_GUI.User_Controls
         private void IllegalSignDeleteProduct()
         {
             if (ShoppingListItem.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr))) return;
-            MessageBox.Show(
-                "Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9", "ERROR", MessageBoxButton.OK);
+            ConfirmText =($"Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9");
             ShoppingListItem = _oldtext;
         }
 
         private void DeleteFromStoreDatabase()
         {
+            if (string.IsNullOrEmpty(ShoppingListItem)) return;
+            
             string productName = char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower();
 
             var product = _manager.FindProduct(productName);
