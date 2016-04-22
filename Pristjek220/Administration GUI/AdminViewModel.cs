@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 using Administration_GUI.User_Controls_Admin;
 using Administration_GUI;
@@ -111,6 +112,20 @@ namespace Administration_GUI
         private void AdminChangeWindowDeleteStore()
         {
             CurrentPageViewModel = PageViewModels[3];
+        }
+
+        private ICommand _logOutCommand;
+
+        public ICommand LogOutCommand => _logOutCommand ??
+                                         (_logOutCommand = new RelayCommand(LogOut));
+
+        private void LogOut()
+        {
+            var CurrentWindow = Application.Current.MainWindow;
+            var LogIn = new LogIn();
+            LogIn.Show();
+            CurrentWindow.Close();
+            Application.Current.MainWindow = LogIn;
         }
 
 

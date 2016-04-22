@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 using Administration;
 using Administration_GUI.User_Controls;
@@ -29,27 +30,16 @@ namespace Administration_GUI
 
         }
 
-        public ObservableCollection<IPageViewModel> PageViewModels
-        {
-            get
-            {
-                if (_pageViewModels == null)
-                    _pageViewModels = new ObservableCollection<IPageViewModel>();
-
-                return _pageViewModels;
-            }
-        }
+        public ObservableCollection<IPageViewModel> PageViewModels => _pageViewModels ?? (_pageViewModels = new ObservableCollection<IPageViewModel>());
 
         public IPageViewModel CurrentPageViewModel
         {
             get { return _currentPageViewModel; }
             set
             {
-                if (_currentPageViewModel != value)
-                {
-                    _currentPageViewModel = value;
-                    OnPropertyChanged();
-                }
+                if (_currentPageViewModel == value) return;
+                _currentPageViewModel = value;
+                OnPropertyChanged();
             }
         }
 
@@ -58,10 +48,7 @@ namespace Administration_GUI
         
         private ICommand _changeWindowChangePriceCommand;
 
-        public ICommand ChangeWindowChangePriceCommand
-        {
-            get { return _changeWindowChangePriceCommand ?? (_changeWindowChangePriceCommand = new RelayCommand(ChangeWindowChangePrice)); }
-        }
+        public ICommand ChangeWindowChangePriceCommand => _changeWindowChangePriceCommand ?? (_changeWindowChangePriceCommand = new RelayCommand(ChangeWindowChangePrice));
 
         private void ChangeWindowChangePrice()
         {
@@ -70,14 +57,8 @@ namespace Administration_GUI
 
         private ICommand _changeWindowDeleteProductCommand;
 
-        public ICommand ChangeWindowDeleteProductCommand
-        {
-            get
-            {
-                return _changeWindowDeleteProductCommand ??
-                       (_changeWindowDeleteProductCommand = new RelayCommand(ChangeWindowDeleteProduct));
-            }
-        }
+        public ICommand ChangeWindowDeleteProductCommand => _changeWindowDeleteProductCommand ??
+                                                            (_changeWindowDeleteProductCommand = new RelayCommand(ChangeWindowDeleteProduct));
 
         private void ChangeWindowDeleteProduct()
         {
@@ -86,21 +67,30 @@ namespace Administration_GUI
 
         private ICommand _changeWindowNewProductCommand;
 
-        public ICommand ChangeWindowNewProductCommand
-        {
-            get
-            {
-                return _changeWindowNewProductCommand ??
-                       (_changeWindowNewProductCommand = new RelayCommand(ChangeWindowNewProduct));
-            }
-        }
+        public ICommand ChangeWindowNewProductCommand => _changeWindowNewProductCommand ??
+                                                         (_changeWindowNewProductCommand = new RelayCommand(ChangeWindowNewProduct));
 
         private void ChangeWindowNewProduct()
         {
             CurrentPageViewModel = PageViewModels[2];
         }
 
-     
+        private ICommand _logOutCommand;
+
+        public ICommand LogOutCommand => _logOutCommand ??
+                                         (_logOutCommand = new RelayCommand(LogOut));
+
+        private void LogOut()
+        {
+            var CurrentWindow = Application.Current.MainWindow;
+            var LogIn = new LogIn();
+            LogIn.Show();
+            CurrentWindow.Close();
+            Application.Current.MainWindow = LogIn;
+
+        }
+
+
         #endregion
     }
 
