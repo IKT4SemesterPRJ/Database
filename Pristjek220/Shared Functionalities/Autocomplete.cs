@@ -71,5 +71,23 @@ namespace SharedFunctionalities
 
             return autoCompleteList;
         }
+
+        public List<string> AutoCompleteProductForOneStore(string storeName, string lookUpWord)
+        {
+            var productList = _unit.Stores.FindProductsInStore(storeName);
+
+            if (productList == null)
+                return null;        // Ingen produkter i butikken
+
+            List<string> autoCompleteList = new List<string>();
+            for (int i = 0; i < productList.Count; i++)
+            {
+                autoCompleteList.Add(productList[i].Name);
+                if (i == 2)
+                    break;
+            }
+
+            return autoCompleteList;
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Pristjek220Data;
 
 namespace SharedFunctionalities
 {
@@ -6,5 +7,6 @@ namespace SharedFunctionalities
     {
         List<string> AutoCompleteProduct(string lookUpWord);
         List<string> AutoCompleteStore(string lookUpWord);
+        List<string> AutoCompleteProductForOneStore(string storeName, string lookUpWord);
     }
 }
