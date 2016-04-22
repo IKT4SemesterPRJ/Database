@@ -121,10 +121,6 @@
       <DependentUpon>AdminDeleteStore.xaml</DependentUpon>
     </Compile>
     <Compile Include="User Controls Admin\AdminDeleteStoreModel.cs" />
-    <Compile Include="User Controls Admin\AdminNewProduct.xaml.cs">
-      <DependentUpon>AdminNewProduct.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="User Controls Admin\AdminNewProductModel.cs" />
     <Compile Include="User Controls Admin\AdminNewStore.xaml.cs">
       <DependentUpon>AdminNewStore.xaml</DependentUpon>
     </Compile>
@@ -168,10 +164,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="User Controls Admin\AdminDeleteStore.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="User Controls Admin\AdminNewProduct.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

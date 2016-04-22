@@ -16,6 +16,14 @@ namespace Administration
             _unitOfWork = unitOfWork;
         }
 
+        public int CheckPasswords(SecureString pass1, SecureString pass2)
+        {
+            var password1 = ConvertToUnsecureString(pass1);
+            var password2 = ConvertToUnsecureString(pass2);
+
+            return password2 != password1 ? 0 : 1;
+        }
+
         public int CreateLogin(string userName, SecureString password, string storeName)
         {
             if (_unitOfWork.Stores.FindStore(storeName) != null)
@@ -44,13 +52,13 @@ namespace Administration
 
             Store store = new Store() {StoreName = storeName};
             AddStore(store);
-
+            userName = char.ToUpper(userName[0]) + userName.Substring(1).ToLower();
             var login = new Pristjek220Data.Login() {Username = userName, Password = code, Store = store};
             _unitOfWork.Logins.Add(login);
             return _unitOfWork.Complete();
         }
 
-        public void AddStore(Store store)
+        private void AddStore(Store store)
         {
             store.StoreName = char.ToUpper(store.StoreName[0]) + store.StoreName.Substring(1).ToLower();
             _unitOfWork.Stores.Add(store);

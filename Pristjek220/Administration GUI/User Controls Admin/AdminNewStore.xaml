@@ -6,22 +6,86 @@
              xmlns:local="clr-namespace:Administration_GUI.User_Controls_Admin"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="5"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Label 
             Grid.Column="1"
-            Grid.Row="1"
+            Grid.Row="2"
             Height="30">
-            Dette er new store
+            Forretningsnavn:
         </Label>
+
+        <Label 
+            Grid.Column="1"
+            Grid.Row="3"
+            Height="30">
+            Password:
+        </Label>
+        
+        <Label 
+            Grid.Column="1"
+            Grid.Row="4"
+            Height="30">
+            Bekræft password:
+        </Label>
+        
+        <Button
+            Command="{Binding NewStoreCommand}"
+            Content="Tilføj forretning" 
+            Grid.Column="1" 
+            Grid.Row="5"
+            Grid.ColumnSpan="2"
+            Margin="5"
+            Height="25"/>
+
+        <PasswordBox 
+            PasswordChanged="PasswordBox_OnPasswordChanged"
+            Grid.Column="2"
+            Grid.Row="3"
+            Margin="2"
+            Width="100"/>
+        
+        <PasswordBox 
+            PasswordChanged="PasswordBox_OnPasswordConfirmChanged"
+            Grid.Column="2"
+            Grid.Row="4"
+            Margin="2"
+            Width="100"/>
+
+        <TextBox
+            Text="{Binding NewStoreName}"
+            Grid.Column="2" 
+            Grid.Row="2" 
+            Height="23" 
+            Margin="2"
+            Width="100">
+        </TextBox>
+
+        <Label
+            Content="{Binding Error}"
+            Grid.Column="1"
+            Grid.Row="6"
+            Height="30"
+            Grid.ColumnSpan="2"/>
+
     </Grid>
 </UserControl>
+
