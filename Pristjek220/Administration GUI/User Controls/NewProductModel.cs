@@ -38,7 +38,7 @@ namespace Administration_GUI.User_Controls
 
         public NewProductModel(Store store)
         {
-            _manager = new Storemanager(new UnitOfWork(new DataContext()), new Store() { StoreName = store.StoreName });
+            _manager = new Storemanager(new UnitOfWork(new DataContext()), store);
             _autocomplete = new SharedFunctionalities.Autocomplete(_unit);
         }
 
