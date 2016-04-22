@@ -91,14 +91,13 @@ namespace Consumer
         {
             foreach (var product in ShoppingListData)
             {
-                if (FindCheapestStore(product.Name) == null)
+                var cheapestStore = FindCheapestStore(product.Name);
+                if (cheapestStore == null)
                 {
                     NotInAStore.Add(product);
                 }
                 else
                 {
-                    var cheapestStore = FindCheapestStore(product.Name);
-
                     var productInStore =
                         cheapestStore.HasARelation.Find(x => x.Product.ProductName.Contains(product.Name));
 

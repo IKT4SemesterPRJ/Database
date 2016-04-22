@@ -31,10 +31,7 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Window.DataContext>
-        <administrationGui:ApplicationViewModel></administrationGui:ApplicationViewModel>
-    </Window.DataContext>
-    <Grid Background="sc#1.000000, 0.769689, 0.831936, 1.000000" Name="DocumentRoot" >
+   <Grid Background="sc#1.000000, 0.769689, 0.831936, 1.000000" Name="DocumentRoot" >
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
             <RowDefinition Height="*" />
@@ -51,6 +48,7 @@
                         <Button Command="{Binding ChangeWindowNewProductCommand}" Style="{StaticResource RoundedButtonStyle}" DockPanel.Dock="Top" Background="white">Tilføj produkt</Button>
                         <Button Command="{Binding ChangeWindowDeleteProductCommand}" Style="{StaticResource RoundedButtonStyle}" DockPanel.Dock="Top" Background="white">Fjern produkt</Button>
                         <Button Command="{Binding ChangeWindowChangePriceCommand}" Style="{StaticResource RoundedButtonStyle}" DockPanel.Dock="Top" Background="white">Ændre prisen</Button>
+                        <Button Command="{Binding LogOutCommand}" Style="{StaticResource RoundedButtonStyle}" DockPanel.Dock="Top" Background="white">Log ud</Button>
                     </DockPanel>
                 </Grid>
                 <Border x:Name="MyStage" BorderThickness="2" CornerRadius="10" BorderBrush="Black" Margin="10" Padding="10">
@@ -63,4 +61,6 @@
         </Grid>
     </Grid>
 </Window>
+
+
 

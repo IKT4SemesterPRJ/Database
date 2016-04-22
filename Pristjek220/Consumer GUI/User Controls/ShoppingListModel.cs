@@ -134,30 +134,23 @@ namespace Consumer_GUI.User_Controls
 
         private void AddToShoppingList()
         {
-            if (ShoppingListItem != null)
+            if (string.IsNullOrEmpty(ShoppingListItem)) return;
+            if (
+                ShoppingListData.Any(
+                    x => x.Name == char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower()))
             {
-                if (ShoppingListItem != "")
-                {
-                    if (
-                        ShoppingListData.Any(
-                            x => x.Name == char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower()))
-                    {
-                        var item = _user.ShoppingListData.First(
-                            s => s.Name == char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower());
-                        if (item != null)
-                        {
-                            var intQuantity = int.Parse(item.Quantity);
-                            intQuantity++;
-                            item.Quantity = intQuantity.ToString();
-                            OnPropertyChanged("Quantity");
-                        }
-                    }
-                    else
-                    {
-                        ShoppingListData.Add(new ProductInfo(ShoppingListItem));
-                        _user.WriteToJsonFile();
-                    }
-                }
+                var item = _user.ShoppingListData.First(
+                    s => s.Name == char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower());
+                if (item == null) return;
+                var intQuantity = int.Parse(item.Quantity);
+                intQuantity++;
+                item.Quantity = intQuantity.ToString();
+                OnPropertyChanged("Quantity");
+            }
+            else
+            {
+                ShoppingListData.Add(new ProductInfo(ShoppingListItem));
+                _user.WriteToJsonFile();
             }
         }
 

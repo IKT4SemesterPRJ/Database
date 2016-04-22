@@ -26,37 +26,19 @@ namespace Administration_GUI.User_Controls
         private string _oldtext = string.Empty;
 
 
-        public ICommand AddToStoreDatabaseCommand
-        {
-            get
-            {
-                return _addToStoreDatabaseCommand ?? (_addToStoreDatabaseCommand = new RelayCommand(AddToStoreDatabase));
-            }
-        }
+        public ICommand AddToStoreDatabaseCommand => _addToStoreDatabaseCommand ?? (_addToStoreDatabaseCommand = new RelayCommand(AddToStoreDatabase));
 
-        public ICommand PopulatingNewProductCommand
-        {
-            get
-            {
-                return _populatingNewProductCommand ??
-                       (_populatingNewProductCommand = new RelayCommand(PopulatingListNewProduct));
-            }
-        }
+        public ICommand PopulatingNewProductCommand => _populatingNewProductCommand ??
+                                                       (_populatingNewProductCommand = new RelayCommand(PopulatingListNewProduct));
 
-        public ICommand IllegalSignNewProductCommand
-        {
-            get
-            {
-                return _illegalSignNewProductCommand ??
-                       (_illegalSignNewProductCommand = new RelayCommand(IllegalSignNewProduct));
-            }
-        }
+        public ICommand IllegalSignNewProductCommand => _illegalSignNewProductCommand ??
+                                                        (_illegalSignNewProductCommand = new RelayCommand(IllegalSignNewProduct));
 
         public ObservableCollection<string> AutoCompleteList { get; } = new ObservableCollection<string>();
 
-        public NewProductModel()
+        public NewProductModel(Store store)
         {
-            _manager = new Storemanager(new UnitOfWork(new DataContext()), new Store() { StoreName = "Aldi" });
+            _manager = new Storemanager(new UnitOfWork(new DataContext()), store);
             _autocomplete = new SharedFunctionalities.Autocomplete(_unit);
         }
 
@@ -73,7 +55,7 @@ namespace Administration_GUI.User_Controls
 
         private void AddToStoreDatabase()
         {
-            if (ShoppingListItemPrice > 0)
+            if (ShoppingListItemPrice > 0 && ShoppingListItem != null)
             {
                 string productName = char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower();
 
@@ -100,12 +82,15 @@ namespace Administration_GUI.User_Controls
 
         private void IllegalSignNewProduct()
         {
-            if (!ShoppingListItem.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr)))
+            if (ShoppingListItem != null)
             {
-                MessageBox.Show(
-                    "Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9", "ERROR", MessageBoxButton.OK);
-                ShoppingListItem = _oldtext;
+                 if (!ShoppingListItem.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr)))
+                 {
+                     ConfirmText = ($"Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9");
+                     ShoppingListItem = _oldtext;
+                 }
             }
+            
         }
 
         private string _shoppingListItem;
@@ -143,13 +128,7 @@ namespace Administration_GUI.User_Controls
             }
             get { return _confirmText; }
         }
-        public ICommand EnterKeyPressedCommand
-        {
-            get
-            {
-                return _enterPressedCommand ?? (_enterPressedCommand = new RelayCommand<KeyEventArgs>(EnterKeyPressed));
-            }
-        }
+        public ICommand EnterKeyPressedCommand => _enterPressedCommand ?? (_enterPressedCommand = new RelayCommand<KeyEventArgs>(EnterKeyPressed));
 
         private void EnterKeyPressed(KeyEventArgs e)
         {

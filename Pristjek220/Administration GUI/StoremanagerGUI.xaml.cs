@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Administration_GUI.User_Controls;
+using Pristjek220Data;
 
 namespace Administration_GUI
 {
@@ -22,9 +23,10 @@ namespace Administration_GUI
     public partial class StoremanagerGUI : Window
     {
 
-        public StoremanagerGUI()
+        public StoremanagerGUI(Store store)
         {
             InitializeComponent();
+            base.DataContext = new ApplicationViewModel(store);
         }
     }
 }
