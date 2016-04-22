@@ -57,6 +57,7 @@
                         <Button Command="{Binding AdminChangeWindowDeleteProductCommand}" Style="{StaticResource RoundedButtonStyle}" DockPanel.Dock="Top" Background="white">Fjern produkt</Button>
                         <Button Command="{Binding AdminChangeWindowNewStoreCommand}" Style="{StaticResource RoundedButtonStyle}" DockPanel.Dock="Top" Background="white">Tilføj forretning</Button>
                         <Button Command="{Binding AdminChangeWindowDeleteStoreCommand}" Style="{StaticResource RoundedButtonStyle}" DockPanel.Dock="Top" Background="white">Fjern forretning</Button>
+                        <Button Command="{Binding LogOutCommand}" Style="{StaticResource RoundedButtonStyle}" DockPanel.Dock="Top" Background="white">Log ud</Button>
                     </DockPanel>
                 </Grid>
                 <Border x:Name="MyStage" BorderThickness="2" CornerRadius="10" BorderBrush="Black" Margin="10" Padding="10">

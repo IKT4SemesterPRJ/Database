@@ -74,6 +74,7 @@ namespace Administration_GUI
             Admin adminGUI = new Admin();
             adminGUI.Show();
             LogInGui.Close();
+            Application.Current.MainWindow = adminGUI;
         }
 
         private ICommand _changeWindowStoremanagerCommand;
@@ -87,6 +88,7 @@ namespace Administration_GUI
             StoremanagerGUI storemanagerGUI = new StoremanagerGUI(_loginstore);
             storemanagerGUI.Show();
             logInGui.Close();
+            Application.Current.MainWindow = storemanagerGUI;
         }
     }
 }
