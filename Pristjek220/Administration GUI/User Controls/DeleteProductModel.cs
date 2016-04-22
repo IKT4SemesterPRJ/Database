@@ -1,9 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
 using System.Windows.Input;
 using Administration;
-using Administration_GUI;
 using GalaSoft.MvvmLight.Command;
 using Pristjek220Data;
 using SharedFunctionalities;
@@ -54,9 +52,14 @@ namespace Administration_GUI.User_Controls
 
         private void IllegalSignDeleteProduct()
         {
-            if (ShoppingListItem.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr))) return;
-            ConfirmText =($"Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9");
-            ShoppingListItem = _oldtext;
+            if (ShoppingListItem != null)
+            {
+                if (!ShoppingListItem.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr)))
+                {
+                    ConfirmText = ($"Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9");
+                    ShoppingListItem = _oldtext;
+                }
+            }
         }
 
         private void DeleteFromStoreDatabase()
@@ -68,7 +71,7 @@ namespace Administration_GUI.User_Controls
             var product = _manager.FindProduct(productName);
             if (product != null)
             {
-
+                //Funktionskald mangler
             }
             else
             {
