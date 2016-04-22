@@ -68,5 +68,19 @@ namespace Administration
         {
             return _unitwork.Products.FindProduct(productName);
         }
+
+        public bool RemoveProductFromMyStore(string productName)
+        {
+            var product = FindProduct(productName);
+
+            var hasA = _unitwork.HasA.FindHasA(Store.StoreName, productName);
+            hasA.Product.HasARelation.Remove(hasA);
+            Store.HasARelation.Remove(hasA);
+            _unitwork.HasA.Remove(hasA);
+
+            _unitwork.Complete();
+
+            return true;
+        }
     }
 }

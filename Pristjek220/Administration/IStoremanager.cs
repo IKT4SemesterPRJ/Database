@@ -9,5 +9,6 @@ namespace Administration
         int AddProductToDb(Product product);
         int AddProductToMyStore(Product product, double price);
         Product FindProduct(string productName);
+        bool RemoveProductFromMyStore(string productName);
     }
 }
