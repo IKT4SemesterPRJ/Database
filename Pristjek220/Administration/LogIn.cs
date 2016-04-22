@@ -24,24 +24,5 @@ namespace Administration
             if ((login = _user.Logins.CheckUsername(username)) == null) return -1;
             return ((store = _user.Logins.CheckLogin(securePassword, login))) != null ? 1 : 0;
         }
-
-        private string ConvertToUnsecureString(SecureString securePassword)
-        {
-            if (securePassword == null)
-            {
-                return string.Empty;
-            }
-
-            IntPtr unmanagedString = IntPtr.Zero;
-            try
-            {
-                unmanagedString = Marshal.SecureStringToGlobalAllocUnicode(securePassword);
-                return Marshal.PtrToStringUni(unmanagedString);
-            }
-            finally
-            {
-                Marshal.ZeroFreeGlobalAllocUnicode(unmanagedString);
-            }
-        }
     }
 }

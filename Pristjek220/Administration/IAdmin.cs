@@ -1,10 +1,11 @@
-﻿using Pristjek220Data;
+﻿using System.Security;
+using Pristjek220Data;
 
 namespace Administration
 {
     public interface IAdmin
     {
-        void CreateLogin(string userName, string password, string storeName);
+        int CreateLogin(string userName, SecureString password, string storeName);
         void AddStore(Store store);
     }
 }
