@@ -43,7 +43,7 @@ namespace Administration_GUI.User_Controls
         {
 
             AutoCompleteList?.Clear();
-            foreach (var item in _autocomplete.AutoCompleteProduct(ShoppingListItem))
+            foreach (var item in _autocomplete.AutoCompleteProductForOneStore(_manager.Store.StoreName, ShoppingListItem))
             {
                 AutoCompleteList?.Add(item);
             }
@@ -71,7 +71,13 @@ namespace Administration_GUI.User_Controls
             var product = _manager.FindProduct(productName);
             if (product != null)
             {
-                //Funktionskald mangler
+                if (_manager.RemoveProductFromMyStore(product) != 0)
+                {
+                    ConfirmText = ($"Produktet {productName} findes ikke i {_manager.Store.StoreName}");
+                    return;
+                }
+
+                ConfirmText = ($"{ShoppingListItem} er fjernet fra butikken {_manager.Store.StoreName}");
             }
             else
             {
