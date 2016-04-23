@@ -1,5 +1,6 @@
 ﻿using Administration;
 using NSubstitute;
+using NSubstitute.ReturnsExtensions;
 using NUnit.Framework;
 using Pristjek220Data;
 
@@ -78,6 +79,52 @@ namespace Pristjek220.Unit.Test
             _uut.FindProduct(_product.ProductName);
 
             _unitWork.Products.Received(1).FindProduct(_product.ProductName);
+        }
+
+        [Test]
+        public void RemoveProductFromMyStore_BananWithHasAIsInStore_ChangesAreSavedInDatabase()
+        {
+            var hasA = new HasA()
+            {
+                Price = 1,
+                Product = _product,
+                ProductId = _product.ProductId,
+                Store = _store,
+                StoreId = _store.StoreId
+            };
+
+            _uut.AddProductToMyStore(_product, 1);
+            _unitWork.HasA.FindHasA(_store.StoreName, _product.ProductName).Returns(hasA);
+            _uut.RemoveProductFromMyStore(_product);
+
+            _unitWork.Received(2).Complete();
+        }
+
+        [Test]
+        public void RemoveProductFromMyStore_BananWithHasAIsInStore_RemoveIsCalled()
+        {
+            var hasA = new HasA()
+            {
+                Price = 1,
+                Product = _product,
+                ProductId = _product.ProductId,
+                Store = _store,
+                StoreId = _store.StoreId
+            };
+
+            _uut.AddProductToMyStore(_product, 1);
+            _unitWork.HasA.FindHasA(_store.StoreName, _product.ProductName).Returns(hasA);
+            _uut.RemoveProductFromMyStore(_product);
+
+            _unitWork.HasA.Received(1).Remove(Arg.Any<HasA>());
+        }
+
+        [Test]
+        public void RemoveProductFromMyStore_HasARelationDoesNotExistInDatabase_ReturnsMinusOne()
+        {
+            _unitWork.HasA.FindHasA(_store.StoreName, _product.ProductName).ReturnsNull();
+
+            Assert.That(_uut.RemoveProductFromMyStore(_product), Is.EqualTo(-1));
         }
     }
 }
