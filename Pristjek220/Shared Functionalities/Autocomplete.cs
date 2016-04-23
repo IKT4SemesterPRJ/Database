@@ -74,10 +74,10 @@ namespace SharedFunctionalities
 
         public List<string> AutoCompleteProductForOneStore(string storeName, string lookUpWord)
         {
-            var productList = _unit.Stores.FindProductsInStore(storeName);
+            var productList = _unit.Stores.FindProductsInStoreStartingWith(storeName, lookUpWord);
 
             if (productList == null)
-                return null;        // Ingen produkter i butikken
+                return null;        // Ingen produkter der starter med lookUpWord i butikken
 
             List<string> autoCompleteList = new List<string>();
             for (int i = 0; i < productList.Count; i++)

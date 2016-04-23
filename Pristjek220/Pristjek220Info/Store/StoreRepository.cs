@@ -39,6 +39,14 @@ namespace Pristjek220Data
             return query.ToList();
         }
 
+        public List<ProductAndPrice> FindProductsInStoreStartingWith(string storeName, string productNameStart)
+        {
+            var storesProductList = FindProductsInStore(storeName);
+            var productList = (from t in storesProductList where t.Name.StartsWith(productNameStart) select t).ToList();
+
+            return productList;
+        } 
+
         public DataContext DataContext
         {
             get { return Context as DataContext; }

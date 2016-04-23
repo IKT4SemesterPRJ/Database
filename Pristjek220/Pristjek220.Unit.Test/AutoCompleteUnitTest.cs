@@ -177,7 +177,7 @@ namespace Pristjek220.Unit.Test
         }
 
         [Test]
-        public void AutoCompleteProductForOneStore_ThirdProductsInListThatStartsWithB_ThirdProductIsInReturnedList()
+        public void AutoCompleteProductForOneStore_FourProductsInListThatStartsWithB_ThirdProductIsInReturnedList()
         {
             var aldiStoreName = "Aldi";
             var bananProductAndPrice = new ProductAndPrice() { Name = "Banan" };
