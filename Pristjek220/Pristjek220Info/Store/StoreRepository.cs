@@ -42,7 +42,7 @@ namespace Pristjek220Data
         public List<ProductAndPrice> FindProductsInStoreStartingWith(string storeName, string productNameStart)
         {
             var storesProductList = FindProductsInStore(storeName);
-            var productList = (from t in storesProductList where t.Name.StartsWith(productNameStart) select t).ToList();
+            var productList = (from t in storesProductList where t.Name.StartsWith(productNameStart, true, null) select t).ToList();
 
             return productList;
         } 

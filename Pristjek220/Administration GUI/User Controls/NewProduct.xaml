@@ -28,7 +28,9 @@
             Width="75" 
             Margin="356,44,-425,-59" 
             Height="25"/>
-        <toolkit:AutoCompleteBox 
+        <toolkit:AutoCompleteBox
+            MinimumPopulateDelay="400"
+            MinimumPrefixLength="2"
             ItemsSource="{Binding AutoCompleteList}" 
             Text="{Binding ShoppingListItem, Mode=TwoWay}" 
             Grid.Column="2" 
