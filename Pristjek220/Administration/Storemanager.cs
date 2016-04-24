@@ -22,7 +22,7 @@ namespace Administration
         public Storemanager(IUnitOfWork unitOfWork, Store store)
         {
             _unitwork = unitOfWork;
-            Store = store;
+            Store = _unitwork.Stores.FindStore(store.StoreName);
         }
 
         public int AddProductToDb(Product product)
@@ -49,10 +49,9 @@ namespace Administration
                 StoreId = Store.StoreId
             };
 
+            _unitwork.HasA.Add(hasA);
             product.HasARelation.Add(hasA);
             Store.HasARelation.Add(hasA);
-
-            _unitwork.HasA.Add(hasA);
 
             _unitwork.Complete();
             return 0;
