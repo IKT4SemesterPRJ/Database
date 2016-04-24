@@ -69,7 +69,8 @@ namespace Administration_GUI.User_Controls
                 var product = _manager.FindProduct(productName);
                 if (product != null)
                 {
-                    //funktionskald mangler
+                    _manager.changePriceOfProductInStore(product, ShoppingListItemPrice);
+                    ConfirmText = ($"Prisen for produktet {productName} er ændret til {ShoppingListItemPrice}");
                 }
                 else
                 {
