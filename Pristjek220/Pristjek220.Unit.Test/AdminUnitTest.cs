@@ -1,4 +1,5 @@
-﻿using Administration;
+﻿using System.Security;
+using Administration;
 using NSubstitute;
 using NUnit.Framework;
 using Pristjek220Data;
@@ -19,20 +20,19 @@ namespace Pristjek220.Unit.Test
         }
 
         [Test]
-        public void AddStore_AddAStoreToDatabase_AddStoreReturns1()
+        public void CreateLogin_CreateTheStoreToTheLogin_StoreIsCreatedAndSavedInDatabase()
         {
-            var store = new Store() {StoreName = "Fakta"};
-            _uut.AddStore(store);
-            _unitOfWork.Stores.Received(1).Add(store);
+            _uut.CreateLogin("Test", new SecureString(), "Test");
+
+            _unitOfWork.Stores.Received(1).Add(Arg.Any<Store>());
         }
 
         [Test]
-        public void AddStore_AddfakTaToDb_FaktaAdded()
+        public void CreateLogin_CreateTheLogin_LoginIsCreatedAndSavedInDatabase()
         {
-            var store = new Store() {StoreName = "fakTa"};
-            _uut.AddStore(store);
+            _uut.CreateLogin("Test", new SecureString(), "Test");
 
-            Assert.That(store.StoreName, Is.EqualTo("Fakta"));
+            _unitOfWork.Logins.Received(1).Add(Arg.Any<Login>());
         }
     }
 }

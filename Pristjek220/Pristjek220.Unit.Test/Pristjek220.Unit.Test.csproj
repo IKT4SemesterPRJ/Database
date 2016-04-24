@@ -71,6 +71,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminUnitTest.cs" />
     <Compile Include="ApplicationViewModelTest.cs" />
     <Compile Include="AutoCompleteUnitTest.cs" />
     <Compile Include="ConsumerUnitTest.cs" />
