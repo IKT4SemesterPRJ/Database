@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -11,7 +12,7 @@ using Administration_GUI;
 
 namespace Administration_GUI.User_Controls
 {
-    internal class NewProductModel : ObservableObject, IPageViewModel
+    public class NewProductModel : ObservableObject, IPageViewModel
     {
         private readonly UnitOfWork _unit = new UnitOfWork(new DataContext());
         private readonly IAutocomplete _autocomplete;
@@ -111,7 +112,7 @@ namespace Administration_GUI.User_Controls
         {
             set
             {
-                _shoppingListItemPrice = value;
+                _shoppingListItemPrice = Math.Round(value, 2);
                 OnPropertyChanged();
             }
             get { return _shoppingListItemPrice; }
