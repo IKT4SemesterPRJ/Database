@@ -17,7 +17,7 @@ namespace Administration
     public class Storemanager : IStoremanager
     {
         private readonly IUnitOfWork _unitwork;
-        public Store Store { get; }
+        public Store Store { get;}
 
         public Storemanager(IUnitOfWork unitOfWork, Store store)
         {
