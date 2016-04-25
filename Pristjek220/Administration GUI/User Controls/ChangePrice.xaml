@@ -39,7 +39,7 @@
             Margin="60,44,-193,-61">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Populating">
-                    <i:InvokeCommandAction Command="{Binding PopulatingChangePriceCommand}"></i:InvokeCommandAction>
+                    <i:InvokeCommandAction Command="{Binding PopulatingChangePriceProductCommand}"></i:InvokeCommandAction>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="TextChanged">
                     <i:InvokeCommandAction Command="{Binding IllegalSignChangePriceCommand}"></i:InvokeCommandAction>

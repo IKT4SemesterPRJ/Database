@@ -19,6 +19,7 @@ namespace Administration_GUI.User_Controls
         private ICommand _populatingChangePriceCommand;
         private ICommand _illegalSignChangePriceCommand;
         private ICommand _enterPressedCommand;
+        private ICommand _populatingDeleteProductCommand;
 
 
         private string _oldtext = string.Empty;
@@ -35,22 +36,27 @@ namespace Administration_GUI.User_Controls
                 _changeProductPriceInStoreDatabaseCommand ??
                 (_changeProductPriceInStoreDatabaseCommand = new RelayCommand(ChangeProductPriceInStoreDatabase));
 
-
-        public ICommand PopulatingChangePriceCommand => _populatingChangePriceCommand ??
-                                                        (_populatingChangePriceCommand =
-                                                            new RelayCommand(PopulatingListChangePrice));
-
-
-
         public ICommand IllegalSignChangePriceCommand => _illegalSignChangePriceCommand ??
                                                          (_illegalSignChangePriceCommand =
                                                              new RelayCommand(IllegalSignChangePrice));
+
+        public ICommand PopulatingChangePriceProductCommand => _populatingDeleteProductCommand ??
+                                                          (_populatingDeleteProductCommand = new RelayCommand(PopulatingListChangePriceProduct));
 
 
 
         public ObservableCollection<string> AutoCompleteList { get; } = new ObservableCollection<string>();
 
+        private void PopulatingListChangePriceProduct()
+        {
 
+            AutoCompleteList?.Clear();
+            foreach (var item in _autocomplete.AutoCompleteProductForOneStore(_manager.Store.StoreName, ShoppingListItem))
+            {
+                AutoCompleteList?.Add(item);
+            }
+            OnPropertyChanged("AutoCompleteList");
+        }
 
         private void ChangeProductPriceInStoreDatabase()
         {
@@ -63,7 +69,8 @@ namespace Administration_GUI.User_Controls
                 var product = _manager.FindProduct(productName);
                 if (product != null)
                 {
-                    //funktionskald mangler
+                    _manager.changePriceOfProductInStore(product, ShoppingListItemPrice);
+                    ConfirmText = ($"Prisen for produktet {productName} er ændret til {ShoppingListItemPrice}");
                 }
                 else
                 {
@@ -75,15 +82,6 @@ namespace Administration_GUI.User_Controls
                 ConfirmText = "Prisen er ugyldig";
         }
 
-        private void PopulatingListChangePrice()
-        {
-            AutoCompleteList?.Clear();
-            foreach (var item in _autocomplete.AutoCompleteProduct(ShoppingListItem))
-            {
-                AutoCompleteList?.Add(item);
-            }
-            OnPropertyChanged("AutoCompleteList");
-        }
 
         private void IllegalSignChangePrice()
         {

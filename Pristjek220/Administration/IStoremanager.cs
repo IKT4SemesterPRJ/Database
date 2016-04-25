@@ -10,5 +10,6 @@ namespace Administration
         int AddProductToMyStore(Product product, double price);
         Product FindProduct(string productName);
         int RemoveProductFromMyStore(Product product);
+        void changePriceOfProductInStore(Product product, double price);
     }
 }
