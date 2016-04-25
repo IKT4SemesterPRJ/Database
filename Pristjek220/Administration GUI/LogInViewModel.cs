@@ -45,7 +45,7 @@ namespace Administration_GUI
             switch (log)
             {
                 case 1:
-                    if (_loginstore == null) // admin login lig med null
+                    if (_loginstore.StoreName == "Admin") // admin login lig med Storename Admin
                     {
                         ChangeWindowAdmin();
                     }
