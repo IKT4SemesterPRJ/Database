@@ -18,13 +18,12 @@
     <HtmlHelpName>Documentation</HtmlHelpName>
     <Language>en-US</Language>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\Databaser\Pristjek220 med Interfaces\Pristjek220\AutoComplete\AutoComplete.csproj" />
-<DocumentationSource sourceFile="..\Databaser\Pristjek220 med Interfaces\Pristjek220\Consumer\Consumer.csproj" />
-<DocumentationSource sourceFile="..\Databaser\Pristjek220 med Interfaces\Pristjek220\ButtonStyles\ButtonStyles.csproj" />
-<DocumentationSource sourceFile="..\Databaser\Pristjek220 med Interfaces\Pristjek220\Consumer GUI\Consumer GUI.csproj" />
-<DocumentationSource sourceFile="..\Databaser\Pristjek220 med Interfaces\Pristjek220\Pristjek220Info\Pristjek220Info.csproj" />
-<DocumentationSource sourceFile="..\Databaser\Pristjek220 med Interfaces\Pristjek220\Storemanager\Storemanager.csproj" />
-<DocumentationSource sourceFile="..\Databaser\Pristjek220 med Interfaces\Pristjek220\Storemanager GUI\Storemanager GUI.csproj" /></DocumentationSources>
+      <DocumentationSource sourceFile="..\Pristjek220\Administration\Administration.csproj" />
+<DocumentationSource sourceFile="..\Pristjek220\Administration GUI\Administration GUI.csproj" />
+<DocumentationSource sourceFile="..\Pristjek220\Consumer GUI\Consumer GUI.csproj" />
+<DocumentationSource sourceFile="..\Pristjek220\Consumer\Consumer.csproj" />
+<DocumentationSource sourceFile="..\Pristjek220\Pristjek220Info\Pristjek220Info.csproj" />
+<DocumentationSource sourceFile="..\Pristjek220\Shared Functionalities\Shared Functionalities.csproj" /></DocumentationSources>
     <BuildAssemblerVerbosity>OnlyWarningsAndErrors</BuildAssemblerVerbosity>
     <HelpFileFormat>HtmlHelp1, Website</HelpFileFormat>
     <IndentHtml>False</IndentHtml>
