@@ -11,12 +11,16 @@
             <RowDefinition Height="5"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <DataGrid 
             ItemsSource="{Binding GeneratedShoppingListData}" 
@@ -28,18 +32,21 @@
             Height="300" 
             Grid.Row="1" 
             Width="400" 
-            Margin="5">
+            HorizontalAlignment="Left">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Header="Forretning" Binding="{Binding StoreName}"/>
                 <DataGridTextColumn Width="*" Header="Produkt" Binding="{Binding ProductName}"/>
-                <DataGridTextColumn Width="50" Header="Pris" Binding="{Binding Price, ConverterCulture='nn-NO', StringFormat=c}"/>
+                <DataGridTextColumn Width="*" Header="Styk pris" Binding="{Binding Price, ConverterCulture='nn-NO', StringFormat=c}"/>
                 <DataGridTextColumn Width="*" Header="Antal" Binding="{Binding Quantity}"/>
-                <DataGridTextColumn Width="Auto" Header="Samlet pris" Binding="{Binding Sum, ConverterCulture='nn-NO', StringFormat=c}"></DataGridTextColumn>
+                <DataGridTextColumn Width="Auto" Header="Pris" Binding="{Binding Sum, ConverterCulture='nn-NO', StringFormat=c}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Label
             Grid.Column="1"
-            Grid.Row="2">
+            Grid.Row="2"
+            Width="275"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom">
             Produkter der ikke findes i en forretning:
         </Label>
         <DataGrid
@@ -51,11 +58,30 @@
             Grid.Column="1"
             Grid.Row="3"
             Height="150"
-            Width="400">
+            Width="400"
+            HorizontalAlignment="Left">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Header="Produkt" Binding="{Binding Name}"/>
                 <DataGridTextColumn Width="*" Header="Antal" Binding="{Binding Quantity}"/>
             </DataGrid.Columns>
         </DataGrid>
+        
+        <Label
+            Grid.Row="2"
+            Grid.Column="2"
+            FontSize="25"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top">
+            Sum:
+        </Label>
+        <Label
+            Grid.Column="3"
+            Grid.Row="2"
+            Width="150"
+            FontSize="25"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            Content="{Binding TotalSum}">
+        </Label>
     </Grid>
 </UserControl>

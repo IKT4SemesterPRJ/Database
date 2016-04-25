@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Consumer;
 using Pristjek220Data;
@@ -9,6 +10,7 @@ namespace Consumer_GUI.User_Controls
     {
         private UnitOfWork _unit = new UnitOfWork(new DataContext());
         private readonly IConsumer _user;
+        public string TotalSum => _user.TotalSum;
 
         public GeneratedShoppingListModel(Consumer.Consumer user)
         {
