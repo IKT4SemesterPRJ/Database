@@ -148,11 +148,6 @@ namespace Consumer
             
         }
 
-        public bool ConnectToDB()
-        {
-            return _unit.Products.ConnectToDb();
-        }
-
         public void ClearGeneratedShoppingListData()
         {
             GeneratedShoppingListData.Clear();

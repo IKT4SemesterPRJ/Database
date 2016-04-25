@@ -19,6 +19,7 @@ namespace Consumer_GUI.User_Controls
         private ICommand _enterKeyPressedCommand;
         private ICommand _generatedShoppingListCommand;
         private ICommand _illegalSignShoppingListCommand;
+        private ICommand _clearShoppingListCommand;
 
         private string _oldtext = string.Empty;
         private ICommand _populatingShoppingListCommand;
@@ -96,6 +97,21 @@ namespace Consumer_GUI.User_Controls
                 return _enterKeyPressedCommand ??
                        (_enterKeyPressedCommand = new RelayCommand<KeyEventArgs>(EnterKeyPressed));
             }
+        }
+
+        
+        public ICommand ClearShoppingListCommand
+        {
+            get
+            {
+                return _clearShoppingListCommand ??
+                       (_clearShoppingListCommand = new RelayCommand(ClearShoppingList));
+            }
+        }
+
+        private void ClearShoppingList()
+        {
+            _user.ShoppingListData.Clear();
         }
 
         public ObservableCollection<ProductInfo> ShoppingListData

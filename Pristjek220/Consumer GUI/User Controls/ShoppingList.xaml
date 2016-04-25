@@ -57,7 +57,7 @@
             MinHeight="22"
             Margin="5"
             VerticalAlignment="Center">
-            tilføj til liste
+            Tilføj Til Liste
         </Button>
         <toolkit:AutoCompleteBox
             MinimumPopulateDelay="400"
@@ -100,6 +100,15 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center">
             Slet Produkt
+        </Button>
+        <Button 
+            Command="{Binding ClearShoppingListCommand}" 
+            Grid.Column="1" 
+            Grid.Row="4" 
+            Height="20" 
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+            Tøm Indkøbsliste
         </Button>
         <Button 
             Grid.Column="1" 

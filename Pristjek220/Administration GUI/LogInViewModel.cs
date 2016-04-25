@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using Administration;
 using Pristjek220Data;
+using SharedFunctionalities;
 
 namespace Administration_GUI
 {
@@ -31,6 +32,14 @@ namespace Administration_GUI
         public LogInViewModel()
         {
             _user = new Administration.LogIn();
+
+            IDatabaseFunctions databaseFunctions = new DatabaseFunctions(new UnitOfWork(new DataContext()));
+
+            if (!databaseFunctions.ConnectToDB()) //Force database to connect at startup, and close application if it cant connect
+            {
+                MessageBox.Show("Der kan ikke tilsluttes til serveren", "ERROR", MessageBoxButton.OK);
+                Application.Current.MainWindow.Close();
+            }
         }
 
         private ICommand _logInCommand;
