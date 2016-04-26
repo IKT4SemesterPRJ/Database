@@ -36,7 +36,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Header="Forretning" Binding="{Binding StoreName}"/>
                 <DataGridTextColumn Width="*" Header="Produkt" Binding="{Binding ProductName}"/>
-                <DataGridTextColumn Width="*" Header="Styk pris" Binding="{Binding Price, ConverterCulture='nn-NO', StringFormat=c}"/>
+                <DataGridTextColumn Width="*" Header="Stk. pris" Binding="{Binding Price, ConverterCulture='nn-NO', StringFormat=c}"/>
                 <DataGridTextColumn Width="*" Header="Antal" Binding="{Binding Quantity}"/>
                 <DataGridTextColumn Width="Auto" Header="Pris" Binding="{Binding Sum, ConverterCulture='nn-NO', StringFormat=c}"></DataGridTextColumn>
             </DataGrid.Columns>
@@ -83,5 +83,12 @@
             HorizontalAlignment="Left"
             Content="{Binding TotalSum}">
         </Label>
+        <Button 
+            Grid.Column="2" 
+            Grid.Row="3"
+            Command="{Binding SendMailCommand}">
+            
+            Send mail
+        </Button>
     </Grid>
 </UserControl>
