@@ -15,15 +15,15 @@ namespace Administration_GUI
         private ObservableCollection<IPageViewModel> _pageViewModels;
         private Store _store;
 
-        public ApplicationViewModel(Store store)
+        public ApplicationViewModel(Store store, IUnitOfWork unit)
         {
 
             _store = store;
             // Add available pages
 
-            PageViewModels.Add(new ChangePriceModel(_store));
-            PageViewModels.Add(new DeleteProductModel(_store));
-            PageViewModels.Add(new NewProductModel(_store));
+            PageViewModels.Add(new ChangePriceModel(_store, unit));
+            PageViewModels.Add(new DeleteProductModel(_store, unit));
+            PageViewModels.Add(new NewProductModel(_store, unit));
 
             // set startup page
             _currentPageViewModel = _pageViewModels[2];

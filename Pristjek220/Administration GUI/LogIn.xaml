@@ -108,13 +108,6 @@
             Command="{Binding ChangeWindowAdminCommand}">
             Til Admin</Button>
 
-        <Button 
-            Grid.Column="1"
-            Grid.Row="5"
-            Style="{StaticResource RoundedButtonStyle}"
-            Command="{Binding ChangeWindowStoremanagerCommand}">
-            Til Storemanger</Button>
-
         <Label 
             Grid.Column="1"
             Grid.Row="6"

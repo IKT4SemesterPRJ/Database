@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Input;
 using Administration_GUI.User_Controls_Admin;
 using Administration_GUI;
+using Pristjek220Data;
 
 namespace Administration_GUI
 {
@@ -11,12 +12,12 @@ namespace Administration_GUI
         private IPageViewModelAdmin _currentPageViewModel;
         private ObservableCollection<IPageViewModelAdmin> _pageViewModels;
 
-        public AdminViewModel()
+        public AdminViewModel(IUnitOfWork unit)
         {
             // Add available pages
-            PageViewModels.Add(new AdminNewStoreModel());
-            PageViewModels.Add(new AdminDeleteProductModel());
-            PageViewModels.Add(new AdminDeleteStoreModel());
+            PageViewModels.Add(new AdminNewStoreModel(unit));
+            PageViewModels.Add(new AdminDeleteProductModel(unit));
+            PageViewModels.Add(new AdminDeleteStoreModel(unit));
 
             // set startup page
             _currentPageViewModel = _pageViewModels[0];

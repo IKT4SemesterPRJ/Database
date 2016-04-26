@@ -14,7 +14,6 @@ namespace Administration_GUI.User_Controls
 {
     public class NewProductModel : ObservableObject, IPageViewModel
     {
-        private readonly UnitOfWork _unit = new UnitOfWork(new DataContext());
         private readonly IAutocomplete _autocomplete;
         private readonly IStoremanager _manager;
 
@@ -37,10 +36,10 @@ namespace Administration_GUI.User_Controls
 
         public ObservableCollection<string> AutoCompleteList { get; } = new ObservableCollection<string>();
 
-        public NewProductModel(Store store)
+        public NewProductModel(Store store, IUnitOfWork unit)
         {
-            _manager = new Storemanager(new UnitOfWork(new DataContext()), store);
-            _autocomplete = new SharedFunctionalities.Autocomplete(_unit);
+            _manager = new Storemanager(unit, store);
+            _autocomplete = new SharedFunctionalities.Autocomplete(unit);
         }
 
         private void PopulatingListNewProduct()

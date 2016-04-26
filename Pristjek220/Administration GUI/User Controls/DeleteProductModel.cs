@@ -10,10 +10,8 @@ namespace Administration_GUI.User_Controls
 {
     class DeleteProductModel : ObservableObject, IPageViewModel
     {
-        private readonly UnitOfWork _unit = new UnitOfWork(new DataContext());
         private readonly IAutocomplete _autocomplete;
         private readonly IStoremanager _manager;
-        private Store _store;
         private ICommand _deleteFromStoreDatabaseCommand;
         private ICommand _populatingDeleteProductCommand;
         private ICommand _illegalSignDeleteProductCommand;
@@ -21,11 +19,10 @@ namespace Administration_GUI.User_Controls
 
         private string _oldtext = string.Empty;
         
-        public DeleteProductModel(Store store)
+        public DeleteProductModel(Store store, IUnitOfWork unit)
         {
-            _store = store;
-            _manager = new Storemanager(new UnitOfWork(new DataContext()), _store);
-            _autocomplete = new SharedFunctionalities.Autocomplete(_unit);
+            _manager = new Storemanager(unit, store);
+            _autocomplete = new SharedFunctionalities.Autocomplete(unit);
         }
         public ICommand DeleteFromStoreDatabaseCommand => _deleteFromStoreDatabaseCommand ?? (_deleteFromStoreDatabaseCommand = new RelayCommand(DeleteFromStoreDatabase));
 
