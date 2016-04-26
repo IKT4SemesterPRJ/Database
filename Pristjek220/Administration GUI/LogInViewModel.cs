@@ -74,11 +74,6 @@ namespace Administration_GUI
             }
         }
 
-        private ICommand _changeWindowAdminCommand;
-
-        public ICommand ChangeWindowAdminCommand => _changeWindowAdminCommand ??
-                                                    (_changeWindowAdminCommand = new RelayCommand(ChangeWindowAdmin));
-
         private void ChangeWindowAdmin()
         {
             var LogInGui = Application.Current.MainWindow;
@@ -87,11 +82,6 @@ namespace Administration_GUI
             LogInGui.Close();
             Application.Current.MainWindow = adminGUI;
         }
-
-        private ICommand _changeWindowStoremanagerCommand;
-
-        public ICommand ChangeWindowStoremanagerCommand => _changeWindowStoremanagerCommand ??
-                                                           (_changeWindowStoremanagerCommand = new RelayCommand(ChangeWindowStoremanager));
 
         private void ChangeWindowStoremanager()
         {
