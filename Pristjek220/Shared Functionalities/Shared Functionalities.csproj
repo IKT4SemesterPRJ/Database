@@ -46,7 +46,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Autocomplete.cs" />
+    <Compile Include="DatabaseFunctions.cs" />
     <Compile Include="IAutocomplete.cs" />
+    <Compile Include="IDatabaseFunctions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

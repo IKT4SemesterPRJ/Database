@@ -4,7 +4,7 @@ using Administration_GUI.Annotations;
 
 namespace Administration_GUI
 {
-    internal class ObservableObject : INotifyPropertyChanged
+    public class ObservableObject : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

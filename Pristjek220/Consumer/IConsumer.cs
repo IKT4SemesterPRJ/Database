@@ -9,6 +9,7 @@ namespace Consumer
         ObservableCollection<StoreProductAndPrice> GeneratedShoppingListData { get; }
         ObservableCollection<ProductInfo> ShoppingListData { get; set; }
         ObservableCollection<ProductInfo> NotInAStore { get; }
+        string TotalSum { get; }
         Store FindCheapestStore(string productName);
         bool DoesProductExist(string productName);
         List<ProductAndPrice> FindStoresAssortment(string storeName);

@@ -20,6 +20,7 @@ namespace Pristjek220.Unit.Test
             _unitWork = Substitute.For<IUnitOfWork>();
             _store = new Store() {StoreName = "Aldi", StoreId = 22};
             _product = new Product() {ProductName = "Banan", ProductId = 10};
+            _unitWork.Stores.FindStore(_store.StoreName).Returns(_store);
             _uut = new Storemanager(_unitWork, _store);
         }
 
@@ -125,6 +126,24 @@ namespace Pristjek220.Unit.Test
             _unitWork.HasA.FindHasA(_store.StoreName, _product.ProductName).ReturnsNull();
 
             Assert.That(_uut.RemoveProductFromMyStore(_product), Is.EqualTo(-1));
+        }
+
+        [Test]
+        public void changePriceOfProductInStore_HasPriceBeenChangedFrom2to4_reutrns4()
+        {
+            var hasA = new HasA()
+            {
+                Price = 2,
+                Product = _product,
+                ProductId = _product.ProductId,
+                Store = _store,
+                StoreId = _store.StoreId
+            };
+
+            _uut.AddProductToMyStore(_product, 2);
+            _unitWork.HasA.Get(_store.StoreId, _product.ProductId).Returns(hasA);
+            _uut.changePriceOfProductInStore(_product, 4);
+
         }
     }
 }

@@ -42,6 +42,7 @@ namespace Consumer
             new ObservableCollection<StoreProductAndPrice>();
 
         private int count;
+        public string TotalSum { get; set; }
         public ObservableCollection<ProductInfo> ShoppingListData
         {
             set{ _shoppingListData = value; }
@@ -89,6 +90,8 @@ namespace Consumer
 
         public void CreateShoppingList()
         {
+            StoreProductAndPrice ItemInList;
+            TotalSum = "0";
             foreach (var product in ShoppingListData)
             {
                 var cheapestStore = FindCheapestStore(product.Name);
@@ -101,16 +104,20 @@ namespace Consumer
                     var productInStore =
                         cheapestStore.HasARelation.Find(x => x.Product.ProductName.Contains(product.Name));
 
-                    GeneratedShoppingListData.Add(new StoreProductAndPrice
+                    GeneratedShoppingListData.Add( ItemInList = new StoreProductAndPrice
                     {
                         StoreName = cheapestStore.StoreName,
                         ProductName = product.Name,
                         Price = productInStore.Price,
                         Quantity = product.Quantity,
                         Sum = productInStore.Price*double.Parse(product.Quantity)
+                        
                     });
+                    TotalSum = (double.Parse(TotalSum) + ItemInList.Sum).ToString();
                 }
             }
+
+            TotalSum += " kr";
         }
 
         public void WriteToJsonFile()
@@ -139,11 +146,6 @@ namespace Consumer
             catch(Exception Fn)
             { }
             
-        }
-
-        public bool ConnectToDB()
-        {
-            return _unit.Products.ConnectToDb();
         }
 
         public void ClearGeneratedShoppingListData()

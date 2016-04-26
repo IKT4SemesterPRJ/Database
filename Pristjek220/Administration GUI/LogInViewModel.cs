@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using Administration;
 using Pristjek220Data;
+using SharedFunctionalities;
 
 namespace Administration_GUI
 {
@@ -12,6 +13,7 @@ namespace Administration_GUI
         
         public SecureString SecurePassword { private get; set; }
         private Store _loginstore;
+        private readonly IUnitOfWork _unit;
 
         public string Error
         {
@@ -30,7 +32,16 @@ namespace Administration_GUI
 
         public LogInViewModel()
         {
-            _user = new Administration.LogIn();
+            _unit = new UnitOfWork(new DataContext());
+            _user = new Administration.LogIn(_unit);
+
+            IDatabaseFunctions databaseFunctions = new DatabaseFunctions(_unit);
+
+            if (!databaseFunctions.ConnectToDB()) //Force database to connect at startup, and close application if it cant connect
+            {
+                MessageBox.Show("Der kan ikke tilsluttes til serveren", "ERROR", MessageBoxButton.OK);
+                Application.Current.MainWindow.Close();
+            }
         }
 
         private ICommand _logInCommand;
@@ -45,7 +56,7 @@ namespace Administration_GUI
             switch (log)
             {
                 case 1:
-                    if (_loginstore == null) // admin login lig med null
+                    if (_loginstore.StoreName == "Admin") // admin login lig med Storename Admin
                     {
                         ChangeWindowAdmin();
                     }
@@ -71,7 +82,7 @@ namespace Administration_GUI
         private void ChangeWindowAdmin()
         {
             var LogInGui = Application.Current.MainWindow;
-            Admin adminGUI = new Admin();
+            Admin adminGUI = new Admin(_unit);
             adminGUI.Show();
             LogInGui.Close();
             Application.Current.MainWindow = adminGUI;
@@ -85,7 +96,7 @@ namespace Administration_GUI
         private void ChangeWindowStoremanager()
         {
             var logInGui = Application.Current.MainWindow;
-            StoremanagerGUI storemanagerGUI = new StoremanagerGUI(_loginstore);
+            StoremanagerGUI storemanagerGUI = new StoremanagerGUI(_loginstore, _unit);
             storemanagerGUI.Show();
             logInGui.Close();
             Application.Current.MainWindow = storemanagerGUI;

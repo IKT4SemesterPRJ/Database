@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -11,9 +12,8 @@ using Administration_GUI;
 
 namespace Administration_GUI.User_Controls
 {
-    internal class NewProductModel : ObservableObject, IPageViewModel
+    public class NewProductModel : ObservableObject, IPageViewModel
     {
-        private readonly UnitOfWork _unit = new UnitOfWork(new DataContext());
         private readonly IAutocomplete _autocomplete;
         private readonly IStoremanager _manager;
 
@@ -36,10 +36,10 @@ namespace Administration_GUI.User_Controls
 
         public ObservableCollection<string> AutoCompleteList { get; } = new ObservableCollection<string>();
 
-        public NewProductModel(Store store)
+        public NewProductModel(Store store, IUnitOfWork unit)
         {
-            _manager = new Storemanager(new UnitOfWork(new DataContext()), store);
-            _autocomplete = new SharedFunctionalities.Autocomplete(_unit);
+            _manager = new Storemanager(unit, store);
+            _autocomplete = new SharedFunctionalities.Autocomplete(unit);
         }
 
         private void PopulatingListNewProduct()
@@ -111,7 +111,7 @@ namespace Administration_GUI.User_Controls
         {
             set
             {
-                _shoppingListItemPrice = value;
+                _shoppingListItemPrice = Math.Round(value, 2);
                 OnPropertyChanged();
             }
             get { return _shoppingListItemPrice; }

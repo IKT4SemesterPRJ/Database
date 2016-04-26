@@ -11,7 +11,6 @@ namespace Administration_GUI.User_Controls
 {
     class ChangePriceModel : ObservableObject, IPageViewModel
     {
-        private readonly UnitOfWork _unit = new UnitOfWork(new DataContext());
         private readonly IAutocomplete _autocomplete;
         private readonly IStoremanager _manager;
         private Store _store;
@@ -24,11 +23,11 @@ namespace Administration_GUI.User_Controls
 
         private string _oldtext = string.Empty;
 
-        public ChangePriceModel(Store store)
+        public ChangePriceModel(Store store, IUnitOfWork unit)
         {
             _store = store;
-            _manager = new Storemanager(new UnitOfWork(new DataContext()), _store);
-            _autocomplete = new SharedFunctionalities.Autocomplete(_unit);
+            _manager = new Storemanager(unit, _store);
+            _autocomplete = new SharedFunctionalities.Autocomplete(unit);
         }
 
         public ICommand ChangeProductPriceInStoreDatabaseCommand

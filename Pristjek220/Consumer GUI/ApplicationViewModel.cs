@@ -2,8 +2,8 @@
 using System.Windows;
 using System.Windows.Input;
 using Consumer_GUI.User_Controls;
-using Prism.Events;
 using Pristjek220Data;
+using SharedFunctionalities;
 
 namespace Consumer_GUI
 {
@@ -14,14 +14,17 @@ namespace Consumer_GUI
 
         public ApplicationViewModel()
         {
-            Consumer.Consumer user = new Consumer.Consumer(new UnitOfWork(new DataContext()));
+            UnitOfWork unit = new UnitOfWork(new DataContext());
+            Consumer.Consumer user = new Consumer.Consumer(unit);
             // Add available pages
             PageViewModels.Add(new HomeModel());
             PageViewModels.Add(new FindProductModel(user));
             PageViewModels.Add(new ShoppingListModel(user));
             PageViewModels.Add(new GeneratedShoppingListModel(user));
 
-            if (!user.ConnectToDB()) //Force database to connect at startup, and close application if it cant connect
+            IDatabaseFunctions databaseFunctions = new DatabaseFunctions(unit);
+
+            if (!databaseFunctions.ConnectToDB()) //Force database to connect at startup, and close application if it cant connect
             {
                 MessageBox.Show("Der kan ikke tilsluttes til serveren", "ERROR", MessageBoxButton.OK);
                 Application.Current.MainWindow.Close();
