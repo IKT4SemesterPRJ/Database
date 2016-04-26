@@ -15,6 +15,9 @@ namespace Pristjek220Data.Migrations
 
         protected override void Seed(Pristjek220Data.DataContext context)
         {
+
+
+            //  context.Logins.Add(new Login() {Username = "Admin", Password = "", Store = new Store() {StoreName = "Admin"} });
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 

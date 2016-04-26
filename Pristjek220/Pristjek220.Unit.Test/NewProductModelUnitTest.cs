@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Administration_GUI.User_Controls;
+﻿using Administration_GUI.User_Controls;
 using NSubstitute;
 using NUnit.Framework;
 using Pristjek220Data;
@@ -20,7 +15,7 @@ namespace Pristjek220.Unit.Test
         public void SetUp()
         {
             _store = new Store() { StoreName = "Aldi", StoreId = 22 };
-            _newProduct = new NewProductModel(_store);
+            _newProduct = new NewProductModel(_store, Substitute.For<IUnitOfWork>());
         }
 
         [TestCase(2.224, 2.22)]
