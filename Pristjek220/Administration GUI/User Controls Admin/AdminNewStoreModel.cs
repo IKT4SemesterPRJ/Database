@@ -11,7 +11,7 @@ namespace Administration_GUI.User_Controls_Admin
         public string NewStoreName { get; set; }
         public SecureString SecurePassword { private get; set; }
         public SecureString SecurePasswordConfirm { private get; set; }
-        private Administration.Admin _admin = new Administration.Admin(new UnitOfWork(new DataContext()));
+        private readonly Administration.Admin _admin;
         public string Error
         {
             get { return _error; }
@@ -22,6 +22,11 @@ namespace Administration_GUI.User_Controls_Admin
             }
         }
         private string _error = string.Empty;
+
+        public AdminNewStoreModel(IUnitOfWork unit)
+        {
+             _admin = new Administration.Admin(unit);
+        }
 
 
         private ICommand _newStoreCommand;

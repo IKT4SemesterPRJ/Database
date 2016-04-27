@@ -13,6 +13,7 @@ namespace Administration_GUI
         
         public SecureString SecurePassword { private get; set; }
         private Store _loginstore;
+        private readonly IUnitOfWork _unit;
 
         public string Error
         {
@@ -31,9 +32,10 @@ namespace Administration_GUI
 
         public LogInViewModel()
         {
-            _user = new Administration.LogIn();
+            _unit = new UnitOfWork(new DataContext());
+            _user = new Administration.LogIn(_unit);
 
-            IDatabaseFunctions databaseFunctions = new DatabaseFunctions(new UnitOfWork(new DataContext()));
+            IDatabaseFunctions databaseFunctions = new DatabaseFunctions(_unit);
 
             if (!databaseFunctions.ConnectToDB()) //Force database to connect at startup, and close application if it cant connect
             {
@@ -72,29 +74,19 @@ namespace Administration_GUI
             }
         }
 
-        private ICommand _changeWindowAdminCommand;
-
-        public ICommand ChangeWindowAdminCommand => _changeWindowAdminCommand ??
-                                                    (_changeWindowAdminCommand = new RelayCommand(ChangeWindowAdmin));
-
         private void ChangeWindowAdmin()
         {
             var LogInGui = Application.Current.MainWindow;
-            Admin adminGUI = new Admin();
+            Admin adminGUI = new Admin(_unit);
             adminGUI.Show();
             LogInGui.Close();
             Application.Current.MainWindow = adminGUI;
         }
 
-        private ICommand _changeWindowStoremanagerCommand;
-
-        public ICommand ChangeWindowStoremanagerCommand => _changeWindowStoremanagerCommand ??
-                                                           (_changeWindowStoremanagerCommand = new RelayCommand(ChangeWindowStoremanager));
-
         private void ChangeWindowStoremanager()
         {
             var logInGui = Application.Current.MainWindow;
-            StoremanagerGUI storemanagerGUI = new StoremanagerGUI(_loginstore);
+            StoremanagerGUI storemanagerGUI = new StoremanagerGUI(_loginstore, _unit);
             storemanagerGUI.Show();
             logInGui.Close();
             Application.Current.MainWindow = storemanagerGUI;

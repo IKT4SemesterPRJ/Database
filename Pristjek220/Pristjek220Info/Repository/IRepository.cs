@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Pristjek220Data
+﻿namespace Pristjek220Data
 {
     public interface IRepository<TEntity> where TEntity: class
     {

@@ -13,9 +13,9 @@ namespace Administration
     {
         private readonly IUnitOfWork _user;
         
-        public LogIn()
+        public LogIn(IUnitOfWork unit)
         {
-            _user = new UnitOfWork(new DataContext());
+            _user = unit;
         }
 
         public int CheckUsernameAndPassword(string username, SecureString securePassword, ref Store store)
