@@ -1,6 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using Consumer;
 using GalaSoft.MvvmLight.Command;
@@ -14,6 +16,8 @@ namespace Consumer_GUI.User_Controls
         private readonly UnitOfWork _unit = new UnitOfWork(new DataContext());
         private readonly IConsumer _user;
         public IConsumer User => _user;
+        public ObservableCollection<StoresInPristjek> OptionsStores { get; set; } // skal måske rykkes højere op 
+        
         private ICommand _addToShoppingListCommand;
         private ICommand _deleteFromShoppingListCommand;
         private ICommand _enterKeyPressedCommand;
@@ -44,6 +48,10 @@ namespace Consumer_GUI.User_Controls
             _user = user;
             ShoppingListData = new ObservableCollection<ProductInfo>();
             _user.ReadFromJsonFile();
+            OptionsStores = new ObservableCollection<StoresInPristjek>();
+            OptionsStores.Add(new StoresInPristjek("hej"));
+            OptionsStores.Add(new StoresInPristjek("hehej"));
+            OptionsStores.Add(new StoresInPristjek("heheddasasasdaj"));
         }
 
         public ICommand AddToShoppingListCommand
@@ -232,5 +240,17 @@ namespace Consumer_GUI.User_Controls
                 AddToShoppingList();
             }
         }
+    }
+
+    public class StoresInPristjek // skal måske et lag op, sammen med selve listen
+    {
+        public StoresInPristjek(string store)
+        {
+            Store = store;
+            IsChecked = true;
+        }
+        public string Store { get; set; }
+        public bool IsChecked { get; set; }
+
     }
 }
