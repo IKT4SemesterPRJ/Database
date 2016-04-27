@@ -58,6 +58,8 @@ namespace Consumer_GUI.User_Controls
         {
             List<StoreProductAndPrice> test = new List<StoreProductAndPrice>();
             StoreProductAndPrice test2 = new StoreProductAndPrice();
+            StoreProductAndPrice test3 = new StoreProductAndPrice();
+            StoreProductAndPrice test4 = new StoreProductAndPrice();
             test2.StoreName = "asd";
             test2.Price = 12;
             test2.ProductName = "Tis";
@@ -65,6 +67,20 @@ namespace Consumer_GUI.User_Controls
             test2.Sum = 23;
             test.Add(test2);
             test.Add(test2);
+
+            test3.StoreName = "asdasdasdasdsa";
+            test3.Price = 12213;
+            test3.ProductName = "Tisadasdsaass";
+            test3.Quantity = "32";
+            test3.Sum = 2323;
+
+            test4.StoreName = "aasddasdsadsad";
+            test4.Price = 12;
+            test4.ProductName = "Tisadsadsas";
+            test4.Quantity = "32";
+            test4.Sum = 23;
+            test.Add(test3);
+            test.Add(test4);
 
             _mail.SendMail("AndersMeidahl@gmail.com", test, 252);
         }
