@@ -1,4 +1,8 @@
-﻿using NSubstitute;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.IO;
+using Consumer;
+using NSubstitute;
 using NUnit.Framework;
 using Pristjek220Data;
 
@@ -134,5 +138,86 @@ namespace Pristjek220.Unit.Test
         //    Assert.That(createdShoppingList.Find(x => x.ProductName == _product.ProductName).Price,
         //        Is.EqualTo(fakta.HasARelation.Find(x => x.Product.ProductName == _product.ProductName).Price));
         //}
+
+        [Test]
+        public void WriteToJsonFile_AddAProductAndWriteItTOJson_ReadTheAddedProductInJson()
+        {
+            ObservableCollection<ProductInfo> productInfos = new ObservableCollection<ProductInfo>();
+            productInfos.Add(new ProductInfo("test"));
+            _uut.ShoppingListData = productInfos;
+            _uut.WriteToJsonFile();
+            string path = Path.Combine(Environment.ExpandEnvironmentVariables("%userprofile%"), "Documents") + @"\Pristjek220";
+            string stringFromFile = string.Empty;
+            using (var file = File.OpenText(path + @"\Shoppinglist.json"))
+            {
+                stringFromFile = file.ReadLine();
+            }
+            Assert.That(stringFromFile, Is.EqualTo("[{\"Name\":\"Test\",\"Quantity\":\"1\"}]"));
+        }
+
+        [Test]
+        public void WriteToJsonFile_AddAProductAndGetList_ReadTheAddedProductInJson()
+        {
+            ObservableCollection<ProductInfo> productInfos = new ObservableCollection<ProductInfo>();
+            productInfos.Add(new ProductInfo("test"));
+            _uut.ShoppingListData = productInfos;
+            var test = _uut.ShoppingListData;
+            string path = Path.Combine(Environment.ExpandEnvironmentVariables("%userprofile%"), "Documents") + @"\Pristjek220";
+            string stringFromFile = string.Empty;
+            using (var file = File.OpenText(path + @"\Shoppinglist.json"))
+            {
+                stringFromFile = file.ReadLine();
+            }
+            Assert.That(stringFromFile, Is.EqualTo("[{\"Name\":\"Test\",\"Quantity\":\"1\"}]"));
+        }
+
+
+
+        [Test]
+        public void ReadFromJsonFile_FindWhichStoreSellsBanan_FunctionToGenerateListCalled()
+        {
+            ObservableCollection<ProductInfo> productInfos = new ObservableCollection<ProductInfo>();
+            ProductInfo test = new ProductInfo("test");
+            productInfos.Add(test);
+            _uut.ShoppingListData = productInfos;
+            _uut.WriteToJsonFile();
+            _uut.ReadFromJsonFile();
+            Assert.That(productInfos[0], Is.EqualTo(test));
+        }
+
+        [Test]
+        public void ReadFromJsonFile_ReadFromAFileThatDoesNotExist_ExceptionIscatchedAndListStillGotSameValues()
+        {
+            ObservableCollection<ProductInfo> productInfos = new ObservableCollection<ProductInfo>();
+            ProductInfo test = new ProductInfo("test");
+            productInfos.Add(test);
+            _uut.ShoppingListData = productInfos;
+            string path = Path.Combine(Environment.ExpandEnvironmentVariables("%userprofile%"), "Documents") + @"\Pristjek220" + @"\Shoppinglist.json";
+            File.Delete(path);
+            _uut.ReadFromJsonFile();
+            Assert.That(_uut.ShoppingListData[0], Is.EqualTo(test));
+        }
+        [Test]
+        public void ClearGeneratedShoppingListData_AddOneItemToListCallClear_ItemHasBeenDeleted()
+        {
+            StoreProductAndPrice storeProductAndPriceItem = new StoreProductAndPrice();
+            storeProductAndPriceItem.ProductName = "test";
+            storeProductAndPriceItem.Price = 2;
+            storeProductAndPriceItem.Quantity = "2";
+            storeProductAndPriceItem.StoreName = "Aldi";
+            storeProductAndPriceItem.Sum = 4;
+
+            _uut.GeneratedShoppingListData.Add(storeProductAndPriceItem);
+            _uut.ClearGeneratedShoppingListData();
+            Assert.That(_uut.GeneratedShoppingListData.Count, Is.EqualTo(0));
+        }
+        [Test]
+        public void ClearNotInAStore_AddOneItemToListCallClear_ItemHasBeenDeleted()
+        {
+            _uut.NotInAStore.Add(new ProductInfo("test"));
+            _uut.ClearNotInAStore();
+            Assert.That(_uut.NotInAStore.Count, Is.EqualTo(0));
+        }
+
     }
 }

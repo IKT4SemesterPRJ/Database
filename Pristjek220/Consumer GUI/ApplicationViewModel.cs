@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Net.Mail;
 using System.Windows;
 using System.Windows.Input;
 using Consumer;
@@ -21,7 +22,7 @@ namespace Consumer_GUI
             PageViewModels.Add(new HomeModel());
             PageViewModels.Add(new FindProductModel(user));
             PageViewModels.Add(new ShoppingListModel(user));
-            PageViewModels.Add(new GeneratedShoppingListModel(user, new Mail()));
+            PageViewModels.Add(new GeneratedShoppingListModel(user, new Mail(new SmtpClient("Smtp.gmail.com"))));
 
             IDatabaseFunctions databaseFunctions = new DatabaseFunctions(unit);
 
