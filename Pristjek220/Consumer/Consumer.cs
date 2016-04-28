@@ -36,10 +36,11 @@ namespace Consumer
         {
             ShoppingListData = new ObservableCollection<ProductInfo>();
             _unit = unitOfWork;
+            GeneratedShoppingListData = new ObservableCollection<StoreProductAndPrice>();
+            NotInAStore = new ObservableCollection<ProductInfo>();
         }
 
-        public ObservableCollection<StoreProductAndPrice> GeneratedShoppingListData { get; set; } =
-            new ObservableCollection<StoreProductAndPrice>();
+        public ObservableCollection<StoreProductAndPrice> GeneratedShoppingListData { get; set; }
 
         private int count;
         public string TotalSum { get; set; }
@@ -53,7 +54,7 @@ namespace Consumer
             }
         }
 
-        public ObservableCollection<ProductInfo> NotInAStore { get; set; } = new ObservableCollection<ProductInfo>();
+        public ObservableCollection<ProductInfo> NotInAStore { get; set; }
 
         public bool DoesProductExist(string productName)
         {

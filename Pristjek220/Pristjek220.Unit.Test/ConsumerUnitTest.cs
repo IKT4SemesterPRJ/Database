@@ -85,59 +85,67 @@ namespace Pristjek220.Unit.Test
             _unitWork.Products.Received(1).FindStoresThatSellsProduct(_product.ProductName);
         }
 
-        //[Test]
-        //public void CreateShoppingList_CreateShoppingListForBanan_ListHasCorrectProductName()
-        //{
-        //    var shoppingList = new List<string> { _product.ProductName };
 
-        //    var fakta = new Store() { StoreName = "Fakta" };
-        //    _unitWork.Products.FindProduct(_product.ProductName).Returns(_product);
-        //    _product.HasARelation.Add(new HasA() { Price = 2.95, Store = _store });
-        //    _product.HasARelation.Add(new HasA() { Price = 1.95, Store = fakta });
-        //    _store.HasARelation.Add(new HasA() {Price = 2.95, Product = _product, Store = _store});
-        //    fakta.HasARelation.Add(new HasA() { Price = 1.95, Product = _product, Store = fakta });
+        [Test]
+        public void CreateShoppingList_CreateShoppingListForBanan_ListHasCorrectPrice()
+        {
+            _uut.ShoppingListData.Add(new ProductInfo(_product.ProductName));
 
-        //    var createdShoppingList = _uut.CreateShoppingList(shoppingList);
+            var fakta = new Store() { StoreName = "Fakta" };
+            _unitWork.Products.FindProduct(_product.ProductName).Returns(_product);
+            _product.HasARelation.Add(new HasA() { Price = 2.95, Store = _store });
+            _product.HasARelation.Add(new HasA() { Price = 1.95, Store = fakta });
+            _store.HasARelation.Add(new HasA() { Price = 2.95, Product = _product, Store = _store });
+            fakta.HasARelation.Add(new HasA() { Price = 1.95, Product = _product, Store = fakta });
+            _uut.CreateShoppingList();
 
-        //    Assert.That(createdShoppingList.Find(x => x.ProductName == _product.ProductName).ProductName,
-        //        Is.EqualTo("Banan"));
-        //}
+            Assert.That(_uut.TotalSum, Is.EqualTo("1,95 kr"));
+        }
 
-        //[Test]
-        //public void CreateShoppingList_CreateShoppingListForBanan_ListHasCorrectStoreName()
-        //{
-        //    var shoppingList = new List<string> { _product.ProductName };
+        [Test]
+        public void CreateShoppingList_CreateShoppingListForBanan_ListHasCorrectProductName()
+        {
+            _uut.ShoppingListData.Add(new ProductInfo(_product.ProductName));
 
-        //    var fakta = new Store() { StoreName = "Fakta" };
-        //    _unitWork.Products.FindProduct(_product.ProductName).Returns(_product);
-        //    _product.HasARelation.Add(new HasA() { Price = 2.95, Store = _store });
-        //    _product.HasARelation.Add(new HasA() { Price = 1.95, Store = fakta });
-        //    _store.HasARelation.Add(new HasA() { Price = 2.95, Product = _product, Store = _store });
-        //    fakta.HasARelation.Add(new HasA() { Price = 1.95, Product = _product, Store = fakta });
+            var fakta = new Store() { StoreName = "Fakta" };
+            _unitWork.Products.FindProduct(_product.ProductName).Returns(_product);
+            _product.HasARelation.Add(new HasA() { Price = 2.95, Store = _store });
+            _product.HasARelation.Add(new HasA() { Price = 1.95, Store = fakta });
+            _store.HasARelation.Add(new HasA() { Price = 2.95, Product = _product, Store = _store });
+            fakta.HasARelation.Add(new HasA() { Price = 1.95, Product = _product, Store = fakta });
+            _uut.CreateShoppingList();
 
-        //    var createdShoppingList = _uut.CreateShoppingList(shoppingList);
+            Assert.That(_uut.GeneratedShoppingListData[0].ProductName, Is.EqualTo("Banan"));
+        }
 
-        //    Assert.That(createdShoppingList.Find(x => x.ProductName == _product.ProductName).StoreName,
-        //        Is.EqualTo(fakta.StoreName));
-        //}
+        [Test]
+        public void CreateShoppingList_CreateShoppingListForBanan_ListHasCorrectStoreName()
+        {
+            _uut.ShoppingListData.Add(new ProductInfo(_product.ProductName));
 
-        //[Test]
-        //public void CreateShoppingList_CreateShoppingListForBanan_ListHasCorrectPrice()
-        //{
-        //    var shoppingList = new List<string> { _product.ProductName };
+            var fakta = new Store() { StoreName = "Fakta" };
+            _unitWork.Products.FindProduct(_product.ProductName).Returns(_product);
+            _product.HasARelation.Add(new HasA() { Price = 2.95, Store = _store });
+            _product.HasARelation.Add(new HasA() { Price = 1.95, Store = fakta });
+            _store.HasARelation.Add(new HasA() { Price = 2.95, Product = _product, Store = _store });
+            fakta.HasARelation.Add(new HasA() { Price = 1.95, Product = _product, Store = fakta });
+            _uut.CreateShoppingList();
 
-        //    var fakta = new Store() { StoreName = "Fakta" };
-        //    _unitWork.Products.FindProduct(_product.ProductName).Returns(_product);
-        //    _product.HasARelation.Add(new HasA() { Price = 2.95, Store = _store });
-        //    _product.HasARelation.Add(new HasA() { Price = 1.95, Store = fakta });
-        //    _store.HasARelation.Add(new HasA() { Price = 2.95, Product = _product, Store = _store });
-        //    fakta.HasARelation.Add(new HasA() { Price = 1.95, Product = _product, Store = fakta });
+            Assert.That(_uut.GeneratedShoppingListData[0].StoreName, Is.EqualTo("Fakta"));
+        }
+        [Test]
+        public void CreateShoppingList_CreateShoppingListForAppleThatIsNotInStore_ListHasCorrectStoreName()
+        {
+            _uut.ShoppingListData.Add(new ProductInfo("Apple"));
 
-        //    var createdShoppingList = _uut.CreateShoppingList(shoppingList);
+            Product productApple = new Product();
 
-        //    Assert.That(createdShoppingList.Find(x => x.ProductName == _product.ProductName).Price,
-        //        Is.EqualTo(fakta.HasARelation.Find(x => x.Product.ProductName == _product.ProductName).Price));
-        //}
+            _unitWork.Products.FindProduct(_product.ProductName).Returns(productApple);
+            _uut.CreateShoppingList();
+
+            Assert.That(_uut.NotInAStore[0].Name, Is.EqualTo("Apple"));
+        }
+
 
         [Test]
         public void WriteToJsonFile_AddAProductAndWriteItTOJson_ReadTheAddedProductInJson()

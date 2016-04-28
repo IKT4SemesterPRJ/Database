@@ -22,7 +22,7 @@ namespace Consumer_GUI
             PageViewModels.Add(new HomeModel());
             PageViewModels.Add(new FindProductModel(user));
             PageViewModels.Add(new ShoppingListModel(user));
-            PageViewModels.Add(new GeneratedShoppingListModel(user, new Mail(new SmtpClient("Smtp.gmail.com"))));
+            PageViewModels.Add(new GeneratedShoppingListModel(user));
 
             IDatabaseFunctions databaseFunctions = new DatabaseFunctions(unit);
 

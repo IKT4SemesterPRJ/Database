@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing.Text;
 using System.Linq;
+using System.Net;
 using System.Net.Mail;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -32,10 +33,10 @@ namespace Consumer_GUI.User_Controls
         }
         private EmailAddressAttribute _testEmail; 
 
-        public GeneratedShoppingListModel(IConsumer user, IMail mail)
+        public GeneratedShoppingListModel(IConsumer user)
         {
             _user = user;
-            _mail = mail;
+            _mail = new Mail(new SmtpClientWrapper("Smtp.gmail.com", 587, new NetworkCredential("pristjek220@gmail.com", "pristjek"), true));
             ErrorText = "";
         }
 

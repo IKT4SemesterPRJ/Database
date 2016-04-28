@@ -19,12 +19,12 @@ namespace Pristjek220.Unit.Test
     class MailTest
     {
         private IMail _mail;
-        private SmtpClient _smtpClient;
+        private ISmtpClientWrapper _smtpClient;
         [SetUp]
         public void SetUp()
         {
-            _mail = new Mail(new SmtpClient("Smtp.gmail.com"));
-            _smtpClient = Substitute.For<SmtpClient>();
+            _smtpClient = Substitute.For<ISmtpClientWrapper>();
+            _mail = new Mail(_smtpClient);
         }
 
         [Test]
@@ -43,9 +43,8 @@ namespace Pristjek220.Unit.Test
             ProductInfo ProductInfoItem = new ProductInfo("test");
             productInfoList.Add(ProductInfoItem);
 
-
             _mail.SendMail("test@123dsa.dk",storeProductAndPricesList , productInfoList, "22");
-            _smtpClient.Received(1);
+            _smtpClient.Received(1).Send(Arg.Any<MailMessage>());
         }
     }
 }

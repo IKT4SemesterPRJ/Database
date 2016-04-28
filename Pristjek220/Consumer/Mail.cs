@@ -16,23 +16,20 @@ namespace Consumer
     public class Mail : IMail
     {
         private MailMessage _mail;
-        private SmtpClient _smtpGmail;
-        public Mail(SmtpClient smtpClient)
+        private ISmtpClientWrapper smtpClientWrapper;
+        public Mail(ISmtpClientWrapper SmtpClient)
         {
+            smtpClientWrapper = SmtpClient;
             _mail = new MailMessage();
-            _smtpGmail = smtpClient;
             _mail.From = new MailAddress("pristjek220@gmail.com");
             _mail.Subject = "PrisTjek220 indkøbsliste";
             _mail.IsBodyHtml = true;
-            _smtpGmail.Port = 587;
-            _smtpGmail.Credentials = new NetworkCredential("pristjek220@gmail.com", "pristjek");
-            _smtpGmail.EnableSsl = true;
         }
         public void SendMail(string email, ObservableCollection<StoreProductAndPrice> productListWithStore, ObservableCollection<ProductInfo> productListWithNoStore, string sum)
         {
             _mail.To.Add(email);
             _mail.Body = generateString(productListWithStore, productListWithNoStore, sum);
-            _smtpGmail.Send(_mail);
+            smtpClientWrapper.Send(_mail);
         }
 
         private string generateString(ObservableCollection<StoreProductAndPrice> productListWithStore,
