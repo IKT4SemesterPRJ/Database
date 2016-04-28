@@ -33,10 +33,10 @@ namespace Consumer_GUI.User_Controls
         }
         private EmailAddressAttribute _testEmail; 
 
-        public GeneratedShoppingListModel(IConsumer user)
+        public GeneratedShoppingListModel(IConsumer user, IMail mail)
         {
             _user = user;
-            _mail = new Mail(new SmtpClientWrapper("Smtp.gmail.com", 587, new NetworkCredential("pristjek220@gmail.com", "pristjek"), true));
+            _mail = mail;
             ErrorText = "";
         }
 

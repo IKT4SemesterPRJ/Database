@@ -23,8 +23,7 @@ namespace Pristjek220.Unit.Test
         {
             _user = Substitute.For<IConsumer>();
             _mail = Substitute.For<IMail>();
-            _uut = new GeneratedShoppingListModel(_user);
-
+            _uut = new GeneratedShoppingListModel(_user, _mail);
         }
 
         [Test]
@@ -45,17 +44,16 @@ namespace Pristjek220.Unit.Test
             Assert.That(_uut.ErrorText, Is.EqualTo("E-mail afsendt"));
         }
 
-        //[Test]
-        //public void SendEmail_WriteEmailWithrightSyntax_callsMail()
-        //{
-        //    _uut.EmailAddress = "test@sesese.dk";
-        //    _user.TotalSum = "22";
+        [Test]
+        public void SendEmail_WriteEmailWithrightSyntax_callsMail()
+        {
+            _uut.EmailAddress = "test@sesese.dk";
+            _user.TotalSum = "22";
 
-        //    _user.GeneratedShoppingListData = new ObservableCollection<StoreProductAndPrice>();
-        //    _user.NotInAStore = new ObservableCollection<ProductInfo>();
-        //    _uut.SendMailCommand.Execute(this);
-        //    _mail.Received(1).SendMail("test@sesese.dk", Arg.Any<ObservableCollection<StoreProductAndPrice>>(), Arg.Any<ObservableCollection<ProductInfo>>(), "22");
-
-        //}
+            _user.GeneratedShoppingListData = new ObservableCollection<StoreProductAndPrice>();
+            _user.NotInAStore = new ObservableCollection<ProductInfo>();
+            _uut.SendMailCommand.Execute(this);
+            _mail.Received(1).SendMail("test@sesese.dk", Arg.Any<ObservableCollection<StoreProductAndPrice>>(), Arg.Any<ObservableCollection<ProductInfo>>(), "22");
+        }
     }
 }

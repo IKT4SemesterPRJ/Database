@@ -28,7 +28,7 @@ namespace Pristjek220.Unit.Test
         }
 
         [Test]
-        public void SendMail_send2listWithAnSingleItemInEach_SeeThatSmtpReceives1Call()
+        public void SendMail_send2listWithAnSingleItemInEach_SeeThatSmtpClientSendReceives1Call()
         {
             ObservableCollection<StoreProductAndPrice> storeProductAndPricesList = new ObservableCollection<StoreProductAndPrice>();
             StoreProductAndPrice storeProductAndPriceItem = new StoreProductAndPrice();
