@@ -13,7 +13,7 @@ using Pristjek220Data;
 
 namespace Consumer
 {
-    public class Mail
+    public class Mail : IMail
     {
         public void SendMail(string email, ObservableCollection<StoreProductAndPrice> productListWithStore, ObservableCollection<ProductInfo> productListWithNoStore, string sum)
         {

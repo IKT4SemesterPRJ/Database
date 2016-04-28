@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
+using Consumer;
 using Consumer_GUI.User_Controls;
 using Pristjek220Data;
 using SharedFunctionalities;
@@ -20,7 +21,7 @@ namespace Consumer_GUI
             PageViewModels.Add(new HomeModel());
             PageViewModels.Add(new FindProductModel(user));
             PageViewModels.Add(new ShoppingListModel(user));
-            PageViewModels.Add(new GeneratedShoppingListModel(user));
+            PageViewModels.Add(new GeneratedShoppingListModel(user, new Mail()));
 
             IDatabaseFunctions databaseFunctions = new DatabaseFunctions(unit);
 

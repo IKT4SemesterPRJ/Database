@@ -73,6 +73,7 @@
   <ItemGroup>
     <Compile Include="Consumer.cs" />
     <Compile Include="IConsumer.cs" />
+    <Compile Include="IMail.cs" />
     <Compile Include="Mail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

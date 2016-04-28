@@ -4,7 +4,7 @@ using Consumer_GUI.Annotations;
 
 namespace Consumer_GUI
 {
-    internal class ObservableObject : INotifyPropertyChanged
+    public class ObservableObject : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
