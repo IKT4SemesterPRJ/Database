@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Administration_GUI.User_Controls_Admin"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:command="http://www.galasoft.ch/mvvmlight"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     
@@ -51,12 +53,18 @@
         </Label>
         
         <TextBox
-            Text="{Binding NewStoreName}"
+            Text="{Binding NewStoreName, UpdateSourceTrigger=PropertyChanged}"
             Grid.Column="2" 
             Grid.Row="2" 
             Height="23" 
             Margin="2"
             Width="100">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="PreviewKeyDown">
+                    <command:EventToCommand Command="{Binding EnterKeyPressedCommand}" PassEventArgsToCommand="True">
+                    </command:EventToCommand>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
         </TextBox>
 
         <PasswordBox 
@@ -64,14 +72,28 @@
             Grid.Column="2"
             Grid.Row="3"
             Margin="2"
-            Width="100"/>
+            Width="100">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="PreviewKeyDown">
+                    <command:EventToCommand Command="{Binding EnterKeyPressedCommand}" PassEventArgsToCommand="True">
+                    </command:EventToCommand>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </PasswordBox>
 
         <PasswordBox 
             PasswordChanged="PasswordBox_OnPasswordConfirmChanged"
             Grid.Column="2"
             Grid.Row="4"
             Margin="2"
-            Width="100"/>
+            Width="100">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="PreviewKeyDown">
+                    <command:EventToCommand Command="{Binding EnterKeyPressedCommand}" PassEventArgsToCommand="True">
+                    </command:EventToCommand>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </PasswordBox>
 
         <Button
             Command="{Binding NewStoreCommand}"
@@ -92,4 +114,18 @@
 
     </Grid>
 </UserControl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

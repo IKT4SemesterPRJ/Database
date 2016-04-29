@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using Administration;
 using GalaSoft.MvvmLight.Command;
@@ -21,7 +22,7 @@ namespace Administration_GUI.User_Controls
         private ICommand _populatingNewProductCommand;
         private ICommand _illegalSignNewProductCommand;
         private ICommand _enterPressedCommand;
-
+        
 
         private string _oldtext = string.Empty;
 
@@ -74,7 +75,7 @@ namespace Administration_GUI.User_Controls
                 }
 
                 ConfirmText =
-                    ($"{ShoppingListItem} er indsat, med prisen {ShoppingListItemPrice} i butikken {_manager.Store.StoreName}");
+                    ($"{ShoppingListItem} er indsat til prisen {ShoppingListItemPrice} kr. i butikken {_manager.Store.StoreName}");
             }
             else
                 ConfirmText = "Prisen er ugyldig";

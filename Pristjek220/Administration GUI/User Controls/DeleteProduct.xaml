@@ -27,7 +27,8 @@
             Grid.Row="2" 
             Width="75" 
             Margin="232,43,-301,-62" 
-            Height="25"/>
+            Height="25"
+            TabIndex="1"/>
         <controls:AutoCompleteBox
             MinimumPopulateDelay="400"
             MinimumPrefixLength="2"
@@ -38,7 +39,8 @@
             Height="23" 
             VerticalAlignment="Top" 
             Width="139" 
-            Margin="60,44,-193,-61">
+            Margin="60,44,-193,-61"
+            TabIndex="0">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Populating">
                     <i:InvokeCommandAction Command="{Binding PopulatingDeleteProductCommand}"></i:InvokeCommandAction>

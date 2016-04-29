@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Input;
 using Administration_GUI;
+using GalaSoft.MvvmLight.Command;
 using Pristjek220Data;
 
 namespace Administration_GUI.User_Controls_Admin
@@ -30,6 +31,7 @@ namespace Administration_GUI.User_Controls_Admin
 
 
         private ICommand _newStoreCommand;
+        private ICommand _enterPressedCommand;
 
         public ICommand NewStoreCommand => _newStoreCommand ??
                                                     (_newStoreCommand = new RelayCommand(NewStore));
@@ -51,6 +53,15 @@ namespace Administration_GUI.User_Controls_Admin
             }
         }
 
+        public ICommand EnterKeyPressedCommand => _enterPressedCommand ?? (_enterPressedCommand = new RelayCommand<KeyEventArgs>(EnterKeyPressed));
+
+        private void EnterKeyPressed(KeyEventArgs e)
+        {
+            if ((e.Key == Key.Enter) || (e.Key == Key.Return))
+            {
+                NewStore();
+            }
+        }
 
     }
 }
