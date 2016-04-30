@@ -77,6 +77,10 @@
     <Compile Include="Migrations\201604151507313_login.Designer.cs">
       <DependentUpon>201604151507313_login.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604300926358_Required_tag_added_to_Login.cs" />
+    <Compile Include="Migrations\201604300926358_Required_tag_added_to_Login.Designer.cs">
+      <DependentUpon>201604300926358_Required_tag_added_to_Login.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Product\StoreAndPrice.cs" />
     <Compile Include="Product\StoreProductAndPrice.cs" />
@@ -109,6 +113,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201604151507313_login.resx">
       <DependentUpon>201604151507313_login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604300926358_Required_tag_added_to_Login.resx">
+      <DependentUpon>201604300926358_Required_tag_added_to_Login.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

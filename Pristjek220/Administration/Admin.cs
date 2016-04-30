@@ -33,6 +33,9 @@ namespace Administration
 
             var code = ConvertToUnsecureString(password);
 
+            if (code == "")
+                return -2;
+
             using (SHA256 hash = SHA256Managed.Create())
             {
                 Encoding enc = Encoding.UTF8;

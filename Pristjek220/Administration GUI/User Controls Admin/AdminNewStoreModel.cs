@@ -47,6 +47,10 @@ namespace Administration_GUI.User_Controls_Admin
             {
                 Error = "Butik findes allerede";
             }
+            else if (-2 == _admin.CreateLogin(NewStoreName, SecurePassword, NewStoreName))
+            {
+                Error = "Udfyld venligst alle felter";
+            }
             else
             {
                 Error = $"Forretning oprettet med brugernavnet {NewStoreName}";
