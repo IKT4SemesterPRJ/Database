@@ -99,7 +99,7 @@ namespace Pristjek220.Unit.Test
             fakta.HasARelation.Add(new HasA() { Price = 1.95, Product = _product, Store = fakta });
             _uut.CreateShoppingList();
 
-            Assert.That(_uut.TotalSum, Is.EqualTo("1.95 kr"));
+            Assert.That(_uut.TotalSum, Is.EqualTo("1,95 kr"));
         }
 
         [Test]
