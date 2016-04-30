@@ -22,7 +22,10 @@ namespace Pristjek220.Unit.Test
         [Test]
         public void CreateLogin_CreateTheStoreToTheLogin_StoreIsCreatedAndSavedInDatabase()
         {
-            _uut.CreateLogin("Test", new SecureString(), "Test");
+            var password = new SecureString();
+            password.AppendChar('P');
+
+            _uut.CreateLogin("Test", password, "Test");
 
             _unitOfWork.Stores.Received(1).Add(Arg.Any<Store>());
         }
@@ -30,9 +33,18 @@ namespace Pristjek220.Unit.Test
         [Test]
         public void CreateLogin_CreateTheLogin_LoginIsCreatedAndSavedInDatabase()
         {
-            _uut.CreateLogin("Test", new SecureString(), "Test");
+            var password = new SecureString();
+            password.AppendChar('P');
+
+            _uut.CreateLogin("Test", password, "Test");
 
             _unitOfWork.Logins.Received(1).Add(Arg.Any<Login>());
+        }
+
+        [Test]
+        public void CreateLogin_CreateTheLoginButNoPasswordWasEntered_ReturnsMinus2()
+        {
+            Assert.That(_uut.CreateLogin("Test", new SecureString(), "Test"), Is.EqualTo(-2));
         }
 
         [Test]
