@@ -87,7 +87,7 @@ namespace Pristjek220.Unit.Test
 
 
         [Test]
-        public void CreateShoppingList_CreateShoppingListForBanan_ListHasCorrectPrice()
+        public void CreateShoppingList_CreateShoppingListForBanan_ListHasCorrectPrice() // Skal fejle, FOR JENKINS!!!
         {
             _uut.ShoppingListData.Add(new ProductInfo(_product.ProductName));
 
