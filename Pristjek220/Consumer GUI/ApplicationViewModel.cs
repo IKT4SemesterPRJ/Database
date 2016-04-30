@@ -128,7 +128,7 @@ namespace Consumer_GUI
         private void ChangeWindowGeneratedShoppingList()
         {
             CurrentPageViewModel = PageViewModels[3];
-            MainWindowTekst = "Pristjek220 - Forbruger - genereret Indkøbsliste";
+            MainWindowTekst = "Pristjek220 - Forbruger - Genereret Indkøbsliste";
         }
         #endregion
     }
