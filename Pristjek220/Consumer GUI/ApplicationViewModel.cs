@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.Net;
-using System.Net.Mail;
 using System.Windows;
 using System.Windows.Input;
 using Consumer;
@@ -14,6 +13,8 @@ namespace Consumer_GUI
     {
         private IPageViewModel _currentPageViewModel;
         private ObservableCollection<IPageViewModel> _pageViewModels;
+        private string _mainWindowTekst;
+        public string MainWindowTekst { get {return _mainWindowTekst;} set { _mainWindowTekst = value; OnPropertyChanged("MainWindowTekst");} }
 
         public ApplicationViewModel()
         {
@@ -35,6 +36,7 @@ namespace Consumer_GUI
 
 
             // Set starting page
+            MainWindowTekst = "Pristjek220 - Forbruger - Startside";
             CurrentPageViewModel = PageViewModels[0];
         }
 
@@ -74,6 +76,7 @@ namespace Consumer_GUI
         private void ChangeWindowHome()
         {
             CurrentPageViewModel = PageViewModels[0];
+            MainWindowTekst = "Pristjek220 - Forbruger - Startside";
         }
 
         private ICommand _changeWindowFindProductCommand;
@@ -90,6 +93,7 @@ namespace Consumer_GUI
         private void ChangeWindowFindProduct()
         {
             CurrentPageViewModel = PageViewModels[1];
+            MainWindowTekst = "Pristjek220 - Forbruger - Søg efter vare";
         }
 
         private ICommand _changeWindowShoppingListCommand;
@@ -106,6 +110,7 @@ namespace Consumer_GUI
         private void ChangeWindowShoppingList()
         {
             CurrentPageViewModel = PageViewModels[2];
+            MainWindowTekst = "Pristjek220 - Forbruger - Indkøbsliste";
         }
 
 
@@ -123,6 +128,7 @@ namespace Consumer_GUI
         private void ChangeWindowGeneratedShoppingList()
         {
             CurrentPageViewModel = PageViewModels[3];
+            MainWindowTekst = "Pristjek220 - Forbruger - genereret Indkøbsliste";
         }
         #endregion
     }

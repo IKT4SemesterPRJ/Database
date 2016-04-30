@@ -67,8 +67,8 @@
             FontStyle="Italic" 
             FontSize="30pt" 
             FontFamily="Calibri" 
-            FontWeight="bold">
-            Pristjek220
+            FontWeight="bold"
+            Text="{Binding Path=MainWindowTekst}">
         </TextBlock>
         <Grid Grid.Row="1">
             <Rectangle 
