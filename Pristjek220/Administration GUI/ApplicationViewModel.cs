@@ -29,7 +29,7 @@ namespace Administration_GUI
             PageViewModels.Add(new NewProductModel(_store, unit));
 
             // set startup page
-            MainWindowTekst = "Pristjek220 - Forretningsmanager - Tilføj Produkt";
+            MainWindowTekst = $"Pristjek220 - {_store.StoreName} - Tilføj Produkt";
             _currentPageViewModel = _pageViewModels[2];
 
         }
@@ -57,7 +57,7 @@ namespace Administration_GUI
         private void ChangeWindowChangePrice()
         {
             CurrentPageViewModel = PageViewModels[0];
-            MainWindowTekst = "Pristjek220 - Forretningsmanager - Ændre pris";
+            MainWindowTekst = $"Pristjek220 - {_store.StoreName} - Ændre pris";
         }
 
         private ICommand _changeWindowDeleteProductCommand;
@@ -68,7 +68,7 @@ namespace Administration_GUI
         private void ChangeWindowDeleteProduct()
         {
             CurrentPageViewModel = PageViewModels[1];
-            MainWindowTekst = "Pristjek220 - Forretningsmanager - Fjern Produkt";
+            MainWindowTekst = $"Pristjek220 - {_store.StoreName} - Fjern Produkt";
         }
 
         private ICommand _changeWindowNewProductCommand;
@@ -79,7 +79,7 @@ namespace Administration_GUI
         private void ChangeWindowNewProduct()
         {
             CurrentPageViewModel = PageViewModels[2];
-            MainWindowTekst = "Pristjek220 - Forretningsmanager - Tilføj Produkt";
+            MainWindowTekst = $"Pristjek220 - {_store.StoreName} - Tilføj Produkt";
         }
 
         private ICommand _logOutCommand;
