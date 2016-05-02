@@ -14,6 +14,9 @@ namespace Administration_GUI
        private IPageViewModel _currentPageViewModel;
         private ObservableCollection<IPageViewModel> _pageViewModels;
         private Store _store;
+        private string _mainWindowTekst;
+        public string MainWindowTekst { get { return _mainWindowTekst; } set { _mainWindowTekst = value; OnPropertyChanged("MainWindowTekst"); } }
+
 
         public ApplicationViewModel(Store store, IUnitOfWork unit)
         {
@@ -26,6 +29,7 @@ namespace Administration_GUI
             PageViewModels.Add(new NewProductModel(_store, unit));
 
             // set startup page
+            MainWindowTekst = $"Pristjek220 - {_store.StoreName} - Tilføj Produkt";
             _currentPageViewModel = _pageViewModels[2];
 
         }
@@ -53,6 +57,7 @@ namespace Administration_GUI
         private void ChangeWindowChangePrice()
         {
             CurrentPageViewModel = PageViewModels[0];
+            MainWindowTekst = $"Pristjek220 - {_store.StoreName} - Ændre pris";
         }
 
         private ICommand _changeWindowDeleteProductCommand;
@@ -63,6 +68,7 @@ namespace Administration_GUI
         private void ChangeWindowDeleteProduct()
         {
             CurrentPageViewModel = PageViewModels[1];
+            MainWindowTekst = $"Pristjek220 - {_store.StoreName} - Fjern Produkt";
         }
 
         private ICommand _changeWindowNewProductCommand;
@@ -73,6 +79,7 @@ namespace Administration_GUI
         private void ChangeWindowNewProduct()
         {
             CurrentPageViewModel = PageViewModels[2];
+            MainWindowTekst = $"Pristjek220 - {_store.StoreName} - Tilføj Produkt";
         }
 
         private ICommand _logOutCommand;

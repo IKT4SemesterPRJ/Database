@@ -3,6 +3,7 @@ using System.Security;
 using System.Windows;
 using System.Windows.Input;
 using Administration;
+using GalaSoft.MvvmLight.Command;
 using Pristjek220Data;
 using SharedFunctionalities;
 
@@ -14,6 +15,7 @@ namespace Administration_GUI
         public SecureString SecurePassword { private get; set; }
         private Store _loginstore;
         private readonly IUnitOfWork _unit;
+        private ICommand _enterPressedCommand;
 
         public string Error
         {
@@ -90,6 +92,16 @@ namespace Administration_GUI
             storemanagerGUI.Show();
             logInGui.Close();
             Application.Current.MainWindow = storemanagerGUI;
+        }
+
+        public ICommand EnterKeyPressedCommand => _enterPressedCommand ?? (_enterPressedCommand = new RelayCommand<KeyEventArgs>(EnterKeyPressed));
+        
+        private void EnterKeyPressed(KeyEventArgs e)
+        {
+            if ((e.Key == Key.Enter) || (e.Key == Key.Return))
+            {
+                LogInbutton();
+            }
         }
     }
 }

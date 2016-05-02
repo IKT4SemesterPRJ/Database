@@ -35,7 +35,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            
+
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5" />
@@ -74,24 +74,35 @@
             Password:</Label>
 
         <TextBox
-            Text="{Binding Username}"
+            Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
             Grid.Column="2"
             Grid.Row="3"
             Width="100"
             Margin="2">
             <i:Interaction.Triggers>
-               <i:EventTrigger EventName="TextChanged">
+                <i:EventTrigger EventName="TextChanged">
                     <i:InvokeCommandAction Command="{Binding UsernameChangedCommand}"></i:InvokeCommandAction>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="PreviewKeyDown">
+                    <command:EventToCommand Command="{Binding EnterKeyPressedCommand}" PassEventArgsToCommand="True">
+                    </command:EventToCommand>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </TextBox>
-        
+
         <PasswordBox 
             PasswordChanged="PasswordBox_OnPasswordChanged"
             Grid.Column="2"
             Grid.Row="4"
             Width="100"
-            Margin="2"/>
+            Margin="2">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="PreviewKeyDown">
+                    <command:EventToCommand Command="{Binding EnterKeyPressedCommand}" PassEventArgsToCommand="True">
+                    </command:EventToCommand>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </PasswordBox>
 
         <Button
             Grid.Column="2"
@@ -111,4 +122,6 @@
             Content="{Binding Error}"/>
     </Grid>
 </Window>
+
+
 

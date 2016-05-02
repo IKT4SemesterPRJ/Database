@@ -11,6 +11,9 @@ namespace Administration_GUI
     {
         private IPageViewModelAdmin _currentPageViewModel;
         private ObservableCollection<IPageViewModelAdmin> _pageViewModels;
+        private string _mainWindowTekst;
+        public string MainWindowTekst { get { return _mainWindowTekst; } set { _mainWindowTekst = value; OnPropertyChanged("MainWindowTekst"); } }
+
 
         public AdminViewModel(IUnitOfWork unit)
         {
@@ -20,6 +23,7 @@ namespace Administration_GUI
             PageViewModels.Add(new AdminDeleteStoreModel(unit));
 
             // set startup page
+            MainWindowTekst = "Pristjek220 - Administration - Tilføj Forretning";
             _currentPageViewModel = _pageViewModels[0];
         }
 
@@ -50,6 +54,7 @@ namespace Administration_GUI
         private void AdminChangeWindowNewStore()
         {
             CurrentPageViewModel = PageViewModels[0];
+            MainWindowTekst = "Pristjek220 - Administration - Tilføj Forretning";
         }
 
         private ICommand _adminChangeWindowDeleteProductCommand;
@@ -60,6 +65,7 @@ namespace Administration_GUI
         private void AdminChangeWindowDeleteProduct()
         {
             CurrentPageViewModel = PageViewModels[1];
+            MainWindowTekst = "Pristjek220 - Administration - Fjern Produkt";
         }
 
         private ICommand _adminChangeWindowDeleteStoreCommand;
@@ -70,6 +76,7 @@ namespace Administration_GUI
         private void AdminChangeWindowDeleteStore()
         {
             CurrentPageViewModel = PageViewModels[2];
+            MainWindowTekst = "Pristjek220 - Administration - Fjern Forretning";
         }
 
         private ICommand _logOutCommand;

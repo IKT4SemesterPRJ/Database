@@ -16,7 +16,7 @@ namespace Consumer_GUI.User_Controls
         private readonly UnitOfWork _unit = new UnitOfWork(new DataContext());
         private readonly IConsumer _user;
         public IConsumer User => _user;
-        public ObservableCollection<StoresInPristjek> OptionsStores { get; set; } // skal måske rykkes højere op 
+        public ObservableCollection<StoresInPristjek> OptionsStores => User.OptionsStores; 
         
         private ICommand _addToShoppingListCommand;
         private ICommand _deleteFromShoppingListCommand;
@@ -48,7 +48,6 @@ namespace Consumer_GUI.User_Controls
             _user = user;
             ShoppingListData = new ObservableCollection<ProductInfo>();
             _user.ReadFromJsonFile();
-            OptionsStores = new ObservableCollection<StoresInPristjek>();
             OptionsStores.Add(new StoresInPristjek("hej"));
             OptionsStores.Add(new StoresInPristjek("hehej"));
             OptionsStores.Add(new StoresInPristjek("heheddasasasdaj"));
@@ -240,17 +239,5 @@ namespace Consumer_GUI.User_Controls
                 AddToShoppingList();
             }
         }
-    }
-
-    public class StoresInPristjek // skal måske et lag op, sammen med selve listen
-    {
-        public StoresInPristjek(string store)
-        {
-            Store = store;
-            IsChecked = true;
-        }
-        public string Store { get; set; }
-        public bool IsChecked { get; set; }
-
     }
 }

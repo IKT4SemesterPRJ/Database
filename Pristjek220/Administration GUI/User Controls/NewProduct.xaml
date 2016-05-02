@@ -27,7 +27,8 @@
             Grid.Row="2" 
             Width="75" 
             Margin="356,44,-425,-59" 
-            Height="25"/>
+            Height="25"
+            TabIndex="2"/>
         <toolkit:AutoCompleteBox
             MinimumPopulateDelay="400"
             MinimumPrefixLength="2"
@@ -38,7 +39,8 @@
             Height="23" 
             VerticalAlignment="Top" 
             Width="139" 
-            Margin="60,44,-193,-61">
+            Margin="60,44,-193,-61"
+            TabIndex="0">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Populating">
                     <i:InvokeCommandAction Command="{Binding PopulatingNewProductCommand}"></i:InvokeCommandAction>
@@ -54,15 +56,21 @@
             
         </toolkit:AutoCompleteBox>
         <TextBox
-            
-            Text="{Binding ShoppingListItemPrice}"
+            Text="{Binding ShoppingListItemPrice, UpdateSourceTrigger=PropertyChanged}"
             Grid.Column="2" 
             Grid.Row="2" 
             Height="23" 
             Margin="240,42,-317,-59" 
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
-            Width="83">
+            Width="83"
+            TabIndex="1">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="PreviewKeyDown">
+                    <mvvmlight:EventToCommand Command="{Binding EnterKeyPressedCommand}" PassEventArgsToCommand="True">
+                    </mvvmlight:EventToCommand>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
         </TextBox>
 
         <Label 

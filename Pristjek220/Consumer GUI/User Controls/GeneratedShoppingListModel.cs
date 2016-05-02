@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing.Text;
 using System.Linq;
+using System.Net;
 using System.Net.Mail;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -12,12 +13,11 @@ using Pristjek220Data;
 
 namespace Consumer_GUI.User_Controls
 {
-    internal class GeneratedShoppingListModel : ObservableObject, IPageViewModel
+    public class GeneratedShoppingListModel : ObservableObject, IPageViewModel
     {
-        private UnitOfWork _unit = new UnitOfWork(new DataContext());
         private readonly IConsumer _user;
         public string TotalSum => _user.TotalSum;
-        private readonly Mail _mail;
+        private readonly IMail _mail;
         private ICommand _sendMailCommand;
         public string EmailAddress{ set; get; }
 
@@ -33,10 +33,10 @@ namespace Consumer_GUI.User_Controls
         }
         private EmailAddressAttribute _testEmail; 
 
-        public GeneratedShoppingListModel(Consumer.Consumer user)
+        public GeneratedShoppingListModel(IConsumer user, IMail mail)
         {
             _user = user;
-            _mail = new Mail();
+            _mail = mail;
             ErrorText = "";
         }
 

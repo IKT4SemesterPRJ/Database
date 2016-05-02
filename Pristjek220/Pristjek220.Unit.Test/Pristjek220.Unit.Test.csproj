@@ -76,11 +76,14 @@
     <Compile Include="ApplicationViewModelTest.cs" />
     <Compile Include="AutoCompleteUnitTest.cs" />
     <Compile Include="ConsumerUnitTest.cs" />
+    <Compile Include="DatabaseFunctionUnitTest.cs" />
     <Compile Include="FindProductModelTest.cs" />
     <Compile Include="GeneratedShoppinglListModelTest.cs" />
+    <Compile Include="MailTest.cs" />
     <Compile Include="NewProductModelUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShoppingListModelTest.cs" />
+    <Compile Include="SmtpClientWrapperUnitTest.cs" />
     <Compile Include="StoremanagerUnitTest.cs" />
   </ItemGroup>
   <ItemGroup>

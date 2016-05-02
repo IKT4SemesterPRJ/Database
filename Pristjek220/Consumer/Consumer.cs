@@ -34,12 +34,16 @@ namespace Consumer
 
         public Consumer(IUnitOfWork unitOfWork)
         {
+            OptionsStores = new ObservableCollection<StoresInPristjek>();
             ShoppingListData = new ObservableCollection<ProductInfo>();
             _unit = unitOfWork;
+            GeneratedShoppingListData = new ObservableCollection<StoreProductAndPrice>();
+            NotInAStore = new ObservableCollection<ProductInfo>();
+            // fill optionslist - Rasmus 
         }
 
-        public ObservableCollection<StoreProductAndPrice> GeneratedShoppingListData { get; } =
-            new ObservableCollection<StoreProductAndPrice>();
+        public ObservableCollection<StoreProductAndPrice> GeneratedShoppingListData { get; set; }
+        public ObservableCollection<StoresInPristjek> OptionsStores { get; set; }
 
         private int count;
         public string TotalSum { get; set; }
@@ -53,7 +57,7 @@ namespace Consumer
             }
         }
 
-        public ObservableCollection<ProductInfo> NotInAStore { get; } = new ObservableCollection<ProductInfo>();
+        public ObservableCollection<ProductInfo> NotInAStore { get; set; }
 
         public bool DoesProductExist(string productName)
         {
@@ -172,5 +176,17 @@ namespace Consumer
 
         public string Name { set; get; }
         public string Quantity { set; get; }
+    }
+
+    public class StoresInPristjek
+    {
+        public StoresInPristjek(string store)
+        {
+            Store = store;
+            IsChecked = true;
+        }
+        public string Store { get; set; }
+        public bool IsChecked { get; set; }
+
     }
 }

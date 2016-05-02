@@ -118,7 +118,7 @@ namespace Pristjek220.Unit.Test
             _productAndPrices.Add(bollerProductAndPrice);
             _productAndPrices.Add(brombaerProductAndPrice);
 
-            _unitWork.Stores.FindProductsInStore(aldiStoreName).Returns(_productAndPrices);
+            _unitWork.Stores.FindProductsInStoreStartingWith(aldiStoreName, "B").Returns(_productAndPrices);
             Assert.That(_uut.AutoCompleteProductForOneStore(aldiStoreName, "B").Count, Is.EqualTo(3));
         }
 
@@ -129,7 +129,7 @@ namespace Pristjek220.Unit.Test
             var bananProductAndPrice = new ProductAndPrice() { Name = "Banan" };
             _productAndPrices.Add(bananProductAndPrice);
 
-            _unitWork.Stores.FindProductsInStore(aldiStoreName).Returns(_productAndPrices);
+            _unitWork.Stores.FindProductsInStoreStartingWith(aldiStoreName, "B").Returns(_productAndPrices);
             Assert.That(_uut.AutoCompleteProductForOneStore(aldiStoreName, "B").Count, Is.EqualTo(1));
         }
 
@@ -138,7 +138,7 @@ namespace Pristjek220.Unit.Test
         {
             var aldiStoreName = "Aldi";
 
-            _unitWork.Stores.FindProductsInStore(aldiStoreName).ReturnsNull();
+            _unitWork.Stores.FindProductsInStoreStartingWith(aldiStoreName, "B").ReturnsNull();
             Assert.That(_uut.AutoCompleteProductForOneStore(aldiStoreName, "B"), Is.EqualTo(null));
         }
 
@@ -155,7 +155,7 @@ namespace Pristjek220.Unit.Test
             _productAndPrices.Add(bollerProductAndPrice);
             _productAndPrices.Add(brombaerProductAndPrice);
 
-            _unitWork.Stores.FindProductsInStore(aldiStoreName).Returns(_productAndPrices);
+            _unitWork.Stores.FindProductsInStoreStartingWith(aldiStoreName, "B").Returns(_productAndPrices);
             Assert.That(_uut.AutoCompleteProductForOneStore(aldiStoreName, "B").Contains(bananProductAndPrice.Name), Is.EqualTo(true));
         }
 
@@ -172,7 +172,7 @@ namespace Pristjek220.Unit.Test
             _productAndPrices.Add(bollerProductAndPrice);
             _productAndPrices.Add(brombaerProductAndPrice);
 
-            _unitWork.Stores.FindProductsInStore(aldiStoreName).Returns(_productAndPrices);
+            _unitWork.Stores.FindProductsInStoreStartingWith(aldiStoreName, "B").Returns(_productAndPrices);
             Assert.That(_uut.AutoCompleteProductForOneStore(aldiStoreName, "B").Contains(baconProductAndPrice.Name), Is.EqualTo(true));
         }
 
@@ -189,7 +189,7 @@ namespace Pristjek220.Unit.Test
             _productAndPrices.Add(bollerProductAndPrice);
             _productAndPrices.Add(brombaerProductAndPrice);
 
-            _unitWork.Stores.FindProductsInStore(aldiStoreName).Returns(_productAndPrices);
+            _unitWork.Stores.FindProductsInStoreStartingWith(aldiStoreName, "B").Returns(_productAndPrices);
             Assert.That(_uut.AutoCompleteProductForOneStore(aldiStoreName, "B").Contains(bollerProductAndPrice.Name), Is.EqualTo(true));
         }
 
@@ -206,7 +206,7 @@ namespace Pristjek220.Unit.Test
             _productAndPrices.Add(bollerProductAndPrice);
             _productAndPrices.Add(brombaerProductAndPrice);
 
-            _unitWork.Stores.FindProductsInStore(aldiStoreName).Returns(_productAndPrices);
+            _unitWork.Stores.FindProductsInStoreStartingWith(aldiStoreName, "B").Returns(_productAndPrices);
             Assert.That(_uut.AutoCompleteProductForOneStore(aldiStoreName, "B").Contains(brombaerProductAndPrice.Name), Is.EqualTo(false));
         }
     }

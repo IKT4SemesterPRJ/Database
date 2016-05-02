@@ -13,23 +13,23 @@ using Pristjek220Data;
 
 namespace Consumer
 {
-    public class Mail
+    public class Mail : IMail
     {
+        private MailMessage _mail;
+        private ISmtpClientWrapper smtpClientWrapper;
+        public Mail(ISmtpClientWrapper SmtpClient)
+        {
+            smtpClientWrapper = SmtpClient;
+            _mail = new MailMessage();
+            _mail.From = new MailAddress("pristjek220@gmail.com");
+            _mail.Subject = "PrisTjek220 indkøbsliste";
+            _mail.IsBodyHtml = true;
+        }
         public void SendMail(string email, ObservableCollection<StoreProductAndPrice> productListWithStore, ObservableCollection<ProductInfo> productListWithNoStore, string sum)
         {
-            MailMessage mail = new MailMessage();
-            SmtpClient smtpGmail = new SmtpClient("Smtp.gmail.com");
-            mail.From = new MailAddress("pristjek220@gmail.com");
-            mail.To.Add(email);
-            mail.Subject = "PrisTjek220 indkøbsliste";
-            mail.IsBodyHtml = true;
-
-            mail.Body = generateString(productListWithStore, productListWithNoStore, sum);
-
-            smtpGmail.Port = 587;
-            smtpGmail.Credentials = new NetworkCredential("pristjek220@gmail.com", "pristjek");
-            smtpGmail.EnableSsl = true;
-            smtpGmail.Send(mail);
+            _mail.To.Add(email);
+            _mail.Body = generateString(productListWithStore, productListWithNoStore, sum);
+            smtpClientWrapper.Send(_mail);
         }
 
         private string generateString(ObservableCollection<StoreProductAndPrice> productListWithStore,

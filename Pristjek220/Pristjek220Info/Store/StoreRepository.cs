@@ -10,6 +10,14 @@ namespace Pristjek220Data
             
         }
 
+        public List<Store> GetAllStores()
+        {
+            var storeList = (from store in DataContext.Stores select store).ToList();
+
+            return storeList;
+
+        } 
+
         public Store Get(int id)
         {
             return Context.Set<Store>().Find(id);
