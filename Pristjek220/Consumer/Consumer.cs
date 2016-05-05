@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -25,6 +26,7 @@ namespace Consumer
     /// </summary>
     public class Consumer : IConsumer
     {
+        public string MoneySaved { get; set; }
         private readonly IUnitOfWork _unit;
 
         private ObservableCollection<ProductInfo> _shoppingListData;
@@ -40,6 +42,30 @@ namespace Consumer
             GeneratedShoppingListData = new ObservableCollection<StoreProductAndPrice>();
             NotInAStore = new ObservableCollection<ProductInfo>();
 
+            FillOptionsStores();
+            
+        }
+
+        private void FillBuyInOneStore()
+        {
+            BuyInOneStore = string.Empty;
+            MoneySaved = string.Empty;
+            var BuyInOneStoreNameAndPrice = FindDifferenceforProducts();
+            if (BuyInOneStoreNameAndPrice == null)
+            {
+                BuyInOneStore = "Der er ingen produkter";
+                MoneySaved = "NaN";
+                return;
+            }
+                BuyInOneStore =
+                    $"I forhold til køb af alle varer i {BuyInOneStoreNameAndPrice.Name} hvor det koster {BuyInOneStoreNameAndPrice.Price} kr.";
+               var test = (BuyInOneStoreNameAndPrice.Price - double.Parse(TotalSum));
+                MoneySaved = test.ToString(CultureInfo.CurrentCulture) + " kr";
+            
+        }
+
+        private void FillOptionsStores()
+        {
             var allStores = _unit.Stores.GetAllStores();
             foreach (var storesInPristjek in from store in allStores where store.StoreName != "Admin" select new StoresInPristjek(store.StoreName))
             {
@@ -49,6 +75,7 @@ namespace Consumer
 
         public ObservableCollection<StoreProductAndPrice> GeneratedShoppingListData { get; set; }
         public ObservableCollection<StoresInPristjek> OptionsStores { get; set; }
+        public string BuyInOneStore { get; set; }
 
         private int count;
         public string TotalSum { get; set; }
@@ -72,6 +99,10 @@ namespace Consumer
         public Store FindCheapestStore(string productName)
         {
             var product = _unit.Products.FindProduct(productName);
+            if (product == null)
+            {
+                return null;
+            }
 
            HasA cheapest = null;
 
@@ -89,9 +120,10 @@ namespace Consumer
             return cheapest?.Store;
         }
 
-        public StoreAndPrice FindCheapestStoreWithSumForListOfProducts(List<Product> products)
+        public StoreAndPrice FindCheapestStoreWithSumForListOfProducts(List<ProductInfo> products)
         {
             var cheapestStore = new StoreAndPrice() {Price = Double.PositiveInfinity};
+
             var list = _unit.Products.FindCheapestStoreForAllProductsWithSum(products);
             if (list == null)
                 return null;
@@ -100,8 +132,11 @@ namespace Consumer
 
             foreach (var item in list)
             {
-                if(item.Name == name)
+                if (item.Name == name)
+                {
+                    
                     sum += item.Price;
+                }
                 else
                 {
                     if(cheapestStore.Price > sum)
@@ -153,6 +188,8 @@ namespace Consumer
                 }
             }
 
+            FillBuyInOneStore();
+
             TotalSum += " kr";
         }
 
@@ -193,22 +230,17 @@ namespace Consumer
         {
             NotInAStore.Clear();
         }
+
+        public StoreAndPrice FindDifferenceforProducts()
+        {
+            List<ProductInfo> listOfProducts = GeneratedShoppingListData.Select(item => new ProductInfo(item.ProductName, item.Quantity)).ToList();
+            return FindCheapestStoreWithSumForListOfProducts(listOfProducts);
+        }
     }
 
     /// <summary>
     ///     This class is used to store the name and quantity of a product.
     /// </summary>
-    public class ProductInfo
-    {
-        public ProductInfo(string name, string quantity = "1")
-        {
-            Name = char.ToUpper(name[0]) + name.Substring(1).ToLower();
-            Quantity = quantity;
-        }
-
-        public string Name { set; get; }
-        public string Quantity { set; get; }
-    }
 
     public class StoresInPristjek
     {

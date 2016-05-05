@@ -41,7 +41,7 @@ namespace Pristjek220Data
             return query.ToList();
         }
 
-        public List<StoreAndPrice> FindCheapestStoreForAllProductsWithSum(List<Product> products)
+        public List<StoreAndPrice> FindCheapestStoreForAllProductsWithSum(List<ProductInfo> products)
         {
             List<StoreAndPrice> storeAndPrice = new List<StoreAndPrice>();
 
@@ -52,8 +52,9 @@ namespace Pristjek220Data
             {
                 foreach (var product in products)
                 {
+                    var quantity = double.Parse(product.Quantity);
                     var query = from prod in DataContext.Products
-                        where prod.ProductName == product.ProductName
+                        where prod.ProductName == product.Name
                         join hasA in DataContext.HasARelation on prod.ProductId equals hasA.ProductId
 
                         from stor in DataContext.Stores
@@ -61,7 +62,7 @@ namespace Pristjek220Data
                         join hasA1 in DataContext.HasARelation on stor.StoreId equals hasA1.StoreId
 
                         where hasA.ProductId == hasA1.ProductId && hasA.StoreId == hasA1.StoreId
-                        select new StoreAndPrice() {Name = store.StoreName, Price = hasA.Price};
+                        select new StoreAndPrice() {Name = store.StoreName, Price = (hasA.Price * quantity)};
 
                     if (query.Count() != 0)
                         storeAndPrice.Add(query.First());

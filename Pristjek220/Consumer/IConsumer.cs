@@ -11,8 +11,10 @@ namespace Consumer
         ObservableCollection<ProductInfo> NotInAStore { get; set; }
         ObservableCollection<StoresInPristjek> OptionsStores { get; set; }
         string TotalSum { get; set; }
+        string BuyInOneStore { get; set; }
+        string MoneySaved { get; set; }
         Store FindCheapestStore(string productName);
-        StoreAndPrice FindCheapestStoreWithSumForListOfProducts(List<Product> products);
+        StoreAndPrice FindCheapestStoreWithSumForListOfProducts(List<ProductInfo> products);
         bool DoesProductExist(string productName);
         List<ProductAndPrice> FindStoresAssortment(string storeName);
         List<StoreAndPrice> FindStoresThatSellsProduct(string productName);
@@ -21,5 +23,7 @@ namespace Consumer
         void WriteToJsonFile();
         void ClearGeneratedShoppingListData();
         void ClearNotInAStore();
+
+        StoreAndPrice FindDifferenceforProducts();
     }
 }

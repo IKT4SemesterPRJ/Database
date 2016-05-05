@@ -14,13 +14,14 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5"/>
-            <ColumnDefinition Width="400"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="450"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
@@ -50,6 +51,7 @@
             Grid.Column="1"
             Grid.Row="3"
             Width="275"
+            FontWeight="SemiBold"
             HorizontalAlignment="Left"
             VerticalAlignment="Bottom">
             Produkter der ikke findes i en forretning:
@@ -62,7 +64,7 @@
             IsReadOnly="True"
             Grid.Column="1"
             Grid.Row="4"
-            Grid.RowSpan="3"
+            Grid.RowSpan="5"
             Height="150"
             Width="400"
             HorizontalAlignment="Left"
@@ -81,6 +83,35 @@
             VerticalAlignment="Top">
             Sum:
         </Label>
+        
+        <Label
+            Grid.Row="4"
+            Grid.Column="2"
+            FontSize="25"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top">
+            Spar:
+        </Label>
+
+        <Label
+            Content="{Binding MoneySaved}"
+            Grid.Row="4"
+            Grid.Column="3"
+            FontSize="25"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top">
+        </Label>
+
+        <Label
+            Content="{Binding BuyInOneStore}"
+            Grid.Row="5"
+            Grid.Column="2"
+            Grid.ColumnSpan="3"
+            HorizontalAlignment="Left"
+            MinHeight="25"
+            VerticalAlignment="Top">
+        </Label>
+
         <Label
             Grid.Column="3"
             Grid.Row="3"
@@ -90,20 +121,20 @@
 
         <StackPanel
             Height="50"
-            Grid.Row="4"
-            Grid.Column="3"
+            Grid.Row="6"
+            Grid.Column="2"
             Width="150"
             VerticalAlignment="Top"
             HorizontalAlignment="Left">
-            <Label Content="Indtast din E-mail her:" HorizontalAlignment="Left" />
-            <TextBox Height="25" Text="{Binding EmailAddress}"/>
+            <Label Content="Indtast din E-mail her:" HorizontalAlignment="Left" FontWeight="SemiBold" />
+            <TextBox Height="25" VerticalContentAlignment="Center" Text="{Binding EmailAddress}"/>
         </StackPanel>
 
         <Button 
-            Grid.Row="4"
-            Grid.Column="4"
+            Grid.Row="6"
+            Grid.Column="3"
             Height="25"
-            Margin="5 0 5 0"
+            Margin="5,0,5,0"
             VerticalAlignment="Bottom"
             HorizontalAlignment="Left"
             Command="{Binding SendMailCommand}">
@@ -129,14 +160,14 @@
         </Button>
 
         <Label 
-             Grid.Row="5"
-             Grid.Column="3"
-             MinWidth="150"
-             Grid.ColumnSpan="3"
-             Height="30"
-             Content="{Binding ErrorText}"
-             HorizontalAlignment="Left"
-             Foreground="Crimson"/>
+            Grid.Row="7"
+            Grid.Column="2"
+            MinWidth="150"
+            Height="30"
+            Grid.ColumnSpan="3"
+            Content="{Binding ErrorText}"
+            HorizontalAlignment="Left"
+            Foreground="Crimson"/>
         <Label 
         	FontStyle="Italic"
         	HorizontalAlignment="Left" 
