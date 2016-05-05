@@ -23,8 +23,8 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="102"/>
+            <ColumnDefinition Width="104"/>
             <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
         <Label 
@@ -109,7 +109,7 @@
             Grid.Column="1"
             Grid.Row="6"
             Height="30"
-            Grid.ColumnSpan="3"/>
+            Grid.ColumnSpan="4"/>
         <Label 
         	Content="Her har du mulighed for at oprette en forretning med et kodeord." 
         	FontStyle="Italic"

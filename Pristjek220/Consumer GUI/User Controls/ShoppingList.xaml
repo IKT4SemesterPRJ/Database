@@ -92,7 +92,7 @@
             Grid.Column="1"
             Grid.Row="2"
             Grid.ColumnSpan="4"
-            Height="30"
+            Height="25"
             MinWidth="220"
             Foreground="Crimson"
             Content="{Binding Error}"/>
@@ -133,9 +133,10 @@
         </Button>
 
         <StackPanel
-                Grid.Row="3"
+                Grid.Row="4"
                 Grid.Column="5"
-                Grid.ColumnSpan="2">
+                Grid.ColumnSpan="2"
+                Grid.RowSpan="2">
                     <Label>Søg i disse forretninger:</Label>
                     <ListView 
                         ItemsSource="{Binding OptionsStores}"
