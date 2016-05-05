@@ -48,9 +48,6 @@ namespace Consumer_GUI.User_Controls
             _user = user;
             ShoppingListData = new ObservableCollection<ProductInfo>();
             _user.ReadFromJsonFile();
-            OptionsStores.Add(new StoresInPristjek("hej"));
-            OptionsStores.Add(new StoresInPristjek("hehej"));
-            OptionsStores.Add(new StoresInPristjek("heheddasasasdaj"));
         }
 
         public ICommand AddToShoppingListCommand

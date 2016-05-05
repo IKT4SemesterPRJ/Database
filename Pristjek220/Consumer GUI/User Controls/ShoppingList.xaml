@@ -131,30 +131,34 @@
             Generere Indkøbsliste
         </Button>
 
-        <ListView 
-            ItemsSource="{Binding OptionsStores}"
-            Grid.Row="3"
-            Grid.Column="5"
-            Grid.ColumnSpan="2"
-            MinHeight="50"
-            MinWidth="200"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center">
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="Focusable" Value="false"/>
-                </Style>
-            </ListView.ItemContainerStyle>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal" >
-                        <CheckBox IsChecked="{Binding Path = IsChecked}"/>
-                        <TextBlock Text="     "/>
-                        <TextBlock Text="{Binding Path =  Store}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <StackPanel
+                Grid.Row="3"
+                Grid.Column="5"
+                Grid.ColumnSpan="2">
+                    <Label>Søg i disse forretninger:</Label>
+                    <ListView 
+                        ItemsSource="{Binding OptionsStores}"
+                        MinHeight="50"
+                        MinWidth="200"
+                        MaxHeight="100"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Focusable" Value="false"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" >
+                                    <CheckBox IsChecked="{Binding Path = IsChecked}"/>
+                                    <TextBlock Text="     "/>
+                                    <TextBlock Text="{Binding Path =  Store}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+        </StackPanel>
     </Grid>
 </UserControl>
 

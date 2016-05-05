@@ -39,7 +39,12 @@ namespace Consumer
             _unit = unitOfWork;
             GeneratedShoppingListData = new ObservableCollection<StoreProductAndPrice>();
             NotInAStore = new ObservableCollection<ProductInfo>();
-            // fill optionslist - Rasmus 
+
+            var allStores = _unit.Stores.GetAllStores();
+            foreach (var storesInPristjek in from store in allStores where store.StoreName != "Admin" select new StoresInPristjek(store.StoreName))
+            {
+                OptionsStores.Add(storesInPristjek);
+            }
         }
 
         public ObservableCollection<StoreProductAndPrice> GeneratedShoppingListData { get; set; }
@@ -68,18 +73,20 @@ namespace Consumer
         {
             var product = _unit.Products.FindProduct(productName);
 
-            var cheapest = product?.HasARelation.FirstOrDefault();
+           HasA cheapest = null;
 
-            if (cheapest == null)
-                return null;
-
-            foreach (var hasA in product.HasARelation)
+            foreach (var hasA in product.HasARelation.Where(hasA => OptionsStores.Any(x => (x.Store == hasA.Store.StoreName) && x.IsChecked == true)))
             {
+                if (cheapest == null)
+                {
+                    cheapest = new HasA {Price = double.MaxValue};
+                }
+
                 if (hasA.Price < cheapest.Price)
                     cheapest = hasA;
             }
 
-            return cheapest.Store;
+            return cheapest?.Store;
         }
 
         public List<ProductAndPrice> FindStoresAssortment(string storeName)
