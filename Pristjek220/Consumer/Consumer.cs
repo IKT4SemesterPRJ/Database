@@ -53,9 +53,9 @@ namespace Consumer
             var BuyInOneStoreNameAndPrice = FindDifferenceforProducts();
             
                 BuyInOneStore =
-                    $"I forhold til køb i {BuyInOneStoreNameAndPrice.Name} hvor det koster {BuyInOneStoreNameAndPrice.Price}";
+                    $"I forhold til køb af alle varer i {BuyInOneStoreNameAndPrice.Name} hvor det koster {BuyInOneStoreNameAndPrice.Price} kr.";
                var test = (BuyInOneStoreNameAndPrice.Price - double.Parse(TotalSum));
-                MoneySaved = test.ToString(CultureInfo.CurrentCulture);
+                MoneySaved = test.ToString(CultureInfo.CurrentCulture) + " kr";
             
         }
 
@@ -224,7 +224,8 @@ namespace Consumer
 
         public StoreAndPrice FindDifferenceforProducts()
         {
-            List<Product> listOfProducts = GeneratedShoppingListData.Select(item => new Product() {ProductName = item.ProductName}).ToList();
+            List<ProductInfo> listOfProducts = GeneratedShoppingListData.Select(item => new ProductInfo(item.ProductName, item.Quantity)).ToList();
+
             return FindCheapestStoreWithSumForListOfProducts(listOfProducts);
         }
     }
