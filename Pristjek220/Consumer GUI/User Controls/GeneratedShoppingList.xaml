@@ -23,7 +23,6 @@
             <ColumnDefinition Width="450"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <DataGrid 
@@ -121,7 +120,7 @@
         <StackPanel
             Height="50"
             Grid.Row="5"
-            Grid.Column="3"
+            Grid.Column="2"
             Width="150"
             VerticalAlignment="Top"
             HorizontalAlignment="Left">
@@ -131,7 +130,7 @@
 
         <Button 
             Grid.Row="5"
-            Grid.Column="4"
+            Grid.Column="3"
             Margin="5,10,0,10"
             VerticalAlignment="Center"
             HorizontalAlignment="Left"
@@ -159,9 +158,10 @@
 
         <Label 
              Grid.Row="6"
-             Grid.Column="3"
+             Grid.Column="2"
              MinWidth="150"
              Height="30"
+             Grid.ColumnSpan="3"
              Content="{Binding ErrorText}"
              HorizontalAlignment="Left"
              Foreground="Crimson"/>
