@@ -53,7 +53,7 @@
                         <Button Command="{Binding LogOutCommand}" Style="{StaticResource RoundedButtonStyle}" DockPanel.Dock="Top" Background="white">Log ud</Button>
                     </DockPanel>
                 </Grid>
-                <Border x:Name="MyStage" BorderThickness="2" CornerRadius="10" BorderBrush="Black" Margin="10" Padding="10">
+                <Border x:Name="MyStage" BorderThickness="2" CornerRadius="10" BorderBrush="sc#1.000000, 0.250141, 0.333404, 0.884413" Margin="10" Padding="10">
                     <ContentControl 
                         Content="{Binding CurrentPageViewModel}" 
                         VerticalAlignment="Top"  

@@ -18,6 +18,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -30,7 +31,7 @@
             Grid.Column="1"
             Grid.Row="2"
             Grid.ColumnSpan="3"
-            Height="30"
+            Height="27"
             MinWidth="220"
             Foreground="Crimson"
             Content="{Binding Error}"/>
@@ -40,7 +41,7 @@
             HorizontalAlignment="Left"
             MinWidth="40"
             Grid.Column="2" 
-            Grid.Row="3"  
+            Grid.Row="4"  
             FontSize ="10" 
             MinHeight="22"
             Margin="2">
@@ -54,7 +55,7 @@
             VerticalAlignment="Center" 
             HorizontalAlignment="Left" 
             Grid.Column="1" 
-            Grid.Row="3" 
+            Grid.Row="4" 
             MinWidth="150" 
             MinHeight="22" >
             <i:Interaction.Triggers>
@@ -66,12 +67,12 @@
                 </i:EventTrigger>
                 <i:EventTrigger EventName="PreviewKeyDown">
                     <mvvmlight:EventToCommand Command="{Binding EnterKeyPressedCommand}" PassEventArgsToCommand="True">
-                     </mvvmlight:EventToCommand>
+                    </mvvmlight:EventToCommand>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </toolkit:AutoCompleteBox>
         <DataGrid 
-            Grid.Row="4"
+            Grid.Row="5"
             Grid.Column="1"
             Grid.ColumnSpan="2"
             IsReadOnly="True"
@@ -89,15 +90,29 @@
             </DataGrid.Columns>
         </DataGrid>
         <Label 
-        	Content="Her har du mulighed for at søge efter et produkt for at se hvad det koster i de forretninger der sælger det." 
         	FontStyle="Italic"
         	HorizontalAlignment="Left" 
         	VerticalAlignment="Top" 
         	Grid.Row="1" 
-        	Height="27" 
-        	Width="580"
+        	Width="520"
         	Grid.Column="1"
         	Grid.ColumnSpan="3" 
-        	Margin="0,7,0,0"/>
+        	Margin="0,7,0,0">
+            <TextBlock TextWrapping="WrapWithOverflow">
+                Her har du mulighed for at søge efter et produkt, for at se hvad det koster
+                i de forretninger, der sælger det.
+            </TextBlock>
+        </Label>
+        <Label 
+        	Content="Produkt:" 
+        	FontWeight="SemiBold"
+        	Grid.Column="1" 
+        	HorizontalAlignment="Left" 
+        	Height="23" 
+        	Grid.Row="3" 
+        	VerticalAlignment="Top" 
+        	VerticalContentAlignment="Bottom"
+            Margin="0 0 0 0"
+        	Width="63"/>
     </Grid>
 </UserControl>

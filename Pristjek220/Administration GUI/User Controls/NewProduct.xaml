@@ -98,6 +98,7 @@
             Grid.Row="3" 
             Grid.ColumnSpan="4"
             Margin="0,15,0,0" 
+            Foreground="Crimson"
             Height="27"/>
         <Label 
         	Content="Produkt:" 
@@ -122,15 +123,18 @@
         	Width="38" 
         	Margin="0,7,0,0"/>
         <Label 
-        	Content="Her har du mulighed for at tilføje et produkt med en tilhørende pris til din forretning." 
         	FontStyle="Italic"
         	HorizontalAlignment="Left" 
         	VerticalAlignment="Top" 
         	Grid.Row="1" 
             Grid.Column="1"
-        	Height="27" 
-        	Width="500" 
-        	Grid.ColumnSpan="5" />
+        	Width="420" 
+        	Grid.ColumnSpan="5" >
+            <TextBlock TextWrapping="WrapWithOverflow">
+                Her har du mulighed for at tilføje et produkt til din forretning, ved at
+                indtaste produktets navn, samt den pris produktet skal have.
+            </TextBlock>
+        </Label>
     </Grid>
 </UserControl>
 

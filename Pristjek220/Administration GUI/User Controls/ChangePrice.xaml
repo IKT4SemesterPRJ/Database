@@ -101,17 +101,21 @@
             Grid.Row="3" 
             Margin="0,15,0,0" 
             Height="27" 
+            Foreground="Crimson"
             Grid.ColumnSpan="4"/>
         <Label 
-            Content="Her har du mulighed for at ændre prisen på et produkt i din forretning." 
             FontStyle="Italic"
             HorizontalAlignment="Left" 
             VerticalAlignment="Top" 
             Grid.Column="1" 
             Grid.Row="1" 
-            Height="27" 
-            Width="380" 
-            Grid.ColumnSpan="4"/>
+            Width="420" 
+            Grid.ColumnSpan="5">
+            <TextBlock TextWrapping="WrapWithOverflow">
+                Her har du mulighed for at ændre prisen på et produkt i din forretning, ved at indtaste
+                produktet og den nye ønskede pris.
+            </TextBlock>
+        </Label>
         <Label 
                Content="Produkt:" 
                FontWeight="SemiBold"

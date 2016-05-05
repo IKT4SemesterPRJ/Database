@@ -13,6 +13,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -31,8 +32,8 @@
             CanUserResizeRows="False"
             IsReadOnly="True"
             Grid.Column="1"  
-            Height="300" 
-            Grid.Row="1"
+            Height="200" 
+            Grid.Row="2"
             Grid.ColumnSpan="3"
             Width="600" 
             HorizontalAlignment="Left"
@@ -47,7 +48,7 @@
         </DataGrid>
         <Label
             Grid.Column="1"
-            Grid.Row="2"
+            Grid.Row="3"
             Width="275"
             HorizontalAlignment="Left"
             VerticalAlignment="Bottom">
@@ -60,7 +61,7 @@
             CanUserResizeRows="False"
             IsReadOnly="True"
             Grid.Column="1"
-            Grid.Row="3"
+            Grid.Row="4"
             Grid.RowSpan="3"
             Height="150"
             Width="400"
@@ -73,7 +74,7 @@
         </DataGrid>
 
         <Label
-            Grid.Row="2"
+            Grid.Row="3"
             Grid.Column="2"
             FontSize="25"
             HorizontalAlignment="Left"
@@ -82,27 +83,28 @@
         </Label>
         <Label
             Grid.Column="3"
-            Grid.Row="2"
+            Grid.Row="3"
             FontSize="25"
             VerticalAlignment="Top"
             Content="{Binding TotalSum}" Margin="0,0,37,0"/>
 
         <StackPanel
             Height="50"
-            Grid.Row="3"
+            Grid.Row="4"
             Grid.Column="3"
             Width="150"
             VerticalAlignment="Top"
             HorizontalAlignment="Left">
-            <Label Content="Indtast din email her:" HorizontalAlignment="Left" />
+            <Label Content="Indtast din E-mail her:" HorizontalAlignment="Left" />
             <TextBox Height="25" Text="{Binding EmailAddress}"/>
         </StackPanel>
 
         <Button 
-            Grid.Row="3"
+            Grid.Row="4"
             Grid.Column="4"
-            Margin="5"
-            VerticalAlignment="Center"
+            Height="25"
+            Margin="5 0 5 0"
+            VerticalAlignment="Bottom"
             HorizontalAlignment="Left"
             Command="{Binding SendMailCommand}">
             Send mail
@@ -127,7 +129,7 @@
         </Button>
 
         <Label 
-             Grid.Row="4"
+             Grid.Row="5"
              Grid.Column="3"
              MinWidth="150"
              Grid.ColumnSpan="3"
@@ -135,5 +137,29 @@
              Content="{Binding ErrorText}"
              HorizontalAlignment="Left"
              Foreground="Crimson"/>
+        <Label 
+        	FontStyle="Italic"
+        	HorizontalAlignment="Left" 
+        	VerticalAlignment="Top" 
+        	Grid.Column="1" 
+            Grid.ColumnSpan="5"
+        	Grid.Row="1"  
+        	Width="700"
+            Margin="0 0 0 7">
+            <TextBlock TextWrapping="WrapWithOverflow">
+                Her er din generede indkøbsliste. 
+                <LineBreak/>
+                I den øverste blok kan du se de forretninger, du skal handle i
+                for at få det billigste indkøb, med de indstillinger du har sat.
+                <LineBreak/>
+                I den nederste blok finder du de produkter fra din liste, som ikke findes i nogen af de
+                forretninger, der er i Pristjek220.
+                <LineBreak/>
+                Ved at indtaste din mail her på siden kan du få hele listen
+                sendt til din E-mail, så du kan tage den med dig ud at handle.
+                <LineBreak/>
+                God fornøjelse!
+            </TextBlock>
+        </Label>
     </Grid>
 </UserControl>

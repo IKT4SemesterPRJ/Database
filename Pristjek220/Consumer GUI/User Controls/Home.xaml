@@ -17,16 +17,31 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
-        <Label 
-        	Content="Velkommen til Pristjek220." 
-        	FontStyle="Italic"
+        <Label
+            FontStyle="Italic"
         	HorizontalAlignment="Left" 
         	VerticalAlignment="Top" 
         	Grid.Column="1"
-            Grid.Row="1" 
-        	Height="27" 
-        	Width="580"
+            Grid.Row="1"  
+        	Width="520"
         	Grid.ColumnSpan="2" 
-        	Margin="5,6,0,0"/>
+        	Margin="5,6,0,0">
+            <TextBlock TextWrapping="WrapWithOverflow">
+                Velkommen til Pristjek220 Forbruger!
+                <LineBreak/><LineBreak/>
+                Det er vores mål og vision, at give dig, som forbruger, det bedste overblik når du 
+                skal handle billigt ind.
+                <LineBreak/><LineBreak/>
+                Til venstre kan du se menuen.<LineBreak/> Her kan du søge efter et enkelt produkt,
+                for at finde informationer om hvad det koster i de forretninger, der fører produktet.
+                <LineBreak/>Ligeledes kan du indtaste din indkøbsliste og få Pristjek220 til at generere
+                en detaljeret indkøbsliste over, hvor du skal hen for at handle billigst. Når listen er 
+                genereret, kan du samtidig få den sendt til din E-mail, så du kan tage den med ud at handle.
+                <LineBreak/><LineBreak/>
+                Vi håber, du får en god og billig indkøbstur!
+                <LineBreak/><LineBreak/>
+                - Pristjek220
+            </TextBlock>
+        </Label>
     </Grid>
 </UserControl>

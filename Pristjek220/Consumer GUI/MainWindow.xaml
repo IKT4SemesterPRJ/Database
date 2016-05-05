@@ -119,7 +119,7 @@
                     x:Name="MyStage" 
                     BorderThickness="2" 
                     CornerRadius="10" 
-                    BorderBrush="Black" 
+                    BorderBrush="sc#1.000000, 0.250141, 0.333404, 0.884413"
                     Margin="10" 
                     Padding="10">
                     <ContentControl 

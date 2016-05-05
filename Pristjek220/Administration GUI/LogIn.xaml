@@ -8,7 +8,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:command="http://www.galasoft.ch/mvvmlight"
         mc:Ignorable="d"
-        Title="LogIn" Height="300" Width="300">
+        Title="LogIn" Height="300" Width="400">
     <Window.Resources>
         <Style x:Key="RoundedButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="Template">
@@ -47,28 +47,37 @@
         <TextBlock
             Grid.Row="1"
             Grid.Column="1"
-            Grid.ColumnSpan="3"
+            Grid.ColumnSpan="4"
             TextAlignment="left"
             Foreground="sc#1.000000, 0.250141, 0.333404, 0.884413"
             FontStyle="Italic"
             FontSize="30pt"
             FontFamily="Calibri"
             FontWeight="bold"
-            >Pristjek220</TextBlock>
+            >Pristjek220 - Login</TextBlock>
         <Label
             Grid.Row="2"
             Grid.Column="1"
             Grid.ColumnSpan="4"
+            Margin="0 7 0 7"
             VerticalAlignment="Center"
-            HorizontalAlignment="Center">
-            Login</Label>
+            FontStyle="Italic"
+            HorizontalAlignment="Left">
+            <TextBlock TextWrapping="WrapWithOverflow">
+                Velkommen til Pristjek220 Forretning!
+                <LineBreak/><LineBreak/>
+                Her kan du logge ind med dit forretningsnavn og det tilhørende kodeord.
+            </TextBlock>
+        </Label>
 
         <Label
+            FontWeight="SemiBold"
             Grid.Row="3"
             Grid.Column="1">
             Forretning:</Label>
 
         <Label
+            FontWeight="SemiBold"
             Grid.Row="4"
             Grid.Column="1">
             Kodeord:</Label>
@@ -77,6 +86,7 @@
             Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
             Grid.Column="2"
             Grid.Row="3"
+            VerticalContentAlignment="Center"
             Width="100"
             Margin="2">
             <i:Interaction.Triggers>
@@ -94,6 +104,7 @@
             PasswordChanged="PasswordBox_OnPasswordChanged"
             Grid.Column="2"
             Grid.Row="4"
+            VerticalContentAlignment="Center"
             Width="100"
             Margin="2">
             <i:Interaction.Triggers>
@@ -117,11 +128,8 @@
             Grid.Column="1"
             Grid.Row="6"
             Grid.ColumnSpan="2"
-            Height="30"
+            Height="27"
             Foreground="Crimson"
             Content="{Binding Error}"/>
     </Grid>
 </Window>
-
-
-
