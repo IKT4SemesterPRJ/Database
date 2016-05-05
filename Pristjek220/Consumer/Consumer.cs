@@ -51,7 +51,12 @@ namespace Consumer
             BuyInOneStore = string.Empty;
             MoneySaved = string.Empty;
             var BuyInOneStoreNameAndPrice = FindDifferenceforProducts();
-            
+            if (BuyInOneStoreNameAndPrice == null)
+            {
+                BuyInOneStore = "Der er ingen produkter";
+                MoneySaved = "NaN";
+                return;
+            }
                 BuyInOneStore =
                     $"I forhold til køb af alle varer i {BuyInOneStoreNameAndPrice.Name} hvor det koster {BuyInOneStoreNameAndPrice.Price} kr.";
                var test = (BuyInOneStoreNameAndPrice.Price - double.Parse(TotalSum));
