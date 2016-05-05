@@ -79,7 +79,7 @@ namespace Consumer_GUI.User_Controls
             }
             else
             {
-                ErrorText = "E-mail, skal overholde formatet: abc@mail.com";
+                ErrorText = "E-mailadresse skal overholde formatet: abc@mail.com";
             }  
 
         }

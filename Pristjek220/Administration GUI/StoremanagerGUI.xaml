@@ -47,7 +47,7 @@
                         <TextBlock Margin="0,0,0,5"   Text="Menu" Foreground="sc#1.000000, 0.250141, 0.333404, 0.884413" TextAlignment="center"   FontWeight="Bold" FontSize="12pt"   DockPanel.Dock="top"  />
                         <Button Command="{Binding ChangeWindowNewProductCommand}" Style="{StaticResource RoundedButtonStyle}" DockPanel.Dock="Top" Background="white">Tilføj produkt</Button>
                         <Button Command="{Binding ChangeWindowDeleteProductCommand}" Style="{StaticResource RoundedButtonStyle}" DockPanel.Dock="Top" Background="white">Fjern produkt</Button>
-                        <Button Command="{Binding ChangeWindowChangePriceCommand}" Style="{StaticResource RoundedButtonStyle}" DockPanel.Dock="Top" Background="white">Ændre prisen</Button>
+                        <Button Command="{Binding ChangeWindowChangePriceCommand}" Style="{StaticResource RoundedButtonStyle}" DockPanel.Dock="Top" Background="white">Ændre pris</Button>
                         <Button Command="{Binding LogOutCommand}" Style="{StaticResource RoundedButtonStyle}" DockPanel.Dock="Top" Background="white">Log ud</Button>
                     </DockPanel>
                 </Grid>
