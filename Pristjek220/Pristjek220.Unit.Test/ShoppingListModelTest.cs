@@ -150,7 +150,7 @@ namespace Pristjek220.Unit.Test
 
             _shoppingList.DeleteFromShoppingListCommand.Execute(this);
 
-            Assert.That(_shoppingList.Error, Is.EqualTo("Du skal markere at produkt før du kan slette"));
+            Assert.That(_shoppingList.Error, Is.EqualTo("Du skal markere et produkt, før du kan slette"));
 
         }
 
