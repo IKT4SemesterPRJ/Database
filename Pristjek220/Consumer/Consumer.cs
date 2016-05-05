@@ -115,9 +115,10 @@ namespace Consumer
             return cheapest?.Store;
         }
 
-        public StoreAndPrice FindCheapestStoreWithSumForListOfProducts(List<Product> products)
+        public StoreAndPrice FindCheapestStoreWithSumForListOfProducts(List<ProductInfo> products)
         {
             var cheapestStore = new StoreAndPrice() {Price = Double.PositiveInfinity};
+
             var list = _unit.Products.FindCheapestStoreForAllProductsWithSum(products);
             if (list == null)
                 return null;
@@ -126,8 +127,11 @@ namespace Consumer
 
             foreach (var item in list)
             {
-                if(item.Name == name)
+                if (item.Name == name)
+                {
+                    
                     sum += item.Price;
+                }
                 else
                 {
                     if(cheapestStore.Price > sum)
@@ -224,7 +228,7 @@ namespace Consumer
 
         public StoreAndPrice FindDifferenceforProducts()
         {
-            List<Product> listOfProducts = GeneratedShoppingListData.Select(item => new Product() {ProductName = item.ProductName}).ToList();
+            List<ProductInfo> listOfProducts = GeneratedShoppingListData.Select(item => new ProductInfo(item.ProductName, item.Quantity)).ToList();
             return FindCheapestStoreWithSumForListOfProducts(listOfProducts);
         }
     }
@@ -232,17 +236,6 @@ namespace Consumer
     /// <summary>
     ///     This class is used to store the name and quantity of a product.
     /// </summary>
-    public class ProductInfo
-    {
-        public ProductInfo(string name, string quantity = "1")
-        {
-            Name = char.ToUpper(name[0]) + name.Substring(1).ToLower();
-            Quantity = quantity;
-        }
-
-        public string Name { set; get; }
-        public string Quantity { set; get; }
-    }
 
     public class StoresInPristjek
     {

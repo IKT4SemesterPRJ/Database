@@ -14,7 +14,7 @@ namespace Consumer
         string BuyInOneStore { get; set; }
         string MoneySaved { get; set; }
         Store FindCheapestStore(string productName);
-        StoreAndPrice FindCheapestStoreWithSumForListOfProducts(List<Product> products);
+        StoreAndPrice FindCheapestStoreWithSumForListOfProducts(List<ProductInfo> products);
         bool DoesProductExist(string productName);
         List<ProductAndPrice> FindStoresAssortment(string storeName);
         List<StoreAndPrice> FindStoresThatSellsProduct(string productName);
