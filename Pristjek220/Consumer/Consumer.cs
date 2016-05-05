@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -25,6 +26,7 @@ namespace Consumer
     /// </summary>
     public class Consumer : IConsumer
     {
+        public string MoneySaved { get; set; }
         private readonly IUnitOfWork _unit;
 
         private ObservableCollection<ProductInfo> _shoppingListData;
@@ -40,6 +42,25 @@ namespace Consumer
             GeneratedShoppingListData = new ObservableCollection<StoreProductAndPrice>();
             NotInAStore = new ObservableCollection<ProductInfo>();
 
+            FillOptionsStores();
+            
+        }
+
+        private void FillBuyInOneStore()
+        {
+            BuyInOneStore = string.Empty;
+            MoneySaved = string.Empty;
+            var BuyInOneStoreNameAndPrice = FindDifferenceforProducts();
+            
+                BuyInOneStore =
+                    $"I forhold til køb i {BuyInOneStoreNameAndPrice.Name} hvor det koster {BuyInOneStoreNameAndPrice.Price}";
+               var test = (BuyInOneStoreNameAndPrice.Price - double.Parse(TotalSum));
+                MoneySaved = test.ToString(CultureInfo.CurrentCulture);
+            
+        }
+
+        private void FillOptionsStores()
+        {
             var allStores = _unit.Stores.GetAllStores();
             foreach (var storesInPristjek in from store in allStores where store.StoreName != "Admin" select new StoresInPristjek(store.StoreName))
             {
@@ -49,6 +70,7 @@ namespace Consumer
 
         public ObservableCollection<StoreProductAndPrice> GeneratedShoppingListData { get; set; }
         public ObservableCollection<StoresInPristjek> OptionsStores { get; set; }
+        public string BuyInOneStore { get; set; }
 
         private int count;
         public string TotalSum { get; set; }
@@ -72,6 +94,10 @@ namespace Consumer
         public Store FindCheapestStore(string productName)
         {
             var product = _unit.Products.FindProduct(productName);
+            if (product == null)
+            {
+                return null;
+            }
 
            HasA cheapest = null;
 
@@ -153,6 +179,8 @@ namespace Consumer
                 }
             }
 
+            FillBuyInOneStore();
+
             TotalSum += " kr";
         }
 
@@ -192,6 +220,12 @@ namespace Consumer
         public void ClearNotInAStore()
         {
             NotInAStore.Clear();
+        }
+
+        public StoreAndPrice FindDifferenceforProducts()
+        {
+            List<Product> listOfProducts = GeneratedShoppingListData.Select(item => new Product() {ProductName = item.ProductName}).ToList();
+            return FindCheapestStoreWithSumForListOfProducts(listOfProducts);
         }
     }
 

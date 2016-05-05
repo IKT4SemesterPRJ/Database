@@ -19,7 +19,9 @@ namespace Consumer_GUI.User_Controls
         public string TotalSum => _user.TotalSum;
         private readonly IMail _mail;
         private ICommand _sendMailCommand;
-        public string EmailAddress{ set; get; }
+        public string EmailAddress { set; get; }
+        public string BuyInOneStore => _user.BuyInOneStore;
+        public string MoneySaved => _user.MoneySaved;
 
         private string _errorText;
         public string ErrorText
@@ -40,6 +42,7 @@ namespace Consumer_GUI.User_Controls
             ErrorText = "";
         }
 
+        
         public ObservableCollection<StoreProductAndPrice> GeneratedShoppingListData
         {
             get

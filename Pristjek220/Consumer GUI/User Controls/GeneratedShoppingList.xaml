@@ -13,12 +13,14 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5"/>
-            <ColumnDefinition Width="400"/>
+            <ColumnDefinition Width="450"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
@@ -61,7 +63,7 @@
             IsReadOnly="True"
             Grid.Column="1"
             Grid.Row="3"
-            Grid.RowSpan="3"
+            Grid.RowSpan="5"
             Height="150"
             Width="400"
             HorizontalAlignment="Left"
@@ -80,6 +82,35 @@
             VerticalAlignment="Top">
             Sum:
         </Label>
+        
+        <Label
+            Grid.Row="3"
+            Grid.Column="2"
+            FontSize="25"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top">
+            Spar:
+        </Label>
+
+        <Label
+            Content="{Binding MoneySaved}"
+            Grid.Row="3"
+            Grid.Column="3"
+            FontSize="25"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top">
+        </Label>
+
+        <Label
+            Content="{Binding BuyInOneStore}"
+            Grid.Row="4"
+            Grid.Column="2"
+            Grid.ColumnSpan="3"
+            HorizontalAlignment="Left"
+            MinHeight="25"
+            VerticalAlignment="Top">
+        </Label>
+
         <Label
             Grid.Column="3"
             Grid.Row="2"
@@ -89,7 +120,7 @@
 
         <StackPanel
             Height="50"
-            Grid.Row="3"
+            Grid.Row="5"
             Grid.Column="3"
             Width="150"
             VerticalAlignment="Top"
@@ -99,9 +130,9 @@
         </StackPanel>
 
         <Button 
-            Grid.Row="3"
+            Grid.Row="5"
             Grid.Column="4"
-            Margin="5"
+            Margin="5,10,0,10"
             VerticalAlignment="Center"
             HorizontalAlignment="Left"
             Command="{Binding SendMailCommand}">
@@ -127,10 +158,9 @@
         </Button>
 
         <Label 
-             Grid.Row="4"
+             Grid.Row="6"
              Grid.Column="3"
              MinWidth="150"
-             Grid.ColumnSpan="3"
              Height="30"
              Content="{Binding ErrorText}"
              HorizontalAlignment="Left"
