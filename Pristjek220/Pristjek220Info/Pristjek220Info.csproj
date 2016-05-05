@@ -82,6 +82,7 @@
       <DependentUpon>201604300926358_Required_tag_added_to_Login.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Product\ProductInfo.cs" />
     <Compile Include="Product\StoreAndPrice.cs" />
     <Compile Include="Product\StoreProductAndPrice.cs" />
     <Compile Include="Repository\IRepository.cs" />
