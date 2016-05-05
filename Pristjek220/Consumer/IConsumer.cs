@@ -12,6 +12,7 @@ namespace Consumer
         ObservableCollection<StoresInPristjek> OptionsStores { get; set; }
         string TotalSum { get; set; }
         Store FindCheapestStore(string productName);
+        StoreAndPrice FindCheapestStoreWithSumForListOfProducts(List<Product> products);
         bool DoesProductExist(string productName);
         List<ProductAndPrice> FindStoresAssortment(string storeName);
         List<StoreAndPrice> FindStoresThatSellsProduct(string productName);

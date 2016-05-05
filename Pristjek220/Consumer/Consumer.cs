@@ -82,6 +82,31 @@ namespace Consumer
             return cheapest.Store;
         }
 
+        public StoreAndPrice FindCheapestStoreWithSumForListOfProducts(List<Product> products)
+        {
+            var cheapestStore = new StoreAndPrice() {Price = Double.PositiveInfinity};
+            var list = _unit.Products.FindCheapestStoreForAllProductsWithSum(products);
+            if (list == null)
+                return null;
+            string name = list[0].Name;
+            double sum = 0;
+
+            foreach (var item in list)
+            {
+                if(item.Name == name)
+                    sum += item.Price;
+                else
+                {
+                    if(cheapestStore.Price > sum)
+                        cheapestStore = new StoreAndPrice() {Name = name, Price = sum};
+                    name = item.Name;
+                    sum = item.Price;
+                }
+            }
+
+            return cheapestStore;
+        }
+
         public List<ProductAndPrice> FindStoresAssortment(string storeName)
         {
             return _unit.Stores.FindProductsInStore(storeName);

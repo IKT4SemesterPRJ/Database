@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
-using System.Data.SqlClient;
 using System.Linq;
 
 namespace Pristjek220Data
@@ -41,6 +40,41 @@ namespace Pristjek220Data
 
             return query.ToList();
         }
+
+        public List<StoreAndPrice> FindCheapestStoreForAllProductsWithSum(List<Product> products)
+        {
+            List<StoreAndPrice> storeAndPrice = new List<StoreAndPrice>();
+
+            if (products.Count == 0)
+                return null;
+
+            foreach (var store in DataContext.Stores)
+            {
+                foreach (var product in products)
+                {
+                    var query = from prod in DataContext.Products
+                        where prod.ProductName == product.ProductName
+                        join hasA in DataContext.HasARelation on prod.ProductId equals hasA.ProductId
+
+                        from stor in DataContext.Stores
+                        where stor.StoreName == store.StoreName
+                        join hasA1 in DataContext.HasARelation on stor.StoreId equals hasA1.StoreId
+
+                        where hasA.ProductId == hasA1.ProductId && hasA.StoreId == hasA1.StoreId
+                        select new StoreAndPrice() {Name = store.StoreName, Price = hasA.Price};
+
+                    if (query.Count() != 0)
+                        storeAndPrice.Add(query.First());
+                    else
+                    {
+                        storeAndPrice.RemoveAll(x => x.Name == store.StoreName);
+                        break;
+                    }
+                }
+            }
+            return storeAndPrice;
+        } 
+
 
         public DataContext DataContext
         {
