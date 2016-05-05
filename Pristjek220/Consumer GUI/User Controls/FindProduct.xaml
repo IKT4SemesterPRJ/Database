@@ -17,6 +17,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -27,7 +28,7 @@
         </Grid.ColumnDefinitions>
         <Label 
             Grid.Column="1"
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.ColumnSpan="3"
             Height="30"
             MinWidth="220"
@@ -39,7 +40,7 @@
             HorizontalAlignment="Left"
             MinWidth="40"
             Grid.Column="2" 
-            Grid.Row="2"  
+            Grid.Row="3"  
             FontSize ="10" 
             MinHeight="22"
             Margin="2">
@@ -53,7 +54,7 @@
             VerticalAlignment="Center" 
             HorizontalAlignment="Left" 
             Grid.Column="1" 
-            Grid.Row="2" 
+            Grid.Row="3" 
             MinWidth="150" 
             MinHeight="22" >
             <i:Interaction.Triggers>
@@ -70,7 +71,7 @@
             </i:Interaction.Triggers>
         </toolkit:AutoCompleteBox>
         <DataGrid 
-            Grid.Row="3"
+            Grid.Row="4"
             Grid.Column="1"
             Grid.ColumnSpan="2"
             IsReadOnly="True"
@@ -87,5 +88,16 @@
                 <DataGridTextColumn  Width="Auto" Header="Pris" Binding="{Binding Price, ConverterCulture='nn-NO', StringFormat=c}"/>
             </DataGrid.Columns>
         </DataGrid>
+        <Label 
+        	Content="Her har du mulighed for at søge efter et produkt for at se hvad det koster i de forretninger der sælger det." 
+        	FontStyle="Italic"
+        	HorizontalAlignment="Left" 
+        	VerticalAlignment="Top" 
+        	Grid.Row="1" 
+        	Height="27" 
+        	Width="580"
+        	Grid.Column="1"
+        	Grid.ColumnSpan="3" 
+        	Margin="0,7,0,0"/>
     </Grid>
 </UserControl>

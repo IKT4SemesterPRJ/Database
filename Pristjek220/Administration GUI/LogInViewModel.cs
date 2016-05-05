@@ -68,10 +68,10 @@ namespace Administration_GUI
                     }
                     break;
                 case 0:
-                    Error = "Password ugyldigt";
+                    Error = "Kodeordet er ugyldig";
                     break;
                 case -1:
-                    Error = "Username ugyldigt";
+                    Error = "Forretningen er ugyldig";
                     break;
             }
         }

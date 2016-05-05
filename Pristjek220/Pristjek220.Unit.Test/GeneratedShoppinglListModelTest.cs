@@ -31,7 +31,7 @@ namespace Pristjek220.Unit.Test
         {
             _uut.EmailAddress = "test";
             _uut.SendMailCommand.Execute(this);
-            Assert.That(_uut.ErrorText, Is.EqualTo("E-mail, skal overholde formatet: abc@mail.com"));
+            Assert.That(_uut.ErrorText, Is.EqualTo("E-mailadresse skal overholde formatet: abc@mail.com"));
         }
 
         [Test]

@@ -66,12 +66,12 @@
         <Label
             Grid.Row="3"
             Grid.Column="1">
-            Username:</Label>
+            Forretning:</Label>
 
         <Label
             Grid.Row="4"
             Grid.Column="1">
-            Password:</Label>
+            Kodeord:</Label>
 
         <TextBox
             Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
@@ -110,7 +110,7 @@
             Style="{StaticResource RoundedButtonStyle}"
             Command="{Binding LogInCommand}"
             Width="50">
-            Log in
+            Log ind
         </Button>
 
         <Label 

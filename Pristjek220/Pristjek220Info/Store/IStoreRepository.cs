@@ -9,5 +9,6 @@ namespace Pristjek220Data
         List<Store> FindStoreStartingWith(string storeNameStart);
         List<ProductAndPrice> FindProductsInStore(string storeName);
         List<ProductAndPrice> FindProductsInStoreStartingWith(string storeName, string productNameStart);
+        List<Store> GetAllStores();
     }
 }

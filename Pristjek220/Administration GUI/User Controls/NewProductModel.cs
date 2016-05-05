@@ -75,7 +75,7 @@ namespace Administration_GUI.User_Controls
                 }
 
                 ConfirmText =
-                    ($"{ShoppingListItem} er indsat til prisen {ShoppingListItemPrice} kr. i butikken {_manager.Store.StoreName}");
+                    ($"{ShoppingListItem} er indsat til prisen {ShoppingListItemPrice} kr. i forretningen {_manager.Store.StoreName}");
             }
             else
                 ConfirmText = "Prisen er ugyldig";

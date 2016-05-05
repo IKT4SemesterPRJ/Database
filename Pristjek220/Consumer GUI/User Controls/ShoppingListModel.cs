@@ -48,9 +48,6 @@ namespace Consumer_GUI.User_Controls
             _user = user;
             ShoppingListData = new ObservableCollection<ProductInfo>();
             _user.ReadFromJsonFile();
-            OptionsStores.Add(new StoresInPristjek("hej"));
-            OptionsStores.Add(new StoresInPristjek("hehej"));
-            OptionsStores.Add(new StoresInPristjek("heheddasasasdaj"));
         }
 
         public ICommand AddToShoppingListCommand
@@ -180,7 +177,7 @@ namespace Consumer_GUI.User_Controls
         private void DeleteFromShoppingList()
         {
             if (SelectedItem == null)
-                Error = "Du skal markere at produkt før du kan slette";
+                Error = "Du skal markere et produkt, før du kan slette";
 
             else if (_user.ShoppingListData.Count == 0)
                 Error = "Der er ikke tilføjet nogen produkter";

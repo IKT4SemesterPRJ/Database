@@ -7,7 +7,7 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:command="http://www.galasoft.ch/mvvmlight"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="500" d:DesignWidth="600">
     
     
     <Grid>
@@ -19,14 +19,13 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="102"/>
+            <ColumnDefinition Width="104"/>
+            <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
         <Label 
             Focusable="False"
@@ -41,7 +40,7 @@
             Grid.Column="1"
             Grid.Row="3"
             Height="30">
-            Password:
+            Kodeord:
         </Label>
         
         <Label
@@ -49,7 +48,7 @@
             Grid.Column="1"
             Grid.Row="4"
             Height="30">
-            Bekræft password:
+            Bekræft kodeord:
         </Label>
         
         <TextBox
@@ -110,7 +109,18 @@
             Grid.Column="1"
             Grid.Row="6"
             Height="30"
-            Grid.ColumnSpan="2"/>
+            Grid.ColumnSpan="4"/>
+        <Label 
+        	Content="Her har du mulighed for at oprette en forretning med et kodeord." 
+        	FontStyle="Italic"
+        	HorizontalAlignment="Left" 
+        	VerticalAlignment="Top" 
+        	Grid.Row="1" 
+        	Height="27" 
+        	Width="380"
+            Grid.Column="1"
+        	Grid.ColumnSpan="3" 
+            Margin="0,7,0,7"/>
 
     </Grid>
 </UserControl>

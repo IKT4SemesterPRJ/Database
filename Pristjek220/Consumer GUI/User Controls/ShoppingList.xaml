@@ -18,6 +18,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -38,7 +39,7 @@
             CanUserResizeRows="False"
             Grid.Column="1"  
             Height="226" 
-            Grid.Row="3" 
+            Grid.Row="4" 
             Width="272" 
             Grid.ColumnSpan="3">
             <DataGrid.Columns>
@@ -55,7 +56,7 @@
         <Button 
             Command="{Binding AddToShoppingListCommand}"  
             Grid.Column="3" 
-            Grid.Row="2"  
+            Grid.Row="3"  
             FontSize ="10" 
             MinHeight="22"
             Margin="5"
@@ -70,7 +71,7 @@
             VerticalAlignment="Center" 
             HorizontalAlignment="Left" 
             Grid.Column="1" 
-            Grid.Row="2" 
+            Grid.Row="3" 
             MinWidth="130" 
             MinHeight="22">
             <i:Interaction.Triggers>
@@ -89,16 +90,16 @@
 
         <Label 
             Grid.Column="1"
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.ColumnSpan="4"
-            Height="30"
+            Height="25"
             MinWidth="220"
             Foreground="Crimson"
             Content="{Binding Error}"/>
         <Button 
             Command="{Binding DeleteFromShoppingListCommand}" 
             Grid.Column="3" 
-            Grid.Row="4" 
+            Grid.Row="5" 
             Height="20" 
             HorizontalAlignment="Center"
             VerticalAlignment="Center">
@@ -107,7 +108,7 @@
         <Button 
             Command="{Binding ClearShoppingListCommand}" 
             Grid.Column="1" 
-            Grid.Row="4" 
+            Grid.Row="5" 
             Height="20" 
             HorizontalAlignment="Center"
             VerticalAlignment="Center">
@@ -116,7 +117,7 @@
         <Button 
             Grid.Column="1" 
             Height="30" 
-            Grid.Row="5" 
+            Grid.Row="6" 
             Width="150"
             Margin="5"
             Grid.ColumnSpan="3" 
@@ -128,33 +129,49 @@
                     <i:InvokeCommandAction Command="{Binding GeneratedShoppingListCommand}"></i:InvokeCommandAction>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
-            Generere Indkøbsliste
+            Generer Indkøbsliste
         </Button>
 
-        <ListView 
-            ItemsSource="{Binding OptionsStores}"
-            Grid.Row="3"
-            Grid.Column="5"
-            Grid.ColumnSpan="2"
-            MinHeight="50"
-            MinWidth="200"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center">
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="Focusable" Value="false"/>
-                </Style>
-            </ListView.ItemContainerStyle>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal" >
-                        <CheckBox IsChecked="{Binding Path = IsChecked}"/>
-                        <TextBlock Text="     "/>
-                        <TextBlock Text="{Binding Path =  Store}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <StackPanel
+                Grid.Row="4"
+                Grid.Column="5"
+                Grid.ColumnSpan="2"
+                Grid.RowSpan="2">
+                    <Label>Søg i disse forretninger:</Label>
+                    <ListView 
+                        ItemsSource="{Binding OptionsStores}"
+                        MinHeight="50"
+                        MinWidth="200"
+                        MaxHeight="100"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Focusable" Value="false"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" >
+                                    <CheckBox IsChecked="{Binding Path = IsChecked}"/>
+                                    <TextBlock Text="     "/>
+                                    <TextBlock Text="{Binding Path =  Store}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+        </StackPanel>
+        <Label 
+        	Content="Her har du mulighed for at oprette din indkøbsliste." 
+        	FontStyle="Italic"
+        	HorizontalAlignment="Left" 
+        	VerticalAlignment="Top" 
+        	Grid.Row="1" 
+            Grid.Column="1"
+        	Height="27" 
+        	Width="580"
+        	Grid.ColumnSpan="7" 
+        	Margin="0,7,0,0"/>
     </Grid>
 </UserControl>
 
