@@ -53,7 +53,13 @@ namespace Pristjek220Data
             var productList = (from t in storesProductList where t.Name.StartsWith(productNameStart, true, null) select t).ToList();
 
             return productList;
-        } 
+        }
+
+        public ProductAndPrice FindProductInStore(string storeName, string productName)
+        {
+            var storesProductList = FindProductsInStore(storeName);
+            return storesProductList.Find(x => x.Name == productName); ;
+        }
 
         public DataContext DataContext
         {

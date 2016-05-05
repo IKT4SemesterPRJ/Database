@@ -10,6 +10,7 @@ namespace Consumer
         ObservableCollection<ProductInfo> ShoppingListData { get; set; }
         ObservableCollection<ProductInfo> NotInAStore { get; set; }
         ObservableCollection<StoresInPristjek> OptionsStores { get; set; }
+        List<string> StoreNames { get; }
         string TotalSum { get; set; }
         string BuyInOneStore { get; set; }
         string MoneySaved { get; set; }
@@ -25,5 +26,6 @@ namespace Consumer
         void ClearNotInAStore();
 
         StoreAndPrice FindDifferenceforProducts();
+        int ChangeItemToAnotherStore(string storeName, StoreProductAndPrice product);
     }
 }

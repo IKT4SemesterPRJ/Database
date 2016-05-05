@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Consumer_GUI.User_Controls"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="550" d:DesignWidth="800">
     <Grid>
@@ -28,6 +29,7 @@
         </Grid.ColumnDefinitions>
         <DataGrid 
             ItemsSource="{Binding GeneratedShoppingListData}" 
+            SelectedIndex="{Binding SelectedIndexGeneratedShoppingList}"
             AutoGenerateColumns="False"
             CanUserReorderColumns="False"
             CanUserResizeRows="False"
@@ -40,13 +42,26 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Top">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="*" Header="Forretning" Binding="{Binding StoreName}"/>
+                <DataGridTemplateColumn IsReadOnly="False" Header="Example 9">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox ItemsSource="{Binding Path=DataContext.StoreNames, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" SelectedIndex="{Binding Path=DataContext.SelectedStoreIndex, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" SelectedItem="{Binding StoreName}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding Path=DataContext.StoreChangedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ComboBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Width="*" Header="Produkt" Binding="{Binding ProductName}"/>
                 <DataGridTextColumn Width="*" Header="Stk. pris" Binding="{Binding Price, ConverterCulture='nn-NO', StringFormat=c}"/>
                 <DataGridTextColumn Width="60" Header="Antal" Binding="{Binding Quantity}"/>
                 <DataGridTextColumn Width="*" Header="Pris" Binding="{Binding Sum, ConverterCulture='nn-NO', StringFormat=c}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
+        <TextBlock Margin="5" Foreground="Red" TextWrapping="WrapWithOverflow" Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding ErrorStore}"></TextBlock>
         <Label
             Grid.Column="1"
             Grid.Row="3"

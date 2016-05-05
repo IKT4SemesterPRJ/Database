@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
-using System.Drawing.Text;
 using System.Linq;
-using System.Net;
-using System.Net.Mail;
-using System.Windows.Documents;
 using System.Windows.Input;
 using Consumer;
 using Pristjek220Data;
@@ -15,25 +10,14 @@ namespace Consumer_GUI.User_Controls
 {
     public class GeneratedShoppingListModel : ObservableObject, IPageViewModel
     {
-        private readonly IConsumer _user;
-        public string TotalSum => _user.TotalSum;
         private readonly IMail _mail;
-        private ICommand _sendMailCommand;
-        public string EmailAddress { set; get; }
-        public string BuyInOneStore => _user.BuyInOneStore;
-        public string MoneySaved => _user.MoneySaved;
+        private readonly IConsumer _user;
 
         private string _errorText;
-        public string ErrorText
-        {
-            set
-            {
-                _errorText = value; 
-                OnPropertyChanged();
-            }
-            get { return _errorText; }
-        }
-        private EmailAddressAttribute _testEmail; 
+
+        private ICommand _sendMailCommand;
+        private ICommand _storeChangedCommand;
+        private EmailAddressAttribute _testEmail;
 
         public GeneratedShoppingListModel(IConsumer user, IMail mail)
         {
@@ -42,7 +26,33 @@ namespace Consumer_GUI.User_Controls
             ErrorText = "";
         }
 
-        
+        public string TotalSum => _user.TotalSum;
+        public string ErrorStore { get; set; }
+        public string EmailAddress { set; get; }
+        public string BuyInOneStore => _user.BuyInOneStore;
+        public string MoneySaved => _user.MoneySaved;
+
+        public int SelectedIndexGeneratedShoppingList { get; set; }
+
+        public int SelectedStoreIndex { get; set; }
+
+        public string ErrorText
+        {
+            set
+            {
+                _errorText = value;
+                OnPropertyChanged();
+            }
+            get { return _errorText; }
+        }
+
+        public string ChoosenStoreName { get; set; }
+
+        public List<string> StoreNames
+        {
+            get { return _user.StoreNames; }
+        }
+
         public ObservableCollection<StoreProductAndPrice> GeneratedShoppingListData
         {
             get
@@ -66,9 +76,34 @@ namespace Consumer_GUI.User_Controls
 
         public ICommand SendMailCommand
         {
-            get
+            get { return _sendMailCommand ?? (_sendMailCommand = new RelayCommand(SendMail)); }
+        }
+
+
+        public ICommand StoreChangedCommand
+        {
+            get { return _storeChangedCommand ?? (_storeChangedCommand = new RelayCommand(StoreChanged)); }
+        }
+
+        private void StoreChanged()
+        {
+            if (SelectedIndexGeneratedShoppingList != -1)
             {
-                return _sendMailCommand ?? (_sendMailCommand = new RelayCommand(SendMail));
+                if (
+                    _user.ChangeItemToAnotherStore(StoreNames[SelectedStoreIndex],
+                        GeneratedShoppingListData[SelectedIndexGeneratedShoppingList]) == 1)
+                {
+                    OnPropertyChanged("TotalSum");
+                    ErrorStore = "";
+                }
+                else
+                {
+                    ErrorStore = StoreNames[SelectedStoreIndex] + " har ikke " +
+                                 GeneratedShoppingListData[SelectedIndexGeneratedShoppingList].ProductName +
+                                 " i deres sortiment";
+                }
+                OnPropertyChanged("ErrorStore");
+                OnPropertyChanged("GeneratedShoppingListData");
             }
         }
 
@@ -83,8 +118,7 @@ namespace Consumer_GUI.User_Controls
             else
             {
                 ErrorText = "E-mail skal overholde formatet: abc@mail.com";
-            }  
-
+            }
         }
     }
 }

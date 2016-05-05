@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -59,7 +60,7 @@ namespace Consumer
             }
                 BuyInOneStore =
                     $"I forhold til køb af alle varer i {BuyInOneStoreNameAndPrice.Name} hvor det koster {BuyInOneStoreNameAndPrice.Price} kr.";
-               var test = (BuyInOneStoreNameAndPrice.Price - double.Parse(TotalSum));
+               var test = BuyInOneStoreNameAndPrice.Price - CalculateSumForGeneratedList();
                 MoneySaved = test.ToString(CultureInfo.CurrentCulture) + " kr";
             
         }
@@ -89,7 +90,44 @@ namespace Consumer
             }
         }
 
+        private readonly List<string> _storeNames = new List<string>();
+        public List<string> StoreNames
+        {
+            get
+            {
+                if (_storeNames.Count == 0)
+                {
+                    var allStores = _unit.Stores.GetAllStores();
+                    foreach (var storesInPristjek in from store in allStores where store.StoreName != "Admin" select new StoresInPristjek(store.StoreName))
+                    {
+                        _storeNames.Add(storesInPristjek.Store);
+                    }
+                    return _storeNames;
+                }
+                return _storeNames;
+            } 
+        } 
+
         public ObservableCollection<ProductInfo> NotInAStore { get; set; }
+
+        public int ChangeItemToAnotherStore(string storeName, StoreProductAndPrice product)
+        {
+            var productIndex = GeneratedShoppingListData.IndexOf(product);
+            ProductAndPrice productAndPrice;
+            if ((productAndPrice = _unit.Stores.FindProductInStore(storeName, product.ProductName)) != null)
+            {
+                var newSum = productAndPrice.Price*double.Parse(GeneratedShoppingListData[productIndex].Quantity);
+                GeneratedShoppingListData[productIndex] = new StoreProductAndPrice() { Price = productAndPrice.Price, ProductName = GeneratedShoppingListData[productIndex].ProductName, Quantity = GeneratedShoppingListData[productIndex].Quantity, StoreName = storeName, Sum = newSum};
+                var sum = CalculateSumForGeneratedList();
+                var diff = new StoreAndPrice();
+                if((diff = FindDifferenceforProducts()) != null)
+                    MoneySaved = (diff.Price - sum).ToString(CultureInfo.CurrentCulture) + " kr";
+
+                return 1;
+            }
+            return -1;
+        }
+
 
         public bool DoesProductExist(string productName)
         {
@@ -125,7 +163,7 @@ namespace Consumer
             var cheapestStore = new StoreAndPrice() {Price = Double.PositiveInfinity};
 
             var list = _unit.Products.FindCheapestStoreForAllProductsWithSum(products);
-            if (list == null)
+            if (list == null || list.Count == 0)
                 return null;
             string name = list[0].Name;
             double sum = 0;
@@ -159,10 +197,15 @@ namespace Consumer
             return _unit.Products.FindStoresThatSellsProduct(productName);
         }
 
+        private double CalculateSumForGeneratedList()
+        {
+            double sum = GeneratedShoppingListData.Sum(item => item.Sum);
+            TotalSum = sum.ToString(CultureInfo.CurrentCulture) + " kr";
+            return sum;
+        }
+
         public void CreateShoppingList()
         {
-            StoreProductAndPrice ItemInList;
-            TotalSum = "0";
             foreach (var product in ShoppingListData)
             {
                 var cheapestStore = FindCheapestStore(product.Name);
@@ -175,22 +218,19 @@ namespace Consumer
                     var productInStore =
                         cheapestStore.HasARelation.Find(x => x.Product.ProductName.Contains(product.Name));
 
-                    GeneratedShoppingListData.Add( ItemInList = new StoreProductAndPrice
+                    GeneratedShoppingListData.Add(new StoreProductAndPrice
                     {
                         StoreName = cheapestStore.StoreName,
                         ProductName = product.Name,
                         Price = productInStore.Price,
                         Quantity = product.Quantity,
                         Sum = productInStore.Price*double.Parse(product.Quantity)
-                        
                     });
-                    TotalSum = (double.Parse(TotalSum) + ItemInList.Sum).ToString();
                 }
             }
 
             FillBuyInOneStore();
-
-            TotalSum += " kr";
+            CalculateSumForGeneratedList();
         }
 
         public void WriteToJsonFile()
