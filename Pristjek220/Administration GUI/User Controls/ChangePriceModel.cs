@@ -69,7 +69,7 @@ namespace Administration_GUI.User_Controls
                 if (product != null)
                 {
                     _manager.changePriceOfProductInStore(product, ShoppingListItemPrice);
-                    ConfirmText = ($"Prisen for produktet {productName} er ændret til {ShoppingListItemPrice}");
+                    ConfirmText = ($"Prisen for produktet {productName} er ændret til {ShoppingListItemPrice} kr.");
                 }
                 else
                 {

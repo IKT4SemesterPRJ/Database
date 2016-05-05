@@ -180,7 +180,7 @@ namespace Consumer_GUI.User_Controls
         private void DeleteFromShoppingList()
         {
             if (SelectedItem == null)
-                Error = "Du skal markere at produkt før du kan slette";
+                Error = "Du skal markere et produkt, før du kan slette";
 
             else if (_user.ShoppingListData.Count == 0)
                 Error = "Der er ikke tilføjet nogen produkter";

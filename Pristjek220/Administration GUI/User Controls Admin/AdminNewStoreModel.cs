@@ -40,12 +40,12 @@ namespace Administration_GUI.User_Controls_Admin
         {
             if (_admin.CheckPasswords(SecurePassword, SecurePasswordConfirm) == 0)
             {
-                Error = "Passwords matcher ikke";
+                Error = "Kodeordene matcher ikke";
             }
 
             else if (-1 == _admin.CreateLogin(NewStoreName, SecurePassword, NewStoreName))
             {
-                Error = "Butik findes allerede";
+                Error = "Forretningen findes allerede";
             }
             else if (-2 == _admin.CreateLogin(NewStoreName, SecurePassword, NewStoreName))
             {
@@ -53,7 +53,7 @@ namespace Administration_GUI.User_Controls_Admin
             }
             else
             {
-                Error = $"Forretning oprettet med brugernavnet {NewStoreName}";
+                Error = $"Forretning oprettet med forretningsnavnet {NewStoreName}";
             }
         }
 
