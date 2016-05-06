@@ -62,6 +62,11 @@ namespace Administration
             return _unitwork.Products.FindProduct(productName);
         }
 
+        public ProductAndPrice FindProductInStore(string productName)
+        {
+            return _unitwork.Stores.FindProductInStore(Store.StoreName, productName);
+        }
+
         public void changePriceOfProductInStore(Product product, double price)
         {
             var hasA = _unitwork.HasA.Get(Store.StoreId, product.ProductId);

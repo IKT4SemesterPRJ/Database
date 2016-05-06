@@ -66,14 +66,14 @@ namespace Administration_GUI.User_Controls
                 string productName = char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower();
 
                 var product = _manager.FindProduct(productName);
-                if (product != null)
+                if (product != null && _manager.FindProductInStore(productName) != null)
                 {
                     _manager.changePriceOfProductInStore(product, ShoppingListItemPrice);
                     ConfirmText = ($"Prisen for produktet {productName} er ændret til {ShoppingListItemPrice} kr.");
                 }
                 else
                 {
-                    ConfirmText = ($"Produktet {productName} findes ikke");
+                    ConfirmText = ($"Produktet {productName} findes ikke i din forretning");
                     return;
                 }
             }
