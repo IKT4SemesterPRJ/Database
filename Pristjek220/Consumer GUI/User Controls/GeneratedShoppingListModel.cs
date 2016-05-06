@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Windows.Input;
 using Consumer;
+using GalaSoft.MvvmLight.Command;
 using Pristjek220Data;
 
 namespace Consumer_GUI.User_Controls
@@ -14,9 +15,11 @@ namespace Consumer_GUI.User_Controls
         private readonly IConsumer _user;
 
         private string _errorText;
+        private string _emailAddress = string.Empty;
 
         private ICommand _sendMailCommand;
         private ICommand _storeChangedCommand;
+        private ICommand _enterPressedCommand;
         private EmailAddressAttribute _testEmail;
 
         public GeneratedShoppingListModel(IConsumer user, IMail mail)
@@ -28,7 +31,16 @@ namespace Consumer_GUI.User_Controls
 
         public string TotalSum => _user.TotalSum;
         public string ErrorStore { get; set; }
-        public string EmailAddress { set; get; }
+        public string EmailAddress
+        {
+            set
+            {
+                _emailAddress = value;
+                OnPropertyChanged();
+            }
+
+            get { return _emailAddress; }
+        }
         public string BuyInOneStore => _user.BuyInOneStore;
         public string MoneySaved => _user.MoneySaved;
 
@@ -85,6 +97,14 @@ namespace Consumer_GUI.User_Controls
             get { return _storeChangedCommand ?? (_storeChangedCommand = new RelayCommand(StoreChanged)); }
         }
 
+        public ICommand EnterKeyPressedCommand
+        {
+            get
+            {
+                return _enterPressedCommand ?? (_enterPressedCommand = new RelayCommand<KeyEventArgs>(EnterKeyPressed));
+            }
+        }
+
         private void StoreChanged()
         {
             if (SelectedIndexGeneratedShoppingList != -1)
@@ -118,6 +138,14 @@ namespace Consumer_GUI.User_Controls
             else
             {
                 ErrorText = "E-mail skal overholde formatet: abc@mail.com";
+            }
+        }
+
+        private void EnterKeyPressed(KeyEventArgs e)
+        {
+            if ((e.Key == Key.Enter) || (e.Key == Key.Return))
+            {
+                SendMail();
             }
         }
     }

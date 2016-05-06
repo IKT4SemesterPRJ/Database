@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Consumer_GUI.User_Controls"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:command="http://www.galasoft.ch/mvvmlight"
              mc:Ignorable="d" 
              d:DesignHeight="550" d:DesignWidth="800">
     <Grid>
@@ -42,7 +43,7 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Top">
             <DataGrid.Columns>
-                <DataGridTemplateColumn IsReadOnly="False" Header="Example 9">
+                <DataGridTemplateColumn IsReadOnly="False" Header="Forretning">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <ComboBox ItemsSource="{Binding Path=DataContext.StoreNames, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" SelectedIndex="{Binding Path=DataContext.SelectedStoreIndex, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" SelectedItem="{Binding StoreName}">
@@ -142,7 +143,15 @@
             VerticalAlignment="Top"
             HorizontalAlignment="Left">
             <Label Content="Indtast din E-mail her:" HorizontalAlignment="Left" FontWeight="SemiBold" />
-            <TextBox Height="25" VerticalContentAlignment="Center" Text="{Binding EmailAddress}"/>
+            <TextBox Height="25" VerticalContentAlignment="Center" Text="{Binding EmailAddress, UpdateSourceTrigger=PropertyChanged}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="PreviewKeyDown">
+                        <command:EventToCommand Command="{Binding EnterKeyPressedCommand}" PassEventArgsToCommand="True">
+                        </command:EventToCommand>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
+                     
         </StackPanel>
 
         <Button 
@@ -209,3 +218,4 @@
         </Label>
     </Grid>
 </UserControl>
+
