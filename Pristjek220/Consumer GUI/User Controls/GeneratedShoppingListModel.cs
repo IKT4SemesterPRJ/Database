@@ -94,6 +94,7 @@ namespace Consumer_GUI.User_Controls
                         GeneratedShoppingListData[SelectedIndexGeneratedShoppingList]) == 1)
                 {
                     OnPropertyChanged("TotalSum");
+                    OnPropertyChanged("MoneySaved");
                     ErrorStore = "";
                 }
                 else
