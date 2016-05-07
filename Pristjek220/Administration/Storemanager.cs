@@ -85,6 +85,9 @@ namespace Administration
             Store.HasARelation.Remove(hasA);
             _unitwork.HasA.Remove(hasA);
 
+            if (product.HasARelation.Count == 0)
+                _unitwork.Products.Remove(product);
+
             _unitwork.Complete();
 
             return 0;
