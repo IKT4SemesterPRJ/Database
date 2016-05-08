@@ -71,7 +71,11 @@ namespace Administration_GUI.User_Controls
                 if (product != null && _manager.FindProductInStore(productName) != null)
                 {
                     var result = CustomMsgBox.Show($"Vil du ændre prisen på {ShoppingListItem} til {ShoppingListItemPrice} kr?", "Bekræftelse", "Ja", "Nej");
-                    if (result != DialogResult.Yes) return;
+                    if (result != DialogResult.Yes)
+                    {
+                        ConfirmText = "Der blev ikke bekræftet";
+                        return;
+                    }
                     _manager.changePriceOfProductInStore(product, ShoppingListItemPrice);
                     ConfirmText = ($"Prisen for produktet {productName} er ændret til {ShoppingListItemPrice} kr.");
                 }

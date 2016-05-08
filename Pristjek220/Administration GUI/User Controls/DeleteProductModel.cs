@@ -74,7 +74,11 @@ namespace Administration_GUI.User_Controls
             {
                 var result = CustomMsgBox.Show($"Vil du slette {ShoppingListItem} fra din forretning?",
                     "Bekræftelse", "Ja", "Nej");
-                if (result != DialogResult.Yes) return;
+                if (result != DialogResult.Yes)
+                {
+                    ConfirmText = "Der blev ikke bekræftet";
+                    return;
+                }
                 if (_manager.RemoveProductFromMyStore(product) != 0)
                 {
                     ConfirmText = ($"Produktet {productName} findes ikke i din butik");

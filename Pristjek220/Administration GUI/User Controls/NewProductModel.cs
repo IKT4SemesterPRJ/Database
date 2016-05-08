@@ -62,7 +62,11 @@ namespace Administration_GUI.User_Controls
 
             {
                 var result = CustomMsgBox.Show($"Vil du tilføje produktet {ShoppingListItem} med prisen {ShoppingListItemPrice} kr til din forretning?", "Bekræftelse", "Ja", "Nej");
-                if (result != DialogResult.Yes) return;
+                if (result != DialogResult.Yes)
+                {
+                    ConfirmText = "Der blev ikke bekræftet";
+                    return;
+                }
 
                 var productName = char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower();
 
