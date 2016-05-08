@@ -66,11 +66,10 @@
         <Label
             Grid.Column="1"
             Grid.Row="3"
-            Width="275"
             FontWeight="SemiBold"
             HorizontalAlignment="Left"
             VerticalAlignment="Bottom">
-            Produkter der ikke findes i en forretning:
+            Produkter der ikke findes i Pristjek220 i de valgte forretninger:
         </Label>
         <DataGrid
             ItemsSource="{Binding  NotInAStore}"
