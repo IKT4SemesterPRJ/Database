@@ -184,7 +184,7 @@ namespace Consumer
                 }
             }
 
-            if(name == list[list.Count -1].Name)
+            if(name == list[list.Count -1].Name && cheapestStore.Price > sum)
                 cheapestStore = new StoreAndPrice() { Name = name, Price = sum };
 
             return cheapestStore;
