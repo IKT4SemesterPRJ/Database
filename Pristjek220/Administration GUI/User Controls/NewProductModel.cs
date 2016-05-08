@@ -3,12 +3,14 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
 using Administration;
 using GalaSoft.MvvmLight.Command;
 using Pristjek220Data;
 using SharedFunctionalities;
 using Administration_GUI;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 
 
 namespace Administration_GUI.User_Controls
@@ -57,8 +59,12 @@ namespace Administration_GUI.User_Controls
         private void AddToStoreDatabase()
         {
             if (ShoppingListItemPrice > 0 && ShoppingListItem != null)
+
             {
-                string productName = char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower();
+                var result = CustomMsgBox.Show($"Vil du tilføje produktet {ShoppingListItem} med prisen {ShoppingListItemPrice} kr til din forretning?", "Bekræftelse", "Ja", "Nej");
+                if (result != DialogResult.Yes) return;
+
+                var productName = char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower();
 
                 var product = _manager.FindProduct(productName);
                 if (product == null)
@@ -75,7 +81,7 @@ namespace Administration_GUI.User_Controls
                 }
 
                 ConfirmText =
-                    ($"{ShoppingListItem} er indsat til prisen {ShoppingListItemPrice} kr. i forretningen {_manager.Store.StoreName}");
+                    ($"{ShoppingListItem} er indsat til prisen {ShoppingListItemPrice} kr. i din forretning");
             }
             else
                 ConfirmText = "Prisen er ugyldig";

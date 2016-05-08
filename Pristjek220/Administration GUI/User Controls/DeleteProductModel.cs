@@ -1,10 +1,12 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Forms;
 using System.Windows.Input;
 using Administration;
 using GalaSoft.MvvmLight.Command;
 using Pristjek220Data;
 using SharedFunctionalities;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 
 namespace Administration_GUI.User_Controls
 {
@@ -62,24 +64,28 @@ namespace Administration_GUI.User_Controls
         private void DeleteFromStoreDatabase()
         {
             if (string.IsNullOrEmpty(ShoppingListItem)) return;
-            
-            string productName = char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower();
 
-            var product = _manager.FindProduct(productName);
+           
+
+                var productName = char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower();
+
+                var product = _manager.FindProduct(productName);
             if (product != null)
             {
+                var result = CustomMsgBox.Show($"Vil du slette {ShoppingListItem} fra din forretning?",
+                    "Bekræftelse", "Ja", "Nej");
+                if (result != DialogResult.Yes) return;
                 if (_manager.RemoveProductFromMyStore(product) != 0)
                 {
-                    ConfirmText = ($"Produktet {productName} findes ikke i {_manager.Store.StoreName}");
+                    ConfirmText = ($"Produktet {productName} findes ikke i din butik");
                     return;
                 }
 
-                ConfirmText = ($"{ShoppingListItem} er fjernet fra butikken {_manager.Store.StoreName}");
+                ConfirmText = ($"{ShoppingListItem} er fjernet fra din forretning");
             }
             else
             {
                 ConfirmText = ($"Produktet {productName} findes ikke");
-                return;
             }
         }
 

@@ -8,7 +8,8 @@
         xmlns:userControlsAdmin="clr-namespace:Administration_GUI.User_Controls_Admin"
         xmlns:administrationGui="clr-namespace:Administration_GUI"
         mc:Ignorable="d"
-        Title="Pristjek220 Admin" Height="400" Width="820">
+        Title="Pristjek220 Admin" Height="400" Width="820"
+        WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <DataTemplate DataType="{x:Type userControlsAdmin:AdminDeleteStoreModel}">

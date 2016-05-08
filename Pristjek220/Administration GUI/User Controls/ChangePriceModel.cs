@@ -1,11 +1,13 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Forms;
 using System.Windows.Input;
 using Administration;
 using Administration_GUI;
 using GalaSoft.MvvmLight.Command;
 using Pristjek220Data;
 using SharedFunctionalities;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 
 namespace Administration_GUI.User_Controls
 {
@@ -63,18 +65,19 @@ namespace Administration_GUI.User_Controls
 
             if (ShoppingListItemPrice > 0)
             {
-                string productName = char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower();
+                var productName = char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower();
 
                 var product = _manager.FindProduct(productName);
                 if (product != null && _manager.FindProductInStore(productName) != null)
                 {
+                    var result = CustomMsgBox.Show($"Vil du ændre prisen på {ShoppingListItem} til {ShoppingListItemPrice} kr?", "Bekræftelse", "Ja", "Nej");
+                    if (result != DialogResult.Yes) return;
                     _manager.changePriceOfProductInStore(product, ShoppingListItemPrice);
                     ConfirmText = ($"Prisen for produktet {productName} er ændret til {ShoppingListItemPrice} kr.");
                 }
                 else
                 {
                     ConfirmText = ($"Produktet {productName} findes ikke i din forretning");
-                    return;
                 }
             }
             else

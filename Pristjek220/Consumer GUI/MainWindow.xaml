@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:Consumer_GUI"
         xmlns:userControls="clr-namespace:Consumer_GUI.User_Controls"
         mc:Ignorable="d"
-        Title="Pristjek220" Height="700" Width="1000">
+        Title="Pristjek220" Height="700" Width="1000"
+        WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <DataTemplate DataType="{x:Type userControls:FindProductModel}">

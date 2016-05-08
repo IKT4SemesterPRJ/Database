@@ -8,7 +8,8 @@
         xmlns:userControls1="clr-namespace:Administration_GUI.User_Controls"
         xmlns:administrationGui="clr-namespace:Administration_GUI"
         mc:Ignorable="d"
-        Title="Pristjek220 StoreManager" Height="350" Width="720">
+        Title="Pristjek220 StoreManager" Height="350" Width="720"
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <DataTemplate DataType="{x:Type userControls1:ChangePriceModel}">
             <userControls:ChangePrice />
