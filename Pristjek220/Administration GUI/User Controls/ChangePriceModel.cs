@@ -11,7 +11,7 @@ using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 
 namespace Administration_GUI.User_Controls
 {
-    class ChangePriceModel : ObservableObject, IPageViewModel
+    public class ChangePriceModel : ObservableObject, IPageViewModel
     {
         private readonly IAutocomplete _autocomplete;
         private readonly IStoremanager _manager;
@@ -70,7 +70,7 @@ namespace Administration_GUI.User_Controls
                 var product = _manager.FindProduct(productName);
                 if (product != null && _manager.FindProductInStore(productName) != null)
                 {
-                    var result = CustomMsgBox.Show($"Vil du ændre prisen på {ShoppingListItem} til {ShoppingListItemPrice} kr?", "Bekræftelse", "Ja", "Nej");
+                    var result = CustomMsgBox.Show($"Vil du ændre prisen på \"{ShoppingListItem}\" til {ShoppingListItemPrice} kr?", "Bekræftelse", "Ja", "Nej");
                     if (result != DialogResult.Yes)
                     {
                         ConfirmText = "Der blev ikke bekræftet";
@@ -91,14 +91,10 @@ namespace Administration_GUI.User_Controls
 
         private void IllegalSignChangePrice()
         {
-            if (ShoppingListItem != null)
-            {
-                if (!ShoppingListItem.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr)))
-                {
-                    ConfirmText = ($"Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9");
-                    ShoppingListItem = _oldtext;
-                }
-            }
+            if (ShoppingListItem == null) return;
+            if (ShoppingListItem.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr))) return;
+            ConfirmText = ($"Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9");
+            ShoppingListItem = _oldtext;
         }
 
         private string _shoppingListItem;
