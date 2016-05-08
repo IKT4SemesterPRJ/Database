@@ -160,11 +160,12 @@ namespace Consumer
 
         public StoreAndPrice FindCheapestStoreWithSumForListOfProducts(List<ProductInfo> products)
         {
-            var cheapestStore = new StoreAndPrice() {Price = Double.PositiveInfinity};
+            var cheapestStore = new StoreAndPrice() {Price = Double.MaxValue};
 
             var list = _unit.Products.FindCheapestStoreForAllProductsWithSum(products);
             if (list == null || list.Count == 0)
                 return null;
+
             string name = list[0].Name;
             double sum = 0;
 
@@ -172,7 +173,6 @@ namespace Consumer
             {
                 if (item.Name == name)
                 {
-                    
                     sum += item.Price;
                 }
                 else
@@ -183,6 +183,9 @@ namespace Consumer
                     sum = item.Price;
                 }
             }
+
+            if(name == list[list.Count -1].Name)
+                cheapestStore = new StoreAndPrice() { Name = name, Price = sum };
 
             return cheapestStore;
         }
