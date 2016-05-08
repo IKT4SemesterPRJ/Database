@@ -54,7 +54,7 @@ namespace Consumer
             var BuyInOneStoreNameAndPrice = FindDifferenceforProducts();
             if (BuyInOneStoreNameAndPrice == null)
             {
-                BuyInOneStore = "Der er ingen produkter";
+                BuyInOneStore = "Der er ingen forretninger der sælger alle vare";
                 MoneySaved = "NaN";
                 return;
             }
