@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using Consumer;
@@ -23,6 +24,7 @@ namespace Pristjek220.Unit.Test
             _unitWork = Substitute.For<IUnitOfWork>();
             _store = new Store() { StoreName = "Aldi" , StoreId = 22};
             _product = new Product() {ProductName = "Banan", ProductId = 10};
+            _unitWork.Stores.GetAllStores().Returns(new List<Store>() {new Store() {StoreName = "Fakta"} });
             _uut = new Consumer.Consumer(_unitWork);
         }
 
@@ -227,5 +229,73 @@ namespace Pristjek220.Unit.Test
             Assert.That(_uut.NotInAStore.Count, Is.EqualTo(0));
         }
 
+        [Test]
+        public void FindCheapestStoreWithSumForListOfProducts_OneProductInList_ReturnsTheCheapestStoreWithPrice()
+        {
+            var testList = new List<ProductInfo>();
+            testList.Add(new ProductInfo(_product.ProductName));
+
+            var returnList = new List<StoreAndPrice>();
+            var cheapestStoreWithPrice = new StoreAndPrice() {Name = "Fakta", Price = 20};
+            returnList.Add(cheapestStoreWithPrice);
+
+            _unitWork.Products.FindCheapestStoreForAllProductsWithSum(testList).Returns(returnList);
+
+            Assert.That(_uut.FindCheapestStoreWithSumForListOfProducts(testList).Price, Is.EqualTo(cheapestStoreWithPrice.Price));
+        }
+
+        [Test]
+        public void FindCheapestStoreWithSumForListOfProducts_TwoProductInList_ReturnsTheCheapestStoreWithPrice()
+        {
+            var testList = new List<ProductInfo>();
+            testList.Add(new ProductInfo(_product.ProductName));
+            testList.Add(new ProductInfo("Tomat"));
+
+            var returnList = new List<StoreAndPrice>();
+            var store1WithPrice = new StoreAndPrice() { Name = "Fakta", Price = 20 };
+            var store2WithPrice = new StoreAndPrice() { Name = "Føtex", Price = 10 };
+            returnList.Add(store1WithPrice);
+            returnList.Add(store2WithPrice);
+            _unitWork.Products.FindCheapestStoreForAllProductsWithSum(testList).Returns(returnList);
+
+            Assert.That(_uut.FindCheapestStoreWithSumForListOfProducts(testList).Price, Is.EqualTo(store2WithPrice.Price));
+        }
+
+        [Test]
+        public void FindCheapestStoreWithSumForListOfProducts_TwoProductInListWith2InQuantity_ReturnsTheCheapestStoreWithPrice()
+        {
+            var testList = new List<ProductInfo>();
+            testList.Add(new ProductInfo(_product.ProductName, "2"));
+            testList.Add(new ProductInfo("Tomat", "2"));
+
+            var returnList = new List<StoreAndPrice>();
+            var store1WithPrice = new StoreAndPrice() { Name = "Fakta", Price = 20 };
+            var store2WithPrice = new StoreAndPrice() { Name = "Føtex", Price = 10 };
+            returnList.Add(store1WithPrice);
+            returnList.Add(store2WithPrice);
+            _unitWork.Products.FindCheapestStoreForAllProductsWithSum(testList).Returns(returnList);
+
+            Assert.That(_uut.FindCheapestStoreWithSumForListOfProducts(testList).Price, Is.EqualTo(store2WithPrice.Price));
+        }
+
+        [Test]
+        public void FindCheapestStoreWithSumForListOfProducts_TwoProductsFromOneStore_ReturnsFaktaAsTheCheapestStore()
+        {
+            var testList = new List<ProductInfo>();
+            testList.Add(new ProductInfo(_product.ProductName, "2"));
+            testList.Add(new ProductInfo("Tomat", "2"));
+            testList.Add(new ProductInfo("Agurk", "2"));
+
+            var returnList = new List<StoreAndPrice>();
+            var store1WithPrice = new StoreAndPrice() { Name = "Fakta", Price = 5 };
+            var store1WithPrice2 = new StoreAndPrice() { Name = "Fakta", Price = 4 };
+            var store2WithPrice = new StoreAndPrice() { Name = "Føtex", Price = 10 };
+            returnList.Add(store1WithPrice);
+            returnList.Add(store1WithPrice2);
+            returnList.Add(store2WithPrice);
+            _unitWork.Products.FindCheapestStoreForAllProductsWithSum(testList).Returns(returnList);
+
+            Assert.That(_uut.FindCheapestStoreWithSumForListOfProducts(testList).Price, Is.EqualTo(9));
+        }
     }
 }
