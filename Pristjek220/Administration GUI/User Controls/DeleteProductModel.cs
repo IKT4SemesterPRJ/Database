@@ -10,7 +10,7 @@ using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 
 namespace Administration_GUI.User_Controls
 {
-    class DeleteProductModel : ObservableObject, IPageViewModel
+    public class DeleteProductModel : ObservableObject, IPageViewModel
     {
         private readonly IAutocomplete _autocomplete;
         private readonly IStoremanager _manager;
@@ -51,14 +51,10 @@ namespace Administration_GUI.User_Controls
 
         private void IllegalSignDeleteProduct()
         {
-            if (ShoppingListItem != null)
-            {
-                if (!ShoppingListItem.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr)))
-                {
-                    ConfirmText = ($"Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9");
-                    ShoppingListItem = _oldtext;
-                }
-            }
+            if (ShoppingListItem == null) return;
+            if (ShoppingListItem.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr))) return;
+            ConfirmText = ($"Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9");
+            ShoppingListItem = _oldtext;
         }
 
         private void DeleteFromStoreDatabase()
@@ -72,9 +68,13 @@ namespace Administration_GUI.User_Controls
                 var product = _manager.FindProduct(productName);
             if (product != null)
             {
-                var result = CustomMsgBox.Show($"Vil du slette {ShoppingListItem} fra din forretning?",
+                var result = CustomMsgBox.Show($"Vil du slette \"{ShoppingListItem}\" fra din forretning?",
                     "Bekræftelse", "Ja", "Nej");
-                if (result != DialogResult.Yes) return;
+                if (result != DialogResult.Yes)
+                {
+                    ConfirmText = "Der blev ikke bekræftet";
+                    return;
+                }
                 if (_manager.RemoveProductFromMyStore(product) != 0)
                 {
                     ConfirmText = ($"Produktet {productName} findes ikke i din butik");

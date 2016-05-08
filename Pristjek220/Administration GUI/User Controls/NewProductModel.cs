@@ -61,8 +61,12 @@ namespace Administration_GUI.User_Controls
             if (ShoppingListItemPrice > 0 && ShoppingListItem != null)
 
             {
-                var result = CustomMsgBox.Show($"Vil du tilføje produktet {ShoppingListItem} med prisen {ShoppingListItemPrice} kr til din forretning?", "Bekræftelse", "Ja", "Nej");
-                if (result != DialogResult.Yes) return;
+                var result = CustomMsgBox.Show($"Vil du tilføje produktet \"{ShoppingListItem}\" med prisen {ShoppingListItemPrice} kr til din forretning?", "Bekræftelse", "Ja", "Nej");
+                if (result != DialogResult.Yes)
+                {
+                    ConfirmText = "Der blev ikke bekræftet";
+                    return;
+                }
 
                 var productName = char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower();
 
@@ -89,15 +93,10 @@ namespace Administration_GUI.User_Controls
 
         private void IllegalSignNewProduct()
         {
-            if (ShoppingListItem != null)
-            {
-                 if (!ShoppingListItem.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr)))
-                 {
-                     ConfirmText = ($"Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9");
-                     ShoppingListItem = _oldtext;
-                 }
-            }
-            
+            if (ShoppingListItem == null) return;
+            if (ShoppingListItem.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr))) return;
+            ConfirmText = ($"Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9");
+            ShoppingListItem = _oldtext;
         }
 
         private string _shoppingListItem;
@@ -118,7 +117,7 @@ namespace Administration_GUI.User_Controls
         {
             set
             {
-                _shoppingListItemPrice = Math.Round(value, 2);
+               _shoppingListItemPrice = Math.Round(value, 2);
                 OnPropertyChanged();
             }
             get { return _shoppingListItemPrice; }
