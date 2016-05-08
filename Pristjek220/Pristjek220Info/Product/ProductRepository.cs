@@ -53,16 +53,13 @@ namespace Pristjek220Data
                 foreach (var product in products)
                 {
                     var quantity = double.Parse(product.Quantity);
-                    var query = from prod in DataContext.Products
-                        where prod.ProductName == product.Name
-                        join hasA in DataContext.HasARelation on prod.ProductId equals hasA.ProductId
-
+                    var query =
                         from stor in DataContext.Stores
                         where stor.StoreName == store.StoreName
-                        join hasA1 in DataContext.HasARelation on stor.StoreId equals hasA1.StoreId
-
-                        where hasA.ProductId == hasA1.ProductId && hasA.StoreId == hasA1.StoreId
-                        select new StoreAndPrice() {Name = store.StoreName, Price = (hasA.Price * quantity)};
+                        join hasA in DataContext.HasARelation on stor.StoreId equals hasA.StoreId
+                        
+                        where hasA.Product.ProductName == product.Name
+                        select new StoreAndPrice() { Name = store.StoreName, Price = (hasA.Price * quantity) };
 
                     if (query.Count() != 0)
                         storeAndPrice.Add(query.First());
