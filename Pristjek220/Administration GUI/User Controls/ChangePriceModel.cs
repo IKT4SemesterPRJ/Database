@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -22,7 +24,7 @@ namespace Administration_GUI.User_Controls
         private ICommand _enterPressedCommand;
         private ICommand _populatingDeleteProductCommand;
 
-
+        public string NumberError { get; set; } = "";
         private string _oldtext = string.Empty;
 
         public ChangePriceModel(Store store, IUnitOfWork unit)
@@ -62,8 +64,8 @@ namespace Administration_GUI.User_Controls
         private void ChangeProductPriceInStoreDatabase()
         {
             if (string.IsNullOrEmpty(ShoppingListItem)) return;
-
-            if (ShoppingListItemPrice > 0)
+            double resultPrice = double.Parse(ShoppingListItemPrice, CultureInfo.CurrentCulture);
+            if ( resultPrice > 0)
             {
                 var productName = char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower();
 
@@ -76,7 +78,7 @@ namespace Administration_GUI.User_Controls
                         ConfirmText = "Der blev ikke bekræftet";
                         return;
                     }
-                    _manager.changePriceOfProductInStore(product, ShoppingListItemPrice);
+                    _manager.changePriceOfProductInStore(product, resultPrice);
                     ConfirmText = ($"Prisen for produktet {productName} er ændret til {ShoppingListItemPrice} kr.");
                 }
                 else
@@ -110,14 +112,22 @@ namespace Administration_GUI.User_Controls
             get { return _shoppingListItem; }
         }
 
-        private double _shoppingListItemPrice;
+        private string _shoppingListItemPrice = "0";
 
-        public double ShoppingListItemPrice
+        public string ShoppingListItemPrice
         {
             set
             {
-                _shoppingListItemPrice = value;
-                OnPropertyChanged();
+                double result;
+
+                if (double.TryParse(value, NumberStyles.Number, CultureInfo.CurrentCulture, out result))
+                {
+                    _shoppingListItemPrice = Math.Round(result, 2).ToString("F");
+                }
+                else
+                {
+                    _shoppingListItemPrice = "0";
+                }
             }
             get { return _shoppingListItemPrice; }
         }
