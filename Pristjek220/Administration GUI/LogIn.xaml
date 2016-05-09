@@ -75,7 +75,7 @@
             FontWeight="SemiBold"
             Grid.Row="3"
             Grid.Column="1">
-            Forretning:</Label>
+            Brugernavn:</Label>
 
         <Label
             FontWeight="SemiBold"
