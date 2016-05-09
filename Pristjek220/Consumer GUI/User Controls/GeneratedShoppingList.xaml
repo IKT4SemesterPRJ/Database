@@ -29,6 +29,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <DataGrid 
+            EnableRowVirtualization="False"
             ItemsSource="{Binding GeneratedShoppingListData}" 
             SelectedIndex="{Binding SelectedIndexGeneratedShoppingList}"
             AutoGenerateColumns="False"
@@ -72,6 +73,7 @@
             Produkter der ikke findes i Pristjek220 i de valgte forretninger:
         </Label>
         <DataGrid
+            EnableRowVirtualization="False"
             ItemsSource="{Binding  NotInAStore}"
             AutoGenerateColumns="False"
             CanUserResizeColumns="False"
