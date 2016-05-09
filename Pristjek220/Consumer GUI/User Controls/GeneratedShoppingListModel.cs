@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Threading;
 using System.Windows.Input;
 using Consumer;
 using GalaSoft.MvvmLight.Command;
@@ -128,13 +129,20 @@ namespace Consumer_GUI.User_Controls
             }
         }
 
+        private void sendmailThread()
+        {
+            _mail.SendMail(EmailAddress, GeneratedShoppingListData, NotInAStore, TotalSum);
+        }
+
         private void SendMail()
         {
             _testEmail = new EmailAddressAttribute();
             if (_testEmail.IsValid(EmailAddress) && EmailAddress != null)
             {
                 ErrorText = "E-mail afsendt";
-                _mail.SendMail(EmailAddress, GeneratedShoppingListData, NotInAStore, TotalSum);
+
+                var thread = new Thread(this.sendmailThread);
+                thread.Start(); 
             }
             else
             {
