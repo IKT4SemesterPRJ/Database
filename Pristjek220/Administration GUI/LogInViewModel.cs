@@ -71,7 +71,7 @@ namespace Administration_GUI
                     Error = "Kodeordet er ugyldig";
                     break;
                 case -1:
-                    Error = "Forretningen er ugyldig";
+                    Error = "Brugernavn er ugyldig";
                     break;
             }
         }

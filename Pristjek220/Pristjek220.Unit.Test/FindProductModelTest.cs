@@ -23,7 +23,7 @@ namespace Pristjek220.Unit.Test
         [SetUp]
         public void SetUp()
         {
-           _findProduct = new FindProductModel(Substitute.For<Consumer.IConsumer>());
+           _findProduct = new FindProductModel(Substitute.For<Consumer.IConsumer>(), Substitute.For<IUnitOfWork>());
         }
 
         [Test]

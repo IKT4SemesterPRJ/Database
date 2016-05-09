@@ -22,8 +22,8 @@ namespace Consumer_GUI
             Consumer.Consumer user = new Consumer.Consumer(unit);
             // Add available pages
             PageViewModels.Add(new HomeModel());
-            PageViewModels.Add(new FindProductModel(user));
-            PageViewModels.Add(new ShoppingListModel(user));
+            PageViewModels.Add(new FindProductModel(user, unit));
+            PageViewModels.Add(new ShoppingListModel(user, unit));
             PageViewModels.Add(new GeneratedShoppingListModel(user, new Mail(new SmtpClientWrapper("Smtp.gmail.com", 587, new NetworkCredential("pristjek220@gmail.com", "pristjek"), true))));
 
             IDatabaseFunctions databaseFunctions = new DatabaseFunctions(unit);

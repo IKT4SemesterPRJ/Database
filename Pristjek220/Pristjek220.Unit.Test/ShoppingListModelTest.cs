@@ -22,7 +22,7 @@ namespace Pristjek220.Unit.Test
         [SetUp]
         public void SetUp()
         {
-            _shoppingList = new ShoppingListModel(Substitute.For<Consumer.IConsumer>());
+            _shoppingList = new ShoppingListModel(Substitute.For<Consumer.IConsumer>(), Substitute.For<IUnitOfWork>());
         }
 
         [Test]

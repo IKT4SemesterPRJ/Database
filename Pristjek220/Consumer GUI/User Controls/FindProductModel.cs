@@ -15,7 +15,7 @@ namespace Consumer_GUI.User_Controls
 {
     internal class FindProductModel : ObservableObject, IPageViewModel
     {
-        private readonly UnitOfWork _unit = new UnitOfWork(new DataContext());
+        private readonly IUnitOfWork _unit;
         private ICommand _addToStoreListCommand;
         private ICommand _enterPressedCommand;
 
@@ -84,9 +84,10 @@ namespace Consumer_GUI.User_Controls
         public ObservableCollection<string> AutoCompleteList { get; } = new ObservableCollection<string>();
         public ObservableCollection<StoreAndPrice> StorePrice { get; set; } = new ObservableCollection<StoreAndPrice>();
 
-        public FindProductModel(Consumer.IConsumer user)
+        public FindProductModel(Consumer.IConsumer user, IUnitOfWork unit)
         {
             User = user;
+            _unit = unit;
         }
 
         private void AddToStoreList()

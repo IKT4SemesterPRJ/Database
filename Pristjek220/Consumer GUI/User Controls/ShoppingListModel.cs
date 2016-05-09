@@ -13,7 +13,7 @@ namespace Consumer_GUI.User_Controls
 {
     internal class ShoppingListModel : ObservableObject, IPageViewModel
     {
-        private readonly UnitOfWork _unit = new UnitOfWork(new DataContext());
+        private readonly IUnitOfWork _unit;
         private readonly IConsumer _user;
         public IConsumer User => _user;
         public ObservableCollection<StoresInPristjek> OptionsStores => User.OptionsStores; 
@@ -43,10 +43,11 @@ namespace Consumer_GUI.User_Controls
             }
         }
 
-        public ShoppingListModel(IConsumer user)
+        public ShoppingListModel(IConsumer user, IUnitOfWork unit)
         {
             _user = user;
             ShoppingListData = new ObservableCollection<ProductInfo>();
+            _unit = unit;
             _user.ReadFromJsonFile();
         }
 
