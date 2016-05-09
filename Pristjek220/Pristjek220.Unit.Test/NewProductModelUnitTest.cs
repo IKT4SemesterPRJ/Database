@@ -18,9 +18,9 @@ namespace Pristjek220.Unit.Test
             _newProduct = new NewProductModel(_store, Substitute.For<IUnitOfWork>());
         }
 
-        [TestCase(2.224, 2.22)]
-        [TestCase(2.226, 2.23)]
-        public void ShoppingListItemPrice_Insert2point224_IsRoundedTo2point22(double price, double result)
+        [TestCase("2,224", "2,22")]
+        [TestCase("2,226", "2,23")]
+        public void ShoppingListItemPrice_Insert2point224_IsRoundedTo2point22(string price, string result)
         {
             _newProduct.ShoppingListItemPrice = price;
             Assert.That(_newProduct.ShoppingListItemPrice, Is.EqualTo(result));

@@ -50,7 +50,7 @@ namespace Consumer_GUI.User_Controls
             ShoppingListData = new ObservableCollection<ProductInfo>();
             _unit = unit;
             _user.ReadFromJsonFile();
-            Error = "Test";
+            Error = "";
         }
 
         public ICommand AddToShoppingListCommand
