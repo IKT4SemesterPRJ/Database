@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -30,7 +31,7 @@ namespace Consumer_GUI.User_Controls
 
 
         private ProductInfo _selectedItem;
-        private string _shoppinglistItem;
+        private string _shoppinglistItem = string.Empty;
         private string _error;
 
         public string Error
@@ -49,6 +50,7 @@ namespace Consumer_GUI.User_Controls
             ShoppingListData = new ObservableCollection<ProductInfo>();
             _unit = unit;
             _user.ReadFromJsonFile();
+            Error = "Test";
         }
 
         public ICommand AddToShoppingListCommand
@@ -139,6 +141,7 @@ namespace Consumer_GUI.User_Controls
             {
                 _oldtext = _shoppinglistItem;
                 _shoppinglistItem = value;
+                OnPropertyChanged();
             }
             get { return _shoppinglistItem; }
         }
@@ -211,7 +214,7 @@ namespace Consumer_GUI.User_Controls
                 Error = "Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9";
                 ShoppingListItem = _oldtext;
             }
-            else
+            else if(ShoppingListItem == _oldtext)
             {
                 Error = string.Empty;
             }
