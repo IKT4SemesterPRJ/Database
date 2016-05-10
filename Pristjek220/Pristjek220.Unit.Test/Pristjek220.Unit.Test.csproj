@@ -79,6 +79,7 @@
     <Compile Include="DatabaseFunctionUnitTest.cs" />
     <Compile Include="FindProductModelTest.cs" />
     <Compile Include="GeneratedShoppinglListModelTest.cs" />
+    <Compile Include="LogInUnitTest.cs" />
     <Compile Include="MailTest.cs" />
     <Compile Include="NewProductModelUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
