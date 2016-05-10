@@ -1,36 +1,99 @@
-﻿<UserControl x:Class="Administration_GUI.User_Controls_Admin.AdminDeleteStore"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Administration_GUI.User_Controls_Admin"
+             xmlns:Controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Custom="http://www.galasoft.ch/mvvmlight" x:Class="Administration_GUI.User_Controls_Admin.AdminDeleteStore"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="600">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="5"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="15" MaxWidth="15"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
         <Label 
-        	FontStyle="Italic"
-        	HorizontalAlignment="Left" 
-        	VerticalAlignment="Top" 
-        	Grid.Row="1" 
-        	Width="580"
-        	Grid.Column="1"
-        	Grid.ColumnSpan="2" 
-        	Margin="0,7,0,0">
+			FontStyle="Italic"
+			HorizontalAlignment="Left" 
+			VerticalAlignment="Top" 
+			Grid.Row="1" 
+			Width="450"
+			Grid.Column="1"
+			Grid.ColumnSpan="4" 
+			Margin="0,7,0,0">
             <TextBlock TextWrapping="WrapWithOverflow">
-                Her vil der være mulighed for at slette en forretning fra Pristjek220.
-                <LineBreak/><LineBreak/>
-                - Funktionen er ikke implementeret endnu.
+                Her kan du slette en forretning fra Pristjek220 ved at indtaste 
+                forretningsnavnet på den forretning, der ønskes slettet.
+                <LineBreak/> 
+                Vær opmærksom på at hele forretningen samt dens sortiment forsvinder 
+                fra Pristjek220 ved at gøre dette, og handlingen kan ikke fortrydes!
             </TextBlock>
         </Label>
+        <Label 
+			Content="Forretning:" 
+			FontWeight="SemiBold" 
+			HorizontalAlignment="Left" 
+			Height="27" 
+			Grid.Row="2"
+			Grid.Column="1"
+            Margin="0,7,0,0"
+			VerticalAlignment="Top" 
+			VerticalContentAlignment="Bottom"/>
+        <Controls:AutoCompleteBox
+			MinimumPopulateDelay="400"
+			MinimumPrefixLength="2"
+			ItemsSource="{Binding AutoCompleteList}" 
+			Text="{Binding DeleteStoreName, Mode=TwoWay}" 
+			Grid.Column="1" 
+			Grid.Row="2" 
+			Height="25" 
+			VerticalAlignment="Top" 
+            VerticalContentAlignment="Center"
+			Width="139" 
+			Margin="4,34,4,0"
+			TabIndex="0"
+			BorderBrush="#FFABADB3">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Populating">
+                    <i:InvokeCommandAction Command="{Binding PopulatingDeleteStoreCommand}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="TextChanged">
+                    <i:InvokeCommandAction Command="{Binding IllegalSignDeleteStoreCommand}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="PreviewKeyDown">
+                    <Custom:EventToCommand Command="{Binding EnterKeyPressedCommand}" PassEventArgsToCommand="True"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
+        </Controls:AutoCompleteBox>
+        <Button 
+        	Command="{Binding DeleteFromLoginDatabaseCommand}"  
+        	Content="Fjern forretning" 
+        	Grid.Column="3" 
+        	Grid.Row="2" 
+        	Margin="4,34,0,0" 
+        	Height="25"
+        	TabIndex="1"/>
+        <Label 
+        	Content="{Binding Error}" 
+        	HorizontalAlignment="Left"  
+        	VerticalAlignment="Top" 
+        	Width="417" 
+        	Grid.Column="1"
+        	Grid.ColumnSpan="4"
+        	Grid.Row="3" 
+        	Margin="0,15,0,0" 
+        	Foreground="Crimson"
+        	Height="27" />
     </Grid>
 </UserControl>

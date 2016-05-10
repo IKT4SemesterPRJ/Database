@@ -40,20 +40,20 @@ namespace Administration_GUI.User_Controls_Admin
         {
             if (_admin.CheckPasswords(SecurePassword, SecurePasswordConfirm) == 0)
             {
-                Error = "Kodeordene matcher ikke";
+                Error = "Kodeordene matcher ikke.";
             }
 
             else if (-1 == _admin.CreateLogin(NewStoreName, SecurePassword, NewStoreName))
             {
-                Error = "Forretningen findes allerede";
+                Error = "Forretningen findes allerede.";
             }
             else if (-2 == _admin.CreateLogin(NewStoreName, SecurePassword, NewStoreName))
             {
-                Error = "Udfyld venligst alle felter";
+                Error = "Udfyld venligst alle felter.";
             }
             else
             {
-                Error = $"Forretning oprettet med forretningsnavnet {NewStoreName}";
+                Error = $"Forretning oprettet med forretningsnavnet \"{NewStoreName}\".";
             }
         }
 

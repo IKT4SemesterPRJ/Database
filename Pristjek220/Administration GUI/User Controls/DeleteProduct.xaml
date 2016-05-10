@@ -13,29 +13,18 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="5"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="15" MaxWidth="15"/>
+            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="2" HorizontalAlignment="Left" Height="493" Margin="0,0,-587,-487" Grid.Row="2" VerticalAlignment="Top" Width="593">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="5"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="5*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="5"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="15" MaxWidth="15"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="5*"/>
-            </Grid.ColumnDefinitions>
-            <Label 
+        <Label 
         		FontStyle="Italic"
         		HorizontalAlignment="Left" 
         		VerticalAlignment="Top" 
@@ -43,70 +32,70 @@
                 Grid.Row="1"
         		Width="420" 
                 Grid.ColumnSpan="4">
-                <TextBlock TextWrapping="WrapWithOverflow">
+            <TextBlock TextWrapping="WrapWithOverflow">
                     Her har du mulighed for at fjerne et produkt fra din forretning, ved at
                     indtaste det produkt, der skal fjernes.
-                </TextBlock>
-            </Label>
-            <Label 
-            	Content="Produkt:" 
-            	FontWeight="SemiBold"
-            	Grid.Column="1" 
-            	HorizontalAlignment="Left" 
-            	Height="27" 
-            	Margin="0,7,0,0" 
-            	Grid.Row="2" 
-            	VerticalAlignment="Top" 
-            	VerticalContentAlignment="Bottom"
-            	Width="63"/>
-            <controls:AutoCompleteBox
-            	MinimumPopulateDelay="400"
-            	MinimumPrefixLength="2"
-            	ItemsSource="{Binding AutoCompleteList}" 
-            	Text="{Binding ShoppingListItem, Mode=TwoWay}" 
-            	Grid.Column="1" 
-            	Grid.Row="2"
-            	Height="25" 
-            	VerticalAlignment="Top" 
-            	HorizontalAlignment="Stretch"
-            	Width="139" 
-            	Margin="0,34,0,0"
-            	TabIndex="0"
-                BorderBrush="#FFABADB3">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Populating">
-                        <i:InvokeCommandAction Command="{Binding PopulatingDeleteProductCommand}"/>
-                    </i:EventTrigger>
-                    <i:EventTrigger EventName="TextChanged">
-                        <i:InvokeCommandAction Command="{Binding IllegalSignDeleteProductCommand}"/>
-                    </i:EventTrigger>
-                    <i:EventTrigger EventName="PreviewKeyDown">
-                        <command:EventToCommand Command="{Binding EnterKeyPressedCommand}" PassEventArgsToCommand="True"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
+            </TextBlock>
+        </Label>
+        <Label 
+            Content="Produkt:" 
+            FontWeight="SemiBold"
+            Grid.Column="1" 
+            HorizontalAlignment="Left" 
+            Height="27" 
+            Margin="0,7,0,0" 
+            Grid.Row="2" 
+            VerticalAlignment="Top" 
+            VerticalContentAlignment="Bottom"
+            Width="63"/>
+        <controls:AutoCompleteBox
+            MinimumPopulateDelay="400"
+            MinimumPrefixLength="2"
+            ItemsSource="{Binding AutoCompleteList}" 
+            Text="{Binding ShoppingListItem, Mode=TwoWay}" 
+            Grid.Column="1" 
+            Grid.Row="2"
+            Height="25" 
+            VerticalAlignment="Top" 
+            VerticalContentAlignment="Center"
+            HorizontalAlignment="Stretch"
+            Width="139" 
+            Margin="4,34,4,0"
+            TabIndex="0"
+            BorderBrush="#FFABADB3">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Populating">
+                    <i:InvokeCommandAction Command="{Binding PopulatingDeleteProductCommand}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="TextChanged">
+                    <i:InvokeCommandAction Command="{Binding IllegalSignDeleteProductCommand}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="PreviewKeyDown">
+                    <command:EventToCommand Command="{Binding EnterKeyPressedCommand}" PassEventArgsToCommand="True"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
 
-            </controls:AutoCompleteBox>
-            <Button 
-            	Command="{Binding DeleteFromStoreDatabaseCommand}"  
-            	Content="Fjern produkt" 
-            	Grid.Column="3" 
-            	Grid.Row="2" 
-            	Width="75" 
-            	Margin="0,34,0,0" 
-            	Height="25"
-            	TabIndex="1"/>
-            <Label 
-            	Content="{Binding ConfirmText}" 
-            	HorizontalAlignment="Left"  
-            	VerticalAlignment="Top" 
-            	Width="417" 
-            	Grid.Column="1"
-            	Grid.ColumnSpan="4"
-            	Grid.Row="3" 
-            	Margin="0,15,0,0" 
-                Foreground="Crimson"
-            	Height="27"/>
-        </Grid>
+        </controls:AutoCompleteBox>
+        <Button 
+            Command="{Binding DeleteFromStoreDatabaseCommand}"  
+            Content="Fjern produkt" 
+            Grid.Column="3" 
+            Grid.Row="2" 
+            Width="75" 
+            Margin="4,34,0,0" 
+            Height="25"
+            TabIndex="1"/>
+        <Label 
+            Content="{Binding ConfirmText}" 
+            HorizontalAlignment="Left"  
+            VerticalAlignment="Top" 
+            Width="417" 
+            Grid.Column="1"
+            Grid.ColumnSpan="4"
+            Grid.Row="3" 
+            Margin="0,15,0,0" 
+            Foreground="Crimson"
+            Height="27"/>
     </Grid>
 </UserControl>
 

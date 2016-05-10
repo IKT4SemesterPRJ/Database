@@ -72,22 +72,22 @@ namespace Administration_GUI.User_Controls
                 var product = _manager.FindProduct(productName);
                 if (product != null && _manager.FindProductInStore(productName) != null)
                 {
-                    var result = CustomMsgBox.Show($"Vil du ændre prisen på \"{ShoppingListItem}\" til {ShoppingListItemPrice} kr?", "Bekræftelse", "Ja", "Nej");
+                    var result = CustomMsgBox.Show($"Vil du ændre prisen på produktet \"{ShoppingListItem}\" til {ShoppingListItemPrice} kr?", "Bekræftelse", "Ja", "Nej");
                     if (result != DialogResult.Yes)
                     {
-                        ConfirmText = "Der blev ikke bekræftet";
+                        ConfirmText = "Der blev ikke bekræftet.";
                         return;
                     }
                     _manager.changePriceOfProductInStore(product, resultPrice);
-                    ConfirmText = ($"Prisen for produktet {productName} er ændret til {ShoppingListItemPrice} kr.");
+                    ConfirmText = ($"Prisen for produktet \"{productName}\" er ændret til {ShoppingListItemPrice} kr.");
                 }
                 else
                 {
-                    ConfirmText = ($"Produktet {productName} findes ikke i din forretning");
+                    ConfirmText = ($"Produktet \"{productName}\" findes ikke i din forretning.");
                 }
             }
             else
-                ConfirmText = "Prisen er ugyldig";
+                ConfirmText = "Prisen er ugyldig.";
         }
 
 
@@ -95,7 +95,7 @@ namespace Administration_GUI.User_Controls
         {
             if (ShoppingListItem == null) return;
             if (ShoppingListItem.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr))) return;
-            ConfirmText = ($"Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9");
+            ConfirmText = ($"Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9.");
             ShoppingListItem = _oldtext;
         }
 

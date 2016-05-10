@@ -66,7 +66,7 @@ namespace Administration_GUI.User_Controls
                 var result = CustomMsgBox.Show($"Vil du tilføje produktet \"{ShoppingListItem}\" med prisen {ShoppingListItemPrice} kr til din forretning?", "Bekræftelse", "Ja", "Nej");
                 if (result != DialogResult.Yes)
                 {
-                    ConfirmText = "Der blev ikke bekræftet";
+                    ConfirmText = "Der blev ikke bekræftet.";
                     return;
                 }
 
@@ -82,22 +82,22 @@ namespace Administration_GUI.User_Controls
 
                 if (_manager.AddProductToMyStore(product, resultPrice) != 0)
                 {
-                    ConfirmText = ($"Produktet {productName} findes allerede");
+                    ConfirmText = ($"Produktet \"{productName}\" findes allerede.");
                     return;
                 }
 
                 ConfirmText =
-                    ($"{ShoppingListItem} er indsat til prisen {ShoppingListItemPrice} kr. i din forretning");
+                    ($"Produktet \"{ShoppingListItem}\" er indsat til prisen {ShoppingListItemPrice} kr. i din forretning.");
             }
             else
-                ConfirmText = "Prisen er ugyldig";
+                ConfirmText = "Prisen er ugyldig.";
         }
 
         private void IllegalSignNewProduct()
         {
             if (ShoppingListItem == null) return;
             if (ShoppingListItem.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr))) return;
-            ConfirmText = ($"Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9");
+            ConfirmText = ($"Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9.");
             ShoppingListItem = _oldtext;
         }
 
