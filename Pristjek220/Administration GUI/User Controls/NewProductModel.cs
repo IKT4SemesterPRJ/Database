@@ -29,6 +29,17 @@ namespace Administration_GUI.User_Controls
         public string NumberError { get; set; } = "";
         private string _oldtext = string.Empty;
 
+        private bool _isTextConfirm;
+        public bool IsTextConfirm
+        {
+            get { return _isTextConfirm; }
+            set
+            {
+                _isTextConfirm = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         public ICommand AddToStoreDatabaseCommand => _addToStoreDatabaseCommand ?? (_addToStoreDatabaseCommand = new RelayCommand(AddToStoreDatabase));
 
@@ -59,13 +70,23 @@ namespace Administration_GUI.User_Controls
 
         private void AddToStoreDatabase()
         {
+            if (string.IsNullOrEmpty(ShoppingListItem))
+            {
+                IsTextConfirm = false;
+                ConfirmText = "Indtast venligst navnet på det produkt der skal tilføjes.";
+                return;
+            }
+
             double resultPrice = double.Parse(ShoppingListItemPrice, CultureInfo.CurrentCulture);
             if (resultPrice > 0 && ShoppingListItem != null)
-
             {
-                var result = CustomMsgBox.Show($"Vil du tilføje produktet \"{ShoppingListItem}\" med prisen {ShoppingListItemPrice} kr til din forretning?", "Bekræftelse", "Ja", "Nej");
+                var result =
+                    CustomMsgBox.Show(
+                        $"Vil du tilføje produktet \"{ShoppingListItem}\" med prisen {ShoppingListItemPrice} kr til din forretning?",
+                        "Bekræftelse", "Ja", "Nej");
                 if (result != DialogResult.Yes)
                 {
+                    IsTextConfirm = false;
                     ConfirmText = "Der blev ikke bekræftet.";
                     return;
                 }
@@ -82,21 +103,26 @@ namespace Administration_GUI.User_Controls
 
                 if (_manager.AddProductToMyStore(product, resultPrice) != 0)
                 {
+                    IsTextConfirm = false;
                     ConfirmText = ($"Produktet \"{productName}\" findes allerede.");
                     return;
                 }
-
+                IsTextConfirm = true;
                 ConfirmText =
                     ($"Produktet \"{ShoppingListItem}\" er indsat til prisen {ShoppingListItemPrice} kr. i din forretning.");
             }
             else
+            {
+                IsTextConfirm = false;
                 ConfirmText = "Prisen er ugyldig.";
+            }
         }
 
         private void IllegalSignNewProduct()
         {
             if (ShoppingListItem == null) return;
             if (ShoppingListItem.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr))) return;
+            IsTextConfirm = false;
             ConfirmText = ($"Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9.");
             ShoppingListItem = _oldtext;
         }

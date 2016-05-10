@@ -63,7 +63,20 @@
                 <DataGridTextColumn Width="*" Header="Pris" Binding="{Binding Sum, ConverterCulture='nn-NO', StringFormat=c}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <TextBlock Margin="5" Foreground="Red" TextWrapping="WrapWithOverflow" Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding ErrorStore}"></TextBlock>
+        <TextBlock Margin="5" Foreground="Red" TextWrapping="WrapWithOverflow" Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="2" FontWeight="SemiBold" Text="{Binding ErrorStore}">
+            <TextBlock.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding ="{Binding IsTextConfirm}" Value ="True">
+                            <Setter Property="TextBlock.Foreground" Value ="Green" />
+                        </DataTrigger>
+                        <DataTrigger Binding ="{Binding IsTextConfirm}" Value ="False">
+                            <Setter Property="TextBlock.Foreground" Value ="Crimson" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
         <Label
             Grid.Column="1"
             Grid.Row="3"
@@ -192,7 +205,20 @@
             Grid.ColumnSpan="3"
             Content="{Binding ErrorText}"
             HorizontalAlignment="Left"
-            Foreground="Crimson"/>
+            FontWeight="SemiBold">
+            <Label.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding ="{Binding IsTextConfirm}" Value ="True">
+                            <Setter Property="Label.Foreground" Value ="Green" />
+                        </DataTrigger>
+                        <DataTrigger Binding ="{Binding IsTextConfirm}" Value ="False">
+                            <Setter Property="Label.Foreground" Value ="Crimson" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
         <Label 
         	FontStyle="Italic"
         	HorizontalAlignment="Left" 

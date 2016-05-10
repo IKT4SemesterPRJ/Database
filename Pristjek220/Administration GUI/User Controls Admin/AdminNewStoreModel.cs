@@ -24,6 +24,17 @@ namespace Administration_GUI.User_Controls_Admin
         }
         private string _error = string.Empty;
 
+        private bool _isTextConfirm;
+        public bool IsTextConfirm
+        {
+            get { return _isTextConfirm; }
+            set
+            {
+                _isTextConfirm = value;
+                OnPropertyChanged();
+            }
+        }
+
         public AdminNewStoreModel(IUnitOfWork unit)
         {
              _admin = new Administration.Admin(unit);
@@ -38,21 +49,31 @@ namespace Administration_GUI.User_Controls_Admin
 
         private void NewStore()
         {
+            if (string.IsNullOrEmpty(NewStoreName))
+            {
+                IsTextConfirm = false;
+                Error = "Udfyld venligst alle felter.";
+                return;
+            }
             if (_admin.CheckPasswords(SecurePassword, SecurePasswordConfirm) == 0)
             {
+                IsTextConfirm = false;
                 Error = "Kodeordene matcher ikke.";
             }
 
             else if (-1 == _admin.CreateLogin(NewStoreName, SecurePassword, NewStoreName))
             {
+                IsTextConfirm = false;
                 Error = "Forretningen findes allerede.";
             }
             else if (-2 == _admin.CreateLogin(NewStoreName, SecurePassword, NewStoreName))
             {
+                IsTextConfirm = false;
                 Error = "Udfyld venligst alle felter.";
             }
             else
             {
+                IsTextConfirm = true;
                 Error = $"Forretning oprettet med forretningsnavnet \"{NewStoreName}\".";
             }
         }

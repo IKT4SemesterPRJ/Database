@@ -27,6 +27,17 @@ namespace Consumer_GUI.User_Controls
         private string _productName = string.Empty;
         public IConsumer User { get; }
 
+        private bool _isTextConfirm;
+        public bool IsTextConfirm
+        {
+            get { return _isTextConfirm; }
+            set
+            {
+                _isTextConfirm = value;
+                OnPropertyChanged();
+            }
+        }
+
         private string _error;
 
         public string Error
@@ -108,7 +119,8 @@ namespace Consumer_GUI.User_Controls
             }
             else
             {
-                Error = "Produktet findes ikke";
+                IsTextConfirm = false;
+                Error = $"Produktet \"{ProductName}\" findes ikke i Pristjek220.";
             }
         }
 
@@ -129,7 +141,8 @@ namespace Consumer_GUI.User_Controls
         {
             if (!ProductName.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr)))
             {
-                Error = "Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9";
+                IsTextConfirm = false;
+                Error = "Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9.";
                 ProductName = _oldtext;
             }
         }

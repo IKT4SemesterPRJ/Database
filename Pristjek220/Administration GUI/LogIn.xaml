@@ -130,6 +130,7 @@
             Grid.Row="6"
             Grid.ColumnSpan="2"
             Height="27"
+            FontWeight="SemiBold"
             Foreground="Crimson"
             Content="{Binding Error}"/>
     </Grid>

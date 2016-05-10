@@ -98,8 +98,21 @@
             Grid.Row="3" 
             Grid.ColumnSpan="4"
             Margin="0,15,0,0" 
-            Foreground="Crimson"
-            Height="27"/>
+            FontWeight="SemiBold"
+            Height="27">
+            <Label.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding ="{Binding IsTextConfirm}" Value ="True">
+                            <Setter Property="Label.Foreground" Value ="Green" />
+                        </DataTrigger>
+                        <DataTrigger Binding ="{Binding IsTextConfirm}" Value ="False">
+                            <Setter Property="Label.Foreground" Value ="Crimson" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
         <Label 
         	Content="Produkt:" 
         	FontWeight="SemiBold" 
