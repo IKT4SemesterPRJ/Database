@@ -26,7 +26,11 @@ namespace Administration_GUI.User_Controls
             _manager = new Storemanager(unit, store);
             _autocomplete = new SharedFunctionalities.Autocomplete(unit);
         }
-        public ICommand DeleteFromStoreDatabaseCommand => _deleteFromStoreDatabaseCommand ?? (_deleteFromStoreDatabaseCommand = new RelayCommand(DeleteFromStoreDatabase));
+
+        public ICommand DeleteFromStoreDatabaseCommand
+            =>
+                _deleteFromStoreDatabaseCommand ??
+                (_deleteFromStoreDatabaseCommand = new RelayCommand(DeleteFromStoreDatabase));
 
         public ICommand PopulatingDeleteProductCommand => _populatingDeleteProductCommand ??
                                                           (_populatingDeleteProductCommand = new RelayCommand(PopulatingListDeleteProduct));
@@ -53,7 +57,7 @@ namespace Administration_GUI.User_Controls
         {
             if (ShoppingListItem == null) return;
             if (ShoppingListItem.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr))) return;
-            ConfirmText = ($"Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9");
+            ConfirmText = ($"Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9.");
             ShoppingListItem = _oldtext;
         }
 
@@ -72,20 +76,20 @@ namespace Administration_GUI.User_Controls
                     "Bekræftelse", "Ja", "Nej");
                 if (result != DialogResult.Yes)
                 {
-                    ConfirmText = "Der blev ikke bekræftet";
+                    ConfirmText = "Der blev ikke bekræftet.";
                     return;
                 }
                 if (_manager.RemoveProductFromMyStore(product) != 0)
                 {
-                    ConfirmText = ($"Produktet {productName} findes ikke i din butik");
+                    ConfirmText = ($"Produktet \"{productName}\" findes ikke i din forretning.");
                     return;
                 }
 
-                ConfirmText = ($"{ShoppingListItem} er fjernet fra din forretning");
+                ConfirmText = ($"Produktet \"{ShoppingListItem}\" er fjernet fra din forretning.");
             }
             else
             {
-                ConfirmText = ($"Produktet {productName} findes ikke");
+                ConfirmText = ($"Produktet \"{productName}\" findes ikke.");
             }
         }
 
