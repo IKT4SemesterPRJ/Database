@@ -129,6 +129,25 @@ namespace Pristjek220.Unit.Test
         }
 
         [Test]
+        public void RemoveProductFromMyStore_BananWithHasAIsInNoStore_ProductsRemoveCalled()
+        {
+            var hasA = new HasA()
+            {
+                Price = 1,
+                Product = _product,
+                ProductId = _product.ProductId,
+                Store = _store,
+                StoreId = _store.StoreId
+            };
+
+            _uut.AddProductToMyStore(_product, 1);
+            _unitWork.HasA.FindHasA(_store.StoreName, _product.ProductName).Returns(hasA);
+            _product.HasARelation.Clear();
+            _uut.RemoveProductFromMyStore(_product);
+            _unitWork.Received(1).Products.Remove(_product);
+        }
+
+        [Test]
         public void changePriceOfProductInStore_HasPriceBeenChangedFrom2to4_reutrns4()
         {
             var hasA = new HasA()
@@ -144,6 +163,14 @@ namespace Pristjek220.Unit.Test
             _unitWork.HasA.Get(_store.StoreId, _product.ProductId).Returns(hasA);
             _uut.changePriceOfProductInStore(_product, 4);
 
+        }
+
+        [Test]
+        public void FindProductInStore_FindBananInAldi_FindFunktionCalled()
+        {
+            _uut.FindProductInStore(_product.ProductName);
+
+            _unitWork.Stores.Received(1).FindProductInStore(_uut.Store.StoreName ,_product.ProductName);
         }
     }
 }

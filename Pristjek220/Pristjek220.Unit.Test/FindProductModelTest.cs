@@ -138,7 +138,5 @@ namespace Pristjek220.Unit.Test
             Assert.That(_findProduct.Error, Is.EqualTo(null));
 
         }
-
-
     }
 }
