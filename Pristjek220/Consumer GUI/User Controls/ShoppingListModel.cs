@@ -127,7 +127,12 @@ namespace Consumer_GUI.User_Controls
 
         private void AddToShoppingList()
         {
-            if (string.IsNullOrEmpty(ShoppingListItem)) return;
+            if (string.IsNullOrEmpty(ShoppingListItem))
+            {
+                IsTextConfirm = false;
+                Error = "Indtast venligst navnet på det produkt du vil tilføje til indkøbslisten.";
+                return;
+            }
             if (
                 ShoppingListData.Any(
                     x => x.Name == char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower()))

@@ -82,6 +82,12 @@ namespace Consumer_GUI.User_Controls
 
         private void AddToStoreList()
         {
+            if (string.IsNullOrEmpty(ProductName))
+            {
+                IsTextConfirm = false;
+                Error = "Indtast venligst det produkt du vil søge efter.";
+                return;
+            }
             
             StorePrice.Clear();
 

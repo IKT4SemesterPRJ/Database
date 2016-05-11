@@ -109,7 +109,7 @@ namespace Administration_GUI.User_Controls_Admin
 
             var storeName = char.ToUpper(DeleteStoreName[0]) + DeleteStoreName.Substring(1).ToLower();
 
-            var result = CustomMsgBox.Show($"Vil du slette forretningen \"{storeName}\" fra Pristjek220?", "Bekræftelse", "Ja",
+            var result = CustomMsgBox.Show($"Vil du fjerne forretningen \"{storeName}\" fra Pristjek220?", "Bekræftelse", "Ja",
                 "Nej");
             if (result != DialogResult.Yes)
             {

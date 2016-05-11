@@ -139,7 +139,7 @@
         	Grid.ColumnSpan="3" 
             Margin="0,7,0,7">
             <TextBlock TextWrapping="WrapWithOverflow">
-                Her har du mulighed for at oprette en forretning med et tilhørende kodeord,
+                Her har du mulighed for at tilføje en forretning med et tilhørende kodeord,
                 som skal benyttes, når forretningsmanageren vil logge ind på sin forretning.
             </TextBlock>
         </Label>
