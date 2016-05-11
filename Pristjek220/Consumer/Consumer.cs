@@ -55,7 +55,7 @@ namespace Consumer
             if (BuyInOneStoreNameAndPrice == null)
             {
                 BuyInOneStore = "Der er ingen forretninger der sælger alle vare";
-                MoneySaved = "NaN";
+                MoneySaved = "-";
                 return;
             }
                 BuyInOneStore =
