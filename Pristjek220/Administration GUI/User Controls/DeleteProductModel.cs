@@ -78,7 +78,7 @@ namespace Administration_GUI.User_Controls
             if (string.IsNullOrEmpty(ShoppingListItem))
             {
                 IsTextConfirm = false;
-                ConfirmText = "Indtast venligst navnet på det produkt der skal slettes.";
+                ConfirmText = "Indtast venligst navnet på det produkt der skal fjernes.";
                 return;
             }
 
@@ -87,7 +87,7 @@ namespace Administration_GUI.User_Controls
             var product = _manager.FindProduct(productName);
             if (product != null)
             {
-                var result = CustomMsgBox.Show($"Vil du slette \"{productName}\" fra din forretning?",
+                var result = CustomMsgBox.Show($"Vil du fjerne produktet \"{productName}\" fra din forretning?",
                     "Bekræftelse", "Ja", "Nej");
                 if (result != DialogResult.Yes)
                 {

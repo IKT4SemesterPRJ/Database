@@ -149,6 +149,13 @@ namespace Consumer_GUI.User_Controls
 
         private void SendMail()
         {
+            if (string.IsNullOrEmpty(EmailAddress))
+            {
+                IsTextConfirm = false;
+                ErrorText = "Indtast venligst din E-mail.";
+                return;
+            }
+
             _testEmail = new EmailAddressAttribute();
             if (_testEmail.IsValid(EmailAddress) && EmailAddress != null)
             {
