@@ -41,7 +41,7 @@ namespace Administration_GUI
 
             if (!databaseFunctions.ConnectToDB()) //Force database to connect at startup, and close application if it cant connect
             {
-                MessageBox.Show("Der kan ikke tilsluttes til serveren", "ERROR", MessageBoxButton.OK);
+                MessageBox.Show("Der kan ikke tilsluttes til serveren.", "ERROR", MessageBoxButton.OK);
                 Application.Current.MainWindow.Close();
             }
         }
@@ -68,10 +68,10 @@ namespace Administration_GUI
                     }
                     break;
                 case 0:
-                    Error = "Kodeordet er ugyldig";
+                    Error = "Kodeordet er ugyldigt.";
                     break;
                 case -1:
-                    Error = "Brugernavn er ugyldig";
+                    Error = "Brugernavnet er ugyldigt.";
                     break;
             }
         }

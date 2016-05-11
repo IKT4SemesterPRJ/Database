@@ -22,12 +22,17 @@
         	HorizontalAlignment="Left" 
         	VerticalAlignment="Top" 
         	Grid.Row="1" 
-        	Width="580"
+        	Width="450"
         	Grid.Column="1"
         	Grid.ColumnSpan="2" 
         	Margin="0,7,0,0">
             <TextBlock TextWrapping="WrapWithOverflow">
                 Her vil der være mulighed for at slette et produkt fra Pristjek220. 
+                <LineBreak/>
+                Produkter, som ingen af forretningerne i Pristjek220 har i deres sortiment,
+                fjernes automatisk. Her kan der i stedet slettes produkter, som der ikke ønskes i 
+                Pristjek220 af forskellige årsager, som f.eks. at producenten ikke overholder
+                menneskerettighederne.
                 <LineBreak/><LineBreak/>
                 - Funktionen er ikke implementeret endnu.
             </TextBlock>

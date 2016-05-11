@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,9 +25,20 @@ namespace Administration_GUI.User_Controls
         private ICommand _populatingNewProductCommand;
         private ICommand _illegalSignNewProductCommand;
         private ICommand _enterPressedCommand;
-        
 
+        public string NumberError { get; set; } = "";
         private string _oldtext = string.Empty;
+
+        private bool _isTextConfirm;
+        public bool IsTextConfirm
+        {
+            get { return _isTextConfirm; }
+            set
+            {
+                _isTextConfirm = value;
+                OnPropertyChanged();
+            }
+        }
 
 
         public ICommand AddToStoreDatabaseCommand => _addToStoreDatabaseCommand ?? (_addToStoreDatabaseCommand = new RelayCommand(AddToStoreDatabase));
@@ -58,13 +70,24 @@ namespace Administration_GUI.User_Controls
 
         private void AddToStoreDatabase()
         {
-            if (ShoppingListItemPrice > 0 && ShoppingListItem != null)
-
+            if (string.IsNullOrEmpty(ShoppingListItem))
             {
-                var result = CustomMsgBox.Show($"Vil du tilføje produktet \"{ShoppingListItem}\" med prisen {ShoppingListItemPrice} kr til din forretning?", "Bekræftelse", "Ja", "Nej");
+                IsTextConfirm = false;
+                ConfirmText = "Indtast venligst navnet på det produkt der skal tilføjes.";
+                return;
+            }
+
+            double resultPrice = double.Parse(ShoppingListItemPrice, CultureInfo.CurrentCulture);
+            if (resultPrice > 0 && ShoppingListItem != null)
+            {
+                var result =
+                    CustomMsgBox.Show(
+                        $"Vil du tilføje produktet \"{ShoppingListItem}\" med prisen {ShoppingListItemPrice} kr til din forretning?",
+                        "Bekræftelse", "Ja", "Nej");
                 if (result != DialogResult.Yes)
                 {
-                    ConfirmText = "Der blev ikke bekræftet";
+                    IsTextConfirm = false;
+                    ConfirmText = "Der blev ikke bekræftet.";
                     return;
                 }
 
@@ -78,24 +101,29 @@ namespace Administration_GUI.User_Controls
                     product = _manager.FindProduct(productName);
                 }
 
-                if (_manager.AddProductToMyStore(product, ShoppingListItemPrice) != 0)
+                if (_manager.AddProductToMyStore(product, resultPrice) != 0)
                 {
-                    ConfirmText = ($"Produktet {productName} findes allerede");
+                    IsTextConfirm = false;
+                    ConfirmText = ($"Produktet \"{productName}\" findes allerede.");
                     return;
                 }
-
+                IsTextConfirm = true;
                 ConfirmText =
-                    ($"{ShoppingListItem} er indsat til prisen {ShoppingListItemPrice} kr. i din forretning");
+                    ($"Produktet \"{ShoppingListItem}\" er indsat til prisen {ShoppingListItemPrice} kr. i din forretning.");
             }
             else
-                ConfirmText = "Prisen er ugyldig";
+            {
+                IsTextConfirm = false;
+                ConfirmText = "Prisen er ugyldig.";
+            }
         }
 
         private void IllegalSignNewProduct()
         {
             if (ShoppingListItem == null) return;
             if (ShoppingListItem.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr))) return;
-            ConfirmText = ($"Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9");
+            IsTextConfirm = false;
+            ConfirmText = ($"Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9.");
             ShoppingListItem = _oldtext;
         }
 
@@ -111,14 +139,22 @@ namespace Administration_GUI.User_Controls
             get { return _shoppingListItem; }
         }
 
-        private double _shoppingListItemPrice;
+        private string _shoppingListItemPrice = "0";
 
-        public double ShoppingListItemPrice
+        public string ShoppingListItemPrice
         {
             set
             {
-               _shoppingListItemPrice = Math.Round(value, 2);
-                OnPropertyChanged();
+                double result;
+
+                if (double.TryParse(value, NumberStyles.Number, CultureInfo.CurrentCulture, out result))
+                {
+                    _shoppingListItemPrice = Math.Round(result, 2).ToString("F");
+                }
+                else
+                {
+                    _shoppingListItemPrice = "0";
+                }
             }
             get { return _shoppingListItemPrice; }
         }

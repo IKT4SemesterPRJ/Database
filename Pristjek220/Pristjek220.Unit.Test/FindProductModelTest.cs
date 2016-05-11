@@ -41,7 +41,7 @@ namespace Pristjek220.Unit.Test
             _findProduct.ProductName = "Banan";
             _findProduct.User.FindStoresThatSellsProduct(_findProduct.ProductName).Returns(new List<StoreAndPrice>());
             _findProduct.AddToStoreListCommand.Execute(this);
-            Assert.That(_findProduct.Error, Is.EqualTo("Produktet findes ikke"));   
+            Assert.That(_findProduct.Error, Is.EqualTo($"Produktet \"{_findProduct.ProductName}\" findes ikke i Pristjek220."));   
         }
 
         [Test]
@@ -85,7 +85,7 @@ namespace Pristjek220.Unit.Test
             _findProduct.ProductName = "banan.";
             _findProduct.IllegalSignFindProductCommand.Execute(this);
 
-            Assert.That(_findProduct.Error, Is.EqualTo("Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9"));
+            Assert.That(_findProduct.Error, Is.EqualTo("Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9."));
 
         }
 
@@ -105,7 +105,7 @@ namespace Pristjek220.Unit.Test
             _findProduct.ProductName = "banan,";
             _findProduct.IllegalSignFindProductCommand.Execute(this);
 
-            Assert.That(_findProduct.Error, Is.EqualTo("Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9"));
+            Assert.That(_findProduct.Error, Is.EqualTo("Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9."));
 
         }
 
@@ -125,7 +125,7 @@ namespace Pristjek220.Unit.Test
             _findProduct.ProductName = "banan,";
             _findProduct.IllegalSignFindProductCommand.Execute(this);
 
-            Assert.That(_findProduct.Error, Is.EqualTo("Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9"));
+            Assert.That(_findProduct.Error, Is.EqualTo("Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9."));
 
         }
 
@@ -138,7 +138,5 @@ namespace Pristjek220.Unit.Test
             Assert.That(_findProduct.Error, Is.EqualTo(null));
 
         }
-
-
     }
 }

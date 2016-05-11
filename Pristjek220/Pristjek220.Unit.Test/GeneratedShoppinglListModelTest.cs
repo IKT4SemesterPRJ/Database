@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Consumer;
 using Consumer_GUI.User_Controls;
@@ -41,7 +42,7 @@ namespace Pristjek220.Unit.Test
             _user.GeneratedShoppingListData = new ObservableCollection<StoreProductAndPrice>();
             _user.NotInAStore = new ObservableCollection<ProductInfo>() ;
             _uut.SendMailCommand.Execute(this);
-            Assert.That(_uut.ErrorText, Is.EqualTo("E-mail afsendt"));
+            Assert.That(_uut.ErrorText, Is.EqualTo("E-mail afsendt."));
         }
 
         [Test]
@@ -53,6 +54,7 @@ namespace Pristjek220.Unit.Test
             _user.GeneratedShoppingListData = new ObservableCollection<StoreProductAndPrice>();
             _user.NotInAStore = new ObservableCollection<ProductInfo>();
             _uut.SendMailCommand.Execute(this);
+            Thread.Sleep(500); //Den kalder en baggrundstråd, så den skal lige være kaldt.
             _mail.Received(1).SendMail("test@sesese.dk", Arg.Any<ObservableCollection<StoreProductAndPrice>>(), Arg.Any<ObservableCollection<ProductInfo>>(), "22");
         }
     }

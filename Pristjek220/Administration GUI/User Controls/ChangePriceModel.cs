@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -22,7 +24,7 @@ namespace Administration_GUI.User_Controls
         private ICommand _enterPressedCommand;
         private ICommand _populatingDeleteProductCommand;
 
-
+        public string NumberError { get; set; } = "";
         private string _oldtext = string.Empty;
 
         public ChangePriceModel(Store store, IUnitOfWork unit)
@@ -30,6 +32,17 @@ namespace Administration_GUI.User_Controls
             _store = store;
             _manager = new Storemanager(unit, _store);
             _autocomplete = new SharedFunctionalities.Autocomplete(unit);
+        }
+
+        private bool _isTextConfirm;
+        public bool IsTextConfirm
+        {
+            get { return _isTextConfirm; }
+            set
+            {
+                _isTextConfirm = value;
+                OnPropertyChanged();
+            }
         }
 
         public ICommand ChangeProductPriceInStoreDatabaseCommand
@@ -61,31 +74,45 @@ namespace Administration_GUI.User_Controls
 
         private void ChangeProductPriceInStoreDatabase()
         {
-            if (string.IsNullOrEmpty(ShoppingListItem)) return;
-
-            if (ShoppingListItemPrice > 0)
+            if (string.IsNullOrEmpty(ShoppingListItem))
+            {
+                IsTextConfirm = false;
+                ConfirmText = "Indtast venligst navnet på det produkt hvis pris skal ændres.";
+                return;
+            }
+            double resultPrice = double.Parse(ShoppingListItemPrice, CultureInfo.CurrentCulture);
+            if (resultPrice > 0)
             {
                 var productName = char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower();
 
                 var product = _manager.FindProduct(productName);
                 if (product != null && _manager.FindProductInStore(productName) != null)
                 {
-                    var result = CustomMsgBox.Show($"Vil du ændre prisen på \"{ShoppingListItem}\" til {ShoppingListItemPrice} kr?", "Bekræftelse", "Ja", "Nej");
+                    var result =
+                        CustomMsgBox.Show(
+                            $"Vil du ændre prisen på produktet \"{ShoppingListItem}\" til {ShoppingListItemPrice} kr?",
+                            "Bekræftelse", "Ja", "Nej");
                     if (result != DialogResult.Yes)
                     {
-                        ConfirmText = "Der blev ikke bekræftet";
+                        IsTextConfirm = false;
+                        ConfirmText = "Der blev ikke bekræftet.";
                         return;
                     }
-                    _manager.changePriceOfProductInStore(product, ShoppingListItemPrice);
-                    ConfirmText = ($"Prisen for produktet {productName} er ændret til {ShoppingListItemPrice} kr.");
+                    _manager.changePriceOfProductInStore(product, resultPrice);
+                    IsTextConfirm = true;
+                    ConfirmText = ($"Prisen for produktet \"{productName}\" er ændret til {ShoppingListItemPrice} kr.");
                 }
                 else
                 {
-                    ConfirmText = ($"Produktet {productName} findes ikke i din forretning");
+                    IsTextConfirm = false;
+                    ConfirmText = ($"Produktet \"{productName}\" findes ikke i din forretning.");
                 }
             }
             else
-                ConfirmText = "Prisen er ugyldig";
+            {
+                IsTextConfirm = false;
+                ConfirmText = "Prisen er ugyldig.";
+            }
         }
 
 
@@ -93,7 +120,8 @@ namespace Administration_GUI.User_Controls
         {
             if (ShoppingListItem == null) return;
             if (ShoppingListItem.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr))) return;
-            ConfirmText = ($"Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9");
+            IsTextConfirm = false;
+            ConfirmText = ($"Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9.");
             ShoppingListItem = _oldtext;
         }
 
@@ -110,14 +138,22 @@ namespace Administration_GUI.User_Controls
             get { return _shoppingListItem; }
         }
 
-        private double _shoppingListItemPrice;
+        private string _shoppingListItemPrice = "0";
 
-        public double ShoppingListItemPrice
+        public string ShoppingListItemPrice
         {
             set
             {
-                _shoppingListItemPrice = value;
-                OnPropertyChanged();
+                double result;
+
+                if (double.TryParse(value, NumberStyles.Number, CultureInfo.CurrentCulture, out result))
+                {
+                    _shoppingListItemPrice = Math.Round(result, 2).ToString("F");
+                }
+                else
+                {
+                    _shoppingListItemPrice = "0";
+                }
             }
             get { return _shoppingListItemPrice; }
         }

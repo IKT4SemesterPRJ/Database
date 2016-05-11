@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -30,7 +31,7 @@ namespace Consumer_GUI.User_Controls
 
 
         private ProductInfo _selectedItem;
-        private string _shoppinglistItem;
+        private string _shoppinglistItem = string.Empty;
         private string _error;
 
         public string Error
@@ -43,12 +44,24 @@ namespace Consumer_GUI.User_Controls
             }
         }
 
+        private bool _isTextConfirm;
+        public bool IsTextConfirm
+        {
+            get { return _isTextConfirm; }
+            set
+            {
+                _isTextConfirm = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ShoppingListModel(IConsumer user, IUnitOfWork unit)
         {
             _user = user;
             ShoppingListData = new ObservableCollection<ProductInfo>();
             _unit = unit;
             _user.ReadFromJsonFile();
+            Error = "";
         }
 
         public ICommand AddToShoppingListCommand
@@ -139,6 +152,7 @@ namespace Consumer_GUI.User_Controls
             {
                 _oldtext = _shoppinglistItem;
                 _shoppinglistItem = value;
+                OnPropertyChanged();
             }
             get { return _shoppinglistItem; }
         }
@@ -178,10 +192,16 @@ namespace Consumer_GUI.User_Controls
         private void DeleteFromShoppingList()
         {
             if (SelectedItem == null)
-                Error = "Du skal markere et produkt, før du kan slette";
+            {
+                IsTextConfirm = false;
+                Error = "Du skal markere et produkt, før du kan slette.";
+            }
 
             else if (_user.ShoppingListData.Count == 0)
-                Error = "Der er ikke tilføjet nogen produkter";
+            {
+                IsTextConfirm = false;
+                Error = "Der er ikke tilføjet nogen produkter.";
+            }
 
             else
             {
@@ -208,10 +228,11 @@ namespace Consumer_GUI.User_Controls
         {
             if (!ShoppingListItem.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr)))
             {
-                Error = "Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9";
+                IsTextConfirm = false;
+                Error = "Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9.";
                 ShoppingListItem = _oldtext;
             }
-            else
+            else if(ShoppingListItem == _oldtext)
             {
                 Error = string.Empty;
             }

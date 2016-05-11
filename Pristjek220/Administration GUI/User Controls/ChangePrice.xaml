@@ -37,12 +37,12 @@
         <controls:AutoCompleteBox 
             ItemsSource="{Binding AutoCompleteList}" 
             Text="{Binding ShoppingListItem, Mode=TwoWay}" 
-            BorderThickness="1 1 1 1"
             Grid.Column="1" 
             Grid.Row="2" 
             Height="25" 
             VerticalAlignment="Top" 
             VerticalContentAlignment="Center"
+            HorizontalAlignment="Stretch"
             Width="139"
             TabIndex="1" 
             BorderBrush="#FFABADB3" 
@@ -64,7 +64,6 @@
         <TextBox
             
             Text="{Binding ShoppingListItemPrice}"
-            BorderThickness="1 1 1 1"
             Grid.Column="3" 
             Grid.Row="2" 
             Height="25" 
@@ -101,8 +100,21 @@
             Grid.Row="3" 
             Margin="0,15,0,0" 
             Height="27" 
-            Foreground="Crimson"
-            Grid.ColumnSpan="4"/>
+            FontWeight="SemiBold"
+            Grid.ColumnSpan="4">
+            <Label.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding ="{Binding IsTextConfirm}" Value ="True">
+                            <Setter Property="Label.Foreground" Value ="Green" />
+                        </DataTrigger>
+                        <DataTrigger Binding ="{Binding IsTextConfirm}" Value ="False">
+                            <Setter Property="Label.Foreground" Value ="Crimson" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
         <Label 
             FontStyle="Italic"
             HorizontalAlignment="Left" 
@@ -137,6 +149,17 @@
         	VerticalAlignment="Top" 
         	VerticalContentAlignment="Bottom"
         	Width="38" 
+            Margin="0,7,0,0"/>
+        <Label 
+        	Content="{Binding NumberError}" 
+        	Foreground="Crimson"
+        	Grid.Column="4" 
+            Grid.Row="2"
+            Grid.ColumnSpan="2"
+        	HorizontalAlignment="Left" 
+        	Height="27"  
+        	VerticalAlignment="Top" 
+        	VerticalContentAlignment="Bottom"
             Margin="0,7,0,0"/>
     </Grid>
 </UserControl>
