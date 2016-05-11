@@ -12,6 +12,7 @@ namespace Administration_GUI.User_Controls
 {
     public class DeleteProductModel : ObservableObject, IPageViewModel
     {
+        private readonly System.Timers.Timer _timer = new System.Timers.Timer(2500);
         private readonly IAutocomplete _autocomplete;
         private readonly IStoremanager _manager;
         private ICommand _deleteFromStoreDatabaseCommand;
@@ -131,6 +132,9 @@ namespace Administration_GUI.User_Controls
             {
                 _confirmText = value;
                 OnPropertyChanged();
+                _timer.Stop();
+                _timer.Start();
+                _timer.Elapsed += delegate { _confirmText = ""; OnPropertyChanged(); };
             }
             get { return _confirmText; }
         }

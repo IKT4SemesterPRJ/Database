@@ -18,6 +18,7 @@ namespace Administration_GUI.User_Controls
 {
     public class NewProductModel : ObservableObject, IPageViewModel
     {
+        private readonly System.Timers.Timer _timer = new System.Timers.Timer(2500);
         private readonly IAutocomplete _autocomplete;
         private readonly IStoremanager _manager;
 
@@ -26,7 +27,6 @@ namespace Administration_GUI.User_Controls
         private ICommand _illegalSignNewProductCommand;
         private ICommand _enterPressedCommand;
 
-        public string NumberError { get; set; } = "";
         private string _oldtext = string.Empty;
 
         private bool _isTextConfirm;
@@ -162,6 +162,9 @@ namespace Administration_GUI.User_Controls
             {
                 _confirmText = value;
                 OnPropertyChanged();
+                _timer.Stop();
+                _timer.Start();
+                _timer.Elapsed += delegate { _confirmText = ""; OnPropertyChanged(); };
             }
             get { return _confirmText; }
         }

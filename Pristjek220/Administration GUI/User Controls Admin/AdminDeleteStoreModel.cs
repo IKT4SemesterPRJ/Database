@@ -13,6 +13,7 @@ namespace Administration_GUI.User_Controls_Admin
 {
     class AdminDeleteStoreModel : ObservableObject, IPageViewModelAdmin
     {
+        private readonly System.Timers.Timer _timer = new System.Timers.Timer(2500);
         private readonly IAutocomplete _autocomplete;
         private readonly Administration.Admin _admin;
         private ICommand _deleteFromLoginDatabaseCommand;
@@ -89,6 +90,9 @@ namespace Administration_GUI.User_Controls_Admin
             {
                 _error = value;
                 OnPropertyChanged();
+                _timer.Stop();
+                _timer.Start();
+                _timer.Elapsed += delegate { _error = ""; OnPropertyChanged(); };
             }
         }
 

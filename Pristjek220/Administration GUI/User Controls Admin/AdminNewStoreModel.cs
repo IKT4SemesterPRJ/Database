@@ -1,4 +1,5 @@
 ﻿using System.Security;
+using System.Timers;
 using System.Windows;
 using System.Windows.Input;
 using Administration_GUI;
@@ -9,6 +10,7 @@ namespace Administration_GUI.User_Controls_Admin
 {
     class AdminNewStoreModel : ObservableObject, IPageViewModelAdmin
     {
+        private readonly Timer _timer = new Timer(2500);
         public string NewStoreName { get; set; }
         public SecureString SecurePassword { private get; set; }
         public SecureString SecurePasswordConfirm { private get; set; }
@@ -20,6 +22,9 @@ namespace Administration_GUI.User_Controls_Admin
             {
                 _error = value;
                 OnPropertyChanged();
+                _timer.Stop();
+                _timer.Start();
+                _timer.Elapsed += delegate { _error = ""; OnPropertyChanged(); };
             }
         }
         private string _error = string.Empty;
