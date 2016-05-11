@@ -30,11 +30,13 @@ namespace Administration_GUI
 
         public static DialogResult Show(string LabelText, string caption, string btn1, string btn2)
         {
-            customMsgBox = new CustomMsgBox();
-            customMsgBox.BtnLeft.Content = btn1;
-            customMsgBox.BtnRight.Content = btn2;
-            customMsgBox.TextBlock.Text = LabelText;
-            customMsgBox.Title = caption;
+            customMsgBox = new CustomMsgBox
+            {
+                BtnLeft = {Content = btn1},
+                BtnRight = {Content = btn2},
+                TextBlock = {Text = LabelText},
+                Title = caption
+            };
             customMsgBox.ShowDialog();
             return result;
         }

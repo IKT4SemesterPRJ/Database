@@ -50,36 +50,15 @@ namespace Consumer_GUI.User_Controls
             }
         }
 
-        public ICommand AddToStoreListCommand
-        {
-            get { return _addToStoreListCommand ?? (_addToStoreListCommand = new RelayCommand(AddToStoreList)); }
-        }
+        public ICommand AddToStoreListCommand => _addToStoreListCommand ?? (_addToStoreListCommand = new RelayCommand(AddToStoreList));
 
-        public ICommand PopulatingFindProductCommand
-        {
-            get
-            {
-                return _populatingFindProductCommand ??
-                       (_populatingFindProductCommand = new RelayCommand(PopulatingListFindProduct));
-            }
-        }
+        public ICommand PopulatingFindProductCommand => _populatingFindProductCommand ??
+                                                        (_populatingFindProductCommand = new RelayCommand(PopulatingListFindProduct));
 
-        public ICommand IllegalSignFindProductCommand
-        {
-            get
-            {
-                return _illegalSignFindProductCommand ??
-                       (_illegalSignFindProductCommand = new RelayCommand(IllegalSignFindProduct));
-            }
-        }
+        public ICommand IllegalSignFindProductCommand => _illegalSignFindProductCommand ??
+                                                         (_illegalSignFindProductCommand = new RelayCommand(IllegalSignFindProduct));
 
-        public ICommand EnterKeyPressedCommand
-        {
-            get
-            {
-                return _enterPressedCommand ?? (_enterPressedCommand = new RelayCommand<KeyEventArgs>(EnterKeyPressed));
-            }
-        }
+        public ICommand EnterKeyPressedCommand => _enterPressedCommand ?? (_enterPressedCommand = new RelayCommand<KeyEventArgs>(EnterKeyPressed));
 
         public string ProductName
         {
@@ -145,12 +124,10 @@ namespace Consumer_GUI.User_Controls
 
         private void IllegalSignFindProduct()
         {
-            if (!ProductName.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr)))
-            {
-                IsTextConfirm = false;
-                Error = "Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9.";
-                ProductName = _oldtext;
-            }
+            if (ProductName.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr))) return;
+            IsTextConfirm = false;
+            Error = "Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9.";
+            ProductName = _oldtext;
         }
 
         private void EnterKeyPressed(KeyEventArgs e)

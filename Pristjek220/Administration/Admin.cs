@@ -36,24 +36,24 @@ namespace Administration
             if (code == "")
                 return -2;
 
-            using (SHA256 hash = SHA256Managed.Create())
+            using (var hash = SHA256Managed.Create())
             {
-                Encoding enc = Encoding.UTF8;
+                var enc = Encoding.UTF8;
 
                 //the user id is the salt. 
                 //So 2 users with same password have different hashes. 
                 //For example if someone knows his own hash he can't see who has same password
-                string input = code;
-                Byte[] result = hash.ComputeHash(enc.GetBytes(input));
+                var input = code;
+                var result = hash.ComputeHash(enc.GetBytes(input));
 
-                StringBuilder Sb = new StringBuilder();
-                foreach (Byte b in result)
+                var Sb = new StringBuilder();
+                foreach (var b in result)
                     Sb.Append(b.ToString("x2"));
                 code = Sb.ToString();
             }
 
 
-            Store store = new Store() {StoreName = storeName};
+            var store = new Store() {StoreName = storeName};
             AddStore(store);
             userName = char.ToUpper(userName[0]) + userName.Substring(1).ToLower();
             var login = new Pristjek220Data.Login() {Username = userName, Password = code, Store = store};
@@ -75,7 +75,7 @@ namespace Administration
                 return string.Empty;
             }
 
-            IntPtr unmanagedString = IntPtr.Zero;
+            var unmanagedString = IntPtr.Zero;
             try
             {
                 unmanagedString = Marshal.SecureStringToGlobalAllocUnicode(securePassword);
