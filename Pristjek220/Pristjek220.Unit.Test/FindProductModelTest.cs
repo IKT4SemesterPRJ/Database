@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Consumer_GUI.User_Controls;
 using NSubstitute;
@@ -126,7 +127,6 @@ namespace Pristjek220.Unit.Test
             _findProduct.IllegalSignFindProductCommand.Execute(this);
 
             Assert.That(_findProduct.Error, Is.EqualTo("Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9."));
-
         }
 
         [Test]
@@ -137,6 +137,16 @@ namespace Pristjek220.Unit.Test
 
             Assert.That(_findProduct.Error, Is.EqualTo(null));
 
+        }
+
+        [Test]
+        public void Error_commadTypedWait5sekToSeeErrorGetsCleared_ErrorEqualsEmptyString()
+        {
+            _findProduct.ProductName = "banan,";
+            _findProduct.IllegalSignFindProductCommand.Execute(this);
+            Thread.Sleep(5000);
+
+            Assert.That(_findProduct.Error, Is.EqualTo(""));
         }
     }
 }

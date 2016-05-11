@@ -1,11 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
 using System.Windows.Input;
 using Consumer;
 using GalaSoft.MvvmLight.Command;
 using Pristjek220Data;
 using System.Runtime.CompilerServices;
+using System.Timers;
 using SharedFunctionalities;
 
 [assembly:InternalsVisibleTo("Pristjek220.Unit.Test")]
@@ -15,6 +15,7 @@ namespace Consumer_GUI.User_Controls
 {
     internal class FindProductModel : ObservableObject, IPageViewModel
     {
+        private readonly Timer _timer = new Timer(2500);
         private readonly IUnitOfWork _unit;
         private ICommand _addToStoreListCommand;
         private ICommand _enterPressedCommand;
@@ -47,6 +48,9 @@ namespace Consumer_GUI.User_Controls
             {
                 _error = value;
                 OnPropertyChanged();
+                _timer.Stop();
+                _timer.Start();
+                _timer.Elapsed += delegate { _error = ""; OnPropertyChanged(); };
             }
         }
 
@@ -74,7 +78,7 @@ namespace Consumer_GUI.User_Controls
         public ObservableCollection<string> AutoCompleteList { get; } = new ObservableCollection<string>();
         public ObservableCollection<StoreAndPrice> StorePrice { get; set; } = new ObservableCollection<StoreAndPrice>();
 
-        public FindProductModel(Consumer.IConsumer user, IUnitOfWork unit)
+        public FindProductModel(IConsumer user, IUnitOfWork unit)
         {
             User = user;
             _unit = unit;
@@ -112,7 +116,7 @@ namespace Consumer_GUI.User_Controls
 
         private void PopulatingListFindProduct()
         {
-            IAutocomplete autocomplete = new SharedFunctionalities.Autocomplete(_unit);
+            IAutocomplete autocomplete = new Autocomplete(_unit);
             AutoCompleteList?.Clear();
             foreach (var item in autocomplete.AutoCompleteProduct(ProductName))
             {

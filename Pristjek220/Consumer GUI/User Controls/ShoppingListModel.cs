@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics.Eventing.Reader;
 using System.Linq;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -15,6 +16,7 @@ namespace Consumer_GUI.User_Controls
     internal class ShoppingListModel : ObservableObject, IPageViewModel
     {
         private readonly IUnitOfWork _unit;
+        private readonly Timer _timer = new Timer(2500);
         public IConsumer User { get; }
 
         public ObservableCollection<StoresInPristjek> OptionsStores => User.OptionsStores; 
@@ -41,6 +43,9 @@ namespace Consumer_GUI.User_Controls
             {
                 _error = value;
                 OnPropertyChanged();
+                _timer.Stop();
+                _timer.Start();
+                _timer.Elapsed += delegate { _error = ""; OnPropertyChanged(); };
             }
         }
 

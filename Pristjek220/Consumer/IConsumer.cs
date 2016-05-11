@@ -10,7 +10,7 @@ namespace Consumer
         ObservableCollection<ProductInfo> ShoppingListData { get; set; }
         ObservableCollection<ProductInfo> NotInAStore { get; set; }
         ObservableCollection<StoresInPristjek> OptionsStores { get; set; }
-        List<string> StoreNames { get; }
+        List<string> StoreNames { get; set; }
         string TotalSum { get; set; }
         string BuyInOneStore { get; set; }
         string MoneySaved { get; set; }

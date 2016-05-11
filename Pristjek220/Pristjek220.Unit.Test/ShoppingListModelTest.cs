@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Consumer;
 using Consumer_GUI.User_Controls;
@@ -151,7 +152,6 @@ namespace Pristjek220.Unit.Test
             _shoppingList.DeleteFromShoppingListCommand.Execute(this);
 
             Assert.That(_shoppingList.Error, Is.EqualTo("Du skal markere et produkt, før du kan slette."));
-
         }
 
         [Test]
@@ -218,6 +218,15 @@ namespace Pristjek220.Unit.Test
         {
             _shoppingList.GeneratedShoppingListCommand.Execute(this);
             _shoppingList.User.Received(1).ClearNotInAStore();
+        }
+
+        [Test]
+        public void Error_DeleteIsPressedWithNoItemSelectedWait5Sec_ErrorIsEmpty()
+        {
+            _shoppingList.DeleteFromShoppingListCommand.Execute(this);
+            Thread.Sleep(5000);
+
+            Assert.That(_shoppingList.Error, Is.EqualTo(""));
         }
     }
 }

@@ -7,11 +7,14 @@ using System.Windows.Input;
 using Consumer;
 using GalaSoft.MvvmLight.Command;
 using Pristjek220Data;
+using System.Timers;
 
 namespace Consumer_GUI.User_Controls
 {
     public class GeneratedShoppingListModel : ObservableObject, IPageViewModel
     {
+        private readonly System.Timers.Timer _timerErrorStore = new System.Timers.Timer(2500);
+        private readonly System.Timers.Timer _timerErrorText = new System.Timers.Timer(2500);
         private readonly IMail _mail;
         private readonly IConsumer _user;
 
@@ -31,7 +34,21 @@ namespace Consumer_GUI.User_Controls
         }
 
         public string TotalSum => _user.TotalSum;
-        public string ErrorStore { get; set; }
+        private string _errorStore;
+
+        public string ErrorStore
+        {
+            get { return _errorStore; }
+            set
+            {
+                _errorStore = value;
+                OnPropertyChanged();
+                _timerErrorStore.Stop();
+                _timerErrorStore.Start();
+                _timerErrorStore.Elapsed += delegate { _errorStore = ""; OnPropertyChanged(); };
+            } 
+            
+        }
         public string EmailAddress
         {
             set
@@ -67,11 +84,12 @@ namespace Consumer_GUI.User_Controls
             {
                 _errorText = value;
                 OnPropertyChanged();
+                _timerErrorText.Stop();
+                _timerErrorText.Start();
+                _timerErrorText.Elapsed += delegate { _errorText = ""; OnPropertyChanged(); };
             }
             get { return _errorText; }
         }
-
-        public string ChoosenStoreName { get; set; }
 
         public List<string> StoreNames => _user.StoreNames;
 

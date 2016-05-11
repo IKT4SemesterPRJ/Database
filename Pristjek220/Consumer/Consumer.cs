@@ -90,7 +90,7 @@ namespace Consumer
             }
         }
 
-        private readonly List<string> _storeNames = new List<string>();
+        private List<string> _storeNames = new List<string>();
         public List<string> StoreNames
         {
             get
@@ -105,7 +105,8 @@ namespace Consumer
                     return _storeNames;
                 }
                 return _storeNames;
-            } 
+            }
+            set { _storeNames = value; }
         } 
 
         public ObservableCollection<ProductInfo> NotInAStore { get; set; }
