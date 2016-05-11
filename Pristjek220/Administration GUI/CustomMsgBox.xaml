@@ -35,7 +35,7 @@
         </Grid.ColumnDefinitions>
 
         <Label    
-        Name="Label1"
+        
         Grid.Row="1"
         Grid.Column="1"
         Grid.ColumnSpan="2"

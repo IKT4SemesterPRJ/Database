@@ -114,18 +114,15 @@ namespace Consumer
         {
             var productIndex = GeneratedShoppingListData.IndexOf(product);
             ProductAndPrice productAndPrice;
-            if ((productAndPrice = _unit.Stores.FindProductInStore(storeName, product.ProductName)) != null)
-            {
-                var newSum = productAndPrice.Price*double.Parse(GeneratedShoppingListData[productIndex].Quantity);
-                GeneratedShoppingListData[productIndex] = new StoreProductAndPrice() { Price = productAndPrice.Price, ProductName = GeneratedShoppingListData[productIndex].ProductName, Quantity = GeneratedShoppingListData[productIndex].Quantity, StoreName = storeName, Sum = newSum};
-                var sum = CalculateSumForGeneratedList();
-                var diff = new StoreAndPrice();
-                if((diff = FindDifferenceforProducts()) != null)
-                    MoneySaved = (diff.Price - sum).ToString(CultureInfo.CurrentCulture) + " kr";
+            if ((productAndPrice = _unit.Stores.FindProductInStore(storeName, product.ProductName)) == null) return -1;
+            var newSum = productAndPrice.Price*double.Parse(GeneratedShoppingListData[productIndex].Quantity);
+            GeneratedShoppingListData[productIndex] = new StoreProductAndPrice() { Price = productAndPrice.Price, ProductName = GeneratedShoppingListData[productIndex].ProductName, Quantity = GeneratedShoppingListData[productIndex].Quantity, StoreName = storeName, Sum = newSum};
+            var sum = CalculateSumForGeneratedList();
+            StoreAndPrice diff;
+            if((diff = FindDifferenceforProducts()) != null)
+                MoneySaved = (diff.Price - sum).ToString(CultureInfo.CurrentCulture) + " kr";
 
-                return 1;
-            }
-            return -1;
+            return 1;
         }
 
 
@@ -160,13 +157,13 @@ namespace Consumer
 
         public StoreAndPrice FindCheapestStoreWithSumForListOfProducts(List<ProductInfo> products)
         {
-            var cheapestStore = new StoreAndPrice() {Price = Double.MaxValue};
+            var cheapestStore = new StoreAndPrice() {Price = double.MaxValue};
 
             var list = _unit.Products.FindCheapestStoreForAllProductsWithSum(products);
             if (list == null || list.Count == 0)
                 return null;
 
-            string name = list[0].Name;
+            var name = list[0].Name;
             double sum = 0;
 
             foreach (var item in list)
@@ -202,7 +199,7 @@ namespace Consumer
 
         private double CalculateSumForGeneratedList()
         {
-            double sum = GeneratedShoppingListData.Sum(item => item.Sum);
+            var sum = GeneratedShoppingListData.Sum(item => item.Sum);
             TotalSum = sum.ToString(CultureInfo.CurrentCulture) + " kr";
             return sum;
         }
@@ -246,7 +243,7 @@ namespace Consumer
                 serializer.Serialize(file, _shoppingListData);
             }
         }
-        ///
+        
         public void ReadFromJsonFile()
         {
             try

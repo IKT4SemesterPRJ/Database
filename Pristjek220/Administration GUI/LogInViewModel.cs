@@ -39,11 +39,9 @@ namespace Administration_GUI
 
             IDatabaseFunctions databaseFunctions = new DatabaseFunctions(_unit);
 
-            if (!databaseFunctions.ConnectToDB()) //Force database to connect at startup, and close application if it cant connect
-            {
-                MessageBox.Show("Der kan ikke tilsluttes til serveren.", "ERROR", MessageBoxButton.OK);
-                Application.Current.MainWindow.Close();
-            }
+            if (databaseFunctions.ConnectToDB()) return;
+            MessageBox.Show("Der kan ikke tilsluttes til serveren.", "ERROR", MessageBoxButton.OK);
+            Application.Current.MainWindow.Close();
         }
 
         private ICommand _logInCommand;
@@ -79,7 +77,7 @@ namespace Administration_GUI
         private void ChangeWindowAdmin()
         {
             var LogInGui = Application.Current.MainWindow;
-            Admin adminGUI = new Admin(_unit);
+            var adminGUI = new Admin(_unit);
             adminGUI.Show();
             LogInGui.Close();
             Application.Current.MainWindow = adminGUI;
@@ -88,7 +86,7 @@ namespace Administration_GUI
         private void ChangeWindowStoremanager()
         {
             var logInGui = Application.Current.MainWindow;
-            StoremanagerGUI storemanagerGUI = new StoremanagerGUI(_loginstore, _unit);
+            var storemanagerGUI = new StoremanagerGUI(_loginstore, _unit);
             storemanagerGUI.Show();
             logInGui.Close();
             Application.Current.MainWindow = storemanagerGUI;

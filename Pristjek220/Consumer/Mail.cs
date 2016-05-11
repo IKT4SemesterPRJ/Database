@@ -15,15 +15,17 @@ namespace Consumer
 {
     public class Mail : IMail
     {
-        private MailMessage _mail;
-        private ISmtpClientWrapper smtpClientWrapper;
+        private readonly MailMessage _mail;
+        private readonly ISmtpClientWrapper smtpClientWrapper;
         public Mail(ISmtpClientWrapper SmtpClient)
         {
             smtpClientWrapper = SmtpClient;
-            _mail = new MailMessage();
-            _mail.From = new MailAddress("pristjek220@gmail.com");
-            _mail.Subject = "Pristjek220 indkøbsliste";
-            _mail.IsBodyHtml = true;
+            _mail = new MailMessage
+            {
+                From = new MailAddress("pristjek220@gmail.com"),
+                Subject = "Pristjek220 indkøbsliste",
+                IsBodyHtml = true
+            };
         }
         public void SendMail(string email, ObservableCollection<StoreProductAndPrice> productListWithStore, ObservableCollection<ProductInfo> productListWithNoStore, string sum)
         {
@@ -35,7 +37,7 @@ namespace Consumer
         private string generateString(ObservableCollection<StoreProductAndPrice> productListWithStore,
             ObservableCollection<ProductInfo> productListWithNoStore, string sum)
         {
-            DateTime dateTime = DateTime.Now;
+            var dateTime = DateTime.Now;
             string bodyText = $"Kære bruger af Pristjek220,<br><br>Her er den generede indkøbsliste fra {dateTime}.<br><br>";
 
             bodyText += "<table>";

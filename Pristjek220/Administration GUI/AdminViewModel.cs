@@ -27,10 +27,7 @@ namespace Administration_GUI
             _currentPageViewModel = _pageViewModels[0];
         }
 
-        public ObservableCollection<IPageViewModelAdmin> PageViewModels
-        {
-            get { return _pageViewModels ?? (_pageViewModels = new ObservableCollection<IPageViewModelAdmin>()); }
-        }
+        public ObservableCollection<IPageViewModelAdmin> PageViewModels => _pageViewModels ?? (_pageViewModels = new ObservableCollection<IPageViewModelAdmin>());
 
         public IPageViewModelAdmin CurrentPageViewModel
         {
