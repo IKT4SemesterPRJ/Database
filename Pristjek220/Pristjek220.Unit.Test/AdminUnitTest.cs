@@ -101,6 +101,34 @@ namespace Pristjek220.Unit.Test
         }
 
         [Test]
+        public void FindStore_StoreExists_StoreIsReturned()
+        {
+            Store store = new Store() {StoreName = "Test"};
+            _unitOfWork.Stores.FindStore(store.StoreName).Returns(store);
+
+            Assert.That(_uut.FindStore(store.StoreName), Is.EqualTo(store));
+        }
+
+        [Test]
+        public void FindStore_StoreDoesNotExist_ReturnsNull()
+        {
+            Store store = new Store() { StoreName = "Test" };
+            _unitOfWork.Stores.FindStore(store.StoreName).ReturnsNull();
+
+            Assert.That(_uut.FindStore(store.StoreName), Is.EqualTo(null));
+        }
+
+        [Test]
+        public void FindStore_StoreExists_FindStoreIsCalledOnUnitOfWorkStores()
+        {
+            Store store = new Store() { StoreName = "Test" };
+
+            _uut.FindStore(store.StoreName);
+
+            _unitOfWork.Stores.Received(1).FindStore(store.StoreName);
+        }
+
+        [Test]
         public void DeleteStore_StoreDoesNotExist_ReturnsMinusOne()
         {
             Store store = new Store() {StoreName = "Test"};

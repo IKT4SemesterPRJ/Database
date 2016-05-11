@@ -112,24 +112,34 @@ namespace Administration_GUI.User_Controls_Admin
             }
 
             var storeName = char.ToUpper(DeleteStoreName[0]) + DeleteStoreName.Substring(1).ToLower();
+            var store = _admin.FindStore(storeName);
 
-            var result = CustomMsgBox.Show($"Vil du fjerne forretningen \"{storeName}\" fra Pristjek220?", "Bekræftelse", "Ja",
-                "Nej");
-            if (result != DialogResult.Yes)
+            if (store != null)
+            {
+                var result = CustomMsgBox.Show($"Vil du fjerne forretningen \"{storeName}\" fra Pristjek220?",
+                    "Bekræftelse", "Ja",
+                    "Nej");
+                if (result != DialogResult.Yes)
+                {
+                    IsTextConfirm = false;
+                    Error = "Der blev ikke bekræftet.";
+                    return;
+                }
+
+                if (_admin.DeleteStore(storeName) == -1)
+                {
+                    IsTextConfirm = false;
+                    Error = $"Forretningen \"{storeName}\" findes ikke i Pristjek220.";
+                    return;
+                }
+                IsTextConfirm = true;
+                Error = ($"Forretningen \"{storeName}\" er blevet fjernet fra Pristjek220.");
+            }
+            else
             {
                 IsTextConfirm = false;
-                Error = "Der blev ikke bekræftet.";
-                return;
+                Error = $"Forretningen \"{storeName}\" findes ikke i Pristjek220.";
             }
-
-            if (_admin.DeleteStore(storeName) == -1)
-            {
-                IsTextConfirm = false;
-                Error = "Forretningen findes ikke i Pristjek220.";
-                return;
-            }
-            IsTextConfirm = true;
-            Error = ($"Forretningen \"{storeName}\" er blevet fjernet fra Pristjek220.");
         }
 
         private void EnterKeyPressed(KeyEventArgs e)
