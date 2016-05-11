@@ -42,7 +42,7 @@ namespace Pristjek220.Unit.Test
         {
             _uut.EmailAddress = "test@sesese.dk";
             _user.GeneratedShoppingListData = new ObservableCollection<StoreProductAndPrice>();
-            _user.NotInAStore = new ObservableCollection<ProductInfo>() ;
+            _user.NotInAStore = new ObservableCollection<ProductInfo>() {new ProductInfo("Banan")} ;
             _uut.SendMailCommand.Execute(this);
             Assert.That(_uut.ErrorText, Is.EqualTo("E-mail afsendt."));
         }
@@ -58,6 +58,15 @@ namespace Pristjek220.Unit.Test
             _uut.SendMailCommand.Execute(this);
             Thread.Sleep(500); //Den kalder en baggrundstråd, så den skal lige være kaldt.
             _mail.Received(1).SendMail("test@sesese.dk", Arg.Any<ObservableCollection<StoreProductAndPrice>>(), Arg.Any<ObservableCollection<ProductInfo>>(), "22");
+        }
+
+        [Test]
+        public void SendEmail_WithEmptyEmail_SetsErrorTextToError()
+        {
+            _uut.EmailAddress = "";
+            
+            _uut.SendMailCommand.Execute(this);
+            Assert.That(_uut.ErrorText, Is.EqualTo("Indtast venligst din E-mail."));
         }
 
         [Test]
@@ -107,7 +116,27 @@ namespace Pristjek220.Unit.Test
             _user.ChangeItemToAnotherStore("Store0", storeProductAndPrice).Returns(0);
 
             _uut.StoreChangedCommand.Execute(this);
-            Assert.That(_uut.ErrorStore, Is.EqualTo("Store0 har ikke Test i deres sortiment"));
+            Assert.That(_uut.ErrorStore, Is.EqualTo("Store0 har ikke produktet \"Test\" i deres sortiment."));
+        }
+
+        [Test]
+        public void IsTextConfirm_SetToTrueAndSeeIfTrue_IsTrue()
+        {
+            _uut.IsTextConfirm = true;
+            Assert.That(_uut.IsTextConfirm, Is.EqualTo(true));
+        }
+        [Test]
+        public void BuyInOneStore_SetToTest_IsTest()
+        {
+            _user.BuyInOneStore = "Test";
+            Assert.That(_uut.BuyInOneStore, Is.EqualTo("Test"));
+        }
+
+        [Test]
+        public void MoneySaved_SetToTest_IsTest()
+        {
+            _user.MoneySaved = "Test";
+            Assert.That(_uut.MoneySaved, Is.EqualTo("Test"));
         }
     }
 }

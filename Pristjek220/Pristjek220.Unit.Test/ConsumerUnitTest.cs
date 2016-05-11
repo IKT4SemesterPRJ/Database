@@ -420,5 +420,13 @@ namespace Pristjek220.Unit.Test
             _uut.BuyInOneStore = "ABC";
             Assert.That(_uut.BuyInOneStore, Is.EqualTo("ABC"));
         }
+
+        [Test]
+        public void StoreNames_SetValueToABC_GetValueABC()
+        {
+            List<string> storeList = new List<string> { "Test" };
+            _uut.StoreNames = storeList;
+            Assert.That(_uut.StoreNames, Is.EqualTo(storeList));
+        }
     }
 }
