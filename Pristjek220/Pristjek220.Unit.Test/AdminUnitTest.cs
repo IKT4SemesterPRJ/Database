@@ -1,6 +1,7 @@
 ﻿using System.Security;
 using Administration;
 using NSubstitute;
+using NSubstitute.ReturnsExtensions;
 using NUnit.Framework;
 using Pristjek220Data;
 
@@ -97,6 +98,44 @@ namespace Pristjek220.Unit.Test
             store.StoreName = "Test";
             _unitOfWork.Stores.FindStore("Test").Returns(store);
             Assert.That(_uut.CreateLogin("Test", secureString, "Test"), Is.EqualTo(-1));
+        }
+
+        [Test]
+        public void DeleteStore_StoreDoesNotExist_ReturnsMinusOne()
+        {
+            Store store = new Store() {StoreName = "Test"};
+
+            _unitOfWork.Stores.FindStore(store.StoreName).ReturnsNull();
+            Assert.That(_uut.DeleteStore(store.StoreName), Is.EqualTo(-1));
+        }
+
+        [Test]
+        public void DeleteStore_StoreDoesExist_RemoveIsCalledOnStore()
+        {
+            Store store = new Store() { StoreName = "Test" };
+
+            _unitOfWork.Stores.FindStore(store.StoreName).Returns(store);
+            _uut.DeleteStore(store.StoreName);
+            _unitOfWork.Stores.Received(1).Remove(store);
+        }
+
+        [Test]
+        public void DeleteStore_StoreDoesExist_ChangesAreSaved()
+        {
+            Store store = new Store() { StoreName = "Test" };
+
+            _unitOfWork.Stores.FindStore(store.StoreName).Returns(store);
+            _uut.DeleteStore(store.StoreName);
+            _unitOfWork.Received(1).Complete();
+        }
+
+        [Test]
+        public void DeleteStore_StoreDoesExist_ReturnsZero()
+        {
+            Store store = new Store() { StoreName = "Test" };
+
+            _unitOfWork.Stores.FindStore(store.StoreName).Returns(store);
+            Assert.That(_uut.DeleteStore(store.StoreName), Is.EqualTo(0));
         }
     }
 }
