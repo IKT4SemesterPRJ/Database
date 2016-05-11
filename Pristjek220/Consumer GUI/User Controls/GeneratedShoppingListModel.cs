@@ -42,6 +42,18 @@ namespace Consumer_GUI.User_Controls
 
             get { return _emailAddress; }
         }
+
+        private bool _isTextConfirm;
+        public bool IsTextConfirm
+        {
+            get { return _isTextConfirm; }
+            set
+            {
+                _isTextConfirm = value;
+                OnPropertyChanged();
+            }
+        }
+
         public string BuyInOneStore => _user.BuyInOneStore;
         public string MoneySaved => _user.MoneySaved;
 
@@ -120,9 +132,10 @@ namespace Consumer_GUI.User_Controls
                 }
                 else
                 {
-                    ErrorStore = StoreNames[SelectedStoreIndex] + " har ikke " +
+                    IsTextConfirm = false;
+                    ErrorStore = StoreNames[SelectedStoreIndex] + " har ikke produktet \"" +
                                  GeneratedShoppingListData[SelectedIndexGeneratedShoppingList].ProductName +
-                                 " i deres sortiment";
+                                 "\" i deres sortiment.";
                 }
                 OnPropertyChanged("ErrorStore");
                 OnPropertyChanged("GeneratedShoppingListData");
@@ -136,16 +149,25 @@ namespace Consumer_GUI.User_Controls
 
         private void SendMail()
         {
+            if (string.IsNullOrEmpty(EmailAddress))
+            {
+                IsTextConfirm = false;
+                ErrorText = "Indtast venligst din E-mail.";
+                return;
+            }
+
             _testEmail = new EmailAddressAttribute();
             if (_testEmail.IsValid(EmailAddress) && EmailAddress != null)
             {
-                ErrorText = "E-mail afsendt";
+                IsTextConfirm = true;
+                ErrorText = "E-mail afsendt.";
 
                 var thread = new Thread(this.sendmailThread);
                 thread.Start(); 
             }
             else
             {
+                IsTextConfirm = false;
                 ErrorText = "E-mail skal overholde formatet: abc@mail.com";
             }
         }

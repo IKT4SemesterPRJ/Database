@@ -90,7 +90,7 @@ namespace Pristjek220.Unit.Test
             _shoppingList.ShoppingListItem = "banan.";
             _shoppingList.IllegalSignShoppingListCommand.Execute(this);
 
-            Assert.That(_shoppingList.Error, Is.EqualTo("Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9"));
+            Assert.That(_shoppingList.Error, Is.EqualTo("Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9."));
 
         }
 
@@ -110,7 +110,7 @@ namespace Pristjek220.Unit.Test
             _shoppingList.ShoppingListItem = "banan,";
             _shoppingList.IllegalSignShoppingListCommand.Execute(this);
 
-            Assert.That(_shoppingList.Error, Is.EqualTo("Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9"));
+            Assert.That(_shoppingList.Error, Is.EqualTo("Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9."));
 
         }
 
@@ -130,7 +130,7 @@ namespace Pristjek220.Unit.Test
             _shoppingList.ShoppingListItem = "banan,";
             _shoppingList.IllegalSignShoppingListCommand.Execute(this);
 
-            Assert.That(_shoppingList.Error, Is.EqualTo("Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9"));
+            Assert.That(_shoppingList.Error, Is.EqualTo("Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9."));
 
         }
 
@@ -150,7 +150,7 @@ namespace Pristjek220.Unit.Test
 
             _shoppingList.DeleteFromShoppingListCommand.Execute(this);
 
-            Assert.That(_shoppingList.Error, Is.EqualTo("Du skal markere et produkt, før du kan slette"));
+            Assert.That(_shoppingList.Error, Is.EqualTo("Du skal markere et produkt, før du kan slette."));
 
         }
 
@@ -163,7 +163,7 @@ namespace Pristjek220.Unit.Test
             _shoppingList.SelectedItem = test;
             _shoppingList.DeleteFromShoppingListCommand.Execute(this);
 
-            Assert.That(_shoppingList.Error, Is.EqualTo("Der er ikke tilføjet nogen produkter"));
+            Assert.That(_shoppingList.Error, Is.EqualTo("Der er ikke tilføjet nogen produkter."));
             //Error, skal fixes
         }
 

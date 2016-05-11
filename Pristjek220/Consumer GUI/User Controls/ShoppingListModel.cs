@@ -44,6 +44,17 @@ namespace Consumer_GUI.User_Controls
             }
         }
 
+        private bool _isTextConfirm;
+        public bool IsTextConfirm
+        {
+            get { return _isTextConfirm; }
+            set
+            {
+                _isTextConfirm = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ShoppingListModel(IConsumer user, IUnitOfWork unit)
         {
             _user = user;
@@ -158,7 +169,12 @@ namespace Consumer_GUI.User_Controls
 
         private void AddToShoppingList()
         {
-            if (string.IsNullOrEmpty(ShoppingListItem)) return;
+            if (string.IsNullOrEmpty(ShoppingListItem))
+            {
+                IsTextConfirm = false;
+                Error = "Indtast venligst navnet på det produkt du vil tilføje til indkøbslisten.";
+                return;
+            }
             if (
                 ShoppingListData.Any(
                     x => x.Name == char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower()))
@@ -181,10 +197,16 @@ namespace Consumer_GUI.User_Controls
         private void DeleteFromShoppingList()
         {
             if (SelectedItem == null)
-                Error = "Du skal markere et produkt, før du kan slette";
+            {
+                IsTextConfirm = false;
+                Error = "Du skal markere et produkt, før du kan slette.";
+            }
 
             else if (_user.ShoppingListData.Count == 0)
-                Error = "Der er ikke tilføjet nogen produkter";
+            {
+                IsTextConfirm = false;
+                Error = "Der er ikke tilføjet nogen produkter.";
+            }
 
             else
             {
@@ -211,7 +233,8 @@ namespace Consumer_GUI.User_Controls
         {
             if (!ShoppingListItem.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr)))
             {
-                Error = "Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9";
+                IsTextConfirm = false;
+                Error = "Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9.";
                 ShoppingListItem = _oldtext;
             }
             else if(ShoppingListItem == _oldtext)

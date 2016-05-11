@@ -44,7 +44,7 @@ namespace Pristjek220.Unit.Test
             _user.GeneratedShoppingListData = new ObservableCollection<StoreProductAndPrice>();
             _user.NotInAStore = new ObservableCollection<ProductInfo>() ;
             _uut.SendMailCommand.Execute(this);
-            Assert.That(_uut.ErrorText, Is.EqualTo("E-mail afsendt"));
+            Assert.That(_uut.ErrorText, Is.EqualTo("E-mail afsendt."));
         }
 
         [Test]

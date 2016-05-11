@@ -51,6 +51,17 @@ namespace Administration_GUI.User_Controls_Admin
             }
         }
 
+        private bool _isTextConfirm;
+        public bool IsTextConfirm
+        {
+            get { return _isTextConfirm; }
+            set
+            {
+                _isTextConfirm = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ObservableCollection<string> AutoCompleteList { get; } = new ObservableCollection<string>();
         private void PopulatingListDeleteStore()
         {
@@ -66,6 +77,7 @@ namespace Administration_GUI.User_Controls_Admin
         {
             if (DeleteStoreName == null) return;
             if (DeleteStoreName.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr))) return;
+            IsTextConfirm = false;
             Error = $"Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9.";
             DeleteStoreName = _oldtext;
         }
@@ -88,27 +100,32 @@ namespace Administration_GUI.User_Controls_Admin
 
         private void DeleteStore()
         {
-            if (string.IsNullOrEmpty(DeleteStoreName)) return;
+            if (string.IsNullOrEmpty(DeleteStoreName))
+            {
+                IsTextConfirm = false;
+                Error = "Indtast venligst navnet på den forretning der skal fjernes.";
+                return;
+            }
 
             var storeName = char.ToUpper(DeleteStoreName[0]) + DeleteStoreName.Substring(1).ToLower();
 
-            //
-
-            var result = CustomMsgBox.Show($"Vil du slette forretningen \"{DeleteStoreName}\" fra Pristjek220?", "Bekræftelse", "Ja",
+            var result = CustomMsgBox.Show($"Vil du fjerne forretningen \"{storeName}\" fra Pristjek220?", "Bekræftelse", "Ja",
                 "Nej");
             if (result != DialogResult.Yes)
             {
+                IsTextConfirm = false;
                 Error = "Der blev ikke bekræftet.";
                 return;
             }
 
-            if (_admin.DeleteStore(DeleteStoreName) == -1)
+            if (_admin.DeleteStore(storeName) == -1)
             {
-                Error = "Forretningen findes ikke.";
+                IsTextConfirm = false;
+                Error = "Forretningen findes ikke i Pristjek220.";
                 return;
             }
-
-            Error = ($"Forretningen \"{DeleteStoreName}\" er blevet fjernet fra Pristjek220.");
+            IsTextConfirm = true;
+            Error = ($"Forretningen \"{storeName}\" er blevet fjernet fra Pristjek220.");
         }
 
         private void EnterKeyPressed(KeyEventArgs e)

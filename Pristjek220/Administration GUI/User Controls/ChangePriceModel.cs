@@ -34,6 +34,17 @@ namespace Administration_GUI.User_Controls
             _autocomplete = new SharedFunctionalities.Autocomplete(unit);
         }
 
+        private bool _isTextConfirm;
+        public bool IsTextConfirm
+        {
+            get { return _isTextConfirm; }
+            set
+            {
+                _isTextConfirm = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ICommand ChangeProductPriceInStoreDatabaseCommand
             =>
                 _changeProductPriceInStoreDatabaseCommand ??
@@ -63,31 +74,45 @@ namespace Administration_GUI.User_Controls
 
         private void ChangeProductPriceInStoreDatabase()
         {
-            if (string.IsNullOrEmpty(ShoppingListItem)) return;
+            if (string.IsNullOrEmpty(ShoppingListItem))
+            {
+                IsTextConfirm = false;
+                ConfirmText = "Indtast venligst navnet på det produkt hvis pris skal ændres.";
+                return;
+            }
             double resultPrice = double.Parse(ShoppingListItemPrice, CultureInfo.CurrentCulture);
-            if ( resultPrice > 0)
+            if (resultPrice > 0)
             {
                 var productName = char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower();
 
                 var product = _manager.FindProduct(productName);
                 if (product != null && _manager.FindProductInStore(productName) != null)
                 {
-                    var result = CustomMsgBox.Show($"Vil du ændre prisen på produktet \"{ShoppingListItem}\" til {ShoppingListItemPrice} kr?", "Bekræftelse", "Ja", "Nej");
+                    var result =
+                        CustomMsgBox.Show(
+                            $"Vil du ændre prisen på produktet \"{ShoppingListItem}\" til {ShoppingListItemPrice} kr?",
+                            "Bekræftelse", "Ja", "Nej");
                     if (result != DialogResult.Yes)
                     {
+                        IsTextConfirm = false;
                         ConfirmText = "Der blev ikke bekræftet.";
                         return;
                     }
                     _manager.changePriceOfProductInStore(product, resultPrice);
+                    IsTextConfirm = true;
                     ConfirmText = ($"Prisen for produktet \"{productName}\" er ændret til {ShoppingListItemPrice} kr.");
                 }
                 else
                 {
+                    IsTextConfirm = false;
                     ConfirmText = ($"Produktet \"{productName}\" findes ikke i din forretning.");
                 }
             }
             else
+            {
+                IsTextConfirm = false;
                 ConfirmText = "Prisen er ugyldig.";
+            }
         }
 
 
@@ -95,6 +120,7 @@ namespace Administration_GUI.User_Controls
         {
             if (ShoppingListItem == null) return;
             if (ShoppingListItem.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr))) return;
+            IsTextConfirm = false;
             ConfirmText = ($"Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9.");
             ShoppingListItem = _oldtext;
         }

@@ -95,8 +95,21 @@
             Grid.ColumnSpan="6"
             Height="27"
             MinWidth="220"
-            Foreground="Crimson"
-            Content="{Binding Error}"/>
+            FontWeight="SemiBold"
+            Content="{Binding Error}">
+            <Label.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding ="{Binding IsTextConfirm}" Value ="True">
+                            <Setter Property="Label.Foreground" Value ="Green" />
+                        </DataTrigger>
+                        <DataTrigger Binding ="{Binding IsTextConfirm}" Value ="False">
+                            <Setter Property="Label.Foreground" Value ="Crimson" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
         <Button 
             Command="{Binding DeleteFromShoppingListCommand}" 
             Grid.Column="3" 

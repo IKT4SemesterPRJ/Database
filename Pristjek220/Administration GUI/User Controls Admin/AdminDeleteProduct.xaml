@@ -27,12 +27,12 @@
         	Grid.ColumnSpan="2" 
         	Margin="0,7,0,0">
             <TextBlock TextWrapping="WrapWithOverflow">
-                Her vil der være mulighed for at slette et produkt fra Pristjek220. 
+                Her vil der være mulighed for at fjerne et produkt fra Pristjek220. 
                 <LineBreak/>
                 Produkter, som ingen af forretningerne i Pristjek220 har i deres sortiment,
-                fjernes automatisk. Her kan der i stedet slettes produkter, som der ikke ønskes i 
+                fjernes automatisk. Her kan der i stedet fjernes produkter, der ikke ønskes i 
                 Pristjek220 af forskellige årsager, som f.eks. at producenten ikke overholder
-                menneskerettighederne.
+                menneskerettighederne, hvilket Pristjek220 ikke ønsker at forbindes med.
                 <LineBreak/><LineBreak/>
                 - Funktionen er ikke implementeret endnu.
             </TextBlock>

@@ -114,8 +114,21 @@
             Grid.Column="1"
             Grid.Row="6"
             Height="27"
-            Foreground="Crimson"
-            Grid.ColumnSpan="4"/>
+            FontWeight="SemiBold"
+            Grid.ColumnSpan="3">
+            <Label.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding ="{Binding IsTextConfirm}" Value ="True">
+                            <Setter Property="Label.Foreground" Value ="Green" />
+                        </DataTrigger>
+                        <DataTrigger Binding ="{Binding IsTextConfirm}" Value ="False">
+                            <Setter Property="Label.Foreground" Value ="Crimson" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
         <Label 
         	FontStyle="Italic"
         	HorizontalAlignment="Left" 
@@ -126,7 +139,7 @@
         	Grid.ColumnSpan="3" 
             Margin="0,7,0,7">
             <TextBlock TextWrapping="WrapWithOverflow">
-                Her har du mulighed for at oprette en forretning med et tilhørende kodeord,
+                Her har du mulighed for at tilføje en forretning med et tilhørende kodeord,
                 som skal benyttes, når forretningsmanageren vil logge ind på sin forretning.
             </TextBlock>
         </Label>

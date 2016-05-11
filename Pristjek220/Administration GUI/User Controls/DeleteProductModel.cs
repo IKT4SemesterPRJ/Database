@@ -20,7 +20,18 @@ namespace Administration_GUI.User_Controls
         private ICommand _enterPressedCommand;
 
         private string _oldtext = string.Empty;
-        
+
+        private bool _isTextConfirm;
+        public bool IsTextConfirm
+        {
+            get { return _isTextConfirm; }
+            set
+            {
+                _isTextConfirm = value;
+                OnPropertyChanged();
+            }
+        }
+
         public DeleteProductModel(Store store, IUnitOfWork unit)
         {
             _manager = new Storemanager(unit, store);
@@ -57,38 +68,45 @@ namespace Administration_GUI.User_Controls
         {
             if (ShoppingListItem == null) return;
             if (ShoppingListItem.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr))) return;
+            IsTextConfirm = false;
             ConfirmText = ($"Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9.");
             ShoppingListItem = _oldtext;
         }
 
         private void DeleteFromStoreDatabase()
         {
-            if (string.IsNullOrEmpty(ShoppingListItem)) return;
+            if (string.IsNullOrEmpty(ShoppingListItem))
+            {
+                IsTextConfirm = false;
+                ConfirmText = "Indtast venligst navnet på det produkt der skal fjernes.";
+                return;
+            }
 
-           
+            var productName = char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower();
 
-                var productName = char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower();
-
-                var product = _manager.FindProduct(productName);
+            var product = _manager.FindProduct(productName);
             if (product != null)
             {
-                var result = CustomMsgBox.Show($"Vil du slette \"{ShoppingListItem}\" fra din forretning?",
+                var result = CustomMsgBox.Show($"Vil du fjerne produktet \"{productName}\" fra din forretning?",
                     "Bekræftelse", "Ja", "Nej");
                 if (result != DialogResult.Yes)
                 {
+                    IsTextConfirm = false;
                     ConfirmText = "Der blev ikke bekræftet.";
                     return;
                 }
                 if (_manager.RemoveProductFromMyStore(product) != 0)
                 {
+                    IsTextConfirm = false;
                     ConfirmText = ($"Produktet \"{productName}\" findes ikke i din forretning.");
                     return;
                 }
-
-                ConfirmText = ($"Produktet \"{ShoppingListItem}\" er fjernet fra din forretning.");
+                IsTextConfirm = true;
+                ConfirmText = ($"Produktet \"{productName}\" er fjernet fra din forretning.");
             }
             else
             {
+                IsTextConfirm = false;
                 ConfirmText = ($"Produktet \"{productName}\" findes ikke.");
             }
         }
