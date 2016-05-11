@@ -71,8 +71,6 @@ namespace Consumer_GUI.User_Controls
             get { return _errorText; }
         }
 
-        public string ChoosenStoreName { get; set; }
-
         public List<string> StoreNames => _user.StoreNames;
 
         public ObservableCollection<StoreProductAndPrice> GeneratedShoppingListData
