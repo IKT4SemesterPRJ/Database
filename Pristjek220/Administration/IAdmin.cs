@@ -7,6 +7,7 @@ namespace Administration
     {
         int CreateLogin(string userName, SecureString password, string storeName);
         int CheckPasswords(SecureString pass1, SecureString pass2);
+        Store FindStore(string storeName);
         int DeleteStore(string storeName);
     }
 }

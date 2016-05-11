@@ -87,12 +87,16 @@ namespace Administration
             }
         }
 
+        public Store FindStore(string storeName)
+        {
+            return _unitOfWork.Stores.FindStore(storeName);
+        }
+
         public int DeleteStore(string storeName)
         {
             var store = _unitOfWork.Stores.FindStore(storeName);
             if (store == null)
                 return -1;
-
 
             _unitOfWork.Stores.Remove(store);
             _unitOfWork.Complete();
