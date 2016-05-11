@@ -20,18 +20,40 @@
         <DataTemplate DataType="{x:Type userControls1:NewProductModel}">
             <userControls:NewProduct />
         </DataTemplate>
-        <Style x:Key="RoundedButtonStyle" TargetType="{x:Type Button}">
+
+        <Style x:Key="RoundedButtonStyle" 
+               TargetType="{x:Type Button}">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border CornerRadius="15" Background="White" BorderThickness="1" Padding="2"  Margin="0,5,0,5">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        <Border 
+                            CornerRadius="15" 
+                            Background="White" 
+                            BorderThickness="1" 
+                            Padding="2"  
+                            Margin="0,5,0,5">
+                            <ContentPresenter 
+                                HorizontalAlignment="Center" 
+                                VerticalAlignment="Center" />
                         </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="CornflowerBlue"></Setter>
+                                <Setter Property="FontWeight"  Value="Bold"></Setter>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="FontSize" Value="13"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
     </Window.Resources>
+
+
+
+    
    <Grid Background="sc#1.000000, 0.769689, 0.831936, 1.000000" Name="DocumentRoot" >
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
@@ -42,7 +64,7 @@
         <Grid Grid.Row="1">
             <Rectangle Fill="white" RadiusX="13" RadiusY="14" Margin="10" Stroke="sc#1.000000, 0.250141, 0.333404, 0.884413" StrokeDashArray="2"/>
             <DockPanel LastChildFill="True"   Margin="20">
-                <Grid Width="100px" HorizontalAlignment="Left">
+                <Grid Width="125px" HorizontalAlignment="Left">
                     <Rectangle Fill="sc#1.000000, 0.769689, 0.831936, 1.000000" RadiusX="10" RadiusY="10" Stroke="sc#1.000000, 0.250141, 0.333404, 0.884413" StrokeDashArray="2" />
                     <DockPanel Margin="7" LastChildFill="False">
                         <TextBlock Margin="0,0,0,5"   Text="Menu" Foreground="sc#1.000000, 0.250141, 0.333404, 0.884413" TextAlignment="center"   FontWeight="Bold" FontSize="12pt"   DockPanel.Dock="top"  />
