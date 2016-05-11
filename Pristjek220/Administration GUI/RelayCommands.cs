@@ -54,7 +54,7 @@ namespace Administration_GUI
         [DebuggerStepThrough]
         public bool CanExecute(object parameter)
         {
-            return _canExecute == null ? true : _canExecute();
+            return _canExecute?.Invoke() ?? true;
         }
 
         public event EventHandler CanExecuteChanged

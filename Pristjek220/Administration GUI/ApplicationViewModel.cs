@@ -13,7 +13,7 @@ namespace Administration_GUI
     {
        private IPageViewModel _currentPageViewModel;
         private ObservableCollection<IPageViewModel> _pageViewModels;
-        private Store _store;
+        private readonly Store _store;
         private string _mainWindowTekst;
         public string MainWindowTekst { get { return _mainWindowTekst; } set { _mainWindowTekst = value; OnPropertyChanged("MainWindowTekst"); } }
 

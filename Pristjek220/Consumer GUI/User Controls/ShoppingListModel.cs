@@ -15,8 +15,8 @@ namespace Consumer_GUI.User_Controls
     internal class ShoppingListModel : ObservableObject, IPageViewModel
     {
         private readonly IUnitOfWork _unit;
-        private readonly IConsumer _user;
-        public IConsumer User => _user;
+        public IConsumer User { get; }
+
         public ObservableCollection<StoresInPristjek> OptionsStores => User.OptionsStores; 
         
         private ICommand _addToShoppingListCommand;
@@ -57,90 +57,48 @@ namespace Consumer_GUI.User_Controls
 
         public ShoppingListModel(IConsumer user, IUnitOfWork unit)
         {
-            _user = user;
+            User = user;
             ShoppingListData = new ObservableCollection<ProductInfo>();
             _unit = unit;
-            _user.ReadFromJsonFile();
+            User.ReadFromJsonFile();
             Error = "";
         }
 
-        public ICommand AddToShoppingListCommand
-        {
-            get
-            {
-                return _addToShoppingListCommand ?? (_addToShoppingListCommand = new RelayCommand(AddToShoppingList));
-            }
-        }
+        public ICommand AddToShoppingListCommand => _addToShoppingListCommand ?? (_addToShoppingListCommand = new RelayCommand(AddToShoppingList));
 
-        public ICommand DeleteFromShoppingListCommand
-        {
-            get
-            {
-                return _deleteFromShoppingListCommand ??
-                       (_deleteFromShoppingListCommand = new RelayCommand(DeleteFromShoppingList));
-            }
-        }
+        public ICommand DeleteFromShoppingListCommand => _deleteFromShoppingListCommand ??
+                                                         (_deleteFromShoppingListCommand = new RelayCommand(DeleteFromShoppingList));
 
-        public ICommand PopulatingShoppingListCommand
-        {
-            get
-            {
-                return _populatingShoppingListCommand ??
-                       (_populatingShoppingListCommand = new RelayCommand(PopulatingListShoppingList));
-            }
-        }
+        public ICommand PopulatingShoppingListCommand => _populatingShoppingListCommand ??
+                                                         (_populatingShoppingListCommand = new RelayCommand(PopulatingListShoppingList));
 
-        public ICommand IllegalSignShoppingListCommand
-        {
-            get
-            {
-                return _illegalSignShoppingListCommand ??
-                       (_illegalSignShoppingListCommand = new RelayCommand(IllegalSignFindProductShoppingList));
-            }
-        }
+        public ICommand IllegalSignShoppingListCommand => _illegalSignShoppingListCommand ??
+                                                          (_illegalSignShoppingListCommand = new RelayCommand(IllegalSignFindProductShoppingList));
 
-        public ICommand GeneratedShoppingListCommand
-        {
-            get
-            {
-                return _generatedShoppingListCommand ??
-                       (_generatedShoppingListCommand = new RelayCommand(GeneratedShoppingListFromShoppingList));
-            }
-        }
+        public ICommand GeneratedShoppingListCommand => _generatedShoppingListCommand ??
+                                                        (_generatedShoppingListCommand = new RelayCommand(GeneratedShoppingListFromShoppingList));
 
-        public ICommand EnterKeyPressedCommand
-        {
-            get
-            {
-                return _enterKeyPressedCommand ??
-                       (_enterKeyPressedCommand = new RelayCommand<KeyEventArgs>(EnterKeyPressed));
-            }
-        }
+        public ICommand EnterKeyPressedCommand => _enterKeyPressedCommand ??
+                                                  (_enterKeyPressedCommand = new RelayCommand<KeyEventArgs>(EnterKeyPressed));
 
-        
-        public ICommand ClearShoppingListCommand
-        {
-            get
-            {
-                return _clearShoppingListCommand ??
-                       (_clearShoppingListCommand = new RelayCommand(ClearShoppingList));
-            }
-        }
+
+        public ICommand ClearShoppingListCommand => _clearShoppingListCommand ??
+                                                    (_clearShoppingListCommand = new RelayCommand(ClearShoppingList));
 
         private void ClearShoppingList()
         {
-            _user.ShoppingListData.Clear();
+            User.ShoppingListData.Clear();
         }
 
         public ObservableCollection<ProductInfo> ShoppingListData
         {
             get
             {
-                return _user.ShoppingListData; 
+                return User.ShoppingListData; 
             }
             set
             {
-                _user.ShoppingListData = value;
+                User.ShoppingListData = value;
             }
         }
 
@@ -179,7 +137,7 @@ namespace Consumer_GUI.User_Controls
                 ShoppingListData.Any(
                     x => x.Name == char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower()))
             {
-                var item = _user.ShoppingListData.First(
+                var item = User.ShoppingListData.First(
                     s => s.Name == char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower());
                 if (item == null) return;
                 var intQuantity = int.Parse(item.Quantity);
@@ -190,7 +148,7 @@ namespace Consumer_GUI.User_Controls
             else
             {
                 ShoppingListData.Add(new ProductInfo(ShoppingListItem));
-                _user.WriteToJsonFile();
+                User.WriteToJsonFile();
             }
         }
 
@@ -202,7 +160,7 @@ namespace Consumer_GUI.User_Controls
                 Error = "Du skal markere et produkt, før du kan slette.";
             }
 
-            else if (_user.ShoppingListData.Count == 0)
+            else if (User.ShoppingListData.Count == 0)
             {
                 IsTextConfirm = false;
                 Error = "Der er ikke tilføjet nogen produkter.";
@@ -210,8 +168,8 @@ namespace Consumer_GUI.User_Controls
 
             else
             {
-                _user.ShoppingListData.Remove(SelectedItem);
-                _user.WriteToJsonFile();
+                User.ShoppingListData.Remove(SelectedItem);
+                User.WriteToJsonFile();
                 Error = string.Empty;
             }
         }
@@ -247,13 +205,13 @@ namespace Consumer_GUI.User_Controls
         private void GeneratedShoppingListFromShoppingList()
         {
             ClearGeneratedLists();
-            _user.CreateShoppingList();
+            User.CreateShoppingList();
         }
 
         private void ClearGeneratedLists()
         {
-            _user.ClearGeneratedShoppingListData();
-            _user.ClearNotInAStore();
+            User.ClearGeneratedShoppingListData();
+            User.ClearNotInAStore();
         }
 
         private void EnterKeyPressed(KeyEventArgs e)

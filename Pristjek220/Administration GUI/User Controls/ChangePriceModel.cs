@@ -80,7 +80,7 @@ namespace Administration_GUI.User_Controls
                 ConfirmText = "Indtast venligst navnet på det produkt hvis pris skal ændres.";
                 return;
             }
-            double resultPrice = double.Parse(ShoppingListItemPrice, CultureInfo.CurrentCulture);
+            var resultPrice = double.Parse(ShoppingListItemPrice, CultureInfo.CurrentCulture);
             if (resultPrice > 0)
             {
                 var productName = char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower();
@@ -146,14 +146,7 @@ namespace Administration_GUI.User_Controls
             {
                 double result;
 
-                if (double.TryParse(value, NumberStyles.Number, CultureInfo.CurrentCulture, out result))
-                {
-                    _shoppingListItemPrice = Math.Round(result, 2).ToString("F");
-                }
-                else
-                {
-                    _shoppingListItemPrice = "0";
-                }
+                _shoppingListItemPrice = double.TryParse(value, NumberStyles.Number, CultureInfo.CurrentCulture, out result) ? Math.Round(result, 2).ToString("F") : "0";
             }
             get { return _shoppingListItemPrice; }
         }

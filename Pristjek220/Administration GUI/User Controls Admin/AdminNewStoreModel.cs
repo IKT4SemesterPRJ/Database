@@ -55,26 +55,28 @@ namespace Administration_GUI.User_Controls_Admin
                 Error = "Udfyld venligst alle felter.";
                 return;
             }
-            if (_admin.CheckPasswords(SecurePassword, SecurePasswordConfirm) == 0)
+            if (_admin.CheckPasswords(SecurePassword, SecurePasswordConfirm) != 0)
             {
-                IsTextConfirm = false;
-                Error = "Kodeordene matcher ikke.";
-            }
-
-            else if (-1 == _admin.CreateLogin(NewStoreName, SecurePassword, NewStoreName))
-            {
-                IsTextConfirm = false;
-                Error = "Forretningen findes allerede.";
-            }
-            else if (-2 == _admin.CreateLogin(NewStoreName, SecurePassword, NewStoreName))
-            {
-                IsTextConfirm = false;
-                Error = "Udfyld venligst alle felter.";
+                switch (_admin.CreateLogin(NewStoreName, SecurePassword, NewStoreName))
+                {
+                    case -1:
+                        IsTextConfirm = false;
+                        Error = "Forretningen findes allerede.";
+                        break;
+                    case -2:
+                        IsTextConfirm = false;
+                        Error = "Udfyld venligst alle felter.";
+                        break;
+                    default:
+                        IsTextConfirm = true;
+                        Error = $"Forretning oprettet med forretningsnavnet \"{NewStoreName}\".";
+                        break;
+                }
             }
             else
             {
-                IsTextConfirm = true;
-                Error = $"Forretning oprettet med forretningsnavnet \"{NewStoreName}\".";
+                IsTextConfirm = false;
+                Error = "Kodeordene matcher ikke.";
             }
         }
 

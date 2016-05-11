@@ -133,13 +133,15 @@
         </Label>
 
         <Label
-            Content="{Binding BuyInOneStore}"
             Grid.Row="5"
             Grid.Column="2"
             Grid.ColumnSpan="3"
             HorizontalAlignment="Left"
-            MinHeight="25"
-            VerticalAlignment="Top">
+            MinHeight="50"
+            MaxWidth="250"
+            VerticalAlignment="Top"
+            >
+            <TextBlock TextWrapping="Wrap" TextAlignment="Left" Text="{Binding BuyInOneStore}"/>
         </Label>
 
         <Label

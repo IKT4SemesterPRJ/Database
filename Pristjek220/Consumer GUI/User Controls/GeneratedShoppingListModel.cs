@@ -73,10 +73,7 @@ namespace Consumer_GUI.User_Controls
 
         public string ChoosenStoreName { get; set; }
 
-        public List<string> StoreNames
-        {
-            get { return _user.StoreNames; }
-        }
+        public List<string> StoreNames => _user.StoreNames;
 
         public ObservableCollection<StoreProductAndPrice> GeneratedShoppingListData
         {
@@ -99,47 +96,33 @@ namespace Consumer_GUI.User_Controls
             }
         }
 
-        public ICommand SendMailCommand
-        {
-            get { return _sendMailCommand ?? (_sendMailCommand = new RelayCommand(SendMail)); }
-        }
+        public ICommand SendMailCommand => _sendMailCommand ?? (_sendMailCommand = new RelayCommand(SendMail));
 
 
-        public ICommand StoreChangedCommand
-        {
-            get { return _storeChangedCommand ?? (_storeChangedCommand = new RelayCommand(StoreChanged)); }
-        }
+        public ICommand StoreChangedCommand => _storeChangedCommand ?? (_storeChangedCommand = new RelayCommand(StoreChanged));
 
-        public ICommand EnterKeyPressedCommand
-        {
-            get
-            {
-                return _enterPressedCommand ?? (_enterPressedCommand = new RelayCommand<KeyEventArgs>(EnterKeyPressed));
-            }
-        }
+        public ICommand EnterKeyPressedCommand => _enterPressedCommand ?? (_enterPressedCommand = new RelayCommand<KeyEventArgs>(EnterKeyPressed));
 
         private void StoreChanged()
         {
-            if (SelectedIndexGeneratedShoppingList != -1)
+            if (SelectedIndexGeneratedShoppingList == -1) return;
+            if (
+                _user.ChangeItemToAnotherStore(StoreNames[SelectedStoreIndex],
+                    GeneratedShoppingListData[SelectedIndexGeneratedShoppingList]) == 1)
             {
-                if (
-                    _user.ChangeItemToAnotherStore(StoreNames[SelectedStoreIndex],
-                        GeneratedShoppingListData[SelectedIndexGeneratedShoppingList]) == 1)
-                {
-                    OnPropertyChanged("TotalSum");
-                    OnPropertyChanged("MoneySaved");
-                    ErrorStore = "";
-                }
-                else
-                {
-                    IsTextConfirm = false;
-                    ErrorStore = StoreNames[SelectedStoreIndex] + " har ikke produktet \"" +
-                                 GeneratedShoppingListData[SelectedIndexGeneratedShoppingList].ProductName +
-                                 "\" i deres sortiment.";
-                }
-                OnPropertyChanged("ErrorStore");
-                OnPropertyChanged("GeneratedShoppingListData");
+                OnPropertyChanged("TotalSum");
+                OnPropertyChanged("MoneySaved");
+                ErrorStore = "";
             }
+            else
+            {
+                IsTextConfirm = false;
+                ErrorStore = StoreNames[SelectedStoreIndex] + " har ikke produktet \"" +
+                             GeneratedShoppingListData[SelectedIndexGeneratedShoppingList].ProductName +
+                             "\" i deres sortiment.";
+            }
+            OnPropertyChanged("ErrorStore");
+            OnPropertyChanged("GeneratedShoppingListData");
         }
 
         private void sendmailThread()
