@@ -77,9 +77,26 @@ namespace Administration_GUI.User_Controls
                 return;
             }
 
-            double resultPrice = double.Parse(ShoppingListItemPrice, CultureInfo.CurrentCulture);
+            var resultPrice = double.Parse(ShoppingListItemPrice, CultureInfo.CurrentCulture);
             if (resultPrice > 0 && ShoppingListItem != null)
             {
+                var productName = char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower();
+
+                var product = _manager.FindProduct(productName);
+                if (product == null)
+                {
+                    product = new Product() {ProductName = productName};
+                    _manager.AddProductToDb(product);
+                    product = _manager.FindProduct(productName);
+                }
+                
+                if (_manager.FindProductInStore(productName) != null)
+                {
+                    IsTextConfirm = false;
+                    ConfirmText = ($"Produktet \"{productName}\" findes allerede.");
+                    return;
+                }
+
                 var result =
                     CustomMsgBox.Show(
                         $"Vil du tilføje produktet \"{ShoppingListItem}\" med prisen {ShoppingListItemPrice} kr til din forretning?",
@@ -91,22 +108,7 @@ namespace Administration_GUI.User_Controls
                     return;
                 }
 
-                var productName = char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower();
-
-                var product = _manager.FindProduct(productName);
-                if (product == null)
-                {
-                    product = new Product() {ProductName = productName};
-                    _manager.AddProductToDb(product);
-                    product = _manager.FindProduct(productName);
-                }
-
-                if (_manager.AddProductToMyStore(product, resultPrice) != 0)
-                {
-                    IsTextConfirm = false;
-                    ConfirmText = ($"Produktet \"{productName}\" findes allerede.");
-                    return;
-                }
+                _manager.AddProductToMyStore(product, resultPrice);
                 IsTextConfirm = true;
                 ConfirmText =
                     ($"Produktet \"{ShoppingListItem}\" er indsat til prisen {ShoppingListItemPrice} kr. i din forretning.");

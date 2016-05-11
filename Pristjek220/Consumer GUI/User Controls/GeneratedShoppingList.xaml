@@ -138,7 +138,7 @@
             Grid.ColumnSpan="3"
             HorizontalAlignment="Left"
             MinHeight="50"
-            MaxWidth="225"
+            MaxWidth="250"
             VerticalAlignment="Top"
             >
             <TextBlock TextWrapping="Wrap" TextAlignment="Left" Text="{Binding BuyInOneStore}"/>
