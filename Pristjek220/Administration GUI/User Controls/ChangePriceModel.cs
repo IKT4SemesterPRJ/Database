@@ -15,6 +15,7 @@ namespace Administration_GUI.User_Controls
 {
     public class ChangePriceModel : ObservableObject, IPageViewModel
     {
+        private readonly System.Timers.Timer _timer = new System.Timers.Timer(2500);
         private readonly IAutocomplete _autocomplete;
         private readonly IStoremanager _manager;
         private Store _store;
@@ -24,7 +25,6 @@ namespace Administration_GUI.User_Controls
         private ICommand _enterPressedCommand;
         private ICommand _populatingDeleteProductCommand;
 
-        public string NumberError { get; set; } = "";
         private string _oldtext = string.Empty;
 
         public ChangePriceModel(Store store, IUnitOfWork unit)
@@ -159,6 +159,9 @@ namespace Administration_GUI.User_Controls
             {
                 _confirmText = value;
                 OnPropertyChanged();
+                _timer.Stop();
+                _timer.Start();
+                _timer.Elapsed += delegate { _confirmText = ""; OnPropertyChanged(); };
             }
             get { return _confirmText; }
         }
