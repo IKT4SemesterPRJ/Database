@@ -60,10 +60,7 @@ namespace Administration
             using (var hash = SHA256.Create())
             {
                 var enc = Encoding.UTF8;
-
-                //the user id is the salt. 
-                //So 2 users with same password have different hashes. 
-                //For example if someone knows his own hash he can't see who has same password
+                
                 var input = code;
                 var result = hash.ComputeHash(enc.GetBytes(input));
 
