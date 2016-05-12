@@ -1,29 +1,27 @@
-﻿using Pristjek220Data;
+﻿using System.Runtime.CompilerServices;
+using Pristjek220Data;
 
 namespace Administration
 {
     /// <summary>
-    /// The namespace <c>Storemanager</c> contains the class <see cref="Storemanager"/> 
-    /// along with the interface <see cref="IStoremanager"/> and is placed in the Business Logic Layer.
+    ///     The namespace <c>Storemanager</c> contains the class <see cref="Storemanager" />
+    ///     along with the interface <see cref="IStoremanager" /> and is placed in the Business Logic Layer.
     /// </summary>
-    [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    class NamespaceDoc
-    { }
+    [CompilerGenerated]
+    internal class NamespaceDoc
+    {
+    }
 
     /// <summary>
-    /// This class is used to handle all of the store managers functionality 
-    /// when interacting with the program.
+    ///     This class is used to handle all of the store managers functionality
+    ///     when interacting with the program.
     /// </summary>
     public class Storemanager : IStoremanager
     {
         private readonly IUnitOfWork _unitwork;
-        /// <summary>
-        ///     Store get function, that is used when the Storemanager needs his Store
-        /// </summary>
-        public Store Store { get;}
 
         /// <summary>
-        /// Storemanager constructor takes a UnitOfWork to access the database and a store to se as his Store
+        ///     Storemanager constructor takes a UnitOfWork to access the database and a store to se as his Store
         /// </summary>
         /// <param name="unitOfWork"></param>
         /// <param name="store"></param>
@@ -32,6 +30,11 @@ namespace Administration
             _unitwork = unitOfWork;
             Store = _unitwork.Stores.FindStore(store.StoreName);
         }
+
+        /// <summary>
+        ///     Store get function, that is used when the Storemanager needs his Store
+        /// </summary>
+        public Store Store { get; }
 
         /// <summary>
         ///     Add product to database
@@ -49,7 +52,7 @@ namespace Administration
         }
 
         /// <summary>
-        /// Add product to storemanagers store with price
+        ///     Add product to storemanagers store with price
         /// </summary>
         /// <param name="product"></param>
         /// <param name="price"></param>
@@ -76,23 +79,44 @@ namespace Administration
             return 0;
         }
 
+        /// <summary>
+        ///     Finds a product with the requested productName
+        /// </summary>
+        /// <param name="productName"></param>
+        /// <returns>Returns the product that got the productName</returns>
         public Product FindProduct(string productName)
         {
             return _unitwork.Products.FindProduct(productName);
         }
 
+        /// <summary>
+        ///     Finds a product and its price with the requested productName in the storemanagers store
+        /// </summary>
+        /// <param name="productName"></param>
+        /// <returns>Returns the product and its price</returns>
         public ProductAndPrice FindProductInStore(string productName)
         {
             return _unitwork.Stores.FindProductInStore(Store.StoreName, productName);
         }
 
-        public void changePriceOfProductInStore(Product product, double price)
+        /// <summary>
+        ///     Changes the price of the requested product
+        /// </summary>
+        /// <param name="product"></param>
+        /// <param name="price"></param>
+        public void ChangePriceOfProductInStore(Product product, double price)
         {
             var hasA = _unitwork.HasA.Get(Store.StoreId, product.ProductId);
             hasA.Price = price;
             _unitwork.Complete();
         }
 
+        /// <summary>
+        ///     Remove the requested product from the storemanagers store, and if the product got no other relations remove the
+        ///     product too
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns>-1 if the product does not exist and 0 if it has been removed successfully</returns>
         public int RemoveProductFromMyStore(Product product)
         {
             var hasA = _unitwork.HasA.FindHasA(Store.StoreName, product.ProductName);

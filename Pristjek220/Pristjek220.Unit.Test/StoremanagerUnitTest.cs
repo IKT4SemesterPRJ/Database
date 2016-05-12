@@ -161,7 +161,7 @@ namespace Pristjek220.Unit.Test
 
             _uut.AddProductToMyStore(_product, 2);
             _unitWork.HasA.Get(_store.StoreId, _product.ProductId).Returns(hasA);
-            _uut.changePriceOfProductInStore(_product, 4);
+            _uut.ChangePriceOfProductInStore(_product, 4);
 
         }
 

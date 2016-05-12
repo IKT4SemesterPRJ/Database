@@ -80,7 +80,7 @@ namespace Administration
         }
 
         /// <summary>
-        ///     Finds a store with the wanted storeName
+        ///     Finds a store with the requested storeName
         /// </summary>
         /// <param name="storeName"></param>
         /// <returns>Returns the store that got the storeName</returns>

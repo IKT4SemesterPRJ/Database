@@ -98,7 +98,7 @@ namespace Administration_GUI.User_Controls
                         ConfirmText = "Der blev ikke bekræftet.";
                         return;
                     }
-                    _manager.changePriceOfProductInStore(product, resultPrice);
+                    _manager.ChangePriceOfProductInStore(product, resultPrice);
                     IsTextConfirm = true;
                     ConfirmText = ($"Prisen for produktet \"{productName}\" er ændret til {ShoppingListItemPrice} kr.");
                 }
