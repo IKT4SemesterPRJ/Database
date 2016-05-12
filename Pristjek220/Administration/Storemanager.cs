@@ -17,14 +17,27 @@ namespace Administration
     public class Storemanager : IStoremanager
     {
         private readonly IUnitOfWork _unitwork;
+        /// <summary>
+        ///     Store get function, that is used when the Storemanager needs his Store
+        /// </summary>
         public Store Store { get;}
 
+        /// <summary>
+        /// Storemanager constructor takes a UnitOfWork to access the database and a store to se as his Store
+        /// </summary>
+        /// <param name="unitOfWork"></param>
+        /// <param name="store"></param>
         public Storemanager(IUnitOfWork unitOfWork, Store store)
         {
             _unitwork = unitOfWork;
             Store = _unitwork.Stores.FindStore(store.StoreName);
         }
 
+        /// <summary>
+        ///     Add product to database
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns>-1 if product is not found and return 0 if product is added</returns>
         public int AddProductToDb(Product product)
         {
             if (FindProduct(product.ProductName) != null)
@@ -35,6 +48,12 @@ namespace Administration
             return 0;
         }
 
+        /// <summary>
+        /// Add product to storemanagers store with price
+        /// </summary>
+        /// <param name="product"></param>
+        /// <param name="price"></param>
+        /// <returns>-1 if the product exist in that store and 0 if it has been added</returns>
         public int AddProductToMyStore(Product product, double price)
         {
             if (_unitwork.HasA.Get(Store.StoreId, product.ProductId) != null)
