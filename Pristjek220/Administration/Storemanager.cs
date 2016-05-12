@@ -21,7 +21,7 @@ namespace Administration
         private readonly IUnitOfWork _unitwork;
 
         /// <summary>
-        ///     Storemanager constructor takes a UnitOfWork to access the database and a store to se as his Store
+        ///     Storemanager constructor takes a UnitOfWork to access the database and a store to set as his Store
         /// </summary>
         /// <param name="unitOfWork"></param>
         /// <param name="store"></param>
