@@ -6,39 +6,74 @@ using GalaSoft.MvvmLight.Command;
 using Pristjek220Data;
 using SharedFunctionalities;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
+using Timer = System.Timers.Timer;
 
 namespace Administration_GUI.User_Controls_Admin
 {
-    class AdminDeleteStoreModel : ObservableObject, IPageViewModelAdmin
-    {
-        private readonly System.Timers.Timer _timer = new System.Timers.Timer(2500);
-        private readonly IAutocomplete _autocomplete;
-        private readonly Administration.Admin _admin;
-        private ICommand _deleteFromLoginDatabaseCommand;
-        private ICommand _populatingDeleteStoreCommand;
-        private ICommand _illegalSignDeleteProductCommand;
-        private ICommand _enterPressedCommand;
 
+    /// <summary>
+    ///     AdminDeleteStoreModel is the User Control model for the AdminDeleteStore User Control
+    ///     Its used to delete a store
+    /// </summary>
+    internal class AdminDeleteStoreModel : ObservableObject, IPageViewModelAdmin
+    {
+        private readonly Administration.Admin _admin;
+        private readonly IAutocomplete _autocomplete;
+        private readonly Timer _timer = new Timer(2500);
+        private ICommand _deleteFromLoginDatabaseCommand;
+        private string _deleteStoreName;
+        private ICommand _enterPressedCommand;
+        private string _error = string.Empty;
+        private ICommand _illegalSignDeleteProductCommand;
+
+        private bool _isTextConfirm;
+
+        private string _oldtext = string.Empty;
+        private ICommand _populatingDeleteStoreCommand;
+
+        /// <summary>
+        ///     AdminDeleteStoreModel constructor takes a UnitOfWork to create an admin
+        /// </summary>
+        /// <param name="unit"></param>
+        public AdminDeleteStoreModel(IUnitOfWork unit)
+        {
+            _admin = new Administration.Admin(unit);
+            _autocomplete = new Autocomplete(unit);
+        }
+
+        /// <summary>
+        ///     Command that is used to delete a store, if anything goes wrong it will print the reason to why it did not delete
+        ///     the product to a label
+        /// </summary>
         public ICommand DeleteFromLoginDatabaseCommand
             => _deleteFromLoginDatabaseCommand ?? (_deleteFromLoginDatabaseCommand = new RelayCommand(DeleteStore));
 
+        /// <summary>
+        ///     Command that is used whenever there is an Populating event to populate the dropdown menu with the correct stores
+        /// </summary>
         public ICommand PopulatingDeleteStoreCommand
             =>
                 _populatingDeleteStoreCommand ??
                 (_populatingDeleteStoreCommand = new RelayCommand(PopulatingListDeleteStore));
 
+        /// <summary>
+        ///     Command that is used to see if Enter is pressed, if its pressed it calls the DeleteStore
+        /// </summary>
         public ICommand EnterKeyPressedCommand
             => _enterPressedCommand ?? (_enterPressedCommand = new RelayCommand<KeyEventArgs>(EnterKeyPressed));
 
+        /// <summary>
+        ///     Command that is used whenever there is an TextChanged event to see if the text entered contains illegal signs
+        /// </summary>
         public ICommand IllegalSignDeleteStoreCommand
             =>
                 _illegalSignDeleteProductCommand ??
                 (_illegalSignDeleteProductCommand = new RelayCommand(IllegalSignDeleteStore));
 
-        private string _oldtext = string.Empty;
-        private string _error = string.Empty;
-        private string _deleteStoreName;
-
+        /// <summary>
+        ///     Get and Set method for  DeleteStoreName. The set method, sets the old DeleteStoreName to an oldtext, and then
+        ///     change the value to the new vaule and call OnPropertyChanged
+        /// </summary>
         public string DeleteStoreName
         {
             get { return _deleteStoreName; }
@@ -50,7 +85,6 @@ namespace Administration_GUI.User_Controls_Admin
             }
         }
 
-        private bool _isTextConfirm;
         public bool IsTextConfirm
         {
             get { return _isTextConfirm; }
@@ -61,7 +95,32 @@ namespace Administration_GUI.User_Controls_Admin
             }
         }
 
+        /// <summary>
+        ///     Get method for AutoCompleteList, that is the list with the items that is getting populated to the dropdown.
+        /// </summary>
         public ObservableCollection<string> AutoCompleteList { get; } = new ObservableCollection<string>();
+
+        /// <summary>
+        ///     The Error string that is written to a label on the GUI describes if the event has been successfully or if it has
+        ///     failed, and why it failed
+        /// </summary>
+        public string Error
+        {
+            get { return _error; }
+            set
+            {
+                _error = value;
+                OnPropertyChanged();
+                _timer.Stop();
+                _timer.Start();
+                _timer.Elapsed += delegate
+                {
+                    _error = "";
+                    OnPropertyChanged();
+                };
+            }
+        }
+
         private void PopulatingListDeleteStore()
         {
             AutoCompleteList?.Clear();
@@ -79,25 +138,6 @@ namespace Administration_GUI.User_Controls_Admin
             IsTextConfirm = false;
             Error = $"Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9.";
             DeleteStoreName = _oldtext;
-        }
-
-        public string Error
-        {
-            get { return _error; }
-            set
-            {
-                _error = value;
-                OnPropertyChanged();
-                _timer.Stop();
-                _timer.Start();
-                _timer.Elapsed += delegate { _error = ""; OnPropertyChanged(); };
-            }
-        }
-
-        public AdminDeleteStoreModel(IUnitOfWork unit)
-        {
-            _admin = new Administration.Admin(unit);
-            _autocomplete = new Autocomplete(unit);
         }
 
         private void DeleteStore()
@@ -131,7 +171,7 @@ namespace Administration_GUI.User_Controls_Admin
                     return;
                 }
                 IsTextConfirm = true;
-                Error = ($"Forretningen \"{storeName}\" er blevet fjernet fra Pristjek220.");
+                Error = $"Forretningen \"{storeName}\" er blevet fjernet fra Pristjek220.";
             }
             else
             {
@@ -142,7 +182,7 @@ namespace Administration_GUI.User_Controls_Admin
 
         private void EnterKeyPressed(KeyEventArgs e)
         {
-            if((e.Key == Key.Enter || e.Key == Key.Return))
+            if (e.Key == Key.Enter || e.Key == Key.Return)
                 DeleteStore();
         }
     }

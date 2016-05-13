@@ -39,8 +39,7 @@ namespace Administration_GUI.User_Controls
         private string _shoppingListItemPrice = "0";
 
         /// <summary>
-        ///     NewPriceModel is the User Control model for the NewPrice User Control
-        ///     Its used to add a product to a store
+        ///     AdminDeleteStoreModel constructor takes a UnitOfWork and a store to create an Storemanger and a autocomplete
         /// </summary>
         /// <param name="store"></param>
         /// <param name="unit"></param>

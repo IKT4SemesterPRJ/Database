@@ -1,20 +1,69 @@
-﻿using System.Security;
+﻿using System.Linq;
+using System.Security;
 using System.Timers;
-using System.Windows;
 using System.Windows.Input;
-using Administration_GUI;
 using GalaSoft.MvvmLight.Command;
 using Pristjek220Data;
 
 namespace Administration_GUI.User_Controls_Admin
 {
-    class AdminNewStoreModel : ObservableObject, IPageViewModelAdmin
+    /// <summary>
+    ///     AdminNewStoreModel is the User Control model for the AdminNewStore User Control
+    ///     Its used to create a new store
+    /// </summary>
+    internal class AdminNewStoreModel : ObservableObject, IPageViewModelAdmin
     {
-        private readonly Timer _timer = new Timer(2500);
-        public string NewStoreName { get; set; }
-        public SecureString SecurePassword { private get; set; }
-        public SecureString SecurePasswordConfirm { private get; set; }
         private readonly Administration.Admin _admin;
+        private readonly Timer _timer = new Timer(2500);
+        private ICommand _enterPressedCommand;
+        private string _error = string.Empty;
+        private ICommand _illegalSignDeleteProductCommand;
+
+        private bool _isTextConfirm;
+
+
+        private ICommand _newStoreCommand;
+
+        private string _newStoreName;
+        private string _oldtext;
+
+        /// <summary>
+        ///     AdminNewStoreModel constructor takes a UnitOfWork to create an Admin
+        /// </summary>
+        public AdminNewStoreModel(IUnitOfWork unit)
+        {
+            _admin = new Administration.Admin(unit);
+        }
+
+        /// <summary>
+        ///     Get and Set method for NewStoreName. The set method, sets the old NewStoreName to an oldtext, and then
+        ///     change the value to the new vaule and call OnPropertyChanged
+        /// </summary>
+        public string NewStoreName
+        {
+            get { return _newStoreName; }
+            set
+            {
+                _oldtext = _newStoreName;
+                _newStoreName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        ///     Set and Get method for the Password
+        /// </summary>
+        public SecureString SecurePassword { private get; set; }
+
+        /// <summary>
+        ///     Set and Get method for the confirm Password
+        /// </summary>
+        public SecureString SecurePasswordConfirm { private get; set; }
+
+        /// <summary>
+        ///     The Error string that is written to a label on the GUI describes if the event has been successfully or if it has
+        ///     failed, and why it failed
+        /// </summary>
         public string Error
         {
             get { return _error; }
@@ -24,12 +73,17 @@ namespace Administration_GUI.User_Controls_Admin
                 OnPropertyChanged();
                 _timer.Stop();
                 _timer.Start();
-                _timer.Elapsed += delegate { _error = ""; OnPropertyChanged(); };
+                _timer.Elapsed += delegate
+                {
+                    _error = "";
+                    OnPropertyChanged();
+                };
             }
         }
-        private string _error = string.Empty;
 
-        private bool _isTextConfirm;
+        /// <summary>
+        ///     Is a bool that is used to set the color of a label to red if it's a fail and green if it's expected behaviour
+        /// </summary>
         public bool IsTextConfirm
         {
             get { return _isTextConfirm; }
@@ -40,17 +94,35 @@ namespace Administration_GUI.User_Controls_Admin
             }
         }
 
-        public AdminNewStoreModel(IUnitOfWork unit)
-        {
-             _admin = new Administration.Admin(unit);
-        }
-
-
-        private ICommand _newStoreCommand;
-        private ICommand _enterPressedCommand;
-
+        /// <summary>
+        ///     Command that is used to create a new store, if anything goes wrong it will print the reason to why it
+        ///     did not create a new store to a label
+        /// </summary>
         public ICommand NewStoreCommand => _newStoreCommand ??
-                                                    (_newStoreCommand = new RelayCommand(NewStore));
+                                           (_newStoreCommand = new RelayCommand(NewStore));
+
+        /// <summary>
+        ///     Command that is used to see if Enter is pressed, if its pressed it calls the DeleteFromStoreDatabase
+        /// </summary>
+        public ICommand EnterKeyPressedCommand
+            => _enterPressedCommand ?? (_enterPressedCommand = new RelayCommand<KeyEventArgs>(EnterKeyPressed));
+
+        /// <summary>
+        ///     Command that is used whenever there is an TextChanged event to see if the text entered contains illegal signs
+        /// </summary>
+        public ICommand IllegalSignDeleteStoreCommand
+            =>
+                _illegalSignDeleteProductCommand ??
+                (_illegalSignDeleteProductCommand = new RelayCommand(IllegalSignDeleteStore));
+
+        private void IllegalSignDeleteStore()
+        {
+            if (NewStoreName == null) return;
+            if (NewStoreName.All(chr => char.IsLetter(chr) || char.IsNumber(chr) || char.IsWhiteSpace(chr))) return;
+            IsTextConfirm = false;
+            Error = $"Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9.";
+            NewStoreName = _oldtext;
+        }
 
         private void NewStore()
         {
@@ -85,8 +157,6 @@ namespace Administration_GUI.User_Controls_Admin
             }
         }
 
-        public ICommand EnterKeyPressedCommand => _enterPressedCommand ?? (_enterPressedCommand = new RelayCommand<KeyEventArgs>(EnterKeyPressed));
-
         private void EnterKeyPressed(KeyEventArgs e)
         {
             if ((e.Key == Key.Enter) || (e.Key == Key.Return))
@@ -94,6 +164,5 @@ namespace Administration_GUI.User_Controls_Admin
                 NewStore();
             }
         }
-
     }
 }

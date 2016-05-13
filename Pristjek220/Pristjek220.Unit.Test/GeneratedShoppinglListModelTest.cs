@@ -88,7 +88,7 @@ namespace Pristjek220.Unit.Test
             _uut.StoreNames.Add("Store0");
             _uut.StoreNames.Add("Store1");
             _uut.GeneratedShoppingListData.Add(storeProductAndPrice);
-            _user.ChangeItemToAnotherStore("Store0", storeProductAndPrice).Returns(1);
+            _user.ChangeProductToAnotherStore("Store0", storeProductAndPrice).Returns(1);
 
             _uut.StoreChangedCommand.Execute(this);
             Assert.That(_uut.ErrorStore, Is.EqualTo(""));
@@ -113,7 +113,7 @@ namespace Pristjek220.Unit.Test
             _uut.StoreNames.Add("Store0");
             _uut.StoreNames.Add("Store1");
             _uut.GeneratedShoppingListData.Add(storeProductAndPrice);
-            _user.ChangeItemToAnotherStore("Store0", storeProductAndPrice).Returns(0);
+            _user.ChangeProductToAnotherStore("Store0", storeProductAndPrice).Returns(0);
 
             _uut.StoreChangedCommand.Execute(this);
             Assert.That(_uut.ErrorStore, Is.EqualTo("Store0 har ikke produktet \"Test\" i deres sortiment."));
@@ -185,7 +185,7 @@ namespace Pristjek220.Unit.Test
             _uut.StoreNames.Add("Store0");
             _uut.StoreNames.Add("Store1");
             _uut.GeneratedShoppingListData.Add(storeProductAndPrice);
-            _user.ChangeItemToAnotherStore("Store0", storeProductAndPrice).Returns(0);
+            _user.ChangeProductToAnotherStore("Store0", storeProductAndPrice).Returns(0);
 
             _uut.StoreChangedCommand.Execute(this);
             Assert.That(_uut.ErrorStore, Is.EqualTo("Store0 har ikke produktet \"Test\" i deres sortiment."));

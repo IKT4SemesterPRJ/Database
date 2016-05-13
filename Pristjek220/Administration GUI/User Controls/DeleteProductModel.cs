@@ -67,11 +67,10 @@ namespace Administration_GUI.User_Controls
                 (_deleteFromStoreDatabaseCommand = new RelayCommand(DeleteFromStoreDatabase));
 
         /// <summary>
-        ///     Command that is used whenever there is an Populating event to populate the dropdown menu with the correct products
+        ///     Command that is used to see if Enter is pressed, if its pressed it calls the DeleteFromStoreDatabase
         /// </summary>
-        public ICommand PopulatingDeleteProductCommand => _populatingDeleteProductCommand ??
-                                                          (_populatingDeleteProductCommand =
-                                                              new RelayCommand(PopulatingListDeleteProduct));
+        public ICommand EnterKeyPressedCommand
+            => _enterPressedCommand ?? (_enterPressedCommand = new RelayCommand<KeyEventArgs>(EnterKeyPressed));
 
         /// <summary>
         ///     Command that is used whenever there is an TextChanged event to see if the text entered contains illegal signs
@@ -79,6 +78,14 @@ namespace Administration_GUI.User_Controls
         public ICommand IllegalSignDeleteProductCommand => _illegalSignDeleteProductCommand ??
                                                            (_illegalSignDeleteProductCommand =
                                                                new RelayCommand(IllegalSignDeleteProduct));
+
+        /// <summary>
+        ///     Command that is used whenever there is an Populating event to populate the dropdown menu with the correct products
+        /// </summary>
+        public ICommand PopulatingDeleteProductCommand => _populatingDeleteProductCommand ??
+                                                          (_populatingDeleteProductCommand =
+                                                              new RelayCommand(PopulatingListDeleteProduct));
+
 
         /// <summary>
         ///     Get method for AutoCompleteList, that is the list with the items that is getting populated to the dropdown.
@@ -120,12 +127,6 @@ namespace Administration_GUI.User_Controls
             }
             get { return _confirmText; }
         }
-
-        /// <summary>
-        ///     Command that is used to see if Enter is pressed, if its pressed it calls the DeleteFromStoreDatabase
-        /// </summary>
-        public ICommand EnterKeyPressedCommand
-            => _enterPressedCommand ?? (_enterPressedCommand = new RelayCommand<KeyEventArgs>(EnterKeyPressed));
 
 
         private void PopulatingListDeleteProduct()

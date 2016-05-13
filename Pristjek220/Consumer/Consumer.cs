@@ -127,7 +127,7 @@ namespace Consumer
         /// <param name="storeName"></param>
         /// <param name="product"></param>
         /// <returns>1 if the product has been changed to another store and -1 if the other store does not have the product</returns>
-        public int ChangeItemToAnotherStore(string storeName, StoreProductAndPrice product)
+        public int ChangeProductToAnotherStore(string storeName, StoreProductAndPrice product)
         {
             var productIndex = GeneratedShoppingListData.IndexOf(product);
             ProductAndPrice productAndPrice;

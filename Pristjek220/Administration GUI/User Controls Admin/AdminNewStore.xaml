@@ -62,6 +62,9 @@
             VerticalContentAlignment="Center"
             Width="100">
             <i:Interaction.Triggers>
+                <i:EventTrigger EventName="TextChanged">
+                    <i:InvokeCommandAction Command="{Binding IllegalSignDeleteStoreCommand}"/>
+                </i:EventTrigger>
                 <i:EventTrigger EventName="PreviewKeyDown">
                     <command:EventToCommand Command="{Binding EnterKeyPressedCommand}" PassEventArgsToCommand="True">
                     </command:EventToCommand>

@@ -1,25 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations;
-using System.Drawing;
 using System.Linq;
 using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
-using System.Net;
-using System.Security.Cryptography;
 using Pristjek220Data;
 
 namespace Consumer
 {
+    /// <summary>
+    ///     Class that is used to send a mail
+    /// </summary>
     public class Mail : IMail
     {
         private readonly MailMessage _mail;
-        private readonly ISmtpClientWrapper smtpClientWrapper;
-        public Mail(ISmtpClientWrapper SmtpClient)
+        private readonly ISmtpClientWrapper _smtpClientWrapper;
+        /// <summary>
+        ///     Constructor for Mail, that sets static elements
+        /// </summary>
+        /// <param name="smtpClient"></param>
+        public Mail(ISmtpClientWrapper smtpClient)
         {
-            smtpClientWrapper = SmtpClient;
+            _smtpClientWrapper = smtpClient;
             _mail = new MailMessage
             {
                 From = new MailAddress("pristjek220@gmail.com"),
@@ -27,11 +27,18 @@ namespace Consumer
                 IsBodyHtml = true
             };
         }
+        /// <summary>
+        ///     Send a mail with the requested lists of items to the requested email in html format
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="productListWithStore"></param>
+        /// <param name="productListWithNoStore"></param>
+        /// <param name="sum"></param>
         public void SendMail(string email, ObservableCollection<StoreProductAndPrice> productListWithStore, ObservableCollection<ProductInfo> productListWithNoStore, string sum)
         {
             _mail.To.Add(email);
             _mail.Body = generateString(productListWithStore, productListWithNoStore, sum);
-            smtpClientWrapper.Send(_mail);
+            _smtpClientWrapper.Send(_mail);
         }
 
         private string generateString(ObservableCollection<StoreProductAndPrice> productListWithStore,

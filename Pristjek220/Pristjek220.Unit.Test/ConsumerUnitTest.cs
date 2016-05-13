@@ -391,7 +391,7 @@ namespace Pristjek220.Unit.Test
             _uut.ShoppingListData.Add(new ProductInfo(_product.ProductName, "2"));
 
 
-            Assert.That(_uut.ChangeItemToAnotherStore("Aldi", storeProductAndPrice), Is.EqualTo(1));
+            Assert.That(_uut.ChangeProductToAnotherStore("Aldi", storeProductAndPrice), Is.EqualTo(1));
         }
 
         [Test]
@@ -402,7 +402,7 @@ namespace Pristjek220.Unit.Test
             ProductAndPrice productAndPrice = null;
             _unitWork.Stores.FindProductInStore("Aldi", storeProductAndPrice.ProductName).Returns(productAndPrice);
 
-            Assert.That(_uut.ChangeItemToAnotherStore("Aldi", storeProductAndPrice), Is.EqualTo(-1));
+            Assert.That(_uut.ChangeProductToAnotherStore("Aldi", storeProductAndPrice), Is.EqualTo(-1));
         }
 
 

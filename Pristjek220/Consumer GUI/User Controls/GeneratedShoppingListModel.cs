@@ -125,7 +125,7 @@ namespace Consumer_GUI.User_Controls
         {
             if (SelectedIndexGeneratedShoppingList == -1) return;
             if (
-                _user.ChangeItemToAnotherStore(StoreNames[SelectedStoreIndex],
+                _user.ChangeProductToAnotherStore(StoreNames[SelectedStoreIndex],
                     GeneratedShoppingListData[SelectedIndexGeneratedShoppingList]) == 1)
             {
                 OnPropertyChanged("TotalSum");
