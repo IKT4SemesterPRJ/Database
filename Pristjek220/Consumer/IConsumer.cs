@@ -17,15 +17,12 @@ namespace Consumer
         Store FindCheapestStore(string productName);
         StoreAndPrice FindCheapestStoreWithSumForListOfProducts(List<ProductInfo> products);
         bool DoesProductExist(string productName);
-        List<ProductAndPrice> FindStoresAssortment(string storeName);
         List<StoreAndPrice> FindStoresThatSellsProduct(string productName);
         void CreateShoppingList();
         void ReadFromJsonFile();
         void WriteToJsonFile();
         void ClearGeneratedShoppingListData();
         void ClearNotInAStore();
-
-        StoreAndPrice FindDifferenceforProducts();
         int ChangeItemToAnotherStore(string storeName, StoreProductAndPrice product);
     }
 }

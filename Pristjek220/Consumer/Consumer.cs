@@ -57,24 +57,29 @@ namespace Consumer
         public string MoneySaved { get; set; }
 
         /// <summary>
-        ///     ObservableCollection that holds the items that is found in the database with the info: Store, name, price, quantity and sum
+        ///     ObservableCollection that holds the items that is found in the database with the info: Store, name, price, quantity
+        ///     and sum
         /// </summary>
         public ObservableCollection<StoreProductAndPrice> GeneratedShoppingListData { get; set; }
+
         /// <summary>
         ///     ObservableCollection that holds all the available stores
         /// </summary>
         public ObservableCollection<StoresInPristjek> OptionsStores { get; set; }
+
         /// <summary>
         ///     String that is printed to a label that tell how much it will cost to buy all the wanted products in one store
         /// </summary>
         public string BuyInOneStore { get; set; }
+
         /// <summary>
         ///     String that is printed to a label that tell how much the total of all the products cost
         /// </summary>
         public string TotalSum { get; set; }
 
         /// <summary>
-        ///     ObservableCollection that holds the items it the shoopinglist, and when the list is requested it writes the List to a local Json file on the computer
+        ///     ObservableCollection that holds the items it the shoopinglist, and when the list is requested it writes the List to
+        ///     a local Json file on the computer
         /// </summary>
         public ObservableCollection<ProductInfo> ShoppingListData
         {
@@ -145,11 +150,21 @@ namespace Consumer
         }
 
 
+        /// <summary>
+        ///     Checks if product exist
+        /// </summary>
+        /// <param name="productName"></param>
+        /// <returns>true if product exist</returns>
         public bool DoesProductExist(string productName)
         {
             return _unit.Products.FindProduct(productName) != null;
         }
 
+        /// <summary>
+        ///     Finds the cheapest store for a product
+        /// </summary>
+        /// <param name="productName"></param>
+        /// <returns>The store that got the product cheapest</returns>
         public Store FindCheapestStore(string productName)
         {
             var product = _unit.Products.FindProduct(productName);
@@ -177,6 +192,11 @@ namespace Consumer
             return cheapest?.Store;
         }
 
+        /// <summary>
+        ///     Find the cheapest Store with sum that sells all the products in a list
+        /// </summary>
+        /// <param name="products"></param>
+        /// <returns>The store and the sum of all the products in the list</returns>
         public StoreAndPrice FindCheapestStoreWithSumForListOfProducts(List<ProductInfo> products)
         {
             var cheapestStore = new StoreAndPrice {Price = double.MaxValue};
@@ -209,16 +229,21 @@ namespace Consumer
             return cheapestStore;
         }
 
-        public List<ProductAndPrice> FindStoresAssortment(string storeName)
-        {
-            return _unit.Stores.FindProductsInStore(storeName);
-        }
-
+        /// <summary>
+        ///     Find all stores that sells a requested product
+        /// </summary>
+        /// <param name="productName"></param>
+        /// <returns>A list with all the stores that sells the requested product </returns>
         public List<StoreAndPrice> FindStoresThatSellsProduct(string productName)
         {
             return _unit.Products.FindStoresThatSellsProduct(productName);
         }
 
+        /// <summary>
+        ///     Creates two generated shoppinglists, from the shoppinglist one with products thats in the database and one with
+        ///     products thats not. Calculate what is the sum if you buy all the products in the database in the cheapest shops and
+        ///     calculate if you buy all products in the cheapest store,.
+        /// </summary>
         public void CreateShoppingList()
         {
             foreach (var product in ShoppingListData)
@@ -248,6 +273,9 @@ namespace Consumer
             CalculateSumForGeneratedList();
         }
 
+        /// <summary>
+        ///     Writes the shopping list data to a file
+        /// </summary>
         public void WriteToJsonFile()
         {
             Directory.CreateDirectory(_path);
@@ -259,6 +287,9 @@ namespace Consumer
             }
         }
 
+        /// <summary>
+        ///     Reads the shopping list data from a file
+        /// </summary>
         public void ReadFromJsonFile()
         {
             try
@@ -271,22 +302,29 @@ namespace Consumer
                             serializer.Deserialize(file, typeof (ObservableCollection<ProductInfo>));
                 }
             }
-            catch (Exception Fn)
+            catch (Exception)
             {
+                // ignored
             }
         }
 
+        /// <summary>
+        ///     Clear the shopping list data
+        /// </summary>
         public void ClearGeneratedShoppingListData()
         {
             GeneratedShoppingListData.Clear();
         }
 
+        /// <summary>
+        ///     Clear the not in store list
+        /// </summary>
         public void ClearNotInAStore()
         {
             NotInAStore.Clear();
         }
 
-        public StoreAndPrice FindDifferenceforProducts()
+        private StoreAndPrice FindDifferenceforProducts()
         {
             var listOfProducts =
                 GeneratedShoppingListData.Select(item => new ProductInfo(item.ProductName, item.Quantity)).ToList();
@@ -332,17 +370,28 @@ namespace Consumer
     }
 
     /// <summary>
-    ///     This class is used to store the name and quantity of a product.
+    ///     Holds a store in a string and whether or not it is choosen
     /// </summary>
     public class StoresInPristjek
     {
+        /// <summary>
+        ///     Constructor for StoresInPristjek, that takes a store, and ses IsChecked to true
+        /// </summary>
+        /// <param name="store"></param>
         public StoresInPristjek(string store)
         {
             Store = store;
             IsChecked = true;
         }
 
+        /// <summary>
+        ///     Holds a storename in a string
+        /// </summary>
         public string Store { get; set; }
+
+        /// <summary>
+        ///     A bool that tells if a store is checked or not
+        /// </summary>
         public bool IsChecked { get; set; }
     }
 }
