@@ -20,6 +20,9 @@ namespace Consumer_GUI.User_Controls
     /// </summary>
     public partial class Home : UserControl
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public Home()
         {
             InitializeComponent();

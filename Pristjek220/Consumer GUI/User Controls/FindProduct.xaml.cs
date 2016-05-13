@@ -22,6 +22,9 @@ namespace Consumer_GUI.User_Controls
     /// </summary>
     public partial class FindProduct : UserControl
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public FindProduct()
         {
             InitializeComponent();

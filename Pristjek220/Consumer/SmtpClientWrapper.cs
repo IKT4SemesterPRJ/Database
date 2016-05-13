@@ -23,9 +23,11 @@ namespace Consumer
         /// <param name="enableSsl"></param>
         public SmtpClientWrapper(string host, int port, NetworkCredential networkCredential, bool enableSsl)
         {
-            SmtpClient = new SmtpClient(host, port);
-            SmtpClient.Credentials = networkCredential;
-            SmtpClient.EnableSsl = enableSsl;
+            SmtpClient = new SmtpClient(host, port)
+            {
+                Credentials = networkCredential,
+                EnableSsl = enableSsl
+            };
         }
 
         /// <summary>

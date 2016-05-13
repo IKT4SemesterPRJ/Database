@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Windows.Input;
 
-namespace Administration_GUI
+namespace SharedFunctionalities
 {
     //
     // Downloaded from: http://mvvmfoundation.codeplex.com/

@@ -5,9 +5,8 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Input;
 using Consumer;
-using GalaSoft.MvvmLight.Command;
 using Pristjek220Data;
-using System.Timers;
+using SharedFunctionalities;
 
 namespace Consumer_GUI.User_Controls
 {
@@ -119,7 +118,7 @@ namespace Consumer_GUI.User_Controls
 
         public ICommand StoreChangedCommand => _storeChangedCommand ?? (_storeChangedCommand = new RelayCommand(StoreChanged));
 
-        public ICommand EnterKeyPressedCommand => _enterPressedCommand ?? (_enterPressedCommand = new RelayCommand<KeyEventArgs>(EnterKeyPressed));
+        public ICommand EnterKeyPressedCommand => _enterPressedCommand ?? (_enterPressedCommand = new GalaSoft.MvvmLight.Command.RelayCommand<KeyEventArgs>(EnterKeyPressed));
 
         private void StoreChanged()
         {

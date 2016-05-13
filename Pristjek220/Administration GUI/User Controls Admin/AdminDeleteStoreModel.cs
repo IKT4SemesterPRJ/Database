@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Input;
-using GalaSoft.MvvmLight.Command;
 using Pristjek220Data;
 using SharedFunctionalities;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
@@ -15,7 +14,7 @@ namespace Administration_GUI.User_Controls_Admin
     ///     AdminDeleteStoreModel is the User Control model for the AdminDeleteStore User Control
     ///     Its used to delete a store
     /// </summary>
-    internal class AdminDeleteStoreModel : ObservableObject, IPageViewModelAdmin
+    internal class AdminDeleteStoreModel : ObservableObject, IPageViewModel
     {
         private readonly Administration.Admin _admin;
         private readonly IAutocomplete _autocomplete;
@@ -60,7 +59,7 @@ namespace Administration_GUI.User_Controls_Admin
         ///     Command that is used to see if Enter is pressed, if its pressed it calls the DeleteStore
         /// </summary>
         public ICommand EnterKeyPressedCommand
-            => _enterPressedCommand ?? (_enterPressedCommand = new RelayCommand<KeyEventArgs>(EnterKeyPressed));
+            => _enterPressedCommand ?? (_enterPressedCommand = new GalaSoft.MvvmLight.Command.RelayCommand<KeyEventArgs>(EnterKeyPressed));
 
         /// <summary>
         ///     Command that is used whenever there is an TextChanged event to see if the text entered contains illegal signs

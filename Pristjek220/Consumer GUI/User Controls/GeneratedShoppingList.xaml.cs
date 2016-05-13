@@ -21,6 +21,9 @@ namespace Consumer_GUI.User_Controls
     public partial class GeneratedShoppingList : UserControl
     {
         
+        /// <summary>
+        /// 
+        /// </summary>
         public GeneratedShoppingList()
         {
             InitializeComponent();

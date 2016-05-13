@@ -116,9 +116,7 @@
       <DependentUpon>LogIn.xaml</DependentUpon>
     </Compile>
     <Compile Include="LogInViewModel.cs" />
-    <Compile Include="ObservableObject.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="RelayCommands.cs" />
     <Compile Include="User Controls Admin\AdminDeleteProduct.xaml.cs">
       <DependentUpon>AdminDeleteProduct.xaml</DependentUpon>
     </Compile>

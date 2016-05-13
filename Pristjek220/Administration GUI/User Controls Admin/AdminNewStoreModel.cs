@@ -2,8 +2,8 @@
 using System.Security;
 using System.Timers;
 using System.Windows.Input;
-using GalaSoft.MvvmLight.Command;
 using Pristjek220Data;
+using SharedFunctionalities;
 
 namespace Administration_GUI.User_Controls_Admin
 {
@@ -11,7 +11,7 @@ namespace Administration_GUI.User_Controls_Admin
     ///     AdminNewStoreModel is the User Control model for the AdminNewStore User Control
     ///     Its used to create a new store
     /// </summary>
-    internal class AdminNewStoreModel : ObservableObject, IPageViewModelAdmin
+    internal class AdminNewStoreModel : ObservableObject, IPageViewModel
     {
         private readonly Administration.Admin _admin;
         private readonly Timer _timer = new Timer(2500);
@@ -105,7 +105,7 @@ namespace Administration_GUI.User_Controls_Admin
         ///     Command that is used to see if Enter is pressed, if its pressed it calls the DeleteFromStoreDatabase
         /// </summary>
         public ICommand EnterKeyPressedCommand
-            => _enterPressedCommand ?? (_enterPressedCommand = new RelayCommand<KeyEventArgs>(EnterKeyPressed));
+            => _enterPressedCommand ?? (_enterPressedCommand = new GalaSoft.MvvmLight.Command.RelayCommand<KeyEventArgs>(EnterKeyPressed));
 
         /// <summary>
         ///     Command that is used whenever there is an TextChanged event to see if the text entered contains illegal signs

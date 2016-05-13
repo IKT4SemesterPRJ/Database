@@ -7,7 +7,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Consumer;
-using GalaSoft.MvvmLight.Command;
 using Pristjek220Data;
 using SharedFunctionalities;
 
@@ -84,7 +83,7 @@ namespace Consumer_GUI.User_Controls
                                                         (_generatedShoppingListCommand = new RelayCommand(GeneratedShoppingListFromShoppingList));
 
         public ICommand EnterKeyPressedCommand => _enterKeyPressedCommand ??
-                                                  (_enterKeyPressedCommand = new RelayCommand<KeyEventArgs>(EnterKeyPressed));
+                                                  (_enterKeyPressedCommand = new GalaSoft.MvvmLight.Command.RelayCommand<KeyEventArgs>(EnterKeyPressed));
 
 
         public ICommand ClearShoppingListCommand => _clearShoppingListCommand ??

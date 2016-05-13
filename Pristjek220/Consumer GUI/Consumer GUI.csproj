@@ -116,13 +116,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ApplicationViewModel.cs" />
-    <Compile Include="ObservableObject.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="User Controls\FindProductModel.cs" />
     <Compile Include="User Controls\GeneratedShoppingListModel.cs" />
     <Compile Include="User Controls\HomeModel.cs" />
     <Compile Include="User Controls\ShoppingListModel.cs" />
-    <Compile Include="RelayCommand.cs" />
     <Compile Include="User Controls\FindProduct.xaml.cs">
       <DependentUpon>FindProduct.xaml</DependentUpon>
     </Compile>

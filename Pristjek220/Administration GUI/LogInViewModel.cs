@@ -2,7 +2,6 @@
 using System.Windows;
 using System.Windows.Input;
 using Administration;
-using GalaSoft.MvvmLight.Command;
 using Pristjek220Data;
 using SharedFunctionalities;
 
@@ -91,7 +90,7 @@ namespace Administration_GUI
             Application.Current.MainWindow = storemanagerGui;
         }
 
-        public ICommand EnterKeyPressedCommand => _enterPressedCommand ?? (_enterPressedCommand = new RelayCommand<KeyEventArgs>(EnterKeyPressed));
+        public ICommand EnterKeyPressedCommand => _enterPressedCommand ?? (_enterPressedCommand = new GalaSoft.MvvmLight.Command.RelayCommand<KeyEventArgs>(EnterKeyPressed));
         
         private void EnterKeyPressed(KeyEventArgs e)
         {

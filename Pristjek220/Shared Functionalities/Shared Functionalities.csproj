@@ -49,7 +49,11 @@
     <Compile Include="DatabaseFunctions.cs" />
     <Compile Include="IAutocomplete.cs" />
     <Compile Include="IDatabaseFunctions.cs" />
+    <Compile Include="IPageViewModel.cs" />
+    <Compile Include="ObservableObject.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RelayCommands.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Pristjek220Info\Pristjek220Info.csproj">

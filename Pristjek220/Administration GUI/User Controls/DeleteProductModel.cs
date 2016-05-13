@@ -3,7 +3,6 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Input;
 using Administration;
-using GalaSoft.MvvmLight.Command;
 using Pristjek220Data;
 using SharedFunctionalities;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
@@ -70,7 +69,7 @@ namespace Administration_GUI.User_Controls
         ///     Command that is used to see if Enter is pressed, if its pressed it calls the DeleteFromStoreDatabase
         /// </summary>
         public ICommand EnterKeyPressedCommand
-            => _enterPressedCommand ?? (_enterPressedCommand = new RelayCommand<KeyEventArgs>(EnterKeyPressed));
+            => _enterPressedCommand ?? (_enterPressedCommand = new GalaSoft.MvvmLight.Command.RelayCommand<KeyEventArgs>(EnterKeyPressed));
 
         /// <summary>
         ///     Command that is used whenever there is an TextChanged event to see if the text entered contains illegal signs

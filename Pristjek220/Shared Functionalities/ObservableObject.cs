@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Consumer_GUI.Annotations;
+using SharedFunctionalities.Annotations;
 
-namespace Consumer_GUI
+namespace SharedFunctionalities
 {
     public class ObservableObject : INotifyPropertyChanged
     {

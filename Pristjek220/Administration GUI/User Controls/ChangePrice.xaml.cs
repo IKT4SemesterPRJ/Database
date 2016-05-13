@@ -20,6 +20,9 @@ namespace Administration_GUI.User_Controls
     /// </summary>
     public partial class ChangePrice : UserControl
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public ChangePrice()
         {
             InitializeComponent();

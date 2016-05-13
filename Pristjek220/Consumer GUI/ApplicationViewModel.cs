@@ -14,7 +14,7 @@ namespace Consumer_GUI
         private IPageViewModel _currentPageViewModel;
         private ObservableCollection<IPageViewModel> _pageViewModels;
         private string _mainWindowTekst;
-        public string MainWindowTekst { get {return _mainWindowTekst;} set { _mainWindowTekst = value; OnPropertyChanged("MainWindowTekst");} }
+        public string MainWindowTekst { get {return _mainWindowTekst;} set { _mainWindowTekst = value; OnPropertyChanged();} }
 
         public ApplicationViewModel()
         {
@@ -131,9 +131,5 @@ namespace Consumer_GUI
             MainWindowTekst = "Pristjek220 - Forbruger - Genereret Indkøbsliste";
         }
         #endregion
-    }
-
-    public interface IPageViewModel
-    {
     }
 }

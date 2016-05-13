@@ -5,6 +5,7 @@ using Administration;
 using Administration_GUI.User_Controls;
 using Administration_GUI;
 using Pristjek220Data;
+using SharedFunctionalities;
 
 namespace Administration_GUI
 
@@ -99,9 +100,5 @@ namespace Administration_GUI
 
 
         #endregion
-    }
-
-    public interface IPageViewModel
-    {
     }
 }

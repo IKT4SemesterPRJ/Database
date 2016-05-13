@@ -20,6 +20,9 @@ namespace Administration_GUI.User_Controls_Admin
     /// </summary>
     public partial class AdminDeleteProduct : UserControl
     {
+        /// <summary>
+        ///     
+        /// </summary>
         public AdminDeleteProduct()
         {
             InitializeComponent();

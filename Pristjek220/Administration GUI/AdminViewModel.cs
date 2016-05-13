@@ -4,13 +4,14 @@ using System.Windows.Input;
 using Administration_GUI.User_Controls_Admin;
 using Administration_GUI;
 using Pristjek220Data;
+using SharedFunctionalities;
 
 namespace Administration_GUI
 {
     class AdminViewModel : ObservableObject
     {
-        private IPageViewModelAdmin _currentPageViewModel;
-        private ObservableCollection<IPageViewModelAdmin> _pageViewModels;
+        private IPageViewModel _currentPageViewModel;
+        private ObservableCollection<IPageViewModel> _pageViewModels;
         private string _mainWindowTekst;
         public string MainWindowTekst { get { return _mainWindowTekst; } set { _mainWindowTekst = value; OnPropertyChanged("MainWindowTekst"); } }
 
@@ -27,9 +28,9 @@ namespace Administration_GUI
             _currentPageViewModel = _pageViewModels[0];
         }
 
-        public ObservableCollection<IPageViewModelAdmin> PageViewModels => _pageViewModels ?? (_pageViewModels = new ObservableCollection<IPageViewModelAdmin>());
+        public ObservableCollection<IPageViewModel> PageViewModels => _pageViewModels ?? (_pageViewModels = new ObservableCollection<IPageViewModel>());
 
-        public IPageViewModelAdmin CurrentPageViewModel
+        public IPageViewModel CurrentPageViewModel
         {
             get { return _currentPageViewModel; }
             set
@@ -92,9 +93,5 @@ namespace Administration_GUI
 
 
         #endregion
-    }
-
-    public interface IPageViewModelAdmin
-    {
     }
 }

@@ -8,6 +8,9 @@ namespace Administration_GUI.User_Controls_Admin
     /// </summary>
     public partial class AdminNewStore : UserControl
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public AdminNewStore()
         {
             InitializeComponent();

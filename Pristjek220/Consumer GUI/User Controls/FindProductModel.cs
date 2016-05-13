@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Windows.Input;
 using Consumer;
-using GalaSoft.MvvmLight.Command;
 using Pristjek220Data;
 using System.Runtime.CompilerServices;
 using System.Timers;
@@ -62,7 +61,7 @@ namespace Consumer_GUI.User_Controls
         public ICommand IllegalSignFindProductCommand => _illegalSignFindProductCommand ??
                                                          (_illegalSignFindProductCommand = new RelayCommand(IllegalSignFindProduct));
 
-        public ICommand EnterKeyPressedCommand => _enterPressedCommand ?? (_enterPressedCommand = new RelayCommand<KeyEventArgs>(EnterKeyPressed));
+        public ICommand EnterKeyPressedCommand => _enterPressedCommand ?? (_enterPressedCommand = new GalaSoft.MvvmLight.Command.RelayCommand<KeyEventArgs>(EnterKeyPressed));
 
         public string ProductName
         {

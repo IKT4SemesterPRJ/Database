@@ -1,56 +1,55 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Administration_GUI
 {
     /// <summary>
     /// Interaction logic for CustomMsgBox.xaml
     /// </summary>
-    public partial class CustomMsgBox : Window
+    public partial class CustomMsgBox
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public CustomMsgBox()
         {
             InitializeComponent();
         }
 
-        static CustomMsgBox customMsgBox;
-        static DialogResult result = System.Windows.Forms.DialogResult.No;
+        static CustomMsgBox _customMsgBox;
+        static DialogResult _result = System.Windows.Forms.DialogResult.No;
 
-        public static DialogResult Show(string LabelText, string caption, string btn1, string btn2)
+        /// <summary>
+        ///     Shows the custom messagebox
+        /// </summary>
+        /// <param name="labelText"></param>
+        /// <param name="caption"></param>
+        /// <param name="btn1"></param>
+        /// <param name="btn2"></param>
+        /// <returns></returns>
+        public static DialogResult Show(string labelText, string caption, string btn1, string btn2)
         {
-            customMsgBox = new CustomMsgBox
+            _customMsgBox = new CustomMsgBox
             {
                 BtnLeft = {Content = btn1},
                 BtnRight = {Content = btn2},
-                TextBlock = {Text = LabelText},
+                TextBlock = {Text = labelText},
                 Title = caption
             };
-            customMsgBox.ShowDialog();
-            return result;
+            _customMsgBox.ShowDialog();
+            return _result;
         }
 
         private void BtnLeft_Click(object sender, RoutedEventArgs e)
         {
-            result = System.Windows.Forms.DialogResult.Yes;
-            customMsgBox.Close();
+            _result = System.Windows.Forms.DialogResult.Yes;
+            _customMsgBox.Close();
         }
 
         private void BtnRight_Click(object sender, RoutedEventArgs e)
         {
-            result = System.Windows.Forms.DialogResult.No;
-            customMsgBox.Close();
+            _result = System.Windows.Forms.DialogResult.No;
+            _customMsgBox.Close();
         }
     }
 }
