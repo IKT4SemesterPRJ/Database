@@ -2,8 +2,6 @@
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Input;
-using Administration;
-using Administration_GUI;
 using GalaSoft.MvvmLight.Command;
 using Pristjek220Data;
 using SharedFunctionalities;
@@ -99,7 +97,7 @@ namespace Administration_GUI.User_Controls_Admin
         public AdminDeleteStoreModel(IUnitOfWork unit)
         {
             _admin = new Administration.Admin(unit);
-            _autocomplete = new SharedFunctionalities.Autocomplete(unit);
+            _autocomplete = new Autocomplete(unit);
         }
 
         private void DeleteStore()

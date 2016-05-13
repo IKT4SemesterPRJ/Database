@@ -1,5 +1,4 @@
-﻿using System;
-using System.Security;
+﻿using System.Security;
 using System.Windows;
 using System.Windows.Input;
 using Administration;
@@ -76,20 +75,20 @@ namespace Administration_GUI
 
         private void ChangeWindowAdmin()
         {
-            var LogInGui = Application.Current.MainWindow;
-            var adminGUI = new Admin(_unit);
-            adminGUI.Show();
-            LogInGui.Close();
-            Application.Current.MainWindow = adminGUI;
+            var logInGui = Application.Current.MainWindow;
+            var adminGui = new Admin(_unit);
+            adminGui.Show();
+            logInGui.Close();
+            Application.Current.MainWindow = adminGui;
         }
 
         private void ChangeWindowStoremanager()
         {
             var logInGui = Application.Current.MainWindow;
-            var storemanagerGUI = new StoremanagerGUI(_loginstore, _unit);
-            storemanagerGUI.Show();
+            var storemanagerGui = new StoremanagerGUI(_loginstore, _unit);
+            storemanagerGui.Show();
             logInGui.Close();
-            Application.Current.MainWindow = storemanagerGUI;
+            Application.Current.MainWindow = storemanagerGui;
         }
 
         public ICommand EnterKeyPressedCommand => _enterPressedCommand ?? (_enterPressedCommand = new RelayCommand<KeyEventArgs>(EnterKeyPressed));

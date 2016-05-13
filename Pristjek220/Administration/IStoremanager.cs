@@ -16,14 +16,14 @@ namespace Administration
         ///     Add product to database
         /// </summary>
         /// <param name="product"></param>
-        /// <returns>-1 if product is not found and return 0 if product is added</returns>
+        /// <returns>0 if product is added</returns>
         int AddProductToDb(Product product);
         /// <summary>
         /// Add product to storemanagers store with price
         /// </summary>
         /// <param name="product"></param>
         /// <param name="price"></param>
-        /// <returns>-1 if the product exist in that store and 0 if it has been added</returns>
+        /// <returns>0 if it has been added</returns>
         int AddProductToMyStore(Product product, double price);
         /// <summary>
         /// Finds a product with the requested productName
@@ -42,7 +42,7 @@ namespace Administration
         ///     product too
         /// </summary>
         /// <param name="product"></param>
-        /// <returns>-1 if the product does not exist and 0 if it has been removed successfully</returns>
+        /// <returns>0 if it has been removed successfully</returns>
         int RemoveProductFromMyStore(Product product);
         /// <summary>
         /// Changes the price of the requested product

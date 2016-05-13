@@ -42,21 +42,23 @@ namespace Administration_GUI
             _canExecute = canExecute;
         }
 
-        public RelayCommand(ICommand addToStoreDatabaseCommand)
-        {
-            this.addToStoreDatabaseCommand = addToStoreDatabaseCommand;
-        }
-
         #endregion // Constructors
 
         #region ICommand Members
-
+        /// <summary>
+        ///     Test if an command can execute, this has not been used in this project 
+        /// </summary>
+        /// <param name="parameter"></param>
+        /// <returns></returns>
         [DebuggerStepThrough]
         public bool CanExecute(object parameter)
         {
             return _canExecute?.Invoke() ?? true;
         }
 
+        /// <summary>
+        ///     Test if an command that can execute has changed, this has not been used in this project 
+        /// </summary>
         public event EventHandler CanExecuteChanged
         {
             add
@@ -70,7 +72,10 @@ namespace Administration_GUI
                     CommandManager.RequerySuggested -= value;
             }
         }
-
+        /// <summary>
+        /// Executes a command
+        /// </summary>
+        /// <param name="parameter"></param>
         public void Execute(object parameter)
         {
             _execute();
@@ -82,7 +87,6 @@ namespace Administration_GUI
 
         private readonly Action _execute;
         private readonly Func<bool> _canExecute;
-        private ICommand addToStoreDatabaseCommand;
 
         #endregion // Fields
     }
