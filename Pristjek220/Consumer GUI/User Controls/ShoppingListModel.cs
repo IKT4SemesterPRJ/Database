@@ -19,7 +19,7 @@ namespace Consumer_GUI.User_Controls
         private ICommand _clearShoppingListCommand;
         private ICommand _deleteFromShoppingListCommand;
         private ICommand _enterKeyPressedCommand;
-        private string _error;
+        private string _error = string.Empty;
         private ICommand _generatedShoppingListCommand;
         private ICommand _illegalSignShoppingListCommand;
 
@@ -32,19 +32,41 @@ namespace Consumer_GUI.User_Controls
         private ProductInfo _selectedItem;
         private string _shoppinglistItem = string.Empty;
 
+        /// <summary>
+        ///     FindProductModel constructor takes a UnitOfWork and a user and reads from a file if there is a local shoppinglist
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="unit"></param>
         public ShoppingListModel(IConsumer user, IUnitOfWork unit)
         {
             User = user;
             ShoppingListData = new ObservableCollection<ProductInfo>();
             _unit = unit;
             User.ReadFromJsonFile();
-            Error = "";
         }
 
+        /// <summary>
+        ///     Get method for Consumer
+        /// </summary>
         public IConsumer User { get; }
 
+        /// <summary>
+        ///     ObservableCollection that contains a store and whether or not its choosen
+        /// </summary>
         public ObservableCollection<StoresInPristjek> OptionsStores => User.OptionsStores;
 
+        public ObservableCollection<ProductInfo> ShoppingListData
+        {
+            get { return User.ShoppingListData; }
+            set { User.ShoppingListData = value; }
+        }
+
+        public ObservableCollection<string> AutoCompleteList { get; } = new ObservableCollection<string>();
+
+        /// <summary>
+        ///     Get and Set method for Error. The set method, sets the old Error to an oldtext, and then
+        ///     change the value to the new vaule, call OnPropertyChanged and start a timer, that resets the label.
+        /// </summary>
         public string Error
         {
             get { return _error; }
@@ -62,6 +84,9 @@ namespace Consumer_GUI.User_Controls
             }
         }
 
+        /// <summary>
+        ///     Is a bool that is used to set the color of a label to red if it's a fail and green if it's expected behaviour
+        /// </summary>
         public bool IsTextConfirm
         {
             get { return _isTextConfirm; }
@@ -72,41 +97,58 @@ namespace Consumer_GUI.User_Controls
             }
         }
 
+        /// <summary>
+        ///     Command that is used to add a product to the shopping list
+        /// </summary>
         public ICommand AddToShoppingListCommand
             => _addToShoppingListCommand ?? (_addToShoppingListCommand = new RelayCommand(AddToShoppingList));
 
+        /// <summary>
+        ///     Command that is used to delete a product from the shopping list
+        /// </summary>
         public ICommand DeleteFromShoppingListCommand => _deleteFromShoppingListCommand ??
                                                          (_deleteFromShoppingListCommand =
                                                              new RelayCommand(DeleteFromShoppingList));
 
+        /// <summary>
+        ///     Command that is used whenever there is an Populating event to populate the dropdown menu with the correct products
+        /// </summary>
         public ICommand PopulatingShoppingListCommand => _populatingShoppingListCommand ??
                                                          (_populatingShoppingListCommand =
                                                              new RelayCommand(PopulatingListShoppingList));
 
+        /// <summary>
+        ///     Command that is used whenever there is an TextChanged event to see if the text entered contains illegal signs
+        /// </summary>
         public ICommand IllegalSignShoppingListCommand => _illegalSignShoppingListCommand ??
                                                           (_illegalSignShoppingListCommand =
                                                               new RelayCommand(IllegalSignFindProductShoppingList));
 
+        /// <summary>
+        ///     Command that is used to create the generated shopping list 
+        /// </summary>
         public ICommand GeneratedShoppingListCommand => _generatedShoppingListCommand ??
                                                         (_generatedShoppingListCommand =
                                                             new RelayCommand(GeneratedShoppingListFromShoppingList));
 
+        /// <summary>
+        ///     Command that is used to see if Enter is pressed, if its pressed it calls the AddToStoreDatabase
+        /// </summary>
         public ICommand EnterKeyPressedCommand => _enterKeyPressedCommand ??
                                                   (_enterKeyPressedCommand =
                                                       new RelayCommand<KeyEventArgs>(EnterKeyPressed));
 
-
+        /// <summary>
+        ///     Command that is used to see clear the shopping list
+        /// </summary>
         public ICommand ClearShoppingListCommand => _clearShoppingListCommand ??
                                                     (_clearShoppingListCommand = new RelayCommand(ClearShoppingList));
 
-        public ObservableCollection<ProductInfo> ShoppingListData
-        {
-            get { return User.ShoppingListData; }
-            set { User.ShoppingListData = value; }
-        }
 
-        public ObservableCollection<string> AutoCompleteList { get; } = new ObservableCollection<string>();
-
+        /// <summary>
+        ///     Get and Set method for ShoppingListItem. The set method, sets the old ShoppingListItem to an oldtext, and then
+        ///     change the value to the new vaule and call OnPropertyChanged
+        /// </summary>
         public string ShoppingListItem
         {
             set
@@ -118,6 +160,9 @@ namespace Consumer_GUI.User_Controls
             get { return _shoppinglistItem; }
         }
 
+        /// <summary>
+        ///     Get and Set method for SelectedItem with OnPropertyChanged
+        /// </summary>
         public ProductInfo SelectedItem
         {
             get { return _selectedItem; }

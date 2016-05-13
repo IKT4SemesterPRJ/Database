@@ -63,7 +63,7 @@ namespace Consumer_GUI.User_Controls
 
         /// <summary>
         ///     Get and Set method for Error. The set method, sets the old Error to an oldtext, and then
-        ///     change the value to the new vaule, call OnPropertyChanged and start a timer, that resets the label after 2,5 sec.
+        ///     change the value to the new vaule, call OnPropertyChanged and start a timer, that resets the label.
         /// </summary>
         public string Error
         {
@@ -130,7 +130,7 @@ namespace Consumer_GUI.User_Controls
         public ObservableCollection<string> AutoCompleteList { get; } = new ObservableCollection<string>();
 
         /// <summary>
-        ///     Get and set method for StorePrice, that is the list with a price and a store, that is used to show what a item cost and where it can be bought
+        ///     Get and set method for StorePrice, that is the list with a price and a store, that is used to show what a product cost and where it can be bought
         /// </summary>
         public ObservableCollection<StoreAndPrice> StorePrice { get; set; } = new ObservableCollection<StoreAndPrice>();
 

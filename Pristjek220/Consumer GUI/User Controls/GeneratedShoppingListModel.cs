@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,6 +11,10 @@ using SharedFunctionalities;
 
 namespace Consumer_GUI.User_Controls
 {
+    /// <summary>
+    ///     GeneratedShoppingListModel is the User Control model for the GeneratedShoppingList User Control
+    ///     Its used to see the generated lists and change in then, and then send them as an email
+    /// </summary>
     public class GeneratedShoppingListModel : ObservableObject, IPageViewModel
     {
         private readonly System.Timers.Timer _timerErrorStore = new System.Timers.Timer(2500);
@@ -17,7 +22,7 @@ namespace Consumer_GUI.User_Controls
         private readonly IMail _mail;
         private readonly IConsumer _user;
 
-        private string _errorText;
+        private string _errorText = string.Empty;
         private string _emailAddress = string.Empty;
 
         private ICommand _sendMailCommand;
@@ -29,7 +34,6 @@ namespace Consumer_GUI.User_Controls
         {
             _user = user;
             _mail = mail;
-            ErrorText = "";
         }
 
         public string TotalSum => _user.TotalSum;

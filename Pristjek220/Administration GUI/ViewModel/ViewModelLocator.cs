@@ -44,6 +44,9 @@ namespace Administration_GUI.ViewModel
             SimpleIoc.Default.Register<MainViewModel>();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public MainViewModel Main
         {
             get
@@ -52,6 +55,9 @@ namespace Administration_GUI.ViewModel
             }
         }
         
+        /// <summary>
+        /// 
+        /// </summary>
         public static void Cleanup()
         {
             // TODO Clear the ViewModels

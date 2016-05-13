@@ -25,7 +25,7 @@ namespace Consumer
         ObservableCollection<ProductInfo> NotInAStore { get; set; }
 
         /// <summary>
-        ///     ObservableCollection that contains the stores and if they are marked
+        ///     ObservableCollection that contains a store and whether or not its choosen
         /// </summary>
         ObservableCollection<StoresInPristjek> OptionsStores { get; set; }
 
