@@ -37,7 +37,7 @@ namespace Administration_GUI
 
             IDatabaseFunctions databaseFunctions = new DatabaseFunctions(_unit);
 
-            if (databaseFunctions.ConnectToDB()) return;
+            if (databaseFunctions.ConnectToDb()) return;
             MessageBox.Show("Der kan ikke tilsluttes til serveren.", "ERROR", MessageBoxButton.OK);
             Application.Current.MainWindow.Close();
         }

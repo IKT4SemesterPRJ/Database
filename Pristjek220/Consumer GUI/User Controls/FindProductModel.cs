@@ -1,17 +1,20 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Timers;
 using System.Windows.Input;
 using Consumer;
 using Pristjek220Data;
-using System.Runtime.CompilerServices;
-using System.Timers;
 using SharedFunctionalities;
 
-[assembly:InternalsVisibleTo("Pristjek220.Unit.Test")]
-
+[assembly: InternalsVisibleTo("Pristjek220.Unit.Test")]
 
 namespace Consumer_GUI.User_Controls
 {
+    /// <summary>
+    ///     FindProductModel is the User Control model for the FindProduct User Control
+    ///     Its used to find a product and display the stores that it is sold in and the price
+    /// </summary>
     internal class FindProductModel : ObservableObject, IPageViewModel
     {
         private readonly Timer _timer = new Timer(2500);
@@ -19,15 +22,35 @@ namespace Consumer_GUI.User_Controls
         private ICommand _addToStoreListCommand;
         private ICommand _enterPressedCommand;
 
+        private string _error;
         private ICommand _illegalSignFindProductCommand;
-        private string _oldtext = string.Empty;
 
-        private ICommand _populatingFindProductCommand;
-
-        private string _productName = string.Empty;
-        public IConsumer User { get; }
 
         private bool _isTextConfirm;
+        private string _oldtext = string.Empty;
+        private ICommand _populatingFindProductCommand;
+
+
+        private string _productName = string.Empty;
+
+        /// <summary>
+        ///     FindProductModel constructor takes a UnitOfWork and a user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="unit"></param>
+        public FindProductModel(IConsumer user, IUnitOfWork unit)
+        {
+            User = user;
+            _unit = unit;
+        }
+        /// <summary>
+        ///      Get method for Consumer
+        /// </summary>
+        public IConsumer User { get; }
+
+        /// <summary>
+        ///     Is a bool that is used to set the color of a label to red if it's a fail and green if it's expected behaviour
+        /// </summary>
         public bool IsTextConfirm
         {
             get { return _isTextConfirm; }
@@ -38,8 +61,10 @@ namespace Consumer_GUI.User_Controls
             }
         }
 
-        private string _error;
-
+        /// <summary>
+        ///     Get and Set method for Error. The set method, sets the old Error to an oldtext, and then
+        ///     change the value to the new vaule, call OnPropertyChanged and start a timer, that resets the label after 2,5 sec.
+        /// </summary>
         public string Error
         {
             get { return _error; }
@@ -49,20 +74,45 @@ namespace Consumer_GUI.User_Controls
                 OnPropertyChanged();
                 _timer.Stop();
                 _timer.Start();
-                _timer.Elapsed += delegate { _error = ""; OnPropertyChanged(); };
+                _timer.Elapsed += delegate
+                {
+                    _error = "";
+                    OnPropertyChanged();
+                };
             }
         }
 
-        public ICommand AddToStoreListCommand => _addToStoreListCommand ?? (_addToStoreListCommand = new RelayCommand(AddToStoreList));
+        /// <summary>
+        ///     Command that is used to look up a product, if anything goes wrong it will print the reason to why it
+        ///     did not look up the product to a label
+        /// </summary>
+        public ICommand AddToStoreListCommand
+            => _addToStoreListCommand ?? (_addToStoreListCommand = new RelayCommand(AddToStoreList));
 
+        /// <summary>
+        ///     Command that is used whenever there is an Populating event to populate the dropdown menu with the correct products
+        /// </summary>
         public ICommand PopulatingFindProductCommand => _populatingFindProductCommand ??
-                                                        (_populatingFindProductCommand = new RelayCommand(PopulatingListFindProduct));
+                                                        (_populatingFindProductCommand =
+                                                            new RelayCommand(PopulatingListFindProduct));
 
+        /// <summary>
+        ///     Command that is used whenever there is an TextChanged event to see if the text entered contains illegal signs
+        /// </summary>
         public ICommand IllegalSignFindProductCommand => _illegalSignFindProductCommand ??
-                                                         (_illegalSignFindProductCommand = new RelayCommand(IllegalSignFindProduct));
+                                                         (_illegalSignFindProductCommand =
+                                                             new RelayCommand(IllegalSignFindProduct));
 
-        public ICommand EnterKeyPressedCommand => _enterPressedCommand ?? (_enterPressedCommand = new GalaSoft.MvvmLight.Command.RelayCommand<KeyEventArgs>(EnterKeyPressed));
+        /// <summary>
+        ///     Command that is used to see if Enter is pressed, if its pressed it calls the AddToStoreDatabase
+        /// </summary>
+        public ICommand EnterKeyPressedCommand
+            => _enterPressedCommand ?? (_enterPressedCommand = new GalaSoft.MvvmLight.Command.RelayCommand<KeyEventArgs>(EnterKeyPressed));
 
+        /// <summary>
+        ///     Get and Set method for  ProductName. The set method, sets the old DeleteStoreName to an oldtext, and then
+        ///     change the value to the new vaule and call OnPropertyChanged
+        /// </summary>
         public string ProductName
         {
             set
@@ -74,14 +124,15 @@ namespace Consumer_GUI.User_Controls
             get { return _productName; }
         }
 
+        /// <summary>
+        ///     Get method for AutoCompleteList, that is the list with the items that is getting populated to the dropdown.
+        /// </summary>
         public ObservableCollection<string> AutoCompleteList { get; } = new ObservableCollection<string>();
-        public ObservableCollection<StoreAndPrice> StorePrice { get; set; } = new ObservableCollection<StoreAndPrice>();
 
-        public FindProductModel(IConsumer user, IUnitOfWork unit)
-        {
-            User = user;
-            _unit = unit;
-        }
+        /// <summary>
+        ///     Get and set method for StorePrice, that is the list with a price and a store, that is used to show what a item cost and where it can be bought
+        /// </summary>
+        public ObservableCollection<StoreAndPrice> StorePrice { get; set; } = new ObservableCollection<StoreAndPrice>();
 
         private void AddToStoreList()
         {
@@ -91,7 +142,7 @@ namespace Consumer_GUI.User_Controls
                 Error = "Indtast venligst det produkt du vil søge efter.";
                 return;
             }
-            
+
             StorePrice.Clear();
 
             var list = User.FindStoresThatSellsProduct(ProductName);

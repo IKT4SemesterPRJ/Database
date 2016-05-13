@@ -8,6 +8,9 @@ namespace Administration_GUI
     /// </summary>
     public partial class LogIn : Window
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public LogIn()
         {
             InitializeComponent();

@@ -28,7 +28,7 @@ namespace Consumer_GUI
 
             IDatabaseFunctions databaseFunctions = new DatabaseFunctions(unit);
 
-            if (!databaseFunctions.ConnectToDB()) //Force database to connect at startup, and close application if it cant connect
+            if (!databaseFunctions.ConnectToDb()) //Force database to connect at startup, and close application if it cant connect
             {
                 MessageBox.Show("Der kan ikke tilsluttes til serveren", "ERROR", MessageBoxButton.OK);
                 Application.Current.MainWindow.Close();

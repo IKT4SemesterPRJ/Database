@@ -1,31 +1,29 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Diagnostics.Eventing.Reader;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Timers;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using Consumer;
+using GalaSoft.MvvmLight.Command;
 using Pristjek220Data;
 using SharedFunctionalities;
+using RelayCommand = SharedFunctionalities.RelayCommand;
 
 namespace Consumer_GUI.User_Controls
 {
     internal class ShoppingListModel : ObservableObject, IPageViewModel
     {
-        private readonly IUnitOfWork _unit;
         private readonly Timer _timer = new Timer(2500);
-        public IConsumer User { get; }
+        private readonly IUnitOfWork _unit;
 
-        public ObservableCollection<StoresInPristjek> OptionsStores => User.OptionsStores; 
-        
         private ICommand _addToShoppingListCommand;
+        private ICommand _clearShoppingListCommand;
         private ICommand _deleteFromShoppingListCommand;
         private ICommand _enterKeyPressedCommand;
+        private string _error;
         private ICommand _generatedShoppingListCommand;
         private ICommand _illegalSignShoppingListCommand;
-        private ICommand _clearShoppingListCommand;
+
+        private bool _isTextConfirm;
 
         private string _oldtext = string.Empty;
         private ICommand _populatingShoppingListCommand;
@@ -33,31 +31,6 @@ namespace Consumer_GUI.User_Controls
 
         private ProductInfo _selectedItem;
         private string _shoppinglistItem = string.Empty;
-        private string _error;
-
-        public string Error
-        {
-            get { return _error; }
-            set
-            {
-                _error = value;
-                OnPropertyChanged();
-                _timer.Stop();
-                _timer.Start();
-                _timer.Elapsed += delegate { _error = ""; OnPropertyChanged(); };
-            }
-        }
-
-        private bool _isTextConfirm;
-        public bool IsTextConfirm
-        {
-            get { return _isTextConfirm; }
-            set
-            {
-                _isTextConfirm = value;
-                OnPropertyChanged();
-            }
-        }
 
         public ShoppingListModel(IConsumer user, IUnitOfWork unit)
         {
@@ -68,42 +41,68 @@ namespace Consumer_GUI.User_Controls
             Error = "";
         }
 
-        public ICommand AddToShoppingListCommand => _addToShoppingListCommand ?? (_addToShoppingListCommand = new RelayCommand(AddToShoppingList));
+        public IConsumer User { get; }
+
+        public ObservableCollection<StoresInPristjek> OptionsStores => User.OptionsStores;
+
+        public string Error
+        {
+            get { return _error; }
+            set
+            {
+                _error = value;
+                OnPropertyChanged();
+                _timer.Stop();
+                _timer.Start();
+                _timer.Elapsed += delegate
+                {
+                    _error = "";
+                    OnPropertyChanged();
+                };
+            }
+        }
+
+        public bool IsTextConfirm
+        {
+            get { return _isTextConfirm; }
+            set
+            {
+                _isTextConfirm = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ICommand AddToShoppingListCommand
+            => _addToShoppingListCommand ?? (_addToShoppingListCommand = new RelayCommand(AddToShoppingList));
 
         public ICommand DeleteFromShoppingListCommand => _deleteFromShoppingListCommand ??
-                                                         (_deleteFromShoppingListCommand = new RelayCommand(DeleteFromShoppingList));
+                                                         (_deleteFromShoppingListCommand =
+                                                             new RelayCommand(DeleteFromShoppingList));
 
         public ICommand PopulatingShoppingListCommand => _populatingShoppingListCommand ??
-                                                         (_populatingShoppingListCommand = new RelayCommand(PopulatingListShoppingList));
+                                                         (_populatingShoppingListCommand =
+                                                             new RelayCommand(PopulatingListShoppingList));
 
         public ICommand IllegalSignShoppingListCommand => _illegalSignShoppingListCommand ??
-                                                          (_illegalSignShoppingListCommand = new RelayCommand(IllegalSignFindProductShoppingList));
+                                                          (_illegalSignShoppingListCommand =
+                                                              new RelayCommand(IllegalSignFindProductShoppingList));
 
         public ICommand GeneratedShoppingListCommand => _generatedShoppingListCommand ??
-                                                        (_generatedShoppingListCommand = new RelayCommand(GeneratedShoppingListFromShoppingList));
+                                                        (_generatedShoppingListCommand =
+                                                            new RelayCommand(GeneratedShoppingListFromShoppingList));
 
         public ICommand EnterKeyPressedCommand => _enterKeyPressedCommand ??
-                                                  (_enterKeyPressedCommand = new GalaSoft.MvvmLight.Command.RelayCommand<KeyEventArgs>(EnterKeyPressed));
+                                                  (_enterKeyPressedCommand =
+                                                      new RelayCommand<KeyEventArgs>(EnterKeyPressed));
 
 
         public ICommand ClearShoppingListCommand => _clearShoppingListCommand ??
                                                     (_clearShoppingListCommand = new RelayCommand(ClearShoppingList));
 
-        private void ClearShoppingList()
-        {
-            User.ShoppingListData.Clear();
-        }
-
         public ObservableCollection<ProductInfo> ShoppingListData
         {
-            get
-            {
-                return User.ShoppingListData; 
-            }
-            set
-            {
-                User.ShoppingListData = value;
-            }
+            get { return User.ShoppingListData; }
+            set { User.ShoppingListData = value; }
         }
 
         public ObservableCollection<string> AutoCompleteList { get; } = new ObservableCollection<string>();
@@ -127,6 +126,11 @@ namespace Consumer_GUI.User_Controls
                 _selectedItem = value;
                 OnPropertyChanged();
             }
+        }
+
+        private void ClearShoppingList()
+        {
+            User.ShoppingListData.Clear();
         }
 
         private void AddToShoppingList()
@@ -181,7 +185,7 @@ namespace Consumer_GUI.User_Controls
 
         private void PopulatingListShoppingList()
         {
-            IAutocomplete autocomplete = new SharedFunctionalities.Autocomplete(_unit);
+            IAutocomplete autocomplete = new Autocomplete(_unit);
             AutoCompleteList?.Clear(); // not equal null
             foreach (var item in autocomplete.AutoCompleteProduct(ShoppingListItem))
             {
@@ -199,7 +203,7 @@ namespace Consumer_GUI.User_Controls
                 Error = "Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9.";
                 ShoppingListItem = _oldtext;
             }
-            else if(ShoppingListItem == _oldtext)
+            else if (ShoppingListItem == _oldtext)
             {
                 Error = string.Empty;
             }

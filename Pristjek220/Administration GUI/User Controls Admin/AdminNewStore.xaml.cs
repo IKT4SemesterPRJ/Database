@@ -6,7 +6,7 @@ namespace Administration_GUI.User_Controls_Admin
     /// <summary>
     /// Interaction logic for AdminNewStore.xaml
     /// </summary>
-    public partial class AdminNewStore : UserControl
+    public partial class AdminNewStore
     {
         /// <summary>
         /// 

@@ -1,21 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Pristjek220Data;
+﻿using Pristjek220Data;
 
 namespace SharedFunctionalities
 {
+    /// <summary>
+    ///     Business logic layer for SharedFunctionalities
+    /// </summary>
     public class DatabaseFunctions : IDatabaseFunctions
     {
         private readonly IUnitOfWork _unit;
 
+        /// <summary>
+        ///     DatabaseFunctions constructor takes a UnitOfWork to access the database
+        /// </summary>
+        /// <param name="unit"></param>
         public DatabaseFunctions(IUnitOfWork unit)
         {
             _unit = unit;
         }
-        public bool ConnectToDB()
+
+        /// <summary>
+        ///     Force a connects to the database
+        /// </summary>
+        /// <returns></returns>
+        public bool ConnectToDb()
         {
             return _unit.Products.ConnectToDb();
         }

@@ -22,7 +22,7 @@ namespace Pristjek220.Unit.Test
         {
             _unitWork = Substitute.For<IUnitOfWork>();
             databaseFunctions = new DatabaseFunctions(_unitWork);
-            databaseFunctions.ConnectToDB();
+            databaseFunctions.ConnectToDb();
             _unitWork.Products.Received(1).ConnectToDb();
         }
     }

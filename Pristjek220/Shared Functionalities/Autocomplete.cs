@@ -17,15 +17,19 @@ namespace SharedFunctionalities
     /// </summary>
     public class Autocomplete : IAutocomplete
     {
-        private IUnitOfWork _unit;
+        private readonly IUnitOfWork _unit;
 
+        /// <summary>
+        ///     Autocomplete constructor takes a UnitOfWork to access the database
+        /// </summary>
+        /// <param name="unit"></param>
         public Autocomplete(IUnitOfWork unit)
         {
             _unit = unit;
         }
 
         /// <summary>
-        /// Method for making an autocomplete list for use with product names.
+        /// Method for making an autocomplete list for use with store names.
         /// </summary>
         /// <param name="lookUpWord">One or more characters to create the autocomplete list from.</param>
         /// <returns>Returns a list containing maximum three products that matches the parameter given.
@@ -72,6 +76,13 @@ namespace SharedFunctionalities
             return autoCompleteList;
         }
 
+        /// <summary>
+        ///     Method for making an autocomplete list for use with productnames in one store
+        /// </summary>
+        /// <param name="storeName">The Store to search for matches in</param>
+        /// <param name="lookUpWord">One or more characters to create the autocomplete list from.</param>
+        /// <returns>A list with the looked up products
+        /// If no matches exist the method returns null.</returns>
         public List<string> AutoCompleteProductForOneStore(string storeName, string lookUpWord)
         {
             var productList = _unit.Stores.FindProductsInStoreStartingWith(storeName, lookUpWord);

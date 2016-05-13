@@ -70,6 +70,12 @@ namespace Administration_GUI.User_Controls
             => _addToStoreDatabaseCommand ?? (_addToStoreDatabaseCommand = new RelayCommand(AddToStoreDatabase));
 
         /// <summary>
+        ///     Command that is used to see if Enter is pressed, if its pressed it calls the AddToStoreDatabase
+        /// </summary>
+        public ICommand EnterKeyPressedCommand
+            => _enterPressedCommand ?? (_enterPressedCommand = new GalaSoft.MvvmLight.Command.RelayCommand<KeyEventArgs>(EnterKeyPressed));
+
+        /// <summary>
         ///     Command that is used whenever there is an Populating event to populate the dropdown menu with the correct products
         /// </summary>
         public ICommand PopulatingNewProductCommand => _populatingNewProductCommand ??
@@ -142,11 +148,6 @@ namespace Administration_GUI.User_Controls
             get { return _confirmText; }
         }
 
-        /// <summary>
-        ///     Command that is used to see if Enter is pressed, if its pressed it calls the AddToStoreDatabase
-        /// </summary>
-        public ICommand EnterKeyPressedCommand
-            => _enterPressedCommand ?? (_enterPressedCommand = new GalaSoft.MvvmLight.Command.RelayCommand<KeyEventArgs>(EnterKeyPressed));
 
         private void PopulatingListNewProduct()
         {

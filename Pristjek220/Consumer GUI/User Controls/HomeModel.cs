@@ -7,6 +7,9 @@ using SharedFunctionalities;
 
 namespace Consumer_GUI.User_Controls
 {
+    /// <summary>
+    ///     Not implemented
+    /// </summary>
     class HomeModel : ObservableObject, IPageViewModel
     {}
 }

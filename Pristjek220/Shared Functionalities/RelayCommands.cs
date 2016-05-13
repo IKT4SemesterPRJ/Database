@@ -45,8 +45,9 @@ namespace SharedFunctionalities
         #endregion // Constructors
 
         #region ICommand Members
+
         /// <summary>
-        ///     Test if an command can execute, this has not been used in this project 
+        ///     Test if an command can execute, this has not been used in this project
         /// </summary>
         /// <param name="parameter"></param>
         /// <returns></returns>
@@ -57,7 +58,7 @@ namespace SharedFunctionalities
         }
 
         /// <summary>
-        ///     Test if an command that can execute has changed, this has not been used in this project 
+        ///     Test if an command that can execute has changed, this has not been used in this project
         /// </summary>
         public event EventHandler CanExecuteChanged
         {
@@ -72,8 +73,9 @@ namespace SharedFunctionalities
                     CommandManager.RequerySuggested -= value;
             }
         }
+
         /// <summary>
-        /// Executes a command
+        ///     Executes a command
         /// </summary>
         /// <param name="parameter"></param>
         public void Execute(object parameter)
