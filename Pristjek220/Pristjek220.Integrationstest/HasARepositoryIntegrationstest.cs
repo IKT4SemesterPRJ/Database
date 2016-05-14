@@ -8,7 +8,7 @@ namespace Pristjek220.Integrationstest
     {
         private DataContext _context;
         private HasARepository _hasARepository;
-        private readonly HasA _hasA = new HasA();
+        private HasA _hasA;
         private Product _prod;
         private Store _store;
 
@@ -17,13 +17,11 @@ namespace Pristjek220.Integrationstest
         {
             _prod = new Product() {ProductName = "TestProduct"};
             _store = new Store() { StoreName = "TestStore" };
+            _hasA = new HasA() {Price = 10};
             _context = new DataContext();
+            _hasARepository = new HasARepository(_context);
             _context.Database.Connection.ConnectionString = "Server=.\\SQLEXPRESS;Database=Pristjek220Data.DataContext; Trusted_Connection=True;";
             _context.Database.ExecuteSqlCommand("dbo.TestCleanTable");
-            _hasARepository = new HasARepository(_context);
-            _hasA.Product = _prod;
-            _hasA.Store = _store;
-            _hasA.Price = 10;
         }
 
         [TearDown]
@@ -117,6 +115,8 @@ namespace Pristjek220.Integrationstest
         [Test]
         public void FindCheapestHasA_HasAsWithPrices10And12And14IsSentIn_ReturnHasAWithProductThatHasPrice10()
         {
+            _hasA.Store = _store;
+            _hasA.Product = _prod;
             _context.HasARelation.Add(_hasA);
             _context.HasARelation.Add(new HasA() { Price = 12, Product = _prod, Store = new Store() { StoreName = "Store with product that costs 12" } });
             _context.HasARelation.Add(new HasA() { Price = 14, Product = _prod, Store = new Store() { StoreName = "Store with product that costs 14" } });

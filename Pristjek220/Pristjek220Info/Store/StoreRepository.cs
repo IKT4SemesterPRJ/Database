@@ -58,7 +58,7 @@ namespace Pristjek220Data
         public ProductAndPrice FindProductInStore(string storeName, string productName)
         {
             var storesProductList = FindProductsInStore(storeName);
-            return storesProductList.Find(x => x.Name == productName); ;
+            return storesProductList.Find(x => x.Name == productName);
         }
 
         public DataContext DataContext

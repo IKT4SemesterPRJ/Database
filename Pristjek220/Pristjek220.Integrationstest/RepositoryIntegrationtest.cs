@@ -4,7 +4,7 @@ using Pristjek220Data;
 namespace Pristjek220.Integrationstest
 {
     [TestFixture]
-    class RepositoryIntergrationtest
+    class RepositoryIntegrationtest
     {
         private DataContext _context;
         private Repository<Product> _productRepository;

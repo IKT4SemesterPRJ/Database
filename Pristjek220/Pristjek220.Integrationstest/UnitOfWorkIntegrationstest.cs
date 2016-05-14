@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security;
 using NUnit.Framework;
 using Pristjek220Data;
 
@@ -14,13 +15,13 @@ namespace Pristjek220.Integrationstest
         public void SetUp()
         {
             _context = new DataContext();
+            _unitOfWork = new UnitOfWork(_context);
             _context.Database.Connection.ConnectionString = "Server=.\\SQLEXPRESS;Database=Pristjek220Data.DataContext; Trusted_Connection=True;";
             _context.Database.ExecuteSqlCommand("dbo.TestCleanTable");
-            _unitOfWork = new UnitOfWork(_context);
         }
 
         [Test]
-        public void Complete_SavesTheChangesToTheProductDatabase_ProductFoundInDatabase()
+        public void Complete_SavesTheChangesToTheProductsTable_ProductFoundInDatabase()
         {
             _unitOfWork.Products.Add(new Product() {ProductName = "Test"});
             _unitOfWork.Complete();
@@ -29,7 +30,7 @@ namespace Pristjek220.Integrationstest
         }
 
         [Test]
-        public void Complete_SavesTheChangesToTheStoreDatabase_StoreFoundInDatabase()
+        public void Complete_SavesTheChangesToTheStoresTable_StoreFoundInDatabase()
         {
             _unitOfWork.Stores.Add(new Store() { StoreName = "Test" });
             _unitOfWork.Complete();
@@ -38,7 +39,7 @@ namespace Pristjek220.Integrationstest
         }
 
         [Test]
-        public void Complete_SavesTheChangesToTheDatabase_ProductFoundInDatabase()
+        public void Complete_SavesTheChangesToTheHasATable_HasAFoundInDatabase()
         {
             var banan = new Product() { ProductName = "Banan" };
             var føtex = new Store() {StoreName = "Føtex"};
@@ -58,6 +59,16 @@ namespace Pristjek220.Integrationstest
             _context.SaveChanges();
 
             Assert.That(_unitOfWork.HasA.FindHasA(føtex.StoreName, banan.ProductName), Is.EqualTo(hasA));
+        }
+
+        [Test]
+        public void Complete_SavesTheChangesToTheLoginTable_LoginFoundInDatabase()
+        {
+            var login = new Login() {Username = "Test", Password = "Password", Store = new Store() {StoreName = "Test"} };
+            _unitOfWork.Logins.Add(login);
+            _unitOfWork.Complete();
+
+            Assert.That(_unitOfWork.Logins.CheckUsername("Test"), Is.EqualTo(login));
         }
 
         [Test]

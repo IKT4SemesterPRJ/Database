@@ -16,9 +16,9 @@ namespace Pristjek220.Integrationstest
         {
             _context = new DataContext();
             _prod = new Product() {ProductName = "Test"};
+            _productRepository = new ProductRepository(_context);
             _context.Database.Connection.ConnectionString = "Server=.\\SQLEXPRESS;Database=Pristjek220Data.DataContext; Trusted_Connection=True; MultipleActiveResultSets=True;";
             _context.Database.ExecuteSqlCommand("dbo.TestCleanTable");
-            _productRepository = new ProductRepository(_context);
         }
 
         [TearDown]
