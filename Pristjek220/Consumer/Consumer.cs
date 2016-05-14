@@ -57,13 +57,13 @@ namespace Consumer
         public string MoneySaved { get; set; }
 
         /// <summary>
-        ///     ObservableCollection that holds the items that is found in the database with the info: Store, name, price, quantity
+        ///     ObservableCollection that contains the items that is found in the database with the info: Store, name, price, quantity
         ///     and sum
         /// </summary>
         public ObservableCollection<StoreProductAndPrice> GeneratedShoppingListData { get; set; }
 
         /// <summary>
-        ///     ObservableCollection that holds all the available stores
+        ///     ObservableCollection that contains all the available stores
         /// </summary>
         public ObservableCollection<StoresInPristjek> OptionsStores { get; set; }
 
@@ -73,12 +73,17 @@ namespace Consumer
         public string BuyInOneStore { get; set; }
 
         /// <summary>
+        ///     ObservableCollection that contains the items it the shoopinglist that is not in the database
+        /// </summary>
+        public ObservableCollection<ProductInfo> NotInAStore { get; set; }
+
+        /// <summary>
         ///     String that is printed to a label that tell how much the total of all the products cost
         /// </summary>
         public string TotalSum { get; set; }
 
         /// <summary>
-        ///     ObservableCollection that holds the items it the shoopinglist, and when the list is requested it writes the List to
+        ///     ObservableCollection that contains the items it the shoopinglist, and when the list is requested it writes the List to
         ///     a local Json file on the computer
         /// </summary>
         public ObservableCollection<ProductInfo> ShoppingListData
@@ -116,10 +121,6 @@ namespace Consumer
             set { _storeNames = value; }
         }
 
-        /// <summary>
-        ///     ObservableCollection that holds the items it the shoopinglist that is not in the database
-        /// </summary>
-        public ObservableCollection<ProductInfo> NotInAStore { get; set; }
 
         /// <summary>
         ///     Change the product to another store if the product exist in that store

@@ -4,8 +4,10 @@ using System.Runtime.CompilerServices;
 using System.Timers;
 using System.Windows.Input;
 using Consumer;
+using GalaSoft.MvvmLight.Command;
 using Pristjek220Data;
 using SharedFunctionalities;
+using RelayCommand = SharedFunctionalities.RelayCommand;
 
 [assembly: InternalsVisibleTo("Pristjek220.Unit.Test")]
 
@@ -43,8 +45,9 @@ namespace Consumer_GUI.User_Controls
             User = user;
             _unit = unit;
         }
+
         /// <summary>
-        ///      Get method for Consumer
+        ///     Get method for Consumer
         /// </summary>
         public IConsumer User { get; }
 
@@ -62,8 +65,8 @@ namespace Consumer_GUI.User_Controls
         }
 
         /// <summary>
-        ///     Get and Set method for Error. The set method, sets the old Error to an oldtext, and then
-        ///     change the value to the new vaule, call OnPropertyChanged and start a timer, that resets the label.
+        ///     Get and Set method for Error. The set method, changes the value to the new vaule, call OnPropertyChanged and start
+        ///     a timer, that resets the label.
         /// </summary>
         public string Error
         {
@@ -107,10 +110,10 @@ namespace Consumer_GUI.User_Controls
         ///     Command that is used to see if Enter is pressed, if its pressed it calls the AddToStoreDatabase
         /// </summary>
         public ICommand EnterKeyPressedCommand
-            => _enterPressedCommand ?? (_enterPressedCommand = new GalaSoft.MvvmLight.Command.RelayCommand<KeyEventArgs>(EnterKeyPressed));
+            => _enterPressedCommand ?? (_enterPressedCommand = new RelayCommand<KeyEventArgs>(EnterKeyPressed));
 
         /// <summary>
-        ///     Get and Set method for  ProductName. The set method, sets the old DeleteStoreName to an oldtext, and then
+        ///     Get and Set method for ProductName. The set method, sets the old DeleteStoreName to an oldtext, and then
         ///     change the value to the new vaule and call OnPropertyChanged
         /// </summary>
         public string ProductName
@@ -130,7 +133,8 @@ namespace Consumer_GUI.User_Controls
         public ObservableCollection<string> AutoCompleteList { get; } = new ObservableCollection<string>();
 
         /// <summary>
-        ///     Get and set method for StorePrice, that is the list with a price and a store, that is used to show what a product cost and where it can be bought
+        ///     Get and set method for StorePrice, that is the list with a price and a store, that is used to show what a product
+        ///     cost and where it can be bought
         /// </summary>
         public ObservableCollection<StoreAndPrice> StorePrice { get; set; } = new ObservableCollection<StoreAndPrice>();
 
