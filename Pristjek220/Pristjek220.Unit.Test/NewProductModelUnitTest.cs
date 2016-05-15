@@ -1,4 +1,5 @@
-﻿using Administration_GUI.User_Controls;
+﻿using System.Globalization;
+using Administration_GUI.User_Controls;
 using NSubstitute;
 using NUnit.Framework;
 using Pristjek220Data;
@@ -23,7 +24,7 @@ namespace Pristjek220.Unit.Test
         public void ShoppingListItemPrice_Insert2point224_IsRoundedTo2point22(string price, string result)
         {
             _newProduct.ShoppingListItemPrice = price;
-            Assert.That(_newProduct.ShoppingListItemPrice, Is.EqualTo(result));
+            Assert.That(_newProduct.ShoppingListItemPrice, Is.EqualTo(result.ToString(CultureInfo.CurrentCulture)));
         }
     }
 }
