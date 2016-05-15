@@ -18,7 +18,8 @@ namespace Administration_GUI
         private ObservableCollection<IPageViewModel> _pageViewModels;
 
         /// <summary>
-        ///     AdminViewModel constructor takes a UnitOfWork to give to each of its user controls view models
+        ///     AdminViewModel constructor takes a UnitOfWork to give to each of its user controls view models  and add them to a
+        ///     list.
         /// </summary>
         public AdminViewModel(IUnitOfWork unit)
         {

@@ -9,21 +9,30 @@ namespace Administration_GUI
 
 {
     /// <summary>
-    ///     StoremanagerViewModel is the view model for the Storemanager. Its used to change between the the different user controlls in Storemanager
+    ///     StoremanagerViewModel is the view model for the Storemanager. Its used to change between the the different user
+    ///     controlls in Storemanager
     /// </summary>
     internal class StoremanagerViewModel : ObservableObject
     {
-       private IPageViewModel _currentPageViewModel;
-        private ObservableCollection<IPageViewModel> _pageViewModels;
         private readonly Store _store;
+
+        private ICommand _changeWindowChangePriceCommand;
+
+        private ICommand _changeWindowDeleteProductCommand;
+
+        private ICommand _changeWindowNewProductCommand;
+        private IPageViewModel _currentPageViewModel;
+
+        private ICommand _logOutCommand;
         private string _mainWindowTekst;
+        private ObservableCollection<IPageViewModel> _pageViewModels;
 
         /// <summary>
-        ///     StoremanagerViewModel constructor takes a UnitOfWork to give to each of its user controls view models
+        ///     StoremanagerViewModel constructor takes a UnitOfWork to give to each of its user controls view models and add them
+        ///     to a list.
         /// </summary>
         public StoremanagerViewModel(Store store, IUnitOfWork unit)
         {
-
             _store = store;
             // Add available pages
 
@@ -34,7 +43,6 @@ namespace Administration_GUI
             // set startup page
             MainWindowTekst = $"Pristjek220 - {_store.StoreName} - Tilføj Produkt";
             _currentPageViewModel = _pageViewModels[2];
-
         }
 
         /// <summary>
@@ -43,15 +51,19 @@ namespace Administration_GUI
         public string MainWindowTekst
         {
             get { return _mainWindowTekst; }
-            set { _mainWindowTekst = value; OnPropertyChanged(); }
+            set
+            {
+                _mainWindowTekst = value;
+                OnPropertyChanged();
+            }
         }
-
 
 
         /// <summary>
         ///     ObservableCollection that contains the user controlls, that inherit from IPageViewModel
         /// </summary>
-        public ObservableCollection<IPageViewModel> PageViewModels => _pageViewModels ?? (_pageViewModels = new ObservableCollection<IPageViewModel>());
+        public ObservableCollection<IPageViewModel> PageViewModels
+            => _pageViewModels ?? (_pageViewModels = new ObservableCollection<IPageViewModel>());
 
         /// <summary>
         ///     Get and set method for the Current view model, with OnPropertyChanged
@@ -66,13 +78,34 @@ namespace Administration_GUI
                 OnPropertyChanged();
             }
         }
-        
-        private ICommand _changeWindowChangePriceCommand;
 
         /// <summary>
         ///     Change the user controll to ChangePrice
         /// </summary>
-        public ICommand ChangeWindowChangePriceCommand => _changeWindowChangePriceCommand ?? (_changeWindowChangePriceCommand = new RelayCommand(ChangeWindowChangePrice));
+        public ICommand ChangeWindowChangePriceCommand
+            =>
+                _changeWindowChangePriceCommand ??
+                (_changeWindowChangePriceCommand = new RelayCommand(ChangeWindowChangePrice));
+
+        /// <summary>
+        ///     Change the user controll to DeleteProduct
+        /// </summary>
+        public ICommand ChangeWindowDeleteProductCommand => _changeWindowDeleteProductCommand ??
+                                                            (_changeWindowDeleteProductCommand =
+                                                                new RelayCommand(ChangeWindowDeleteProduct));
+
+        /// <summary>
+        ///     Change the user controll to NewProduct
+        /// </summary>
+        public ICommand ChangeWindowNewProductCommand => _changeWindowNewProductCommand ??
+                                                         (_changeWindowNewProductCommand =
+                                                             new RelayCommand(ChangeWindowNewProduct));
+
+        /// <summary>
+        ///     Close the window and open the LogIn window
+        /// </summary>
+        public ICommand LogOutCommand => _logOutCommand ??
+                                         (_logOutCommand = new RelayCommand(LogOut));
 
         private void ChangeWindowChangePrice()
         {
@@ -80,41 +113,17 @@ namespace Administration_GUI
             MainWindowTekst = $"Pristjek220 - {_store.StoreName} - Ændre pris";
         }
 
-        private ICommand _changeWindowDeleteProductCommand;
-
-        /// <summary>
-        ///     Change the user controll to DeleteProduct
-        /// </summary>
-        public ICommand ChangeWindowDeleteProductCommand => _changeWindowDeleteProductCommand ??
-                                                            (_changeWindowDeleteProductCommand = new RelayCommand(ChangeWindowDeleteProduct));
-
         private void ChangeWindowDeleteProduct()
         {
             CurrentPageViewModel = PageViewModels[1];
             MainWindowTekst = $"Pristjek220 - {_store.StoreName} - Fjern Produkt";
         }
 
-        private ICommand _changeWindowNewProductCommand;
-
-        /// <summary>
-        ///     Change the user controll to NewProduct
-        /// </summary>
-        public ICommand ChangeWindowNewProductCommand => _changeWindowNewProductCommand ??
-                                                         (_changeWindowNewProductCommand = new RelayCommand(ChangeWindowNewProduct));
-
         private void ChangeWindowNewProduct()
         {
             CurrentPageViewModel = PageViewModels[2];
             MainWindowTekst = $"Pristjek220 - {_store.StoreName} - Tilføj Produkt";
         }
-
-        private ICommand _logOutCommand;
-
-        /// <summary>
-        ///     Close the window and open the LogIn window
-        /// </summary>
-        public ICommand LogOutCommand => _logOutCommand ??
-                                         (_logOutCommand = new RelayCommand(LogOut));
 
         private void LogOut()
         {
@@ -123,7 +132,6 @@ namespace Administration_GUI
             logIn.Show();
             currentWindow.Close();
             Application.Current.MainWindow = logIn;
-
         }
     }
 }

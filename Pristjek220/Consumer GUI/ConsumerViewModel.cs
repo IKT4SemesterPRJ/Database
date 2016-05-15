@@ -9,26 +9,36 @@ using SharedFunctionalities;
 
 namespace Consumer_GUI
 {
+    /// <summary>
+    ///     ConsumerViewModel is the view model for the Consumer. Its used to change between the the different user controlls
+    ///     in Consumer
+    /// </summary>
     internal class ConsumerViewModel : ObservableObject
     {
         private IPageViewModel _currentPageViewModel;
-        private ObservableCollection<IPageViewModel> _pageViewModels;
         private string _mainWindowTekst;
-        public string MainWindowTekst { get {return _mainWindowTekst;} set { _mainWindowTekst = value; OnPropertyChanged();} }
+        private ObservableCollection<IPageViewModel> _pageViewModels;
 
+
+        /// <summary>
+        ///     ConsumerViewModel constructor creates a Consumer, adds the user controlls to a list and connects to the database 
+        /// </summary>
         public ConsumerViewModel()
         {
-            UnitOfWork unit = new UnitOfWork(new DataContext());
-            Consumer.Consumer user = new Consumer.Consumer(unit);
+            var unit = new UnitOfWork(new DataContext());
+            var user = new Consumer.Consumer(unit);
             // Add available pages
             PageViewModels.Add(new HomeModel());
             PageViewModels.Add(new FindProductModel(user, unit));
             PageViewModels.Add(new ShoppingListModel(user, unit));
-            PageViewModels.Add(new GeneratedShoppingListModel(user, new Mail(new SmtpClientWrapper("Smtp.gmail.com", 587, new NetworkCredential("pristjek220@gmail.com", "pristjek"), true))));
+            PageViewModels.Add(new GeneratedShoppingListModel(user,
+                new Mail(new SmtpClientWrapper("Smtp.gmail.com", 587,
+                    new NetworkCredential("pristjek220@gmail.com", "pristjek"), true))));
 
             IDatabaseFunctions databaseFunctions = new DatabaseFunctions(unit);
 
-            if (!databaseFunctions.ConnectToDb()) //Force database to connect at startup, and close application if it cant connect
+            if (!databaseFunctions.ConnectToDb())
+                //Force database to connect at startup, and close application if it cant connect
             {
                 MessageBox.Show("Der kan ikke tilsluttes til serveren", "ERROR", MessageBoxButton.OK);
                 Application.Current.MainWindow.Close();
@@ -40,17 +50,27 @@ namespace Consumer_GUI
             CurrentPageViewModel = PageViewModels[0];
         }
 
-        public ObservableCollection<IPageViewModel> PageViewModels
+        /// <summary>
+        ///     The MainWindowTekst string is written to a label on the GUI that describes where the user is at
+        /// </summary>
+        public string MainWindowTekst
         {
-            get
+            get { return _mainWindowTekst; }
+            set
             {
-                if (_pageViewModels == null)
-                    _pageViewModels = new ObservableCollection<IPageViewModel>();
-
-                return _pageViewModels;
+                _mainWindowTekst = value;
+                OnPropertyChanged();
             }
         }
 
+        /// <summary>
+        ///     ObservableCollection that contains the user controlls, that inherit from IPageViewModel
+        /// </summary>
+        public ObservableCollection<IPageViewModel> PageViewModels => _pageViewModels ?? (_pageViewModels = new ObservableCollection<IPageViewModel>());
+
+        /// <summary>
+        ///     Get and set method for the Current view model, with OnPropertyChanged
+        /// </summary>
         public IPageViewModel CurrentPageViewModel
         {
             get { return _currentPageViewModel; }
@@ -68,10 +88,10 @@ namespace Consumer_GUI
 
         private ICommand _changeWindowHomeCommand;
 
-        public ICommand ChangeWindowHomeCommand
-        {
-            get { return _changeWindowHomeCommand ?? (_changeWindowHomeCommand = new RelayCommand(ChangeWindowHome)); }
-        }
+        /// <summary>
+        ///     Change the user controll to Home
+        /// </summary>
+        public ICommand ChangeWindowHomeCommand => _changeWindowHomeCommand ?? (_changeWindowHomeCommand = new RelayCommand(ChangeWindowHome));
 
         private void ChangeWindowHome()
         {
@@ -81,14 +101,11 @@ namespace Consumer_GUI
 
         private ICommand _changeWindowFindProductCommand;
 
-        public ICommand ChangeWindowFindProductCommand
-        {
-            get
-            {
-                return _changeWindowFindProductCommand ??
-                       (_changeWindowFindProductCommand = new RelayCommand(ChangeWindowFindProduct));
-            }
-        }
+        /// <summary>
+        ///     Change the user controll to FindProduct
+        /// </summary>
+        public ICommand ChangeWindowFindProductCommand => _changeWindowFindProductCommand ??
+                                                          (_changeWindowFindProductCommand = new RelayCommand(ChangeWindowFindProduct));
 
         private void ChangeWindowFindProduct()
         {
@@ -98,14 +115,11 @@ namespace Consumer_GUI
 
         private ICommand _changeWindowShoppingListCommand;
 
-        public ICommand ChangeWindowShoppingListCommand
-        {
-            get
-            {
-                return _changeWindowShoppingListCommand ??
-                       (_changeWindowShoppingListCommand = new RelayCommand(ChangeWindowShoppingList));
-            }
-        }
+        /// <summary>
+        ///     Change the user controll to ShoppingList
+        /// </summary>
+        public ICommand ChangeWindowShoppingListCommand => _changeWindowShoppingListCommand ??
+                                                           (_changeWindowShoppingListCommand = new RelayCommand(ChangeWindowShoppingList));
 
         private void ChangeWindowShoppingList()
         {
@@ -116,20 +130,18 @@ namespace Consumer_GUI
 
         private ICommand _changeWindowGeneratedShoppingListCommand;
 
-        public ICommand ChangeWindowGeneratedShoppingListCommand
-        {
-            get
-            {
-                return _changeWindowGeneratedShoppingListCommand ??
-                       (_changeWindowGeneratedShoppingListCommand = new RelayCommand(ChangeWindowGeneratedShoppingList));
-            }
-        }
+        /// <summary>
+        ///     Change the user controll to GeneratedShoppingList
+        /// </summary>
+        public ICommand ChangeWindowGeneratedShoppingListCommand => _changeWindowGeneratedShoppingListCommand ??
+                                                                    (_changeWindowGeneratedShoppingListCommand = new RelayCommand(ChangeWindowGeneratedShoppingList));
 
         private void ChangeWindowGeneratedShoppingList()
         {
             CurrentPageViewModel = PageViewModels[3];
             MainWindowTekst = "Pristjek220 - Forbruger - Genereret Indkøbsliste";
         }
+
         #endregion
     }
 }
