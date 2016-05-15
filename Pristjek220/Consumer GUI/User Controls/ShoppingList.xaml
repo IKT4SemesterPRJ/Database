@@ -32,12 +32,13 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <DataGrid 
+        <DataGrid
             SelectedItem="{Binding SelectedItem}" 
             ItemsSource="{Binding ShoppingListData}" 
             AutoGenerateColumns="False"
             CanUserReorderColumns="False"
             CanUserResizeRows="False"
+            SelectionMode="Single"
             Grid.Column="1"  
             Height="226" 
             Grid.Row="5" 
