@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.IO;
 using Consumer;
 using NSubstitute;
@@ -93,7 +94,7 @@ namespace Pristjek220.Unit.Test
             fakta.HasARelation.Add(new HasA() {Price = 1.95, Product = _product, Store = fakta});
             _uut.CreateShoppingList();
 
-            Assert.That(_uut.TotalSum, Is.EqualTo("1,95 kr"));
+            Assert.That(_uut.TotalSum, Is.EqualTo(double.Parse("1,95", new CultureInfo("da-DK")).ToString() + " kr"));
         }
 
         [Test]

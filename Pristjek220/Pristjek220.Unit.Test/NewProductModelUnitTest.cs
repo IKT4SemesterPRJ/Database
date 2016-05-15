@@ -23,8 +23,8 @@ namespace Pristjek220.Unit.Test
         [TestCase("2,226", "2,23")]
         public void ShoppingListItemPrice_Insert2point224_IsRoundedTo2point22(string price, string result)
         {
-            _newProduct.ShoppingListItemPrice = price;
-            Assert.That(_newProduct.ShoppingListItemPrice, Is.EqualTo(result.ToString(CultureInfo.CurrentCulture)));
+            _newProduct.ShoppingListItemPrice = double.Parse(price, new CultureInfo("da-DK")).ToString();
+            Assert.That(_newProduct.ShoppingListItemPrice, Is.EqualTo(double.Parse(result, new CultureInfo("da-DK")).ToString()));
         }
     }
 }
