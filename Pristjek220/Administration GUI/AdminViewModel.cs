@@ -2,20 +2,23 @@
 using System.Windows;
 using System.Windows.Input;
 using Administration_GUI.User_Controls_Admin;
-using Administration_GUI;
 using Pristjek220Data;
 using SharedFunctionalities;
 
 namespace Administration_GUI
 {
-    class AdminViewModel : ObservableObject
+    /// <summary>
+    ///     AdminViewModel is the view model for the Admin. Its used to change between the the different user controlls in Admin
+    /// </summary>
+    internal class AdminViewModel : ObservableObject
     {
         private IPageViewModel _currentPageViewModel;
-        private ObservableCollection<IPageViewModel> _pageViewModels;
         private string _mainWindowTekst;
-        public string MainWindowTekst { get { return _mainWindowTekst; } set { _mainWindowTekst = value; OnPropertyChanged("MainWindowTekst"); } }
+        private ObservableCollection<IPageViewModel> _pageViewModels;
 
-
+        /// <summary>
+        ///     AdminViewModel constructor takes a UnitOfWork to give to each of its user controls view models 
+        /// </summary>
         public AdminViewModel(IUnitOfWork unit)
         {
             // Add available pages
@@ -28,8 +31,29 @@ namespace Administration_GUI
             _currentPageViewModel = _pageViewModels[0];
         }
 
-        public ObservableCollection<IPageViewModel> PageViewModels => _pageViewModels ?? (_pageViewModels = new ObservableCollection<IPageViewModel>());
+        /// <summary>
+        ///     The MainWindowTekst string is written to a label on the GUI that describes where the user is at
+        /// </summary>
+        public string MainWindowTekst
+        {
+            get { return _mainWindowTekst; }
+            set
+            {
+                _mainWindowTekst = value;
+                OnPropertyChanged();
+            }
+        }
 
+        /// <summary>
+        ///     ObservableCollection that contains the user controlls, that inherit from IPageViewModel
+        /// </summary>
+        public ObservableCollection<IPageViewModel> PageViewModels
+            => _pageViewModels ?? (_pageViewModels = new ObservableCollection<IPageViewModel>());
+
+
+        /// <summary>
+        ///     Get and set method for the Current view model, with OnPropertyChanged
+        /// </summary>
         public IPageViewModel CurrentPageViewModel
         {
             get { return _currentPageViewModel; }
@@ -43,11 +67,14 @@ namespace Administration_GUI
 
         #region Commands
 
-
         private ICommand _adminChangeWindowNewStoreCommand;
 
+        /// <summary>
+        ///     Change the user controll to NewStore
+        /// </summary>
         public ICommand AdminChangeWindowNewStoreCommand => _adminChangeWindowNewStoreCommand ??
-                                                            (_adminChangeWindowNewStoreCommand = new RelayCommand(AdminChangeWindowNewStore));
+                                                            (_adminChangeWindowNewStoreCommand =
+                                                                new RelayCommand(AdminChangeWindowNewStore));
 
         private void AdminChangeWindowNewStore()
         {
@@ -57,8 +84,12 @@ namespace Administration_GUI
 
         private ICommand _adminChangeWindowDeleteProductCommand;
 
+        /// <summary>
+        ///     Change the user controll to DeleteProduct
+        /// </summary>
         public ICommand AdminChangeWindowDeleteProductCommand => _adminChangeWindowDeleteProductCommand ??
-                                                                 (_adminChangeWindowDeleteProductCommand = new RelayCommand(AdminChangeWindowDeleteProduct));
+                                                                 (_adminChangeWindowDeleteProductCommand =
+                                                                     new RelayCommand(AdminChangeWindowDeleteProduct));
 
         private void AdminChangeWindowDeleteProduct()
         {
@@ -68,8 +99,12 @@ namespace Administration_GUI
 
         private ICommand _adminChangeWindowDeleteStoreCommand;
 
+        /// <summary>
+        ///     Change the user controll to DeleteStore
+        /// </summary>
         public ICommand AdminChangeWindowDeleteStoreCommand => _adminChangeWindowDeleteStoreCommand ??
-                                                               (_adminChangeWindowDeleteStoreCommand = new RelayCommand(AdminChangeWindowDeleteStore));
+                                                               (_adminChangeWindowDeleteStoreCommand =
+                                                                   new RelayCommand(AdminChangeWindowDeleteStore));
 
         private void AdminChangeWindowDeleteStore()
         {
@@ -79,6 +114,9 @@ namespace Administration_GUI
 
         private ICommand _logOutCommand;
 
+        /// <summary>
+        ///     Close the window and open the LogIn window
+        /// </summary>
         public ICommand LogOutCommand => _logOutCommand ??
                                          (_logOutCommand = new RelayCommand(LogOut));
 
@@ -90,7 +128,6 @@ namespace Administration_GUI
             currentWindow.Close();
             Application.Current.MainWindow = logIn;
         }
-
 
         #endregion
     }

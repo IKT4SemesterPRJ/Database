@@ -84,6 +84,9 @@ namespace Administration_GUI.User_Controls_Admin
             }
         }
 
+        /// <summary>
+        ///     Is a bool that is used to set the color of a label to red if it's a fail and green if it's expected behaviour
+        /// </summary>
         public bool IsTextConfirm
         {
             get { return _isTextConfirm; }
