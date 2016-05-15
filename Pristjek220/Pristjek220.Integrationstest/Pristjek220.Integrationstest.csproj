@@ -57,11 +57,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminIntegrationTest.cs" />
+    <Compile Include="AutoCompleteIntegrationsTest.cs" />
+    <Compile Include="ConsumerIntegrationsTest.cs" />
+    <Compile Include="DatabaseFunctionsIntegrationsTest.cs" />
     <Compile Include="HasARepositoryIntegrationstest.cs" />
+    <Compile Include="LoginIntegrationTest.cs" />
     <Compile Include="LoginRepositoryIntegrationsTest.cs" />
     <Compile Include="ProductRepositoryIntegrationstest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepositoryIntegrationtest.cs" />
+    <Compile Include="StoremanagerIntegrationTest.cs" />
     <Compile Include="StoreRepositoryIntegrationtest.cs" />
     <Compile Include="UnitOfWorkIntegrationstest.cs" />
   </ItemGroup>
@@ -70,9 +76,21 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Administration\Administration.csproj">
+      <Project>{f5edfeab-3778-4247-b76e-10fa18ff12a1}</Project>
+      <Name>Administration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Consumer\Consumer.csproj">
+      <Project>{02f50e8d-598f-4da4-b5b2-9c12dfa89f8e}</Project>
+      <Name>Consumer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Pristjek220Info\Pristjek220Info.csproj">
       <Project>{22ea143c-eac0-43f8-9d62-f454410e462b}</Project>
       <Name>Pristjek220Info</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shared Functionalities\Shared Functionalities.csproj">
+      <Project>{62b71c47-2332-4bf7-951b-03a640019b5b}</Project>
+      <Name>Shared Functionalities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

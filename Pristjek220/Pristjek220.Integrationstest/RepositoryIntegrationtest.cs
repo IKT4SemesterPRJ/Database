@@ -17,11 +17,11 @@ namespace Pristjek220.Integrationstest
         public void SetUp()
         {
             _context = new DataContext();
-            _context.Database.Connection.ConnectionString = "Server=.\\SQLEXPRESS;Database=Pristjek220Data.DataContext; Trusted_Connection=True;";
-            _context.Database.ExecuteSqlCommand("dbo.TestCleanTable");
             _productRepository = new Repository<Product>(_context);
             _storeRepository = new Repository<Store>(_context);
             _hasARepository = new Repository<HasA>(_context);
+            _context.Database.Connection.ConnectionString = "Server=.\\SQLEXPRESS;Database=Pristjek220Data.DataContext; Trusted_Connection=True;";
+            _context.Database.ExecuteSqlCommand("dbo.TestCleanTable");
             _product = new Product() { ProductName = "TestProduct" };
             _store = new Store() { StoreName = "TestStore" };
         }

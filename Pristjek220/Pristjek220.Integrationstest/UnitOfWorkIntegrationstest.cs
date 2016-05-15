@@ -1,6 +1,4 @@
-﻿using System;
-using System.Security;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Pristjek220Data;
 
 namespace Pristjek220.Integrationstest

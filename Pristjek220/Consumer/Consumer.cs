@@ -352,6 +352,9 @@ namespace Consumer
         private void FillOptionsStores()
         {
             var allStores = _unit.Stores.GetAllStores();
+            if (allStores.Count == 0)
+                return;
+
             foreach (
                 var storesInPristjek in
                     from store in allStores
