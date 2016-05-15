@@ -8,7 +8,8 @@ using SharedFunctionalities;
 namespace Administration_GUI
 {
     /// <summary>
-    ///     AdminViewModel is the view model for the Admin. Its used to change between the the different user controlls in Admin
+    ///     AdminViewModel is the view model for the Admin. Its used to change between the the different user controlls in
+    ///     Admin
     /// </summary>
     internal class AdminViewModel : ObservableObject
     {
@@ -17,7 +18,7 @@ namespace Administration_GUI
         private ObservableCollection<IPageViewModel> _pageViewModels;
 
         /// <summary>
-        ///     AdminViewModel constructor takes a UnitOfWork to give to each of its user controls view models 
+        ///     AdminViewModel constructor takes a UnitOfWork to give to each of its user controls view models
         /// </summary>
         public AdminViewModel(IUnitOfWork unit)
         {

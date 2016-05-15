@@ -10,14 +10,14 @@ namespace Administration_GUI
     {
 
         /// <summary>
-        ///     StoremanagerGUI constructor takes a UnitOfWork to create an ApplicationViewModel
+        ///     StoremanagerGUI constructor takes a UnitOfWork to create an StoremanagerViewModel
         /// </summary>
         /// <param name="store"></param>
         /// <param name="unit"></param>
         public StoremanagerGUI(Store store, IUnitOfWork unit)
         {
             InitializeComponent();
-            base.DataContext = new ApplicationViewModel(store, unit);
+            base.DataContext = new StoremanagerViewModel(store, unit);
         }
     }
 }

@@ -9,14 +9,14 @@ using SharedFunctionalities;
 
 namespace Consumer_GUI
 {
-    internal class ApplicationViewModel : ObservableObject
+    internal class ConsumerViewModel : ObservableObject
     {
         private IPageViewModel _currentPageViewModel;
         private ObservableCollection<IPageViewModel> _pageViewModels;
         private string _mainWindowTekst;
         public string MainWindowTekst { get {return _mainWindowTekst;} set { _mainWindowTekst = value; OnPropertyChanged();} }
 
-        public ApplicationViewModel()
+        public ConsumerViewModel()
         {
             UnitOfWork unit = new UnitOfWork(new DataContext());
             Consumer.Consumer user = new Consumer.Consumer(unit);

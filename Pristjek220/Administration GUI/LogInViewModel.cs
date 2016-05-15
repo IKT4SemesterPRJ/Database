@@ -2,34 +2,30 @@
 using System.Windows;
 using System.Windows.Input;
 using Administration;
+using GalaSoft.MvvmLight.Command;
 using Pristjek220Data;
 using SharedFunctionalities;
+using RelayCommand = SharedFunctionalities.RelayCommand;
 
 namespace Administration_GUI
 {
-    class LogInViewModel: ObservableObject
+    /// <summary>
+    ///     LogInViewModel is the view model for the LogIn. Its used to open the Admin or the Storemanager view model
+    /// </summary>
+    internal class LogInViewModel : ObservableObject
     {
-        
-        public SecureString SecurePassword { private get; set; }
-        private Store _loginstore;
         private readonly IUnitOfWork _unit;
-        private ICommand _enterPressedCommand;
-
-        public string Error
-        {
-            get { return _error; }
-            set
-            {
-                _error = value;
-                OnPropertyChanged();
-            }
-        }
-        private string _error;
-
-        public string Username { get; set; } = string.Empty;
 
         private readonly ILogIn _user;
+        private ICommand _enterPressedCommand;
+        private string _error;
 
+        private ICommand _logInCommand;
+        private Store _loginstore;
+
+        /// <summary>
+        ///     LogInViewModel constructor creates a LogIn and connects to the database 
+        /// </summary>
         public LogInViewModel()
         {
             _unit = new UnitOfWork(new DataContext());
@@ -42,10 +38,42 @@ namespace Administration_GUI
             Application.Current.MainWindow.Close();
         }
 
-        private ICommand _logInCommand;
+        /// <summary>
+        ///     Get and set method for the password of type SecureString
+        /// </summary>
+        public SecureString SecurePassword { private get; set; }
 
+        /// <summary>
+        ///     Get and set method for the Error, with OnPropertyChanged
+        /// </summary>
+        public string Error
+        {
+            get { return _error; }
+            set
+            {
+                _error = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        ///     Get and set method for the Username
+        /// </summary>
+        public string Username { get; set; } = string.Empty;
+
+
+        /// <summary>
+        ///     Command that is used to log in to either the Admin or the Storemanger, if anything goes wrong it will print the reason to why it
+        ///     did not log in to a label
+        /// </summary>
         public ICommand LogInCommand => _logInCommand ??
                                         (_logInCommand = new RelayCommand(LogInbutton));
+
+        /// <summary>
+        ///     Command that is used to see if Enter is pressed, if its pressed it calls the LogInbutton
+        /// </summary>
+        public ICommand EnterKeyPressedCommand
+            => _enterPressedCommand ?? (_enterPressedCommand = new RelayCommand<KeyEventArgs>(EnterKeyPressed));
 
         private void LogInbutton()
         {
@@ -90,8 +118,6 @@ namespace Administration_GUI
             Application.Current.MainWindow = storemanagerGui;
         }
 
-        public ICommand EnterKeyPressedCommand => _enterPressedCommand ?? (_enterPressedCommand = new GalaSoft.MvvmLight.Command.RelayCommand<KeyEventArgs>(EnterKeyPressed));
-        
         private void EnterKeyPressed(KeyEventArgs e)
         {
             if ((e.Key == Key.Enter) || (e.Key == Key.Return))

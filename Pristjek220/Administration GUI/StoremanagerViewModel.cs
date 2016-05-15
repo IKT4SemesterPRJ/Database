@@ -1,25 +1,27 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
-using Administration;
 using Administration_GUI.User_Controls;
-using Administration_GUI;
 using Pristjek220Data;
 using SharedFunctionalities;
 
 namespace Administration_GUI
 
 {
-    internal class ApplicationViewModel : ObservableObject
+    /// <summary>
+    ///     StoremanagerViewModel is the view model for the Storemanager. Its used to change between the the different user controlls in Storemanager
+    /// </summary>
+    internal class StoremanagerViewModel : ObservableObject
     {
        private IPageViewModel _currentPageViewModel;
         private ObservableCollection<IPageViewModel> _pageViewModels;
         private readonly Store _store;
         private string _mainWindowTekst;
-        public string MainWindowTekst { get { return _mainWindowTekst; } set { _mainWindowTekst = value; OnPropertyChanged("MainWindowTekst"); } }
 
-
-        public ApplicationViewModel(Store store, IUnitOfWork unit)
+        /// <summary>
+        ///     StoremanagerViewModel constructor takes a UnitOfWork to give to each of its user controls view models
+        /// </summary>
+        public StoremanagerViewModel(Store store, IUnitOfWork unit)
         {
 
             _store = store;
@@ -35,8 +37,25 @@ namespace Administration_GUI
 
         }
 
+        /// <summary>
+        ///     The MainWindowTekst string is written to a label on the GUI that describes where the user is at
+        /// </summary>
+        public string MainWindowTekst
+        {
+            get { return _mainWindowTekst; }
+            set { _mainWindowTekst = value; OnPropertyChanged(); }
+        }
+
+
+
+        /// <summary>
+        ///     ObservableCollection that contains the user controlls, that inherit from IPageViewModel
+        /// </summary>
         public ObservableCollection<IPageViewModel> PageViewModels => _pageViewModels ?? (_pageViewModels = new ObservableCollection<IPageViewModel>());
 
+        /// <summary>
+        ///     Get and set method for the Current view model, with OnPropertyChanged
+        /// </summary>
         public IPageViewModel CurrentPageViewModel
         {
             get { return _currentPageViewModel; }
@@ -47,12 +66,12 @@ namespace Administration_GUI
                 OnPropertyChanged();
             }
         }
-
-        #region Commands
-
         
         private ICommand _changeWindowChangePriceCommand;
 
+        /// <summary>
+        ///     Change the user controll to ChangePrice
+        /// </summary>
         public ICommand ChangeWindowChangePriceCommand => _changeWindowChangePriceCommand ?? (_changeWindowChangePriceCommand = new RelayCommand(ChangeWindowChangePrice));
 
         private void ChangeWindowChangePrice()
@@ -63,6 +82,9 @@ namespace Administration_GUI
 
         private ICommand _changeWindowDeleteProductCommand;
 
+        /// <summary>
+        ///     Change the user controll to DeleteProduct
+        /// </summary>
         public ICommand ChangeWindowDeleteProductCommand => _changeWindowDeleteProductCommand ??
                                                             (_changeWindowDeleteProductCommand = new RelayCommand(ChangeWindowDeleteProduct));
 
@@ -74,6 +96,9 @@ namespace Administration_GUI
 
         private ICommand _changeWindowNewProductCommand;
 
+        /// <summary>
+        ///     Change the user controll to NewProduct
+        /// </summary>
         public ICommand ChangeWindowNewProductCommand => _changeWindowNewProductCommand ??
                                                          (_changeWindowNewProductCommand = new RelayCommand(ChangeWindowNewProduct));
 
@@ -85,20 +110,20 @@ namespace Administration_GUI
 
         private ICommand _logOutCommand;
 
+        /// <summary>
+        ///     Close the window and open the LogIn window
+        /// </summary>
         public ICommand LogOutCommand => _logOutCommand ??
                                          (_logOutCommand = new RelayCommand(LogOut));
 
         private void LogOut()
         {
-            var CurrentWindow = Application.Current.MainWindow;
-            var LogIn = new LogIn();
-            LogIn.Show();
-            CurrentWindow.Close();
-            Application.Current.MainWindow = LogIn;
+            var currentWindow = Application.Current.MainWindow;
+            var logIn = new LogIn();
+            logIn.Show();
+            currentWindow.Close();
+            Application.Current.MainWindow = logIn;
 
         }
-
-
-        #endregion
     }
 }
