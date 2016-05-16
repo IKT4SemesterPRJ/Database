@@ -85,7 +85,7 @@ namespace Pristjek220.Integrationstest
         [Test]
         public void ConnectToDB_CantMakeAConnectionToDB_ReturnsFalse()
         {
-            _context.Database.Connection.ConnectionString = "Data Source=i4dab.ase.au.dk; Initial Catalog = F16I4PRJ4Gr7; User ID = F16I4PRJ4Gr7; Password = F16I4PRJ4Gr7; ";
+            _context.Database.Connection.ConnectionString = "Data Source=NotRealServer; Initial Catalog = F16I4PRJ4Gr7; User ID = F16I4PRJ4Gr7; Password = F16I4PRJ4Gr7; ";
             Assert.That(_productRepository.ConnectToDb(), Is.EqualTo(false));
             _context.Database.Connection.ConnectionString = "Server=.\\SQLEXPRESS;Database=Pristjek220Data.DataContext; Trusted_Connection=True;";
         }
