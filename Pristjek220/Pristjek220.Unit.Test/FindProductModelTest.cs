@@ -5,11 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Consumer;
 using Consumer_GUI.User_Controls;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
 using NUnit.Framework;
 using Pristjek220Data;
+using SharedFunctionalities;
 
 
 namespace Pristjek220.Unit.Test
@@ -19,12 +21,18 @@ namespace Pristjek220.Unit.Test
     {
         
         private Consumer_GUI.User_Controls.FindProductModel _findProduct;
-     
+        private IAutocomplete _autoComplete;
+        private IUnitOfWork _unit;
+        private IConsumer _user;
+
 
         [SetUp]
         public void SetUp()
         {
-           _findProduct = new FindProductModel(Substitute.For<Consumer.IConsumer>(), Substitute.For<IUnitOfWork>());
+            _unit = Substitute.For<IUnitOfWork>();
+            _autoComplete = Substitute.For<IAutocomplete>();
+            _user = Substitute.For<IConsumer>();
+            _findProduct = new FindProductModel(_user, _autoComplete);
         }
 
         [Test]
@@ -77,10 +85,25 @@ namespace Pristjek220.Unit.Test
             _findProduct.AddToStoreListCommand.Execute(this);
             Assert.That(_findProduct.StorePrice.Contains(storeandprice), Is.EqualTo(true));
             Assert.That(_findProduct.StorePrice.Contains(storeandprice1), Is.EqualTo(true));
-
         }
 
-       [Test]
+        [Test]
+        public void AddToStoreList_isEmpty_ErrorIsErrorMessage()
+        {
+            _findProduct.ProductName = string.Empty;
+            _findProduct.AddToStoreListCommand.Execute(this);
+            Assert.That(_findProduct.Error, Is.EqualTo("Indtast venligst det produkt du vil søge efter."));
+        }
+
+        [Test]
+        public void AddToStoreList_isNull_ErrorIsErrorMessage()
+        {
+            _findProduct.ProductName = null;
+            _findProduct.AddToStoreListCommand.Execute(this);
+            Assert.That(_findProduct.Error, Is.EqualTo("Indtast venligst det produkt du vil søge efter."));
+        }
+
+        [Test]
         public void IllegalSigFindProduct_PunktumTyped_ErrorEqualsString()
         {
             _findProduct.ProductName = "banan.";
@@ -147,6 +170,29 @@ namespace Pristjek220.Unit.Test
             Thread.Sleep(5000);
 
             Assert.That(_findProduct.Error, Is.EqualTo(""));
+        }
+
+        [Test]
+        public void IllegalSignFindProcuctShoppingList_NumbersTyped_IsTextConfirmIsFalse()
+        {
+            _findProduct.ProductName = "test";
+            _findProduct.IllegalSignFindProductCommand.Execute(this);
+
+            Assert.That(_findProduct.IsTextConfirm, Is.EqualTo(false));
+
+        }
+
+        [Test]
+        public void PopulatingListShoppingList_GetThePopulatingList_ListIsEqualToTheRequestedList()
+        {
+            var list = new List<string>();
+            list.Add("Test");
+            _findProduct.ProductName = "Test";
+            _autoComplete.AutoCompleteProduct("Test").Returns(list);
+            _findProduct.PopulatingFindProductCommand.Execute(this);
+            
+
+            Assert.That(_findProduct.AutoCompleteList, Is.EqualTo(list));
         }
     }
 }

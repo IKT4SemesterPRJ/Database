@@ -27,10 +27,11 @@ namespace Consumer_GUI
         {
             var unit = new UnitOfWork(new DataContext());
             var user = new Consumer.Consumer(unit);
+            var autocomplete = new Autocomplete(unit);
             // Add available pages
             PageViewModels.Add(new HomeModel());
-            PageViewModels.Add(new FindProductModel(user, unit));
-            PageViewModels.Add(new ShoppingListModel(user, unit));
+            PageViewModels.Add(new FindProductModel(user, autocomplete));
+            PageViewModels.Add(new ShoppingListModel(user, autocomplete));
             PageViewModels.Add(new GeneratedShoppingListModel(user,
                 new Mail(new SmtpClientWrapper("Smtp.gmail.com", 587,
                     new NetworkCredential("pristjek220@gmail.com", "pristjek"), true))));

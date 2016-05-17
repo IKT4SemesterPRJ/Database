@@ -13,7 +13,6 @@ namespace Consumer_GUI.User_Controls
     internal class ShoppingListModel : ObservableObject, IPageViewModel
     {
         private readonly Timer _timer = new Timer(2500);
-        private readonly IUnitOfWork _unit;
 
         private ICommand _addToShoppingListCommand;
         private ICommand _clearShoppingListCommand;
@@ -22,6 +21,7 @@ namespace Consumer_GUI.User_Controls
         private string _error = string.Empty;
         private ICommand _generatedShoppingListCommand;
         private ICommand _illegalSignShoppingListCommand;
+        private IAutocomplete autocomplete;
 
         private bool _isTextConfirm;
 
@@ -36,12 +36,12 @@ namespace Consumer_GUI.User_Controls
         ///     FindProductModel constructor takes a UnitOfWork and a user and reads from a file if there is a local shoppinglist
         /// </summary>
         /// <param name="user"></param>
-        /// <param name="unit"></param>
-        public ShoppingListModel(IConsumer user, IUnitOfWork unit)
+        /// <param name="autoComplete"></param>
+        public ShoppingListModel(IConsumer user, IAutocomplete autoComplete)
         {
+            autocomplete = autoComplete;
             User = user;
             ShoppingListData = new ObservableCollection<ProductInfo>();
-            _unit = unit;
             User.ReadFromJsonFile();
         }
 
@@ -192,7 +192,6 @@ namespace Consumer_GUI.User_Controls
             {
                 var item = User.ShoppingListData.First(
                     s => s.Name == char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower());
-                if (item == null) return;
                 var intQuantity = int.Parse(item.Quantity);
                 intQuantity++;
                 item.Quantity = intQuantity.ToString();
@@ -230,7 +229,6 @@ namespace Consumer_GUI.User_Controls
 
         private void PopulatingListShoppingList()
         {
-            IAutocomplete autocomplete = new Autocomplete(_unit);
             AutoCompleteList?.Clear(); // not equal null
             foreach (var item in autocomplete.AutoCompleteProduct(ShoppingListItem))
             {
@@ -247,10 +245,6 @@ namespace Consumer_GUI.User_Controls
                 IsTextConfirm = false;
                 Error = "Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9.";
                 ShoppingListItem = _oldtext;
-            }
-            else if (ShoppingListItem == _oldtext)
-            {
-                Error = string.Empty;
             }
         }
 

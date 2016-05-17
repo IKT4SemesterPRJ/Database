@@ -5,11 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms.VisualStyles;
 using Consumer;
 using Consumer_GUI.User_Controls;
 using NSubstitute;
 using NUnit.Framework;
 using Pristjek220Data;
+using SharedFunctionalities;
 
 namespace Pristjek220.Unit.Test
 {
@@ -18,12 +20,18 @@ namespace Pristjek220.Unit.Test
     {
 
         private Consumer_GUI.User_Controls.ShoppingListModel _shoppingList;
+        private IAutocomplete _autoComplete;
+        private IUnitOfWork _unit;
+        private IConsumer _user;
 
 
         [SetUp]
         public void SetUp()
         {
-            _shoppingList = new ShoppingListModel(Substitute.For<Consumer.IConsumer>(), Substitute.For<IUnitOfWork>());
+            _unit = Substitute.For<IUnitOfWork>();
+            _autoComplete = Substitute.For<IAutocomplete>();
+            _user = Substitute.For<IConsumer>();
+            _shoppingList = new ShoppingListModel(_user, _autoComplete);
         }
 
         [Test]
@@ -146,6 +154,16 @@ namespace Pristjek220.Unit.Test
         }
 
         [Test]
+        public void IllegalSignFindProcuctShoppingList_NumbersTyped_IsTextConfirmIsFalse()
+        {
+            _shoppingList.ShoppingListItem = "234567";
+            _shoppingList.IllegalSignShoppingListCommand.Execute(this);
+
+            Assert.That(_shoppingList.IsTextConfirm, Is.EqualTo(false));
+
+        }
+
+        [Test]
         public void DeleteFromShoppingList_DeleteIsPressedWithNoItemSelected_ErrorEqualsErrorMassage()
         {
 
@@ -227,6 +245,38 @@ namespace Pristjek220.Unit.Test
             Thread.Sleep(5000);
 
             Assert.That(_shoppingList.Error, Is.EqualTo(""));
+        }
+
+        [Test]
+        public void PopulatingListShoppingList_GetThePopulatingList_ListIsEqualToTheRequestedList()
+        {
+            var list = new List<string>();
+            list.Add("Test");
+            _shoppingList.ShoppingListItem = "Test";
+            _autoComplete.AutoCompleteProduct("Test").Returns(list);
+            _shoppingList.PopulatingShoppingListCommand.Execute(this);
+
+            Assert.That(_shoppingList.AutoCompleteList, Is.EqualTo(list));
+        }
+
+        [Test]
+        public void ClearShoppingList_AddProductsToListThenClear_ListIsEmpty()
+        {
+            _shoppingList.ShoppingListData.Add(new ProductInfo("Test"));
+            _shoppingList.ShoppingListData.Add(new ProductInfo("Test1"));
+            _shoppingList.ClearShoppingListCommand.Execute(this);
+
+
+            Assert.That(_shoppingList.ShoppingListData, Is.EqualTo(new ObservableCollection<ProductInfo>()));
+        }
+
+        [Test]
+        public void OptionsStores_SetAndGetOptionsStore_IsEqualToTheSetValue()
+        {
+            _user.OptionsStores = new ObservableCollection<StoresInPristjek>();
+            _shoppingList.OptionsStores.Add(new StoresInPristjek("TestButik"));
+            
+            Assert.That(_shoppingList.OptionsStores[0].Store, Is.EqualTo("TestButik"));
         }
     }
 }

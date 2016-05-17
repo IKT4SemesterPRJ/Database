@@ -20,12 +20,12 @@ namespace Consumer_GUI.User_Controls
     internal class FindProductModel : ObservableObject, IPageViewModel
     {
         private readonly Timer _timer = new Timer(2500);
-        private readonly IUnitOfWork _unit;
         private ICommand _addToStoreListCommand;
         private ICommand _enterPressedCommand;
 
         private string _error;
         private ICommand _illegalSignFindProductCommand;
+        private IAutocomplete autocomplete;
 
 
         private bool _isTextConfirm;
@@ -39,11 +39,11 @@ namespace Consumer_GUI.User_Controls
         ///     FindProductModel constructor takes a UnitOfWork and a user
         /// </summary>
         /// <param name="user"></param>
-        /// <param name="unit"></param>
-        public FindProductModel(IConsumer user, IUnitOfWork unit)
+        /// <param name="autoComplete"></param>
+        public FindProductModel(IConsumer user, IAutocomplete autoComplete)
         {
             User = user;
-            _unit = unit;
+            autocomplete = autoComplete;
         }
 
         /// <summary>
@@ -170,7 +170,6 @@ namespace Consumer_GUI.User_Controls
 
         private void PopulatingListFindProduct()
         {
-            IAutocomplete autocomplete = new Autocomplete(_unit);
             AutoCompleteList?.Clear();
             foreach (var item in autocomplete.AutoCompleteProduct(ProductName))
             {
