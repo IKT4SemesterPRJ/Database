@@ -24,7 +24,7 @@ namespace Administration_GUI.User_Controls
         private ICommand _deleteFromStoreDatabaseCommand;
         private ICommand _enterPressedCommand;
         private ICommand _illegalSignDeleteProductCommand;
-
+        private ICreateMsgBox _msgBox;
         private bool _isTextConfirm;
 
         private string _oldtext = string.Empty;
@@ -37,10 +37,11 @@ namespace Administration_GUI.User_Controls
         /// </summary>
         /// <param name="storemanager"></param>
         /// <param name="autocomplete"></param>
-        public DeleteProductModel(IStoremanager storemanager, IAutocomplete autocomplete)
+        public DeleteProductModel(IStoremanager storemanager, IAutocomplete autocomplete, ICreateMsgBox msgBox)
         {
             _manager = storemanager;
             _autocomplete = autocomplete;
+            _msgBox = msgBox;
         }
 
         /// <summary>
@@ -162,8 +163,7 @@ namespace Administration_GUI.User_Controls
             var product = _manager.FindProduct(productName);
             if (product != null)
             {
-                var result = CustomMsgBox.Show($"Vil du fjerne produktet \"{productName}\" fra din forretning?",
-                    "Bekræftelse", "Ja", "Nej");
+                var result = _msgBox.DeleteProductMgsConfirmation(productName);
                 if (result != DialogResult.Yes)
                 {
                     IsTextConfirm = false;

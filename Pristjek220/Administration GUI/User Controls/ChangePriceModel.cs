@@ -26,7 +26,7 @@ namespace Administration_GUI.User_Controls
         private string _confirmText;
         private ICommand _enterPressedCommand;
         private ICommand _illegalSignChangePriceCommand;
-
+        private ICreateMsgBox _msgBox;
         private bool _isTextConfirm;
 
         private string _oldtext = string.Empty;
@@ -41,10 +41,12 @@ namespace Administration_GUI.User_Controls
         /// </summary>
         /// <param name="storemanager"></param>
         /// <param name="autocomplete"></param>
-        public ChangePriceModel(IStoremanager storemanager, IAutocomplete autocomplete)
+        /// <param name="msgBox"></param>
+        public ChangePriceModel(IStoremanager storemanager, IAutocomplete autocomplete, ICreateMsgBox msgBox)
         {
             _manager = storemanager;
             _autocomplete = autocomplete;
+            _msgBox = msgBox;
         }
 
         /// <summary>
@@ -176,9 +178,7 @@ namespace Administration_GUI.User_Controls
                 if (_manager.FindProductInStore(productName) != null)
                 {
                     var result =
-                        CustomMsgBox.Show(
-                            $"Vil du ændre prisen på produktet \"{ShoppingListItem}\" til {ShoppingListItemPrice} kr?",
-                            "Bekræftelse", "Ja", "Nej");
+                        _msgBox.ChangePriceMgsConfirmation(ShoppingListItem, ShoppingListItemPrice);
                     if (result != DialogResult.Yes)
                     {
                         IsTextConfirm = false;

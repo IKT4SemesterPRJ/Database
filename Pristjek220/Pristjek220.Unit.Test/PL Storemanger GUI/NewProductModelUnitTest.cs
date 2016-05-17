@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Threading;
 using Administration;
+using Administration_GUI;
 using Administration_GUI.User_Controls;
 using NSubstitute;
 using NUnit.Framework;
@@ -18,14 +19,16 @@ namespace Pristjek220.Unit.Test
         private IStoremanager _storemanager;
         private Product _product = new Product();
         private ProductAndPrice _productAndPrice = new ProductAndPrice();
+        private ICreateMsgBox _msgBox;
 
         [SetUp]
         public void SetUp()
         {
             _autocomplete = Substitute.For<IAutocomplete>();
             _storemanager = Substitute.For<IStoremanager>();
+            _msgBox = Substitute.For<ICreateMsgBox>();
 
-            _uut = new NewProductModel(_storemanager, _autocomplete);
+            _uut = new NewProductModel(_storemanager, _autocomplete, _msgBox);
             _product.ProductName = "Banan";
             _product.ProductId = 12;
             _productAndPrice.Name = "Banan";

@@ -29,7 +29,7 @@ namespace Administration_GUI.User_Controls
         private ICommand _illegalSignNewProductCommand;
 
         private bool _isTextConfirm;
-
+        private ICreateMsgBox _msgBox;
         private string _oldtext = string.Empty;
         private ICommand _populatingNewProductCommand;
 
@@ -43,10 +43,12 @@ namespace Administration_GUI.User_Controls
         /// <param name="store"></param>
         /// <param name="unit"></param>
         /// <param name="autoComplete"></param>
-        public NewProductModel(IStoremanager storemanager, IAutocomplete autoComplete)
+        /// <param name="msgBox"></param>
+        public NewProductModel(IStoremanager storemanager, IAutocomplete autoComplete, ICreateMsgBox msgBox)
         {
             _manager = storemanager;
             _autocomplete = autoComplete;
+            _msgBox = msgBox;
         }
 
         /// <summary>
@@ -190,9 +192,7 @@ namespace Administration_GUI.User_Controls
                 }
 
                 var result =
-                    CustomMsgBox.Show(
-                        $"Vil du tilføje produktet \"{ShoppingListItem}\" med prisen {ShoppingListItemPrice} kr til din forretning?",
-                        "Bekræftelse", "Ja", "Nej");
+                    _msgBox.AddProductMgsConfirmation(ShoppingListItem, ShoppingListItemPrice);
                 if (result != DialogResult.Yes)
                 {
                     IsTextConfirm = false;

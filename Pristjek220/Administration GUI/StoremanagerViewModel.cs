@@ -39,9 +39,9 @@ namespace Administration_GUI
             IStoremanager storemanager = new Storemanager(unit, _store);
             // Add available pages
 
-            PageViewModels.Add(new ChangePriceModel(storemanager, autocomplete));
-            PageViewModels.Add(new DeleteProductModel(storemanager, autocomplete));
-            PageViewModels.Add(new NewProductModel(storemanager, autocomplete));
+            PageViewModels.Add(new ChangePriceModel(storemanager, autocomplete, new CreateMsgBox()));
+            PageViewModels.Add(new DeleteProductModel(storemanager, autocomplete, new CreateMsgBox()));
+            PageViewModels.Add(new NewProductModel(storemanager, autocomplete, new CreateMsgBox()));
 
             // set startup page
             MainWindowTekst = $"Pristjek220 - {_store.StoreName} - Tilføj Produkt";
