@@ -78,22 +78,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdminUnitTest.cs" />
-    <Compile Include="ApplicationViewModelTest.cs" />
-    <Compile Include="AutoCompleteUnitTest.cs" />
-    <Compile Include="ConsumerUnitTest.cs" />
-    <Compile Include="DatabaseFunctionUnitTest.cs" />
-    <Compile Include="ChangePriceModelUnitTest.cs" />
-    <Compile Include="FindProductModelTest.cs" />
-    <Compile Include="GeneratedShoppinglListModelTest.cs" />
-    <Compile Include="LogInUnitTest.cs" />
-    <Compile Include="MailTest.cs" />
-    <Compile Include="DeleteProductModelUnitTest.cs" />
-    <Compile Include="NewProductModelUnitTest.cs" />
+    <Compile Include="BLL Administration\AdminUnitTest.cs" />
+    <Compile Include="BLL Shared Functionalities\AutoCompleteUnitTest.cs" />
+    <Compile Include="BLL Consumer\ConsumerUnitTest.cs" />
+    <Compile Include="BLL Shared Functionalities\DatabaseFunctionUnitTest.cs" />
+    <Compile Include="PL Storemanger GUI\ChangePriceModelUnitTest.cs" />
+    <Compile Include="PL Consumer GUI\FindProductModelTest.cs" />
+    <Compile Include="PL Consumer GUI\GeneratedShoppinglListModelTest.cs" />
+    <Compile Include="BLL Administration\LogInUnitTest.cs" />
+    <Compile Include="BLL Consumer\MailTest.cs" />
+    <Compile Include="PL Storemanger GUI\DeleteProductModelUnitTest.cs" />
+    <Compile Include="PL Storemanger GUI\NewProductModelUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ShoppingListModelTest.cs" />
-    <Compile Include="SmtpClientWrapperUnitTest.cs" />
-    <Compile Include="StoremanagerUnitTest.cs" />
+    <Compile Include="PL Consumer GUI\ShoppingListModelTest.cs" />
+    <Compile Include="BLL Consumer\SmtpClientWrapperUnitTest.cs" />
+    <Compile Include="BLL Administration\StoremanagerUnitTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -124,6 +123,9 @@
       <Project>{62b71c47-2332-4bf7-951b-03a640019b5b}</Project>
       <Name>Shared Functionalities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="PL Admin GUI\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
