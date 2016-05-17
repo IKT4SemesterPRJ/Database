@@ -87,9 +87,9 @@ namespace Pristjek220.Unit.Test
         {
             _uut.IsTextConfirm = true;
             _uut.ShoppingListItemPrice = "12";
-            Product nullProduct = null;
+            ProductAndPrice nullProduct = null;
             _uut.ShoppingListItem = "Banan";
-            _storemanager.FindProductInStore("Banan").Returns(_productAndPrice);
+            _storemanager.FindProductInStore("Banan").Returns(nullProduct);
             _uut.ChangeProductPriceInStoreDatabaseCommand.Execute(this);
             Assert.That(_uut.IsTextConfirm, Is.EqualTo(false));
         }
