@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Input;
+using Administration;
 using Pristjek220Data;
 using SharedFunctionalities;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
@@ -16,7 +17,7 @@ namespace Administration_GUI.User_Controls_Admin
     /// </summary>
     internal class AdminDeleteStoreModel : ObservableObject, IPageViewModel
     {
-        private readonly Administration.Admin _admin;
+        private readonly IAdmin _admin;
         private readonly IAutocomplete _autocomplete;
         private readonly Timer _timer = new Timer(2500);
         private ICommand _deleteFromLoginDatabaseCommand;
@@ -24,6 +25,7 @@ namespace Administration_GUI.User_Controls_Admin
         private ICommand _enterPressedCommand;
         private string _error = string.Empty;
         private ICommand _illegalSignDeleteProductCommand;
+        private ICreateMsgBox _msgBox;
 
         private bool _isTextConfirm;
 
@@ -33,11 +35,14 @@ namespace Administration_GUI.User_Controls_Admin
         /// <summary>
         ///     AdminDeleteStoreModel constructor takes a UnitOfWork to create an admin
         /// </summary>
-        /// <param name="unit"></param>
-        public AdminDeleteStoreModel(IUnitOfWork unit)
+        /// <param name="autocomplete"></param>
+        /// <param name="msgBox"></param>
+        /// <param name="admin"></param>
+        public AdminDeleteStoreModel(IAdmin admin, IAutocomplete autocomplete, ICreateMsgBox msgBox)
         {
-            _admin = new Administration.Admin(unit);
-            _autocomplete = new Autocomplete(unit);
+            _admin = admin;
+            _autocomplete = autocomplete;
+            _msgBox = msgBox;
         }
 
         /// <summary>
@@ -156,9 +161,7 @@ namespace Administration_GUI.User_Controls_Admin
 
             if (store != null)
             {
-                var result = CustomMsgBox.Show($"Vil du fjerne forretningen \"{storeName}\" fra Pristjek220?",
-                    "Bekræftelse", "Ja",
-                    "Nej");
+                var result = _msgBox.DeleteStoreMgsConfirmation(storeName);
                 if (result != DialogResult.Yes)
                 {
                     IsTextConfirm = false;
@@ -166,12 +169,6 @@ namespace Administration_GUI.User_Controls_Admin
                     return;
                 }
 
-                if (_admin.DeleteStore(storeName) == -1)
-                {
-                    IsTextConfirm = false;
-                    Error = $"Forretningen \"{storeName}\" findes ikke i Pristjek220.";
-                    return;
-                }
                 IsTextConfirm = true;
                 Error = $"Forretningen \"{storeName}\" er blevet fjernet fra Pristjek220.";
             }

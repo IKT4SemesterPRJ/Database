@@ -2,6 +2,7 @@
 using System.Security;
 using System.Timers;
 using System.Windows.Input;
+using Administration;
 using Pristjek220Data;
 using SharedFunctionalities;
 
@@ -13,11 +14,12 @@ namespace Administration_GUI.User_Controls_Admin
     /// </summary>
     internal class AdminNewStoreModel : ObservableObject, IPageViewModel
     {
-        private readonly Administration.Admin _admin;
         private readonly Timer _timer = new Timer(2500);
         private ICommand _enterPressedCommand;
         private string _error = string.Empty;
-        private ICommand _illegalSignDeleteProductCommand;
+        private ICommand _illegalSignNewProductCommand;
+        private readonly IAdmin _admin;
+        private readonly IAutocomplete _autocomplete;
 
         private bool _isTextConfirm;
 
@@ -30,9 +32,10 @@ namespace Administration_GUI.User_Controls_Admin
         /// <summary>
         ///     AdminNewStoreModel constructor takes a UnitOfWork to create an Admin
         /// </summary>
-        public AdminNewStoreModel(IUnitOfWork unit)
+        public AdminNewStoreModel(IAdmin admin, IAutocomplete autocomplete)
         {
-            _admin = new Administration.Admin(unit);
+            _admin = admin;
+            _autocomplete = autocomplete;
         }
 
         /// <summary>
@@ -110,10 +113,10 @@ namespace Administration_GUI.User_Controls_Admin
         /// <summary>
         ///     Command that is used whenever there is an TextChanged event to see if the text entered contains illegal signs
         /// </summary>
-        public ICommand IllegalSignDeleteStoreCommand
+        public ICommand IllegalSignNewStoreCommand
             =>
-                _illegalSignDeleteProductCommand ??
-                (_illegalSignDeleteProductCommand = new RelayCommand(IllegalSignDeleteStore));
+                _illegalSignNewProductCommand ??
+                (_illegalSignNewProductCommand = new RelayCommand(IllegalSignDeleteStore));
 
         private void IllegalSignDeleteStore()
         {

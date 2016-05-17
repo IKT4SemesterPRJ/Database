@@ -82,6 +82,9 @@
     <Compile Include="BLL Shared Functionalities\AutoCompleteUnitTest.cs" />
     <Compile Include="BLL Consumer\ConsumerUnitTest.cs" />
     <Compile Include="BLL Shared Functionalities\DatabaseFunctionUnitTest.cs" />
+    <Compile Include="PL Admin GUI\AdminNewStoreModelUnitTest.cs" />
+    <Compile Include="PL Admin GUI\AdminDeleteProductModelUnitTest.cs" />
+    <Compile Include="PL Admin GUI\AdminDeleteStoreModelUnitTest.cs" />
     <Compile Include="PL Consumer GUI\ConsumerViewModelUnitTest.cs" />
     <Compile Include="PL Storemanger GUI\ChangePriceModelUnitTest.cs" />
     <Compile Include="PL Consumer GUI\FindProductModelUnitTest.cs" />
@@ -125,9 +128,7 @@
       <Name>Shared Functionalities</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="PL Admin GUI\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

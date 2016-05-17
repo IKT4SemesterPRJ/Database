@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
+using Administration;
 using Administration_GUI.User_Controls_Admin;
 using Pristjek220Data;
 using SharedFunctionalities;
@@ -23,10 +24,12 @@ namespace Administration_GUI
         /// </summary>
         public AdminViewModel(IUnitOfWork unit)
         {
+            IAutocomplete autocomplete = new Autocomplete(unit);
+            IAdmin admin = new Administration.Admin(unit);
             // Add available pages
-            PageViewModels.Add(new AdminNewStoreModel(unit));
+            PageViewModels.Add(new AdminNewStoreModel(admin, autocomplete));
             PageViewModels.Add(new AdminDeleteProductModel(unit));
-            PageViewModels.Add(new AdminDeleteStoreModel(unit));
+            PageViewModels.Add(new AdminDeleteStoreModel(admin, autocomplete, new CreateMsgBox()));
 
             // set startup page
             MainWindowTekst = "Pristjek220 - Administration - Tilføj Forretning";

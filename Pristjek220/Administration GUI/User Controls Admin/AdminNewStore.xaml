@@ -63,7 +63,7 @@
             Width="100">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="TextChanged">
-                    <i:InvokeCommandAction Command="{Binding IllegalSignDeleteStoreCommand}"/>
+                    <i:InvokeCommandAction Command="{Binding IllegalSignNewStoreCommand}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="PreviewKeyDown">
                     <command:EventToCommand Command="{Binding EnterKeyPressedCommand}" PassEventArgsToCommand="True">

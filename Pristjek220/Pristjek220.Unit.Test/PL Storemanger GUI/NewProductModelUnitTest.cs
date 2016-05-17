@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
+using System.Windows.Forms;
 using Administration;
 using Administration_GUI;
 using Administration_GUI.User_Controls;
@@ -128,6 +129,68 @@ namespace Pristjek220.Unit.Test
         }
 
         [Test]
+        public void AddToStoreDatabase_ProductDoesNotExistInThatStoreConfirmed_ConfirmTextIsBananInsertedWithPrice12()
+        {
+            Product nullProduct = null;
+            ProductAndPrice productAndPricenull = null;
+            _uut.ShoppingListItem = "Banan";
+            _uut.ShoppingListItemPrice = "12";
+            _storemanager.FindProduct("Banan").Returns(nullProduct);
+            _storemanager.FindProductInStore("Banan").Returns(productAndPricenull);
+            _msgBox.AddProductMgsConfirmation(_uut.ShoppingListItem, _uut.ShoppingListItemPrice)
+                .Returns(DialogResult.Yes);
+            _uut.AddToStoreDatabaseCommand.Execute(this);
+            Assert.That(_uut.ConfirmText, Is.EqualTo($"Produktet \"{_productAndPrice.Name}\" er indsat til prisen 12,00 kr. i din forretning."));
+        }
+
+        [Test]
+        public void AddToStoreDatabase_ProductDoesNotExistInThatStoreNotConfirmed_ConfirmTextIsDeConfirmed()
+        {
+            Product nullProduct = null;
+            ProductAndPrice productAndPricenull = null;
+            _uut.ShoppingListItem = "Banan";
+            _uut.ShoppingListItemPrice = "12";
+            _storemanager.FindProduct("Banan").Returns(nullProduct);
+            _storemanager.FindProductInStore("Banan").Returns(productAndPricenull);
+            _msgBox.AddProductMgsConfirmation(_uut.ShoppingListItem, _uut.ShoppingListItemPrice)
+                .Returns(DialogResult.No);
+            _uut.AddToStoreDatabaseCommand.Execute(this);
+            Assert.That(_uut.ConfirmText, Is.EqualTo("Der blev ikke bekræftet."));
+        }
+
+        [Test]
+        public void AddToStoreDatabase_ProductDoesNotExistInThatStoreConfirmed_IsTextConfirmIsTrue()
+        {
+            _uut.IsTextConfirm = false;
+            Product nullProduct = null;
+            ProductAndPrice productAndPricenull = null;
+            _uut.ShoppingListItem = "Banan";
+            _uut.ShoppingListItemPrice = "12";
+            _storemanager.FindProduct("Banan").Returns(nullProduct);
+            _storemanager.FindProductInStore("Banan").Returns(productAndPricenull);
+            _msgBox.AddProductMgsConfirmation(_uut.ShoppingListItem, _uut.ShoppingListItemPrice)
+                .Returns(DialogResult.Yes);
+            _uut.AddToStoreDatabaseCommand.Execute(this);
+            Assert.That(_uut.IsTextConfirm, Is.EqualTo(true));
+        }
+
+        [Test]
+        public void AddToStoreDatabase_ProductDoesNotExistInThatStoreNotConfirmed_IsTextConfirmIsFalse()
+        {
+            _uut.IsTextConfirm = true;
+            Product nullProduct = null;
+            ProductAndPrice productAndPricenull = null;
+            _uut.ShoppingListItem = "Banan";
+            _uut.ShoppingListItemPrice = "12";
+            _storemanager.FindProduct("Banan").Returns(nullProduct);
+            _storemanager.FindProductInStore("Banan").Returns(productAndPricenull);
+            _msgBox.AddProductMgsConfirmation(_uut.ShoppingListItem, _uut.ShoppingListItemPrice)
+                .Returns(DialogResult.No);
+            _uut.AddToStoreDatabaseCommand.Execute(this);
+            Assert.That(_uut.IsTextConfirm, Is.EqualTo(false));
+        }
+
+        [Test]
         public void IllegalSignNewProduct_TestLegalString_TextConfirmIsStillTrue()
         {
             _uut.IsTextConfirm = true;
@@ -138,7 +201,7 @@ namespace Pristjek220.Unit.Test
         }
 
         [Test]
-        public void IllegalSignNewProduct_TestLegalString_TextConfirmIsFalse()
+        public void IllegalSignNewProduct_TestIlegalString_TextConfirmIsFalse()
         {
             _uut.IsTextConfirm = true;
             _uut.ShoppingListItem = "test!";

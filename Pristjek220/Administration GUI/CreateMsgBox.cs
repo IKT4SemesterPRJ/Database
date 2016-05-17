@@ -12,6 +12,7 @@ namespace Administration_GUI
         DialogResult DeleteProductMgsConfirmation(string product);
         DialogResult AddProductMgsConfirmation(string shoppingListItem, string shoppingListItemPrice);
         DialogResult ChangePriceMgsConfirmation(string shoppingListItem, string shoppingListItemPrice);
+        DialogResult DeleteStoreMgsConfirmation(string storeName);
     }
 
     class CreateMsgBox : ICreateMsgBox
@@ -38,5 +39,9 @@ namespace Administration_GUI
                             "Bekræftelse", "Ja", "Nej");
         }
 
+        public DialogResult DeleteStoreMgsConfirmation(string storeName)
+        {
+            return CustomMsgBox.Show($"Vil du fjerne forretningen \"{storeName}\" fra Pristjek220?", "Bekræftelse", "Ja", "Nej");
+        }
     }
 }

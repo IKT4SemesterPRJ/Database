@@ -37,6 +37,7 @@ namespace Administration_GUI.User_Controls
         /// </summary>
         /// <param name="storemanager"></param>
         /// <param name="autocomplete"></param>
+        /// <param name="msgBox"></param>
         public DeleteProductModel(IStoremanager storemanager, IAutocomplete autocomplete, ICreateMsgBox msgBox)
         {
             _manager = storemanager;

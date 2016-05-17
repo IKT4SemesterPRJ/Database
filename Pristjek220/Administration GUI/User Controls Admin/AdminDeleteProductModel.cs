@@ -1,6 +1,9 @@
-﻿using Administration_GUI;
+﻿using System.Runtime.CompilerServices;
+using Administration_GUI;
 using Pristjek220Data;
 using SharedFunctionalities;
+
+[assembly: InternalsVisibleTo("Pristjek220.Unit.Test")]
 
 namespace Administration_GUI.User_Controls_Admin
 {

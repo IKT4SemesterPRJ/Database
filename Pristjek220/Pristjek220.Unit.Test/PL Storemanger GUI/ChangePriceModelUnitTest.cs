@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
+using System.Windows.Forms;
 using Administration;
 using Administration_GUI;
 using Administration_GUI.User_Controls;
@@ -109,6 +110,58 @@ namespace Pristjek220.Unit.Test
         }
 
         [Test]
+        public void ChangeProductPriceInStoreDatabase_ProductBananWithThePrice12IsAddedDialogYes_ConfirmTextIsTextConfirming()
+        {
+            _uut.ShoppingListItemPrice = "12";
+            _uut.ShoppingListItem = "Banan";
+            _storemanager.FindProductInStore("Banan").Returns(_productAndPrice);
+            _msgBox.ChangePriceMgsConfirmation(_uut.ShoppingListItem, _uut.ShoppingListItemPrice)
+                .Returns(DialogResult.Yes);
+            _uut.ChangeProductPriceInStoreDatabaseCommand.Execute(this);
+            Assert.That(_uut.ConfirmText, Is.EqualTo("Prisen for produktet \"Banan\" er ændret til 12,00 kr."));
+        }
+
+
+        [Test]
+        public void ChangeProductPriceInStoreDatabase_ProductBananWithThePrice12IsAddedDialogNo_ConfirmTextIsDeConfirmed()
+        {
+            _uut.ShoppingListItemPrice = "12";
+            _uut.ShoppingListItem = "Banan";
+            _storemanager.FindProductInStore("Banan").Returns(_productAndPrice);
+            _msgBox.ChangePriceMgsConfirmation(_uut.ShoppingListItem, _uut.ShoppingListItemPrice)
+                .Returns(DialogResult.No);
+            _uut.ChangeProductPriceInStoreDatabaseCommand.Execute(this);
+            Assert.That(_uut.ConfirmText, Is.EqualTo("Der blev ikke bekræftet."));
+        }
+
+        [Test]
+        public void ChangeProductPriceInStoreDatabase_ProductBananWithThePrice12IsAddedDialogYes_IsTextConfirmIsFalse()
+        {
+            _uut.IsTextConfirm = false;
+            _uut.ShoppingListItemPrice = "12";
+            _uut.ShoppingListItem = "Banan";
+            _storemanager.FindProductInStore("Banan").Returns(_productAndPrice);
+            _msgBox.ChangePriceMgsConfirmation(_uut.ShoppingListItem, _uut.ShoppingListItemPrice)
+                .Returns(DialogResult.Yes);
+            _uut.ChangeProductPriceInStoreDatabaseCommand.Execute(this);
+            Assert.That(_uut.IsTextConfirm, Is.EqualTo(true));
+        }
+
+
+        [Test]
+        public void ChangeProductPriceInStoreDatabase_ProductBananWithThePrice12IsAddedDialogNo_IsTextConfirmIsFalse()
+        {
+            _uut.IsTextConfirm = true;
+            _uut.ShoppingListItemPrice = "12";
+            _uut.ShoppingListItem = "Banan";
+            _storemanager.FindProductInStore("Banan").Returns(_productAndPrice);
+            _msgBox.ChangePriceMgsConfirmation(_uut.ShoppingListItem, _uut.ShoppingListItemPrice)
+                .Returns(DialogResult.No);
+            _uut.ChangeProductPriceInStoreDatabaseCommand.Execute(this);
+            Assert.That(_uut.IsTextConfirm, Is.EqualTo(false));
+        }
+
+        [Test]
         public void IllegalSignDeleteProduct_TestLegalString_TextConfirmIsStillTrue()
         {
             _uut.IsTextConfirm = true;
@@ -119,7 +172,7 @@ namespace Pristjek220.Unit.Test
         }
 
         [Test]
-        public void IllegalSignDeleteProduct_TestLegalString_TextConfirmIsFalse()
+        public void IllegalSignDeleteProduct_TestIlegalString_TextConfirmIsFalse()
         {
             _uut.IsTextConfirm = true;
             _uut.ShoppingListItem = "test!";
