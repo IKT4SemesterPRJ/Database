@@ -1,11 +1,14 @@
 ﻿using System.Collections.ObjectModel;
 using System.Net;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 using Consumer;
 using Consumer_GUI.User_Controls;
 using Pristjek220Data;
 using SharedFunctionalities;
+
+[assembly: InternalsVisibleTo("Pristjek220.Unit.Test")]
 
 namespace Consumer_GUI
 {

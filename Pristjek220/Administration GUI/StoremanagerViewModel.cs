@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
+using Administration;
 using Administration_GUI.User_Controls;
 using Pristjek220Data;
 using SharedFunctionalities;
@@ -34,11 +35,13 @@ namespace Administration_GUI
         public StoremanagerViewModel(Store store, IUnitOfWork unit)
         {
             _store = store;
+            IAutocomplete autocomplete = new Autocomplete(unit);
+            IStoremanager storemanager = new Storemanager(unit, _store);
             // Add available pages
 
-            PageViewModels.Add(new ChangePriceModel(_store, unit));
-            PageViewModels.Add(new DeleteProductModel(_store, unit));
-            PageViewModels.Add(new NewProductModel(_store, unit));
+            PageViewModels.Add(new ChangePriceModel(storemanager, autocomplete));
+            PageViewModels.Add(new DeleteProductModel(storemanager, autocomplete));
+            PageViewModels.Add(new NewProductModel(storemanager, autocomplete));
 
             // set startup page
             MainWindowTekst = $"Pristjek220 - {_store.StoreName} - Tilføj Produkt";

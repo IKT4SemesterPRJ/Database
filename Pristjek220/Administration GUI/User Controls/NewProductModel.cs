@@ -42,10 +42,11 @@ namespace Administration_GUI.User_Controls
         /// </summary>
         /// <param name="store"></param>
         /// <param name="unit"></param>
-        public NewProductModel(Store store, IUnitOfWork unit)
+        /// <param name="autoComplete"></param>
+        public NewProductModel(IStoremanager storemanager, IAutocomplete autoComplete)
         {
-            _manager = new Storemanager(unit, store);
-            _autocomplete = new Autocomplete(unit);
+            _manager = storemanager;
+            _autocomplete = autoComplete;
         }
 
         /// <summary>
@@ -169,7 +170,7 @@ namespace Administration_GUI.User_Controls
             }
 
             var resultPrice = double.Parse(ShoppingListItemPrice, CultureInfo.CurrentCulture);
-            if (resultPrice > 0 && ShoppingListItem != null)
+            if (resultPrice > 0)
             {
                 var productName = char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower();
 

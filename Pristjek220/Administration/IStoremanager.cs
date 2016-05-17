@@ -10,7 +10,7 @@ namespace Administration
         /// <summary>
         ///     Store get function, that is used when the Storemanager needs his Store
         /// </summary>
-        Store Store { get; }
+        Store Store { get; set; }
 
         /// <summary>
         ///     Add product to database

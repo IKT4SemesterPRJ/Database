@@ -39,12 +39,12 @@ namespace Administration_GUI.User_Controls
         /// <summary>
         ///     ChangePriceModel constructor takes a UnitOfWork and a store to create a Storemanager and a AutoComplete
         /// </summary>
-        /// <param name="store"></param>
-        /// <param name="unit"></param>
-        public ChangePriceModel(Store store, IUnitOfWork unit)
+        /// <param name="storemanager"></param>
+        /// <param name="autocomplete"></param>
+        public ChangePriceModel(IStoremanager storemanager, IAutocomplete autocomplete)
         {
-            _manager = new Storemanager(unit, store);
-            _autocomplete = new Autocomplete(unit);
+            _manager = storemanager;
+            _autocomplete = autocomplete;
         }
 
         /// <summary>
@@ -173,8 +173,7 @@ namespace Administration_GUI.User_Controls
             {
                 var productName = char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower();
 
-                var product = _manager.FindProduct(productName);
-                if (product != null && _manager.FindProductInStore(productName) != null)
+                if (_manager.FindProductInStore(productName) != null)
                 {
                     var result =
                         CustomMsgBox.Show(
@@ -186,7 +185,7 @@ namespace Administration_GUI.User_Controls
                         ConfirmText = "Der blev ikke bekræftet.";
                         return;
                     }
-                    _manager.ChangePriceOfProductInStore(product, resultPrice);
+                    _manager.ChangePriceOfProductInStore(_manager.FindProduct(productName), resultPrice);
                     IsTextConfirm = true;
                     ConfirmText = $"Prisen for produktet \"{productName}\" er ændret til {ShoppingListItemPrice} kr.";
                 }

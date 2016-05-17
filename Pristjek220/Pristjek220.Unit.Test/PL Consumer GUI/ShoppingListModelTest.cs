@@ -19,35 +19,33 @@ namespace Pristjek220.Unit.Test
     class ShoppingListModelTest
     {
 
-        private Consumer_GUI.User_Controls.ShoppingListModel _shoppingList;
+        private ShoppingListModel _uut;
         private IAutocomplete _autoComplete;
-        private IUnitOfWork _unit;
         private IConsumer _user;
 
 
         [SetUp]
         public void SetUp()
         {
-            _unit = Substitute.For<IUnitOfWork>();
             _autoComplete = Substitute.For<IAutocomplete>();
             _user = Substitute.For<IConsumer>();
-            _shoppingList = new ShoppingListModel(_user, _autoComplete);
+            _uut = new ShoppingListModel(_user, _autoComplete);
         }
 
         [Test]
         public void AddToShoppingList__ProductIsNull_NothingHappens()
         {
-            _shoppingList.ShoppingListItem = null;
-            _shoppingList.AddToShoppingListCommand.Execute(this);
+            _uut.ShoppingListItem = null;
+            _uut.AddToShoppingListCommand.Execute(this);
         }
 
         [Test]
         public void AddToShoppingList__BananAdd_WriteToFileIsCalled()
         {
             var banan = new ProductInfo("Banan");
-            _shoppingList.ShoppingListItem = "Banan";
-            _shoppingList.AddToShoppingListCommand.Execute(this);
-            _shoppingList.User.Received(1).WriteToJsonFile();
+            _uut.ShoppingListItem = "Banan";
+            _uut.AddToShoppingListCommand.Execute(this);
+            _uut.User.Received(1).WriteToJsonFile();
             
         }
 
@@ -55,111 +53,111 @@ namespace Pristjek220.Unit.Test
         public void AddToShoppingList__BananAdd_ShoppingListDataContainsBanan()
         {
             var banan = new ProductInfo("Banan");
-            _shoppingList.ShoppingListItem = "Banan";
-            _shoppingList.AddToShoppingListCommand.Execute(this);
+            _uut.ShoppingListItem = "Banan";
+            _uut.AddToShoppingListCommand.Execute(this);
 
-            Assert.That(_shoppingList.ShoppingListData.Any(x => x.Name == banan.Name), Is.EqualTo(true));
+            Assert.That(_uut.ShoppingListData.Any(x => x.Name == banan.Name), Is.EqualTo(true));
         }
 
         [Test]
         public void AddToShoppingList__TwoBananAdd_ShoppingListDataContainsBanan()
         {
             var banan = new ProductInfo("Banan");
-            _shoppingList.ShoppingListItem = "Banan";
-            _shoppingList.AddToShoppingListCommand.Execute(this);
-            _shoppingList.AddToShoppingListCommand.Execute(this);
+            _uut.ShoppingListItem = "Banan";
+            _uut.AddToShoppingListCommand.Execute(this);
+            _uut.AddToShoppingListCommand.Execute(this);
 
-            Assert.That(_shoppingList.ShoppingListData.Any(x => x.Name == banan.Name), Is.EqualTo(true));
+            Assert.That(_uut.ShoppingListData.Any(x => x.Name == banan.Name), Is.EqualTo(true));
         }
 
         [Test]
         public void AddToShoppingList__BananAdd_ShoppingListDataNotContainsÆble()
         {
             var banan = new ProductInfo("æble");
-            _shoppingList.ShoppingListItem = "Banan";
-            _shoppingList.AddToShoppingListCommand.Execute(this);
-            _shoppingList.AddToShoppingListCommand.Execute(this);
+            _uut.ShoppingListItem = "Banan";
+            _uut.AddToShoppingListCommand.Execute(this);
+            _uut.AddToShoppingListCommand.Execute(this);
 
-            Assert.That(_shoppingList.ShoppingListData.Any(x => x.Name == banan.Name), Is.EqualTo(false));
+            Assert.That(_uut.ShoppingListData.Any(x => x.Name == banan.Name), Is.EqualTo(false));
         }
 
         [Test]
         public void AddToShoppingList_bAnAnAdd_ShoppingListDataContainsBanan()
         {
             var banan = new ProductInfo("bAnAn");
-            _shoppingList.ShoppingListItem = "Banan";
-            _shoppingList.AddToShoppingListCommand.Execute(this);
+            _uut.ShoppingListItem = "Banan";
+            _uut.AddToShoppingListCommand.Execute(this);
 
-            Assert.That(_shoppingList.ShoppingListData.Any(x => x.Name == banan.Name), Is.EqualTo(true));
+            Assert.That(_uut.ShoppingListData.Any(x => x.Name == banan.Name), Is.EqualTo(true));
         }
 
         [Test]
         public void IllegalSignFindProcuctShoppingList_PunktumTyped_ErrorEqualsString()
         {
-            _shoppingList.ShoppingListItem = "banan.";
-            _shoppingList.IllegalSignShoppingListCommand.Execute(this);
+            _uut.ShoppingListItem = "banan.";
+            _uut.IllegalSignShoppingListCommand.Execute(this);
 
-            Assert.That(_shoppingList.Error, Is.EqualTo("Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9."));
+            Assert.That(_uut.Error, Is.EqualTo("Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9."));
 
         }
 
         [Test]
         public void IllegalSignFindProcuctShoppingList_bananTyped_ErrorEqualsnull()
         {
-            _shoppingList.ShoppingListItem = "banan";
-            _shoppingList.IllegalSignShoppingListCommand.Execute(this);
+            _uut.ShoppingListItem = "banan";
+            _uut.IllegalSignShoppingListCommand.Execute(this);
 
-            Assert.That(_shoppingList.Error, Is.EqualTo(string.Empty));
+            Assert.That(_uut.Error, Is.EqualTo(string.Empty));
 
         }
 
         [Test]
         public void IllegalSignFindProcuctShoppingList_kommaTyped_ErrorEqualsString()
         {
-            _shoppingList.ShoppingListItem = "banan,";
-            _shoppingList.IllegalSignShoppingListCommand.Execute(this);
+            _uut.ShoppingListItem = "banan,";
+            _uut.IllegalSignShoppingListCommand.Execute(this);
 
-            Assert.That(_shoppingList.Error, Is.EqualTo("Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9."));
+            Assert.That(_uut.Error, Is.EqualTo("Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9."));
 
         }
 
         [Test]
         public void IllegalSignFindProcuctShoppingList_whitespacesTyped_ErrorEqualsnull()
         {
-            _shoppingList.ShoppingListItem = "  ";
-            _shoppingList.IllegalSignShoppingListCommand.Execute(this);
+            _uut.ShoppingListItem = "  ";
+            _uut.IllegalSignShoppingListCommand.Execute(this);
 
-            Assert.That(_shoppingList.Error, Is.EqualTo(string.Empty));
+            Assert.That(_uut.Error, Is.EqualTo(string.Empty));
 
         }
 
         [Test]
         public void IllegalSignFindProcuctShoppingList_slashTyped_ErrorEqualsString()
         {
-            _shoppingList.ShoppingListItem = "banan,";
-            _shoppingList.IllegalSignShoppingListCommand.Execute(this);
+            _uut.ShoppingListItem = "banan,";
+            _uut.IllegalSignShoppingListCommand.Execute(this);
 
-            Assert.That(_shoppingList.Error, Is.EqualTo("Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9."));
+            Assert.That(_uut.Error, Is.EqualTo("Der kan kun skrives bogstaverne fra a til å og tallene fra 0 til 9."));
 
         }
 
         [Test]
         public void IllegalSignFindProcuctShoppingList_NumbersTyped_ErrorEqualsnull()
         {
-            _shoppingList.ShoppingListItem = "234567";
-            _shoppingList.IllegalSignShoppingListCommand.Execute(this);
+            _uut.ShoppingListItem = "234567";
+            _uut.IllegalSignShoppingListCommand.Execute(this);
 
-            Assert.That(_shoppingList.Error, Is.EqualTo(string.Empty));
+            Assert.That(_uut.Error, Is.EqualTo(string.Empty));
 
         }
 
         [Test]
         public void IllegalSignFindProcuctShoppingList_NumbersTyped_IsTextConfirmIsFalse()
         {
-            _shoppingList.ShoppingListItem = "234567";
-            _shoppingList.IllegalSignShoppingListCommand.Execute(this);
+            _uut.ShoppingListItem = "234567";
+            _uut.IllegalSignShoppingListCommand.Execute(this);
 
-            Assert.That(_shoppingList.IsTextConfirm, Is.EqualTo(false));
+            Assert.That(_uut.IsTextConfirm, Is.EqualTo(false));
 
         }
 
@@ -167,9 +165,9 @@ namespace Pristjek220.Unit.Test
         public void DeleteFromShoppingList_DeleteIsPressedWithNoItemSelected_ErrorEqualsErrorMassage()
         {
 
-            _shoppingList.DeleteFromShoppingListCommand.Execute(this);
+            _uut.DeleteFromShoppingListCommand.Execute(this);
 
-            Assert.That(_shoppingList.Error, Is.EqualTo("Du skal markere et produkt, før du kan slette."));
+            Assert.That(_uut.Error, Is.EqualTo("Du skal markere et produkt, før du kan slette."));
         }
 
         [Test]
@@ -178,10 +176,10 @@ namespace Pristjek220.Unit.Test
 
             ProductInfo test = new ProductInfo("hej");
 
-            _shoppingList.SelectedItem = test;
-            _shoppingList.DeleteFromShoppingListCommand.Execute(this);
+            _uut.SelectedItem = test;
+            _uut.DeleteFromShoppingListCommand.Execute(this);
 
-            Assert.That(_shoppingList.Error, Is.EqualTo("Der er ikke tilføjet nogen produkter."));
+            Assert.That(_uut.Error, Is.EqualTo("Der er ikke tilføjet nogen produkter."));
             //Error, skal fixes
         }
 
@@ -190,12 +188,12 @@ namespace Pristjek220.Unit.Test
         {
             ProductInfo Banan = new ProductInfo("Banan");
 
-            _shoppingList.ShoppingListData.Add(Banan);
+            _uut.ShoppingListData.Add(Banan);
 
-            _shoppingList.SelectedItem = Banan;
-            _shoppingList.DeleteFromShoppingListCommand.Execute(this);
+            _uut.SelectedItem = Banan;
+            _uut.DeleteFromShoppingListCommand.Execute(this);
 
-            Assert.That(_shoppingList.ShoppingListData, Is.Empty);
+            Assert.That(_uut.ShoppingListData, Is.Empty);
 
         }
 
@@ -205,13 +203,13 @@ namespace Pristjek220.Unit.Test
            
             ProductInfo Banan = new ProductInfo("Banan");
             ProductInfo Kiwi = new ProductInfo("Kiwi");
-            _shoppingList.ShoppingListData.Add(Banan);
-            _shoppingList.ShoppingListData.Add(Kiwi);
+            _uut.ShoppingListData.Add(Banan);
+            _uut.ShoppingListData.Add(Kiwi);
 
-            _shoppingList.SelectedItem = Banan;
-            _shoppingList.DeleteFromShoppingListCommand.Execute(this);
+            _uut.SelectedItem = Banan;
+            _uut.DeleteFromShoppingListCommand.Execute(this);
 
-            Assert.That(_shoppingList.ShoppingListData.Any(x => x.Name == Banan.Name), Is.EqualTo(false));
+            Assert.That(_uut.ShoppingListData.Any(x => x.Name == Banan.Name), Is.EqualTo(false));
 
         }
 
@@ -219,32 +217,32 @@ namespace Pristjek220.Unit.Test
         public void GeneratedShoppingList_GeneratedButtonClicked_CreateShoppingListCalled()
         {
             
-            _shoppingList.GeneratedShoppingListCommand.Execute(this);
-            _shoppingList.User.Received(1).CreateShoppingList();
+            _uut.GeneratedShoppingListCommand.Execute(this);
+            _uut.User.Received(1).CreateShoppingList();
 
         }
 
         [Test]
         public void GeneratedShoppingList_GeneratedButtonClicked_GeneratedShoppinglistDadaClearCalled()
         {
-            _shoppingList.GeneratedShoppingListCommand.Execute(this);
-            _shoppingList.User.Received(1).ClearGeneratedShoppingListData();
+            _uut.GeneratedShoppingListCommand.Execute(this);
+            _uut.User.Received(1).ClearGeneratedShoppingListData();
         }
 
         [Test]
         public void GeneratedShoppingList_GeneratedButtonClicked_NotInAStoreClearCalled()
         {
-            _shoppingList.GeneratedShoppingListCommand.Execute(this);
-            _shoppingList.User.Received(1).ClearNotInAStore();
+            _uut.GeneratedShoppingListCommand.Execute(this);
+            _uut.User.Received(1).ClearNotInAStore();
         }
 
         [Test]
         public void Error_DeleteIsPressedWithNoItemSelectedWait5Sec_ErrorIsEmpty()
         {
-            _shoppingList.DeleteFromShoppingListCommand.Execute(this);
+            _uut.DeleteFromShoppingListCommand.Execute(this);
             Thread.Sleep(5000);
 
-            Assert.That(_shoppingList.Error, Is.EqualTo(""));
+            Assert.That(_uut.Error, Is.EqualTo(""));
         }
 
         [Test]
@@ -252,31 +250,31 @@ namespace Pristjek220.Unit.Test
         {
             var list = new List<string>();
             list.Add("Test");
-            _shoppingList.ShoppingListItem = "Test";
+            _uut.ShoppingListItem = "Test";
             _autoComplete.AutoCompleteProduct("Test").Returns(list);
-            _shoppingList.PopulatingShoppingListCommand.Execute(this);
+            _uut.PopulatingShoppingListCommand.Execute(this);
 
-            Assert.That(_shoppingList.AutoCompleteList, Is.EqualTo(list));
+            Assert.That(_uut.AutoCompleteList, Is.EqualTo(list));
         }
 
         [Test]
         public void ClearShoppingList_AddProductsToListThenClear_ListIsEmpty()
         {
-            _shoppingList.ShoppingListData.Add(new ProductInfo("Test"));
-            _shoppingList.ShoppingListData.Add(new ProductInfo("Test1"));
-            _shoppingList.ClearShoppingListCommand.Execute(this);
+            _uut.ShoppingListData.Add(new ProductInfo("Test"));
+            _uut.ShoppingListData.Add(new ProductInfo("Test1"));
+            _uut.ClearShoppingListCommand.Execute(this);
 
 
-            Assert.That(_shoppingList.ShoppingListData, Is.EqualTo(new ObservableCollection<ProductInfo>()));
+            Assert.That(_uut.ShoppingListData, Is.EqualTo(new ObservableCollection<ProductInfo>()));
         }
 
         [Test]
         public void OptionsStores_SetAndGetOptionsStore_IsEqualToTheSetValue()
         {
             _user.OptionsStores = new ObservableCollection<StoresInPristjek>();
-            _shoppingList.OptionsStores.Add(new StoresInPristjek("TestButik"));
+            _uut.OptionsStores.Add(new StoresInPristjek("TestButik"));
             
-            Assert.That(_shoppingList.OptionsStores[0].Store, Is.EqualTo("TestButik"));
+            Assert.That(_uut.OptionsStores[0].Store, Is.EqualTo("TestButik"));
         }
     }
 }

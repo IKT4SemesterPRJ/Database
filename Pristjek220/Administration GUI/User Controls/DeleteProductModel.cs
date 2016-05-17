@@ -35,12 +35,12 @@ namespace Administration_GUI.User_Controls
         /// <summary>
         ///     DeletePriceModel constructor takes a UnitOfWork and a store to create a Storemanager and a AutoComplete
         /// </summary>
-        /// <param name="store"></param>
-        /// <param name="unit"></param>
-        public DeleteProductModel(Store store, IUnitOfWork unit)
+        /// <param name="storemanager"></param>
+        /// <param name="autocomplete"></param>
+        public DeleteProductModel(IStoremanager storemanager, IAutocomplete autocomplete)
         {
-            _manager = new Storemanager(unit, store);
-            _autocomplete = new Autocomplete(unit);
+            _manager = storemanager;
+            _autocomplete = autocomplete;
         }
 
         /// <summary>

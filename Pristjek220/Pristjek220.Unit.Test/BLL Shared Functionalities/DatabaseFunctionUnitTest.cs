@@ -14,15 +14,15 @@ namespace Pristjek220.Unit.Test
     [TestFixture]
     class DatabaseFunctionUnitTest
     {
-        private IDatabaseFunctions databaseFunctions;
+        private IDatabaseFunctions _uut;
         private IUnitOfWork _unitWork;
 
         [Test]
         public void Constructor_setWithUnitOfWork_()
         {
             _unitWork = Substitute.For<IUnitOfWork>();
-            databaseFunctions = new DatabaseFunctions(_unitWork);
-            databaseFunctions.ConnectToDb();
+            _uut = new DatabaseFunctions(_unitWork);
+            _uut.ConnectToDb();
             _unitWork.Products.Received(1).ConnectToDb();
         }
     }

@@ -82,8 +82,9 @@
     <Compile Include="BLL Shared Functionalities\AutoCompleteUnitTest.cs" />
     <Compile Include="BLL Consumer\ConsumerUnitTest.cs" />
     <Compile Include="BLL Shared Functionalities\DatabaseFunctionUnitTest.cs" />
+    <Compile Include="PL Consumer GUI\ConsumerViewModelUnitTest.cs" />
     <Compile Include="PL Storemanger GUI\ChangePriceModelUnitTest.cs" />
-    <Compile Include="PL Consumer GUI\FindProductModelTest.cs" />
+    <Compile Include="PL Consumer GUI\FindProductModelUnitTest.cs" />
     <Compile Include="PL Consumer GUI\GeneratedShoppinglListModelTest.cs" />
     <Compile Include="BLL Administration\LogInUnitTest.cs" />
     <Compile Include="BLL Consumer\MailTest.cs" />

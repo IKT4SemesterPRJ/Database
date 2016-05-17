@@ -34,7 +34,7 @@ namespace Administration
         /// <summary>
         ///     Store get function, that is used when the Storemanager needs his Store
         /// </summary>
-        public Store Store { get; }
+        public Store Store { get; set; }
 
         /// <summary>
         ///     Add product to database
