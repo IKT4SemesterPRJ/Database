@@ -1,20 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace Administration_GUI
 {
-    public interface ICreateMsgBox
-    {
-        DialogResult DeleteProductMgsConfirmation(string product);
-        DialogResult AddProductMgsConfirmation(string shoppingListItem, string shoppingListItemPrice);
-        DialogResult ChangePriceMgsConfirmation(string shoppingListItem, string shoppingListItemPrice);
-        DialogResult DeleteStoreMgsConfirmation(string storeName);
-    }
-
     class CreateMsgBox : ICreateMsgBox
     {
         public CreateMsgBox()
