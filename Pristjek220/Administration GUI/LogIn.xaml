@@ -91,10 +91,7 @@
             Width="100"
             Margin="2">
             <i:Interaction.Triggers>
-                <i:EventTrigger EventName="TextChanged">
-                    <i:InvokeCommandAction Command="{Binding UsernameChangedCommand}"></i:InvokeCommandAction>
-                </i:EventTrigger>
-                <i:EventTrigger EventName="PreviewKeyDown">
+               <i:EventTrigger EventName="PreviewKeyDown">
                     <command:EventToCommand Command="{Binding EnterKeyPressedCommand}" PassEventArgsToCommand="True">
                     </command:EventToCommand>
                 </i:EventTrigger>
