@@ -168,7 +168,7 @@ namespace Administration_GUI.User_Controls_Admin
                     Error = "Der blev ikke bekræftet.";
                     return;
                 }
-
+                _admin.DeleteStore(storeName);
                 IsTextConfirm = true;
                 Error = $"Forretningen \"{storeName}\" er blevet fjernet fra Pristjek220.";
             }
