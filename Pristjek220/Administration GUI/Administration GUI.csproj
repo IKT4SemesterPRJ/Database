@@ -109,6 +109,7 @@
     </Compile>
     <Compile Include="AdminViewModel.cs" />
     <Compile Include="CreateMsgBox.cs" />
+    <Compile Include="ICreateMsgBox.cs" />
     <Compile Include="StoremanagerViewModel.cs" />
     <Compile Include="CustomMsgBox.xaml.cs">
       <DependentUpon>CustomMsgBox.xaml</DependentUpon>
