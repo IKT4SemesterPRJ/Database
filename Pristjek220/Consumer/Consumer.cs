@@ -345,8 +345,8 @@ namespace Consumer
             }
             BuyInOneStore =
                 $"I forhold til køb af alle varer i {buyInOneStoreNameAndPrice.Name} hvor det koster {buyInOneStoreNameAndPrice.Price} kr.";
-            var test = buyInOneStoreNameAndPrice.Price - CalculateSumForGeneratedList();
-            MoneySaved = test.ToString(CultureInfo.CurrentCulture) + " kr";
+            var moneySaved = Math.Round(buyInOneStoreNameAndPrice.Price - CalculateSumForGeneratedList(),2);
+            MoneySaved = moneySaved.ToString(CultureInfo.CurrentCulture) + " kr";
         }
 
         private void FillOptionsStores()
