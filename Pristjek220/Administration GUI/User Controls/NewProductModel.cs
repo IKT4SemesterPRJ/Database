@@ -40,8 +40,7 @@ namespace Administration_GUI.User_Controls
         /// <summary>
         ///     AdminDeleteStoreModel constructor takes a UnitOfWork and a store to create an Storemanger and a autocomplete
         /// </summary>
-        /// <param name="store"></param>
-        /// <param name="unit"></param>
+        /// <param name="storemanager"></param>
         /// <param name="autoComplete"></param>
         /// <param name="msgBox"></param>
         public NewProductModel(IStoremanager storemanager, IAutocomplete autoComplete, ICreateMsgBox msgBox)

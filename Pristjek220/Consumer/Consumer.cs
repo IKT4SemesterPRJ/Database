@@ -339,12 +339,12 @@ namespace Consumer
             var buyInOneStoreNameAndPrice = FindDifferenceforProducts();
             if (buyInOneStoreNameAndPrice == null)
             {
-                BuyInOneStore = "Der er ingen forretninger der sælger alle vare";
+                BuyInOneStore = "Der er ingen forretninger der sælger alle produkter";
                 MoneySaved = "-";
                 return;
             }
             BuyInOneStore =
-                $"I forhold til køb af alle varer i {buyInOneStoreNameAndPrice.Name} hvor det koster {buyInOneStoreNameAndPrice.Price} kr.";
+                $"I forhold til køb af alle produkter i {buyInOneStoreNameAndPrice.Name} hvor det koster {buyInOneStoreNameAndPrice.Price} kr.";
             var moneySaved = Math.Round(buyInOneStoreNameAndPrice.Price - CalculateSumForGeneratedList(),2);
             MoneySaved = moneySaved.ToString(CultureInfo.CurrentCulture) + " kr";
         }
