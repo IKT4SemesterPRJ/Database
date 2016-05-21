@@ -52,9 +52,7 @@
         </Style>
     </Window.Resources>
     
-    <Window.DataContext>
-        <local:ConsumerViewModel></local:ConsumerViewModel>
-    </Window.DataContext>
+
     <Grid Background="sc#1.000000, 0.769689, 0.831936, 1.000000" Name="DocumentRoot" >
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />

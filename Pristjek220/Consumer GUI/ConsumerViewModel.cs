@@ -26,11 +26,8 @@ namespace Consumer_GUI
         /// <summary>
         ///     ConsumerViewModel constructor creates a Consumer, adds the user controlls to a list and connects to the database 
         /// </summary>
-        public ConsumerViewModel()
+        public ConsumerViewModel(IConsumer user, IAutocomplete autocomplete, IDatabaseFunctions databaseFunctions)
         {
-            var unit = new UnitOfWork(new DataContext());
-            var user = new Consumer.Consumer(unit);
-            var autocomplete = new Autocomplete(unit);
             // Add available pages
             PageViewModels.Add(new HomeModel());
             PageViewModels.Add(new FindProductModel(user, autocomplete));
@@ -39,7 +36,6 @@ namespace Consumer_GUI
                 new Mail(new SmtpClientWrapper("Smtp.gmail.com", 587,
                     new NetworkCredential("pristjek220@gmail.com", "pristjek"), true))));
 
-            IDatabaseFunctions databaseFunctions = new DatabaseFunctions(unit);
 
             if (!databaseFunctions.ConnectToDb())
                 //Force database to connect at startup, and close application if it cant connect

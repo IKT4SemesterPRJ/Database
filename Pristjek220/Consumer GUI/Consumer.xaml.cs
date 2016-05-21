@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Consumer_GUI.User_Controls;
+using Pristjek220Data;
+using SharedFunctionalities;
 
 namespace Consumer_GUI
 {
@@ -26,7 +28,12 @@ namespace Consumer_GUI
         /// </summary>
         public MainWindow()
         {
+            var unit = new UnitOfWork(new DataContext());
+            var user = new Consumer.Consumer(unit);
+            var autocomplete = new Autocomplete(unit);
+            var databaseFunctions = new DatabaseFunctions(unit);
             InitializeComponent();
+            DataContext = new ConsumerViewModel(user, autocomplete, databaseFunctions);
         }
     }
 }

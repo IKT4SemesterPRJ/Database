@@ -15,8 +15,7 @@ namespace Administration_GUI.User_Controls_Admin
         /// <summary>
         ///     Not implemented
         /// </summary>
-        /// <param name="unit"></param>
-        public AdminDeleteProductModel(IUnitOfWork unit)
+        public AdminDeleteProductModel()
         {
             
         }

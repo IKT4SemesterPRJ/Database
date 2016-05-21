@@ -15,7 +15,7 @@ namespace Administration_GUI
     /// </summary>
     internal class StoremanagerViewModel : ObservableObject
     {
-        private readonly Store _store;
+        private readonly IStoremanager _storemanager;
 
         private ICommand _changeWindowChangePriceCommand;
 
@@ -32,19 +32,16 @@ namespace Administration_GUI
         ///     StoremanagerViewModel constructor takes a UnitOfWork to give to each of its user controls view models and add them
         ///     to a list.
         /// </summary>
-        public StoremanagerViewModel(Store store, IUnitOfWork unit)
+        public StoremanagerViewModel(IStoremanager storemanager, IAutocomplete autocomplete)
         {
-            _store = store;
-            IAutocomplete autocomplete = new Autocomplete(unit);
-            IStoremanager storemanager = new Storemanager(unit, _store);
             // Add available pages
-
+            _storemanager = storemanager;
             PageViewModels.Add(new ChangePriceModel(storemanager, autocomplete, new CreateMsgBox()));
             PageViewModels.Add(new DeleteProductModel(storemanager, autocomplete, new CreateMsgBox()));
             PageViewModels.Add(new NewProductModel(storemanager, autocomplete, new CreateMsgBox()));
-
+            
             // set startup page
-            MainWindowTekst = $"Pristjek220 - {_store.StoreName} - Tilføj Produkt";
+            MainWindowTekst = $"Pristjek220 - {_storemanager.Store.StoreName} - Tilføj Produkt";
             _currentPageViewModel = _pageViewModels[2];
         }
 
@@ -113,19 +110,19 @@ namespace Administration_GUI
         private void ChangeWindowChangePrice()
         {
             CurrentPageViewModel = PageViewModels[0];
-            MainWindowTekst = $"Pristjek220 - {_store.StoreName} - Ændre pris";
+            MainWindowTekst = $"Pristjek220 - {_storemanager.Store.StoreName} - Ændre pris";
         }
 
         private void ChangeWindowDeleteProduct()
         {
             CurrentPageViewModel = PageViewModels[1];
-            MainWindowTekst = $"Pristjek220 - {_store.StoreName} - Fjern Produkt";
+            MainWindowTekst = $"Pristjek220 - {_storemanager.Store.StoreName} - Fjern Produkt";
         }
 
         private void ChangeWindowNewProduct()
         {
             CurrentPageViewModel = PageViewModels[2];
-            MainWindowTekst = $"Pristjek220 - {_store.StoreName} - Tilføj Produkt";
+            MainWindowTekst = $"Pristjek220 - {_storemanager.Store.StoreName} - Tilføj Produkt";
         }
 
         private void LogOut()

@@ -21,7 +21,7 @@ namespace Pristjek220.Unit.Test
         public void SetUp()
         {
             _unit = Substitute.For<IUnitOfWork>();
-            _uut = new AdminDeleteProductModel(_unit);
+            _uut = new AdminDeleteProductModel();
         }
 
         [Test]

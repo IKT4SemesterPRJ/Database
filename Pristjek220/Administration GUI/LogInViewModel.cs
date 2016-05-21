@@ -14,24 +14,25 @@ namespace Administration_GUI
     /// </summary>
     internal class LogInViewModel : ObservableObject
     {
-        private readonly IUnitOfWork _unit;
-
-        private readonly ILogIn _user;
+        private readonly ILogIn _logIn;
+        private readonly IAutocomplete _autocomplete;
+        private readonly IStoremanager _storemanager;
+        private readonly IAdmin _admin;
         private ICommand _enterPressedCommand;
         private string _error;
 
         private ICommand _logInCommand;
-        private Store _loginstore;
+        private Store _loginstore = new Store();
 
         /// <summary>
         ///     LogInViewModel constructor creates a LogIn and connects to the database 
         /// </summary>
-        public LogInViewModel()
+        public LogInViewModel(IAutocomplete autocomplete, ILogIn logIn, IDatabaseFunctions databaseFunctions, IStoremanager storemanager, IAdmin admin)
         {
-            _unit = new UnitOfWork(new DataContext());
-            _user = new Administration.LogIn(_unit);
-
-            IDatabaseFunctions databaseFunctions = new DatabaseFunctions(_unit);
+            _logIn = logIn;
+            _autocomplete = autocomplete;
+            _storemanager = storemanager;
+            _admin = admin;
 
             if (databaseFunctions.ConnectToDb()) return;
             MessageBox.Show("Der kan ikke tilsluttes til serveren.", "ERROR", MessageBoxButton.OK);
@@ -78,7 +79,7 @@ namespace Administration_GUI
         private void LogInbutton()
         {
             Error = string.Empty;
-            var log = _user.CheckUsernameAndPassword(Username, SecurePassword, ref _loginstore);
+            var log = _logIn.CheckUsernameAndPassword(Username, SecurePassword, ref _loginstore);
             switch (log)
             {
                 case 1:
@@ -103,7 +104,7 @@ namespace Administration_GUI
         private void ChangeWindowAdmin()
         {
             var logInGui = Application.Current.MainWindow;
-            var adminGui = new Admin(_unit);
+            var adminGui = new Admin(_admin, _autocomplete);
             adminGui.Show();
             logInGui.Close();
             Application.Current.MainWindow = adminGui;
@@ -112,7 +113,7 @@ namespace Administration_GUI
         private void ChangeWindowStoremanager()
         {
             var logInGui = Application.Current.MainWindow;
-            var storemanagerGui = new StoremanagerGUI(_loginstore, _unit);
+            var storemanagerGui = new StoremanagerGUI(_autocomplete, _storemanager);
             storemanagerGui.Show();
             logInGui.Close();
             Application.Current.MainWindow = storemanagerGui;

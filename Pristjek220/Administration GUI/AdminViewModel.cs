@@ -22,13 +22,11 @@ namespace Administration_GUI
         ///     AdminViewModel constructor takes a UnitOfWork to give to each of its user controls view models  and add them to a
         ///     list.
         /// </summary>
-        public AdminViewModel(IUnitOfWork unit)
+        public AdminViewModel(IAdmin admin, IAutocomplete autocomplete)
         {
-            IAutocomplete autocomplete = new Autocomplete(unit);
-            IAdmin admin = new Administration.Admin(unit);
             // Add available pages
             PageViewModels.Add(new AdminNewStoreModel(admin, autocomplete));
-            PageViewModels.Add(new AdminDeleteProductModel(unit));
+            PageViewModels.Add(new AdminDeleteProductModel());
             PageViewModels.Add(new AdminDeleteStoreModel(admin, autocomplete, new CreateMsgBox()));
 
             // set startup page
