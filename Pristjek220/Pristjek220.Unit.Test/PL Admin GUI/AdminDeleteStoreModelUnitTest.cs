@@ -85,7 +85,7 @@ namespace Pristjek220.Unit.Test
         }
 
         [Test]
-        public void DeleteStore_StoreAlreadyExistInStoreDeConfirm_ErrorIsThatitHasBenDeConfirmed()
+        public void DeleteStore_NoConfirm_ErrorIsThatitHasBenDeConfirmed()
         {
             _uut.DeleteStoreName = "Lidl";
             _admin.FindStore("Lidl").Returns(_store);
@@ -114,6 +114,27 @@ namespace Pristjek220.Unit.Test
             _msgBox.DeleteStoreMgsConfirmation(_uut.DeleteStoreName).Returns(DialogResult.No);
             _uut.DeleteFromLoginDatabaseCommand.Execute(this);
             Assert.That(_uut.IsTextConfirm, Is.EqualTo(false));
+        }
+
+        [Test]
+        public void DeleteStore_DeleteAdmin_IsTextConfirmIsfalse()
+        {
+            
+            _uut.IsTextConfirm = true;
+            _uut.DeleteStoreName = "Admin";
+            _admin.FindStore("Admin").Returns(new Store() { StoreId = 12, StoreName = "Admin"});
+           _uut.DeleteFromLoginDatabaseCommand.Execute(this);
+            Assert.That(_uut.IsTextConfirm, Is.EqualTo(false));
+        }
+
+        [Test]
+        public void DeleteStore_DeleteAdmin_ErrorEqualsErrorMessage()
+        {
+            _uut.IsTextConfirm = true;
+            _uut.DeleteStoreName = "Admin";
+            _admin.FindStore("Admin").Returns(new Store() { StoreId = 12, StoreName = "Admin" });
+            _uut.DeleteFromLoginDatabaseCommand.Execute(this);
+            Assert.That(_uut.Error, Is.EqualTo($"Forretningen \"Admin\" findes ikke i Pristjek220."));
         }
 
         [Test]
