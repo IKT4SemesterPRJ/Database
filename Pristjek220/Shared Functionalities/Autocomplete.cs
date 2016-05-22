@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
 using Pristjek220Data;
 
 namespace SharedFunctionalities
@@ -41,14 +42,14 @@ namespace SharedFunctionalities
             if (productList == null)
                 return null;          //Produktet findes ikke i databasen
 
-            List<string> autoCompleteList = new List<string>();
-            for (int i = 0; i < productList.Count; i++)
+            var autoCompleteList = new List<string>();
+            for (var i = 0; i < productList.Count; i++)
             {
                 autoCompleteList.Add(productList[i].ProductName);
                 if (i == 2)
                     break;
             }
-
+            autoCompleteList.Sort();
             return autoCompleteList;
         }
 
@@ -65,14 +66,14 @@ namespace SharedFunctionalities
             if (storeList == null)
                 return null;          //Produktet findes ikke i databasen
 
-            List<string> autoCompleteList = new List<string>();
-            for (int i = 0; i < storeList.Count; i++)
+            var autoCompleteList = new List<string>();
+            for (var i = 0; i < storeList.Count; i++)
             {
                 autoCompleteList.Add(storeList[i].StoreName);
                 if (i == 2)
                     break;
             }
-
+            autoCompleteList.Sort();
             return autoCompleteList;
         }
 
@@ -90,14 +91,14 @@ namespace SharedFunctionalities
             if (productList == null)
                 return null;        // Ingen produkter der starter med lookUpWord i butikken
 
-            List<string> autoCompleteList = new List<string>();
-            for (int i = 0; i < productList.Count; i++)
+            var autoCompleteList = new List<string>();
+            for (var i = 0; i < productList.Count; i++)
             {
                 autoCompleteList.Add(productList[i].Name);
                 if (i == 2)
                     break;
             }
-
+            autoCompleteList.Sort();
             return autoCompleteList;
         }
     }
