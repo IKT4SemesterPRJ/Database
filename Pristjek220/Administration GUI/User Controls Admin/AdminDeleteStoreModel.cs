@@ -159,7 +159,12 @@ namespace Administration_GUI.User_Controls_Admin
             var storeName = char.ToUpper(DeleteStoreName[0]) + DeleteStoreName.Substring(1).ToLower();
             var store = _admin.FindStore(storeName);
 
-            if (store != null)
+            if (store == null || store.StoreName == "Admin")
+            {
+                IsTextConfirm = false;
+                Error = $"Forretningen \"{storeName}\" findes ikke i Pristjek220.";
+            }
+            else
             {
                 var result = _msgBox.DeleteStoreMgsConfirmation(storeName);
                 if (result != DialogResult.Yes)
@@ -171,11 +176,6 @@ namespace Administration_GUI.User_Controls_Admin
                 _admin.DeleteStore(storeName);
                 IsTextConfirm = true;
                 Error = $"Forretningen \"{storeName}\" er blevet fjernet fra Pristjek220.";
-            }
-            else
-            {
-                IsTextConfirm = false;
-                Error = $"Forretningen \"{storeName}\" findes ikke i Pristjek220.";
             }
         }
 
