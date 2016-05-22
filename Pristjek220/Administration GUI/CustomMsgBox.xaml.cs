@@ -37,6 +37,7 @@ namespace Administration_GUI
                 Title = caption
             };
             _customMsgBox.ShowDialog();
+
             return _result;
         }
 
@@ -51,5 +52,7 @@ namespace Administration_GUI
             _result = System.Windows.Forms.DialogResult.No;
             _customMsgBox.Close();
         }
+
+
     }
 }

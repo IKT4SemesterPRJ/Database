@@ -47,7 +47,8 @@
         <TextBlock Name="TextBlock" TextWrapping="Wrap" TextAlignment="Center"/>
        </Label>
 
-        <Button 
+        <Button
+            IsDefault="True"
             Style="{StaticResource RoundedButtonStyle}" 
             Background="white"    
             Name="BtnLeft"
