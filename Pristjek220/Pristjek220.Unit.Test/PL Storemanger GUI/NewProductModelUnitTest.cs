@@ -41,7 +41,7 @@ namespace Pristjek220.Unit.Test
         public void ShoppingListItemPrice_Insert2point224_IsRoundedTo2point22(string price, string result)
         {
             _uut.ShoppingListItemPrice = double.Parse(price, new CultureInfo("da-DK")).ToString();
-            Assert.That(_uut.ShoppingListItemPrice, Is.EqualTo(double.Parse(result, new CultureInfo("da-DK")).ToString()));
+            Assert.That(_uut.ShoppingListItemPrice, Is.EqualTo(double.Parse(result, new CultureInfo("da-DK")).ToString(new CultureInfo("da-DK"))));
         }
 
         [Test]

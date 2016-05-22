@@ -101,6 +101,7 @@
     <Compile Include="PL Consumer GUI\ShoppingListModelTest.cs" />
     <Compile Include="BLL Consumer\SmtpClientWrapperUnitTest.cs" />
     <Compile Include="BLL Administration\StoremanagerUnitTest.cs" />
+    <Compile Include="RepositoryUnitTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

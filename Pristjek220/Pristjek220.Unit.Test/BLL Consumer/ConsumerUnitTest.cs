@@ -25,8 +25,16 @@ namespace Pristjek220.Unit.Test
             _unitWork = Substitute.For<IUnitOfWork>();
             _store = new Store() {StoreName = "Aldi", StoreId = 22};
             _product = new Product() {ProductName = "Banan", ProductId = 10};
-            _unitWork.Stores.GetAllStores().Returns(new List<Store>() {new Store() {StoreName = "Fakta"}});
+            _unitWork.Stores.GetAllStores().Returns(new List<Store>());
             _uut = new Consumer.Consumer(_unitWork);
+        }
+
+        [Test]
+        public void Consumer_CheckingOptionStores_OpstionStoreCountIs1()
+        {
+            _unitWork.Stores.GetAllStores().Returns(new List<Store>() {new Store() {StoreName = "Fakta"} });
+            var consumer = new Consumer.Consumer(_unitWork);
+            Assert.That(consumer.OptionsStores.Count, Is.EqualTo(1));
         }
 
         [Test]
@@ -65,10 +73,11 @@ namespace Pristjek220.Unit.Test
         public void FindCheapestStore_FindCheapestStoreForBanan_ReturnsStore()
         {
             var fakta = new Store() {StoreName = "Fakta"};
+            _uut.OptionsStores.Add(new StoresInPristjek("Fakta"));
             _unitWork.Products.FindProduct(_product.ProductName).Returns(_product);
             _product.HasARelation.Add(new HasA() {Price = 2.95, Store = _store});
             _product.HasARelation.Add(new HasA() {Price = 1.95, Store = fakta});
-
+            
             Assert.That(_uut.FindCheapestStore(_product.ProductName), Is.EqualTo(fakta));
         }
 
@@ -87,6 +96,7 @@ namespace Pristjek220.Unit.Test
             _uut.ShoppingListData.Add(new ProductInfo(_product.ProductName));
 
             var fakta = new Store() {StoreName = "Fakta"};
+            _uut.OptionsStores.Add(new StoresInPristjek("Fakta"));
             _unitWork.Products.FindProduct(_product.ProductName).Returns(_product);
             _product.HasARelation.Add(new HasA() {Price = 2.95, Store = _store});
             _product.HasARelation.Add(new HasA() {Price = 1.95, Store = fakta});
@@ -103,6 +113,7 @@ namespace Pristjek220.Unit.Test
             _uut.ShoppingListData.Add(new ProductInfo(_product.ProductName));
 
             var fakta = new Store() {StoreName = "Fakta"};
+            _uut.OptionsStores.Add(new StoresInPristjek("Fakta"));
             _unitWork.Products.FindProduct(_product.ProductName).Returns(_product);
             _product.HasARelation.Add(new HasA() {Price = 2.95, Store = _store});
             _product.HasARelation.Add(new HasA() {Price = 1.95, Store = fakta});
@@ -119,6 +130,7 @@ namespace Pristjek220.Unit.Test
             _uut.ShoppingListData.Add(new ProductInfo(_product.ProductName));
 
             var fakta = new Store() {StoreName = "Fakta"};
+            _uut.OptionsStores.Add(new StoresInPristjek("Fakta"));
             _unitWork.Products.FindProduct(_product.ProductName).Returns(_product);
             _product.HasARelation.Add(new HasA() {Price = 2.95, Store = _store});
             _product.HasARelation.Add(new HasA() {Price = 1.95, Store = fakta});
@@ -133,6 +145,7 @@ namespace Pristjek220.Unit.Test
         public void CreateShoppingList_CreateShoppingListForBananAndBuyInFakta_YouSave0Kr()
         {
             _uut.ShoppingListData.Add(new ProductInfo(_product.ProductName));
+            _uut.OptionsStores.Add(new StoresInPristjek("Fakta"));
             List<StoreAndPrice> storeAndPriceList = new List<StoreAndPrice>();
             StoreAndPrice storeAndPrice = new StoreAndPrice();
             storeAndPrice.Price = 1.95;
@@ -158,6 +171,7 @@ namespace Pristjek220.Unit.Test
         public void CreateShoppingList_CreateShoppingListForBananAndBuyInAldi_YouSave1Kr()
         {
             _uut.ShoppingListData.Add(new ProductInfo(_product.ProductName));
+            _uut.OptionsStores.Add(new StoresInPristjek("Fakta"));
             List<StoreAndPrice> storeAndPriceList = new List<StoreAndPrice>();
             StoreAndPrice storeAndPrice = new StoreAndPrice();
             storeAndPrice.Price = 2.95;
