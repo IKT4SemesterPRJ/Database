@@ -89,6 +89,7 @@ namespace Administration_GUI
                     }
                     else
                     {
+
                         ChangeWindowStoremanager();
                     }
                     break;
@@ -113,6 +114,7 @@ namespace Administration_GUI
         private void ChangeWindowStoremanager()
         {
             var logInGui = Application.Current.MainWindow;
+            _storemanager.Store = _loginstore;
             var storemanagerGui = new StoremanagerGUI(_autocomplete, _storemanager);
             storemanagerGui.Show();
             logInGui.Close();

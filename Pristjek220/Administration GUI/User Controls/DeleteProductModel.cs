@@ -24,7 +24,7 @@ namespace Administration_GUI.User_Controls
         private ICommand _deleteFromStoreDatabaseCommand;
         private ICommand _enterPressedCommand;
         private ICommand _illegalSignDeleteProductCommand;
-        private ICreateMsgBox _msgBox;
+        private readonly ICreateMsgBox _msgBox;
         private bool _isTextConfirm;
 
         private string _oldtext = string.Empty;

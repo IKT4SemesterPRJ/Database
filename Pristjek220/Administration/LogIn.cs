@@ -8,7 +8,7 @@ namespace Administration
     /// </summary>
     public class LogIn : ILogIn
     {
-        private readonly IUnitOfWork _user;
+        private readonly IUnitOfWork _unitOfWork;
 
         /// <summary>
         ///     LogIn constructor takes a UnitOfWork to access the database
@@ -16,7 +16,7 @@ namespace Administration
         /// <param name="unit"></param>
         public LogIn(IUnitOfWork unit)
         {
-            _user = unit;
+            _unitOfWork = unit;
         }
 
         /// <summary>
@@ -32,8 +32,8 @@ namespace Administration
         public int CheckUsernameAndPassword(string username, SecureString securePassword, ref Store store)
         {
             Login login;
-            if ((login = _user.Logins.CheckUsername(username)) == null) return -1;
-            return (store = _user.Logins.CheckLogin(securePassword, login)) != null ? 1 : 0;
+            if ((login = _unitOfWork.Logins.CheckUsername(username)) == null) return -1;
+            return (store = _unitOfWork.Logins.CheckLogin(securePassword, login)) != null ? 1 : 0;
         }
     }
 }
