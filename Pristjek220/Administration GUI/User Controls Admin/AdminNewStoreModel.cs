@@ -19,7 +19,6 @@ namespace Administration_GUI.User_Controls_Admin
         private string _error = string.Empty;
         private ICommand _illegalSignNewProductCommand;
         private readonly IAdmin _admin;
-        private readonly IAutocomplete _autocomplete;
 
         private bool _isTextConfirm;
 
@@ -32,10 +31,9 @@ namespace Administration_GUI.User_Controls_Admin
         /// <summary>
         ///     AdminNewStoreModel constructor takes a UnitOfWork to create an Admin
         /// </summary>
-        public AdminNewStoreModel(IAdmin admin, IAutocomplete autocomplete)
+        public AdminNewStoreModel(IAdmin admin)
         {
             _admin = admin;
-            _autocomplete = autocomplete;
         }
 
         /// <summary>

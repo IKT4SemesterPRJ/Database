@@ -3,7 +3,6 @@ using System.Windows;
 using System.Windows.Input;
 using Administration;
 using Administration_GUI.User_Controls_Admin;
-using Pristjek220Data;
 using SharedFunctionalities;
 
 namespace Administration_GUI
@@ -25,7 +24,7 @@ namespace Administration_GUI
         public AdminViewModel(IAdmin admin, IAutocomplete autocomplete)
         {
             // Add available pages
-            PageViewModels.Add(new AdminNewStoreModel(admin, autocomplete));
+            PageViewModels.Add(new AdminNewStoreModel(admin));
             PageViewModels.Add(new AdminDeleteProductModel());
             PageViewModels.Add(new AdminDeleteStoreModel(admin, autocomplete, new CreateMsgBox()));
 

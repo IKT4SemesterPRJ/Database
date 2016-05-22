@@ -1,15 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Security;
+﻿using System.Security;
 using System.Threading;
-using System.Windows.Forms;
 using Administration;
-using Administration_GUI;
-using Administration_GUI.User_Controls;
 using Administration_GUI.User_Controls_Admin;
 using NSubstitute;
 using NUnit.Framework;
-using Pristjek220Data;
-using SharedFunctionalities;
 
 namespace Pristjek220.Unit.Test
 {
@@ -18,7 +12,6 @@ namespace Pristjek220.Unit.Test
     {
         private AdminNewStoreModel _uut;
         private IAdmin _admin;
-        private IAutocomplete _autocomplete;
         private SecureString _secureString1;
         private SecureString _secureString2;
         private SecureString _secureString3;
@@ -28,8 +21,7 @@ namespace Pristjek220.Unit.Test
         public void SetUp()
         {
             _admin = Substitute.For<IAdmin>();
-            _autocomplete = Substitute.For<IAutocomplete>();
-            _uut = new AdminNewStoreModel(_admin, _autocomplete);
+            _uut = new AdminNewStoreModel(_admin);
             _secureString1 = new SecureString();
             _secureString1.AppendChar('a');
             _secureString1.AppendChar('b');

@@ -22,7 +22,7 @@ namespace Administration_GUI
         private string _error;
 
         private ICommand _logInCommand;
-        private Store _loginstore = new Store();
+        private Store _loginstore;
 
         /// <summary>
         ///     LogInViewModel constructor creates a LogIn and connects to the database 
@@ -68,15 +68,15 @@ namespace Administration_GUI
         ///     did not log in to a label
         /// </summary>
         public ICommand LogInCommand => _logInCommand ??
-                                        (_logInCommand = new RelayCommand(LogInbutton));
+                                        (_logInCommand = new RelayCommand(LogInButton));
 
         /// <summary>
-        ///     Command that is used to see if Enter is pressed, if its pressed it calls the LogInbutton
+        ///     Command that is used to see if Enter is pressed, if its pressed it calls the LogInButton
         /// </summary>
         public ICommand EnterKeyPressedCommand
             => _enterPressedCommand ?? (_enterPressedCommand = new RelayCommand<KeyEventArgs>(EnterKeyPressed));
 
-        private void LogInbutton()
+        private void LogInButton()
         {
             Error = string.Empty;
             var log = _logIn.CheckUsernameAndPassword(Username, SecurePassword, ref _loginstore);
@@ -125,7 +125,7 @@ namespace Administration_GUI
         {
             if ((e.Key == Key.Enter) || (e.Key == Key.Return))
             {
-                LogInbutton();
+                LogInButton();
             }
         }
     }
