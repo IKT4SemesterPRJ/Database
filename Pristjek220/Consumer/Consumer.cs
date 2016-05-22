@@ -103,18 +103,15 @@ namespace Consumer
         {
             get
             {
-                if (_storeNames.Count == 0)
+                if (_storeNames.Count != 0) return _storeNames;
+                var allStores = _unit.Stores.GetAllStores();
+                foreach (
+                    var storesInPristjek in
+                        from store in allStores
+                        where store.StoreName != "Admin"
+                        select new StoresInPristjek(store.StoreName))
                 {
-                    var allStores = _unit.Stores.GetAllStores();
-                    foreach (
-                        var storesInPristjek in
-                            from store in allStores
-                            where store.StoreName != "Admin"
-                            select new StoresInPristjek(store.StoreName))
-                    {
-                        _storeNames.Add(storesInPristjek.Store);
-                    }
-                    return _storeNames;
+                    _storeNames.Add(storesInPristjek.Store);
                 }
                 return _storeNames;
             }

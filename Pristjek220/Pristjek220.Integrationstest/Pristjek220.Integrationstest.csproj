@@ -49,6 +49,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -59,11 +60,13 @@
   <ItemGroup>
     <Compile Include="AdminIntegrationTest.cs" />
     <Compile Include="AutoCompleteIntegrationsTest.cs" />
+    <Compile Include="ChangePriceModelIntergrationsTest.cs" />
     <Compile Include="ConsumerIntegrationsTest.cs" />
     <Compile Include="DatabaseFunctionsIntegrationsTest.cs" />
     <Compile Include="HasARepositoryIntegrationstest.cs" />
     <Compile Include="LoginIntegrationTest.cs" />
     <Compile Include="LoginRepositoryIntegrationsTest.cs" />
+    <Compile Include="NewProductModelIntergrationsTest.cs" />
     <Compile Include="ProductRepositoryIntegrationstest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepositoryIntegrationtest.cs" />
@@ -76,6 +79,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Administration GUI\Administration GUI.csproj">
+      <Project>{1896D380-F220-4195-A6B9-5BE75FD6EDC6}</Project>
+      <Name>Administration GUI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Administration\Administration.csproj">
       <Project>{f5edfeab-3778-4247-b76e-10fa18ff12a1}</Project>
       <Name>Administration</Name>

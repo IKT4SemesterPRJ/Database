@@ -24,9 +24,7 @@ namespace Pristjek220.Integrationstest
             _unit = new UnitOfWork(_context);
             _context.Database.Connection.ConnectionString = "Server=.\\SQLEXPRESS;Database=Pristjek220Data.DataContext; Trusted_Connection=True;MultipleActiveResultSets=True;";
             _context.Database.ExecuteSqlCommand("dbo.TestCleanTable");
-            _consumer = new Consumer.Consumer(_unit);
-
-
+            
             //Opsætning af 2 forretninger der begge har samme vare
             _product = new Product() { ProductName = "TestProduct" };
             _store = new Store() { StoreName = "TestStore" };
@@ -40,6 +38,8 @@ namespace Pristjek220.Integrationstest
             _context.HasARelation.Add(_hasA);
             _context.HasARelation.Add(_hasA1);
             _context.SaveChanges();
+
+            _consumer = new Consumer.Consumer(_unit);
         }
 
         [Test]
@@ -127,5 +127,108 @@ namespace Pristjek220.Integrationstest
             var list = new List<ProductInfo>() { new ProductInfo(_product.ProductName, "1") };
             Assert.That(_consumer.FindCheapestStoreWithSumForListOfProducts(list).Price, Is.EqualTo(12));
         }
+
+        [Test]
+        public void StoreNames_GetStoreNames_UnitofWorkReturnsAllStores()
+        {
+            var list = _consumer.StoreNames;
+
+            Assert.That(list.Count, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void StoreNames_GetStoreNames_FirstSpaceOfListIsEqualToFirstStoreInDatabase()
+        {
+            var list = _consumer.StoreNames;
+
+            Assert.That(list[0], Is.EqualTo("TestStore"));
+        }
+
+        [Test]
+        public void StoreNames_GetStoreNames_SecondSpaceOfListIsEqualToSecondStoreInDatabase()
+        {
+            var list = _consumer.StoreNames;
+
+            Assert.That(list[1], Is.EqualTo("TestStore1"));
+        }
+
+        [Test]
+        public void StoreNames_GetStoreNamesWithAdmin_UnitofWorkReturnsTwoStores()
+        {
+            var adminStore = new Store() { StoreName = "Admin" };
+            _context.Stores.Add(adminStore);
+            var list = _consumer.StoreNames;
+
+            Assert.That(list.Count, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void FindStroesThatSellsProduct_InsetValidProduct_UnitofWorkReturnsStoresThatsSellProduct()
+        {
+            var list = _consumer.FindStoresThatSellsProduct(_product.ProductName);
+
+            Assert.That(list.Count, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void FindStroesThatSellsProduct_AddANewStoreANdInsetValidProduct_UnitofWorkReturnsStoresThatsSellProduct()
+        {
+            var TestStore = new Store() { StoreName = "TestStore2" };
+            _context.Stores.Add(TestStore);
+            _context.SaveChanges();
+            var HasA = new HasA() { Product = _product, Store = TestStore, ProductId = _product.ProductId, StoreId = TestStore.StoreId, Price = 13 };
+            _context.HasARelation.Add(HasA);
+            _context.SaveChanges();
+
+            var list = _consumer.FindStoresThatSellsProduct(_product.ProductName);
+
+            Assert.That(list.Count, Is.EqualTo(3));
+        }
+
+        [Test]
+        public void FindStroesThatSellsProduct_InsetInvalidProduct_UnitofWorkReturnsEmptyList()
+        {
+            var list = _consumer.FindStoresThatSellsProduct("Invalid");
+
+            Assert.That(list.Count, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void FillOptionsStore_CreateNewConsumerClass_OptionsStoresHaveAllStores()
+        {
+            var consumer = _consumer = new Consumer.Consumer(_unit);
+            Assert.That(consumer.OptionsStores.Count, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void FillOptionsStore_ConstructerCall_OptionsStoresHaveTwoStores()
+        {
+            Assert.That(_consumer.OptionsStores.Count, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void FillOptionsStore_AddAdmin_OptionsStoresHaveTwoStores()
+        {
+            var adminStore = new Store() { StoreName = "Admin" };
+            _context.Stores.Add(adminStore);
+            _context.SaveChanges();
+
+            var consumer = new Consumer.Consumer(_unit);
+
+            Assert.That(consumer.OptionsStores.Count, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void FillOptionsStore_AddStore_OptionsStoresHaveThreeStores()
+        {
+            var NewStore = new Store() { StoreName = "NewStore" };
+            _context.Stores.Add(NewStore);
+            _context.SaveChanges();
+
+            var consumer = new Consumer.Consumer(_unit);
+
+            Assert.That(consumer.OptionsStores.Count, Is.EqualTo(3));
+        }
+
     }
 }

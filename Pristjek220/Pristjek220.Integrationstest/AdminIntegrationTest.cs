@@ -146,5 +146,6 @@ namespace Pristjek220.Integrationstest
         {
             Assert.That(_admin.DeleteStore("TestStore"), Is.EqualTo(-1));
         }
+
     }
 }
