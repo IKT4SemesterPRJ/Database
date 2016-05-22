@@ -1,5 +1,7 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using Pristjek220Data;
 
 namespace SharedFunctionalities
@@ -37,19 +39,15 @@ namespace SharedFunctionalities
         /// If no matches exist the method returns null.</returns>
         public List<string> AutoCompleteProduct(string lookUpWord)
         {
-            var productList = _unit.Products.FindProductStartingWith(lookUpWord);
+            var productList = _unit.Products.FindProductStartingWith(lookUpWord).OrderBy(x => x.ProductName).ToList();
 
-            if (productList == null)
-                return null;          //Produktet findes ikke i databasen
-
-            var autoCompleteList = new List<string>();
+           var autoCompleteList = new List<string>();
             for (var i = 0; i < productList.Count; i++)
             {
                 autoCompleteList.Add(productList[i].ProductName);
                 if (i == 2)
                     break;
             }
-            autoCompleteList.Sort();
             return autoCompleteList;
         }
 
@@ -61,19 +59,16 @@ namespace SharedFunctionalities
         /// If no matches exist the method returns null.</returns>
         public List<string> AutoCompleteStore(string lookUpWord)
         {
-            var storeList = _unit.Stores.FindStoreStartingWith(lookUpWord);
-
-            if (storeList == null)
-                return null;          //Produktet findes ikke i databasen
+            var storeList = _unit.Stores.FindStoreStartingWith(lookUpWord).OrderBy(x => x.StoreName).ToList();
 
             var autoCompleteList = new List<string>();
             for (var i = 0; i < storeList.Count; i++)
             {
-                autoCompleteList.Add(storeList[i].StoreName);
+                if (storeList[i].StoreName != "Admin")
+                    autoCompleteList.Add(storeList[i].StoreName);
                 if (i == 2)
-                    break;
-            }
-            autoCompleteList.Sort();
+                        break;
+                }
             return autoCompleteList;
         }
 
@@ -86,11 +81,8 @@ namespace SharedFunctionalities
         /// If no matches exist the method returns null.</returns>
         public List<string> AutoCompleteProductForOneStore(string storeName, string lookUpWord)
         {
-            var productList = _unit.Stores.FindProductsInStoreStartingWith(storeName, lookUpWord);
-
-            if (productList == null)
-                return null;        // Ingen produkter der starter med lookUpWord i butikken
-
+            var productList = _unit.Stores.FindProductsInStoreStartingWith(storeName, lookUpWord).OrderBy(x => x.Name).ToList();
+            
             var autoCompleteList = new List<string>();
             for (var i = 0; i < productList.Count; i++)
             {
