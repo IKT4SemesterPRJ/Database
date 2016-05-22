@@ -123,7 +123,7 @@ namespace Administration_GUI.User_Controls
 
                 _shoppingListItemPrice = double.TryParse(value, NumberStyles.Number, CultureInfo.CurrentCulture,
                     out result)
-                    ? Math.Round(result, 2).ToString("F")
+                    ? Math.Round(result, 2).ToString("F", new CultureInfo("da-DK"))
                     : "0";
             }
             get { return _shoppingListItemPrice; }
