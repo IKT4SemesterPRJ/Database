@@ -32,11 +32,10 @@ namespace SharedFunctionalities
         }
 
         /// <summary>
-        /// Method for making an autocomplete list for use with store names.
+        /// Method for making a sorted autocomplete list for use with product names.
         /// </summary>
-        /// <param name="lookUpWord">One or more characters to create the autocomplete list from.</param>
-        /// <returns>Returns a list containing maximum three products that matches the parameter given.
-        /// If no matches exist the method returns null.</returns>
+        /// <param name="lookUpWord">One or more characters to create the sorted autocomplete list from.</param>
+        /// <returns>Returns a list containing maximum three products that matches the parameter given.</returns>
         public List<string> AutoCompleteProduct(string lookUpWord)
         {
             var productList = _unit.Products.FindProductStartingWith(lookUpWord).OrderBy(x => x.ProductName).ToList();
@@ -52,11 +51,10 @@ namespace SharedFunctionalities
         }
 
         /// <summary>
-        /// Method for making an autocomplete list for use with store names.
+        /// Method for making a sorted autocomplete list for use with store names.
         /// </summary>
-        /// <param name="lookUpWord">One or more characters to create the autocomplete list from.</param>
-        /// <returns>Returns a list containing maximum three store names that matches the parameter given.
-        /// If no matches exist the method returns null.</returns>
+        /// <param name="lookUpWord">One or more characters to create the sorted autocomplete list from.</param>
+        /// <returns>Returns a list containing maximum three store names that matches the parameter given.</returns>
         public List<string> AutoCompleteStore(string lookUpWord)
         {
             var storeList = _unit.Stores.FindStoreStartingWith(lookUpWord).OrderBy(x => x.StoreName).ToList();
@@ -73,12 +71,11 @@ namespace SharedFunctionalities
         }
 
         /// <summary>
-        ///     Method for making an autocomplete list for use with productnames in one store
+        ///     Method for making a sorted autocomplete list for use with productnames in one store
         /// </summary>
         /// <param name="storeName">The Store to search for matches in</param>
-        /// <param name="lookUpWord">One or more characters to create the autocomplete list from.</param>
-        /// <returns>A list with the looked up products
-        /// If no matches exist the method returns null.</returns>
+        /// <param name="lookUpWord">One or more characters to create the sorted autocomplete list from.</param>
+        /// <returns>A list with the looked up products</returns>
         public List<string> AutoCompleteProductForOneStore(string storeName, string lookUpWord)
         {
             var productList = _unit.Stores.FindProductsInStoreStartingWith(storeName, lookUpWord).OrderBy(x => x.Name).ToList();
