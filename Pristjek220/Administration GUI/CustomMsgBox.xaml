@@ -49,6 +49,7 @@
 
         <Button
             IsDefault="True"
+            Focusable="True"
             Style="{StaticResource RoundedButtonStyle}" 
             Background="white"    
             Name="BtnLeft"
@@ -61,6 +62,7 @@
             />
 
         <Button 
+            Focusable="True"
             Style="{StaticResource RoundedButtonStyle}" 
             Background="white"   
             Name="BtnRight"
