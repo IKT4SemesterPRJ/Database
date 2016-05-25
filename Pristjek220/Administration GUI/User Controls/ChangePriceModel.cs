@@ -115,7 +115,7 @@ namespace Administration_GUI.User_Controls
             {
                 double result;
 
-                _shoppingListItemPrice = double.TryParse(value, NumberStyles.Number, CultureInfo.CurrentCulture,
+                _shoppingListItemPrice = double.TryParse(value, NumberStyles.Number, new CultureInfo("da-DK"), 
                     out result)
                     ? Math.Round(result, 2).ToString("F", new CultureInfo("da-DK"))
                     : "0";
@@ -169,7 +169,7 @@ namespace Administration_GUI.User_Controls
                 ConfirmText = "Indtast venligst navnet på det produkt hvis pris skal ændres.";
                 return;
             }
-            var resultPrice = double.Parse(ShoppingListItemPrice, CultureInfo.CurrentCulture);
+            var resultPrice = double.Parse(ShoppingListItemPrice, new CultureInfo("da-DK"));
             if (resultPrice > 0)
             {
                 var productName = char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower();

@@ -62,7 +62,6 @@
     <Compile Include="AdminDeleteStoreModelIntergrationsTest.cs" />
     <Compile Include="AdminIntegrationTest.cs" />
     <Compile Include="AutoCompleteIntegrationsTest.cs" />
-    <Compile Include="ChangePriceModelIntergrationsTest.cs" />
     <Compile Include="ConsumerIntegrationsTest.cs" />
     <Compile Include="ConsumerGuiIntergrationsTest.cs" />
     <Compile Include="DatabaseFunctionsIntegrationsTest.cs" />
