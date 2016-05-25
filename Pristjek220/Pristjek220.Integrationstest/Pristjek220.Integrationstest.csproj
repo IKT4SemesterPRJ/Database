@@ -60,7 +60,6 @@
   <ItemGroup>
     <Compile Include="AdminIntegrationTest.cs" />
     <Compile Include="AutoCompleteIntegrationsTest.cs" />
-    <Compile Include="ChangePriceModelIntergrationsTest.cs" />
     <Compile Include="ConsumerIntegrationsTest.cs" />
     <Compile Include="DatabaseFunctionsIntegrationsTest.cs" />
     <Compile Include="HasARepositoryIntegrationstest.cs" />
