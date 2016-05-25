@@ -73,6 +73,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepositoryIntegrationtest.cs" />
     <Compile Include="StoremanagerIntegrationTest.cs" />
+    <Compile Include="StoremangerGUIIntegrationTest.cs" />
     <Compile Include="StoreRepositoryIntegrationtest.cs" />
     <Compile Include="UnitOfWorkIntegrationstest.cs" />
   </ItemGroup>
