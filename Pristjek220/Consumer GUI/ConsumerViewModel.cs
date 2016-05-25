@@ -16,7 +16,7 @@ namespace Consumer_GUI
     ///     ConsumerViewModel is the view model for the Consumer. Its used to change between the the different user controlls
     ///     in Consumer
     /// </summary>
-    internal class ConsumerViewModel : ObservableObject
+    public class ConsumerViewModel : ObservableObject
     {
         private IPageViewModel _currentPageViewModel;
         private string _mainWindowTekst;

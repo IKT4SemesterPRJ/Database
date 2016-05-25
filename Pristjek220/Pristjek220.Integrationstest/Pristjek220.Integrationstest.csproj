@@ -64,6 +64,7 @@
     <Compile Include="AutoCompleteIntegrationsTest.cs" />
     <Compile Include="ConsumerIntegrationsTest.cs" />
     <Compile Include="ConsumerGuiIntergrationsTest.cs" />
+    <Compile Include="ConsumerViewModelIntergrationsTest.cs" />
     <Compile Include="DatabaseFunctionsIntegrationsTest.cs" />
     <Compile Include="HasARepositoryIntegrationstest.cs" />
     <Compile Include="LoginIntegrationTest.cs" />
