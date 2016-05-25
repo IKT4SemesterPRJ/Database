@@ -64,6 +64,7 @@
     <Compile Include="AutoCompleteIntegrationsTest.cs" />
     <Compile Include="ChangePriceModelIntergrationsTest.cs" />
     <Compile Include="ConsumerIntegrationsTest.cs" />
+    <Compile Include="ConsumerGuiIntergrationsTest.cs" />
     <Compile Include="DatabaseFunctionsIntegrationsTest.cs" />
     <Compile Include="HasARepositoryIntegrationstest.cs" />
     <Compile Include="LoginIntegrationTest.cs" />
@@ -89,6 +90,10 @@
     <ProjectReference Include="..\Administration\Administration.csproj">
       <Project>{f5edfeab-3778-4247-b76e-10fa18ff12a1}</Project>
       <Name>Administration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Consumer GUI\Consumer GUI.csproj">
+      <Project>{6F13218B-58DE-4EFF-9F9C-42136B8AC59D}</Project>
+      <Name>Consumer GUI</Name>
     </ProjectReference>
     <ProjectReference Include="..\Consumer\Consumer.csproj">
       <Project>{02f50e8d-598f-4da4-b5b2-9c12dfa89f8e}</Project>

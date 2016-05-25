@@ -17,7 +17,7 @@ namespace Consumer_GUI.User_Controls
     ///     FindProductModel is the User Control model for the FindProduct User Control
     ///     Its used to find a product and display the stores that it is sold in and the price
     /// </summary>
-    internal class FindProductModel : ObservableObject, IPageViewModel
+    public class FindProductModel : ObservableObject, IPageViewModel
     {
         private readonly Timer _timer = new Timer(2500);
         private ICommand _addToStoreListCommand;

@@ -10,7 +10,7 @@ using RelayCommand = SharedFunctionalities.RelayCommand;
 
 namespace Consumer_GUI.User_Controls
 {
-    internal class ShoppingListModel : ObservableObject, IPageViewModel
+    public class ShoppingListModel : ObservableObject, IPageViewModel
     {
         private readonly Timer _timer = new Timer(2500);
 
