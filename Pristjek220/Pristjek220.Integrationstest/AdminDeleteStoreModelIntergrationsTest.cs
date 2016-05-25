@@ -107,5 +107,44 @@ namespace Pristjek220.Integrationstest
             Assert.That(_adminDeleteStoreModel.Error, Is.EqualTo("Der blev ikke bekræftet."));
         }
 
+        [Test]
+        public void PopulatingDeleteStore_StoreIsAddedAndTeIsWrittenInTextBox_AutoCompleateListEquals2()
+        {
+            _context.Stores.Add(new Store() {StoreName = "Test"});
+            _context.SaveChanges();
+
+            _adminDeleteStoreModel.DeleteStoreName = "Te";
+            _adminDeleteStoreModel.PopulatingDeleteStoreCommand.Execute(this);
+
+            Assert.That(_adminDeleteStoreModel.AutoCompleteList.Count, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void PopulatingDeleteStore_AIsWrittenInTextBox_AutoCompleateListEqualsZero()
+        {
+            _context.Stores.Add(new Store() { StoreName = "Test" });
+            _context.Stores.Add(new Store() { StoreName = "Test2" });
+            _context.SaveChanges();
+
+            _adminDeleteStoreModel.DeleteStoreName = "A";
+            _adminDeleteStoreModel.PopulatingDeleteStoreCommand.Execute(this);
+
+            Assert.That(_adminDeleteStoreModel.AutoCompleteList.Count, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void PopulatingDeleteStore_ThreeMoreStoresAndTeIsWrittenInTextBox_AutoCompleateListEquals1()
+        {
+            _context.Stores.Add(new Store() { StoreName = "Test" });
+            _context.Stores.Add(new Store() { StoreName = "Test2" });
+            _context.Stores.Add(new Store() { StoreName = "Test3" });
+            _context.SaveChanges();
+
+            _adminDeleteStoreModel.DeleteStoreName = "Te";
+            _adminDeleteStoreModel.PopulatingDeleteStoreCommand.Execute(this);
+
+            Assert.That(_adminDeleteStoreModel.AutoCompleteList.Count, Is.EqualTo(3));
+        }
+
     }
 }
