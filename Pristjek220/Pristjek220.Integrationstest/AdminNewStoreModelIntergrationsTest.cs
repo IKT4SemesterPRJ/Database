@@ -36,6 +36,16 @@ namespace Pristjek220.Integrationstest
         }
 
         [Test]
+        public void NewStore_AddTestStoreToDb_ErrorIsASuccesMessage()
+        {
+            _adminNewStoreModel.NewStoreName = "TestStore";
+            _adminNewStoreModel.SecurePassword = _secureStringTest;
+            _adminNewStoreModel.SecurePasswordConfirm = _secureStringTest;
+            _adminNewStoreModel.NewStoreCommand.Execute(this);
+            Assert.That(_adminNewStoreModel.Error, Is.EqualTo("Forretning oprettet med forretningsnavnet \"TestStore\"."));
+        }
+
+        [Test]
         public void NewStore_AddTestStoreToDb_TestStoreIsReturned()
         {
             _adminNewStoreModel.NewStoreName = "TestStore";
@@ -56,6 +66,27 @@ namespace Pristjek220.Integrationstest
         }
 
         [Test]
+        public void NewStore_AddTestStoreToDbWithPasswordsNotEqual_ErrorIsStoreAlreadyExist()
+        {
+            _adminNewStoreModel.NewStoreName = "TestStore";
+            _adminNewStoreModel.SecurePassword = _secureStringTest;
+            _adminNewStoreModel.SecurePasswordConfirm = new SecureString();
+            _adminNewStoreModel.NewStoreCommand.Execute(this);
+            Assert.That(_adminNewStoreModel.Error, Is.EqualTo("Kodeordene matcher ikke."));
+        }
+
+        [Test]
+        public void NewStore_AddTestStoreToDbWhereItsAlreadyAdded_ErrorIsStoreAlreadyExist()
+        {
+            _adminNewStoreModel.NewStoreName = "TestStore";
+            _adminNewStoreModel.SecurePassword = _secureStringTest;
+            _adminNewStoreModel.SecurePasswordConfirm = _secureStringTest;
+            _adminNewStoreModel.NewStoreCommand.Execute(this);
+            _adminNewStoreModel.NewStoreCommand.Execute(this);
+            Assert.That(_adminNewStoreModel.Error, Is.EqualTo("Forretningen findes allerede."));
+        }
+
+        [Test]
         public void NewStore_AddEmptyStringToDb_NullIsReturned()
         {
             _adminNewStoreModel.NewStoreName = "";
@@ -63,6 +94,16 @@ namespace Pristjek220.Integrationstest
             _adminNewStoreModel.SecurePasswordConfirm = new SecureString();
             _adminNewStoreModel.NewStoreCommand.Execute(this);
             Assert.That(_unitOfWork.Stores.FindStore(""), Is.EqualTo(null));
+        }
+
+        [Test]
+        public void NewStore_AddEmptyStringToDb_ErrorIsPleaseFillAllFieldsReturned()
+        {
+            _adminNewStoreModel.NewStoreName = "";
+            _adminNewStoreModel.SecurePassword = _secureStringTest;
+            _adminNewStoreModel.SecurePasswordConfirm = new SecureString();
+            _adminNewStoreModel.NewStoreCommand.Execute(this);
+            Assert.That(_adminNewStoreModel.Error, Is.EqualTo("Udfyld venligst alle felter."));
         }
     }
 }
