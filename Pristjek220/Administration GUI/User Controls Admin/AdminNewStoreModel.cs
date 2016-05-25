@@ -12,7 +12,7 @@ namespace Administration_GUI.User_Controls_Admin
     ///     AdminNewStoreModel is the User Control model for the AdminNewStore User Control
     ///     Its used to create a new store
     /// </summary>
-    internal class AdminNewStoreModel : ObservableObject, IPageViewModel
+    public class AdminNewStoreModel : ObservableObject, IPageViewModel
     {
         private readonly Timer _timer = new Timer(2500);
         private ICommand _enterPressedCommand;
