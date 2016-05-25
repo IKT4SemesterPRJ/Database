@@ -9,7 +9,7 @@ using SharedFunctionalities;
 namespace Pristjek220.Unit.Test
 {
     [TestFixture]
-    class ConsumerViewModelUnitTest
+    class StoremanagerViewModelUnitTest
     {
         private StoremanagerViewModel _uut;
         private IStoremanager _storemanager;

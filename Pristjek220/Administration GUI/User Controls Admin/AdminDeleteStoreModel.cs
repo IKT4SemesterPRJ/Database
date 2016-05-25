@@ -15,7 +15,7 @@ namespace Administration_GUI.User_Controls_Admin
     ///     AdminDeleteStoreModel is the User Control model for the AdminDeleteStore User Control
     ///     Its used to delete a store
     /// </summary>
-    internal class AdminDeleteStoreModel : ObservableObject, IPageViewModel
+    public class AdminDeleteStoreModel : ObservableObject, IPageViewModel
     {
         private readonly IAdmin _admin;
         private readonly IAutocomplete _autocomplete;

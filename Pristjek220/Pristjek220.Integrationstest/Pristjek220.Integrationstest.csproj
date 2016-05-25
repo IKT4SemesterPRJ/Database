@@ -58,6 +58,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminNewStoreModelIntergrationsTest.cs" />
+    <Compile Include="AdminDeleteStoreModelIntergrationsTest.cs" />
     <Compile Include="AdminIntegrationTest.cs" />
     <Compile Include="AutoCompleteIntegrationsTest.cs" />
     <Compile Include="ConsumerIntegrationsTest.cs" />
