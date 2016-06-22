@@ -142,7 +142,7 @@ namespace Consumer
             var sum = CalculateSumForGeneratedList();
             StoreAndPrice diff;
             if ((diff = FindDifferenceforProducts()) != null)
-                MoneySaved = (diff.Price - sum).ToString(CultureInfo.CurrentCulture) + " kr";
+                MoneySaved = (diff.Price - sum).ToString("F2", CultureInfo.CurrentCulture) + " kr";
 
             return 1;
         }
