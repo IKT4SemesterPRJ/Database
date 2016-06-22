@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using Consumer;
 using NUnit.Framework;
 using Pristjek220Data;
@@ -66,7 +67,7 @@ namespace Pristjek220.Integrationstest
             _consumer.GeneratedShoppingListData.Add(storProdAndPrice);
             _consumer.ChangeProductToAnotherStore(_store1.StoreName, storProdAndPrice);
 
-            Assert.That(_consumer.MoneySaved, Is.EqualTo("-1 kr"));
+            Assert.That(_consumer.MoneySaved, Is.EqualTo(double.Parse("-1,00", new CultureInfo("da-DK")).ToString("F2") + " kr"));
         }
 
         [Test]
@@ -76,7 +77,7 @@ namespace Pristjek220.Integrationstest
             _consumer.GeneratedShoppingListData.Add(storProdAndPrice);
             _consumer.ChangeProductToAnotherStore(_store1.StoreName, storProdAndPrice);
 
-            Assert.That(_consumer.TotalSum, Is.EqualTo("13 kr"));
+            Assert.That(_consumer.TotalSum, Is.EqualTo(double.Parse("13,00", new CultureInfo("da-DK")).ToString("F2") + " kr"));
         }
 
         [Test]

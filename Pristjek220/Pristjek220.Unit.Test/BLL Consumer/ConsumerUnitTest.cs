@@ -164,7 +164,7 @@ namespace Pristjek220.Unit.Test
             fakta.HasARelation.Add(new HasA() {Price = 1.95, Product = _product, Store = fakta});
             _uut.CreateShoppingList();
 
-            Assert.That(_uut.MoneySaved, Is.EqualTo("0 kr"));
+            Assert.That(_uut.MoneySaved, Is.EqualTo(double.Parse("0,00", new CultureInfo("da-DK")).ToString("F2") + " kr"));
         }
 
         [Test]
@@ -190,7 +190,7 @@ namespace Pristjek220.Unit.Test
             fakta.HasARelation.Add(new HasA() {Price = 1.95, Product = _product, Store = fakta});
             _uut.CreateShoppingList();
 
-            Assert.That(_uut.MoneySaved, Is.EqualTo("1 kr"));
+            Assert.That(_uut.MoneySaved, Is.EqualTo(double.Parse("1,00", new CultureInfo("da-DK")).ToString("F2") + " kr"));
         }
 
         [Test]
