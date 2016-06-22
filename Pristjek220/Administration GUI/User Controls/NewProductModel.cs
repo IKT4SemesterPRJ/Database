@@ -176,12 +176,6 @@ namespace Administration_GUI.User_Controls
                 var productName = char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower();
 
                 var product = _manager.FindProduct(productName);
-                if (product == null)
-                {
-                    product = new Product {ProductName = productName};
-                    _manager.AddProductToDb(product);
-                    product = _manager.FindProduct(productName);
-                }
 
                 if (_manager.FindProductInStore(productName) != null)
                 {
@@ -199,6 +193,12 @@ namespace Administration_GUI.User_Controls
                     return;
                 }
 
+                if (product == null)
+                {
+                    product = new Product { ProductName = productName };
+                    _manager.AddProductToDb(product);
+                    product = _manager.FindProduct(productName);
+                }
                 _manager.AddProductToMyStore(product, resultPrice);
                 IsTextConfirm = true;
                 ConfirmText =
