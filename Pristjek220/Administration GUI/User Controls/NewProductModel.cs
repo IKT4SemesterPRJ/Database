@@ -170,7 +170,7 @@ namespace Administration_GUI.User_Controls
                 return;
             }
 
-            var resultPrice = double.Parse(ShoppingListItemPrice, CultureInfo.CurrentCulture);
+            var resultPrice = double.Parse(ShoppingListItemPrice, new CultureInfo("da-DK"));
             if (resultPrice > 0)
             {
                 var productName = char.ToUpper(ShoppingListItem[0]) + ShoppingListItem.Substring(1).ToLower();
