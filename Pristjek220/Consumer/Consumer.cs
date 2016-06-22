@@ -343,7 +343,7 @@ namespace Consumer
             BuyInOneStore =
                 $"I forhold til køb af alle produkter i {buyInOneStoreNameAndPrice.Name} hvor det koster {buyInOneStoreNameAndPrice.Price} kr.";
             var moneySaved = Math.Round(buyInOneStoreNameAndPrice.Price - CalculateSumForGeneratedList(),2);
-            MoneySaved = moneySaved.ToString(CultureInfo.CurrentCulture) + " kr";
+            MoneySaved = moneySaved.ToString("F2", CultureInfo.CurrentCulture) + " kr";
         }
 
         private void FillOptionsStores()
@@ -365,7 +365,7 @@ namespace Consumer
         private double CalculateSumForGeneratedList()
         {
             var sum = GeneratedShoppingListData.Sum(item => item.Sum);
-            TotalSum = sum.ToString(CultureInfo.CurrentCulture) + " kr";
+            TotalSum = sum.ToString("F2", CultureInfo.CurrentCulture) + " kr";
             return sum;
         }
     }
